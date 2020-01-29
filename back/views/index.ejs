@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><a href="<%= app_root %>" title="Go home"><%= title %></a></h1>    
+    <p>
+        <%= __('Welcome to') %> <%= title %>. 
+        <%= __('Select your language') %>:&nbsp;
+        <% getLocales().forEach( locale => { %>
+          <a href="/change-locale/<%= locale %>"><%= locale %></a>&nbsp;
+        <% }) %>
+    </p>
+    <br>
+    <div >
+      <p>
+      <b><%= __('Some filters') %>:</b>&nbsp;&nbsp;
+        <input type='text' id='fulltext-box' placeholder="<%= __('Full-text search') %>">
+        <input type='button' id='fulltext-button' value='<%= __('Search') %>'>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a href="<%= app_root %>?type=1" title="Ads for sale"><%= __('For sale') %></a> 
+        &nbsp;|&nbsp;
+        <a href="<%= app_root %>?type=0" title="Looking for ads"><%= __('Looking for') %></a> 
+        &nbsp;|&nbsp;
+        <a href="<%= app_root %>?active=0" title="Deactivated ads"><%= __('Deactivated ads') %></a> 
+        &nbsp;|&nbsp;
+        <a href="#more-filters" title="More filters">+ <%= __('filters') %></a> 
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type='text' id='price-box' placeholder='Ej 80-200 / 80 / 150-'>
+        <input type='button' id='price-button' value='<%= __('Search') %>'>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type='button' id='reset' value='<%= __('Reset') %>'>
+      </p>
+    </div>
+    <br>
+    <div class="flex-container">
+    <% advertlist.forEach(add => { %>
+      <div>
+        <img src="<%= app_root %>images/md-<%= add.image %>" alt="<%= add.name %>" />
+        <h2><%= add.name %></h2>
+        <p>
+            <%if(add.type) {%> 
+              <b><%= __('For sale') %>.</b> <%= __('Price')  %>: 
+            <%} else {%>
+              <b><%= __('Looking for') %>.</b> <%= __('Max payment')  %>:
+            <%}%>
+            <span class="price"><%= add.price %>€ <span></p>
+        <p><b><%= __('Tags')  %>: </b>
+            <% add.tags.forEach(tag => { %>
+          <a href="<%= app_root %>?tags=<%= tag %>" title="<%= __('Click to filter by tag')  %> <%= tag %>"><%= tag %></a> &nbsp;
+        <% }); %> 
+        </p>
+        <p><%= add.description %></p>
+      </div>
+    <% }); %>
+    </div>
+
+
+    <div id="more-filters">
+        <h3><%= __('Other filters') %>:</h3>
+        <p></p>
+        <p></p>
+        <p>
+          <%= __('By price') %>: 
+          <a href="<%= app_root %>?price=-80"><%= __('Price')  %> <= 80</a>&nbsp;|&nbsp;
+          <a href="<%= app_root %>?price=50-"><%= __('Price')  %> >= 50</a>&nbsp;|&nbsp;
+          <a href="<%= app_root %>?price=20-140"><%= __('Price between')  %> 20 & 140</a>&nbsp;|&nbsp;
+          <a href="<%= app_root %>?text=malesuada%20bibendum&price=150"><%= __('Price')  %> = 150 & <%= __('Fulltext') %> </a>&nbsp;|&nbsp;
+        </p>
+        <p>
+          <%= __('By tags') %>: 
+          <a href="<%= app_root %>?tags=work">work</a>&nbsp;|&nbsp;
+          <a href="<%= app_root %>?tags=lifestyle,motor">lifestyle & motor</a>&nbsp;|&nbsp;
+        </p>
+        <p>
+          <%= __('Pagination by') %> 3: 
+          <a href="<%= app_root %>?limit=3">1 </a>&nbsp;-&nbsp;
+          <a href="<%= app_root %>?limit=3&skip=3">2 </a>&nbsp;-&nbsp;
+          <a href="<%= app_root %>?limit=3&skip=6">3 </a>&nbsp;-&nbsp;
+          <a href="<%= app_root %>?limit=3&skip=9">4 </a>&nbsp;-&nbsp;
+          <a href="<%= app_root %>?limit=3&skip=12">5 </a>
+
+        </p>
+
+    </div>
+  </body>
+  <script type="text/javascript">
+    document.getElementById("fulltext-button").addEventListener("click", function(){
+          window.location = '<%= app_root %>?text='+document.getElementById('fulltext-box').value;
+    });
+    document.getElementById("price-button").addEventListener("click", function(){
+          window.location = '<%= app_root %>?price='+document.getElementById('price-box').value;
+    });
+    document.getElementById("reset").addEventListener("click", function(){
+          window.location = '<%= app_root %>';
+    });
+  </script>
+</html>

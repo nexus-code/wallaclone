@@ -1,0 +1,22 @@
+{
+	"Welcome to": "Bienvenido a",
+	"Select your language": "Elija su idioma",
+	"Some filters": "Algunos filtros",
+	"For sale": "En venta",
+	"Looking for": "Buscando",
+	"Deactivated ads": "Anuncios desactivados",
+	"filters": "filtros",
+	"Search": "Buscar",
+	"Reset": "Resetear",
+	"Other filters": "Otros filtros",
+	"By price": "Por precio",
+	"By tags": "Por etiquetas",
+	"Pagination by": "Paginación por",
+	"Price": "Precio",
+	"Price between": "Precio entre",
+	"Fulltext": "fulltext",
+	"Tags": "Etiquetas",
+	"Click to filter by tag": "Clic para filtrar por etiqueta",
+	"Max payment": "Importe máximo",
+	"Full-text search": "Búsqueda contextual"
+}

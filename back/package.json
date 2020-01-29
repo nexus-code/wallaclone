@@ -1,0 +1,33 @@
+{
+  "name": "wallaclone",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "dev": "cross-env DEBUG=wallaclone:* nodemon",
+    "prod": "cross-env NODE_ENV=production npm start",
+    "installDB": "cross-env installDB"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.7",
+    "cookie-parser": "~1.4.4",
+    "cote": "^0.21.1",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "ejs": "~2.6.1",
+    "express": "~4.16.1",
+    "express-validator": "^6.1.1",
+    "http-errors": "~1.6.3",
+    "i18n": "^0.8.4",
+    "jimp": "^0.8.5",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.12",
+    "morgan": "~1.9.1",
+    "move-file": "^1.2.0",
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "cross-env": "^5.2.1",
+    "prettier": "1.19.1"
+  }
+}
