@@ -1,11 +1,20 @@
 # WALLACLONE - API REST
 
 
+## PURPOSE
+7th practice for 7 Bootcamp KeepCoding. Upgrade https://github.com/nexus-code/practica-backendnode-1 according to the following requirements:
+1. Authentication
+2. Internationalization
+3. Image upload with background task
+
+
+
 ## REQUIREMENTS
 
 * Node.js 
 * MongoDB 
 * Mongoose
+* Port 3021 free
 * Optional (but strongly recomended): 
     - PM2 https://pm2.keymetrics.io/ 
     - Postman: https://www.getpostman.com/
@@ -30,6 +39,12 @@ This script generate DB, add demo ads and default user (user@example.com / 1234)
     1. node imageService.js
     2. npm run dev
 
+
+## FRONT
+* https://localhost:3021/
+
+
+
 ## API
 To access API and obtain JWT login with email and pass go to: https://localhost:3021/apiv1/login, next, with token call to:
 * ADS Url:  https://localhost:3021/apiv1/ads
@@ -42,9 +57,11 @@ Default user: user@example.com / clave 1234
 * POST   -> https://localhost:3021/apiv1/ads/ . Insert new ads with image
 The image is upladed to uploads folder. On insert (in models/Ads.js) 
 
+
 * PUT    -> https://localhost:3021/apiv1/ads/_id for update ad by _id
 * DELETE -> https://localhost:3021/apiv1/ads/_id for delete ad by _id
 * GET    -> View API Calls
+
 
 
 ### PARAMS (API & view)
@@ -86,7 +103,7 @@ The image is upladed to uploads folder. On insert (in models/Ads.js)
 
 
 
-## Advert schema
+## Ad schema
 ~~~
 {
     name: {
