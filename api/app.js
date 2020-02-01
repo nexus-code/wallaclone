@@ -3,7 +3,9 @@ var express      = require('express');
 var path         = require('path');
 var logger       = require('morgan');
 var cookieParser = require('cookie-parser');
-
+const helmet     = require('helmet');
+const mongoSanitize = require('express-mongo-sanitize');
+const xss        = require('xss-clean');
 /**
  * upload ad images with multer
  * https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
@@ -50,6 +52,22 @@ const upload = multer({
 /// multer
 
 var app = express();
+
+/**
+ * Security improves: 
+ * https://itnext.io/make-security-on-your-nodejs-api-the-priority-50da8dc71d68
+ * 
+ */
+// Helmet
+app.use(helmet());
+
+// Data Sanitization against NoSQL Injection Attacks
+app.use(mongoSanitize());
+
+// Data Sanitization against XSS attacks
+app.use(xss());
+///
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

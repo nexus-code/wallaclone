@@ -245,6 +245,16 @@ async function initUsers() {
             username: 'testing',
             email: 'testing@wallaclone.dev',
             password: await User.hashPassword('testing+')
+        },
+        {
+            username: 'user2',
+            email: 'user2@example2.com',
+            password: await User.hashPassword('1234')
+        },
+        {
+            username: 'testing 2',
+            email: 'testing@wallaclone.dev',
+            password: await User.hashPassword('testing+')
         }
     ]);
 
