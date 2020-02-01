@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdList should render a AdList component 1`] = `
+<div
+  className="container mt-5 mb-5"
+>
+  <div
+    className="card-columns"
+  >
+    <withRouter(Ad)
+      ad={
+        Object {
+          "description": "Compro PS4 Pro con menos de 1 año de uso",
+          "id": "5e19a0db2ab1b61184740c44",
+          "name": "PS4Pro",
+          "photo": "",
+          "price": 200.99,
+          "type": "buy",
+        }
+      }
+      key="5e19a0db2ab1b61184740c44"
+    />
+    <withRouter(Ad)
+      ad={
+        Object {
+          "description": "Vendo XBOX One X como nueva. No tengo tiempo para jugar.",
+          "id": "5e19a0db2ab1b61184740c45",
+          "name": "XBOX OneX",
+          "photo": "",
+          "price": 170.05,
+          "type": "sell",
+        }
+      }
+      key="5e19a0db2ab1b61184740c45"
+    />
+    <withRouter(Ad)
+      ad={
+        Object {
+          "description": "El mejor ratón gamer del mercado. Como nuevo (1 año)",
+          "id": "5e19a0db2ab1b61184740c46",
+          "name": "Raton Gaming Razer Mamba",
+          "photo": "",
+          "price": 35.5,
+          "type": "sell",
+        }
+      }
+      key="5e19a0db2ab1b61184740c46"
+    />
+  </div>
+  <div
+    className="pagination-row"
+  >
+    <br />
+    <hr />
+    <br />
+    <withRouter(AppPagination)
+      currentPage={1}
+      pages={2}
+    />
+  </div>
+</div>
+`;

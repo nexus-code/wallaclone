@@ -62,7 +62,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /**
- * Setup de i18n
+ * Setup i18n
  */
 const i18n = require('./lib/i18nConfigure')();
 app.use(i18n.init);
@@ -85,13 +85,27 @@ require('./models/Advert');
  * Routes
  */
 
+
+// Middleware: Configures headers & CORS
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  next();
+});
+
+
  // API authenticate via JWT
 const loginController = require('./routes/loginController');
 const jwtAuth = require('./lib/jwtAuth');
 
 // v2.2 add upload.single('image') & jwtAuth()
-app.use('/apiv1/ads', upload.single('image'),  jwtAuth(), require('./routes/apiv1/adverts'));
-app.use('/apiv1/tags', jwtAuth(),  require('./routes/apiv1/tags'));
+// v3 jwtAuth() Only for registered users
+// app.use('/apiv1/ads', upload.single('image'), jwtAuth(), require('./routes/apiv1/adverts'));
+app.use('/apiv1/ads', upload.single('image'), require('./routes/apiv1/adverts'));
+// app.use('/apiv1/tags', jwtAuth(), require('./routes/apiv1/tags'));
+app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 app.post('/apiv1/login', loginController.loginJWT);
 
 // public app

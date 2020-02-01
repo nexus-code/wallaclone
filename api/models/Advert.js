@@ -44,7 +44,9 @@ const advertSchema = mongoose.Schema({
         type: String,
         minlength: 0,
         maxlength: 500,
-    }
+    },
+    created: { type: Date, default: Date.now },
+    updated: { type: Date }
 });
 
 advertSchema.index({ name: 1, type: 1, price: -1, active: 1});
@@ -75,7 +77,8 @@ const requesterImageService = (advert) => {
  */
 
 // insert a document
-advertSchema.statics.insert = async function (req, res, next) {
+// advertSchema.statics.insert = async function (req, res, next) {
+advertSchema.statics.insert = async function (req, next) {
     try {
         console.log('-- adverts.js insert advert: ', req.body);
 
@@ -134,7 +137,6 @@ advertSchema.statics.tagsList = function () {
 // making the query:
 // get url params via router
 // return query adverts via quey
-//advertSchema.statics.select = async function (req, res, next) {
 advertSchema.statics.select = async function (req) {
 
     /** 
@@ -149,11 +151,13 @@ advertSchema.statics.select = async function (req) {
     const text = req.query.text;
     const tags = req.query.tags;
     const price = req.query.price;
+    const created = req.query.created;
 
     const skip = parseInt(req.query.skip);
     const limit = parseInt(req.query.limit);
     const fields = req.query.fields;
-    const sort = req.query.sort || 'price'; // sort price by default
+    // const sort = req.query.sort || { 'created': -1 }; // sort created by default
+    const sort = { 'created': 1 }; // sort created by default
 
     let filter = {};
 
@@ -233,6 +237,8 @@ advertSchema.statics.select = async function (req) {
 // advertSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list ({filter, skip, limit, fields, sort}) {
     const query = Advert.find(filter); 
+    console.log('       - Query: ', query);
+
     query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();
 };

@@ -19,7 +19,7 @@ const Advert = require('../../models/Advert');
 // GET /adverts -> List adverts
 router.get('/', async (req, res, next) => {
     try {        
-        const adverts = await Advert.select(req, res, next);
+        const adverts = await Advert.select(req);
 
         res.json({
             status: 200,
@@ -37,7 +37,7 @@ router.post('/', async (req, res, next) => {
 
         req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
         
-        const savedAdvert = await Advert.insert(req, res, next);
+        const savedAdvert = await Advert.insert(req, next);
 
         res.json({
             status: 200,
