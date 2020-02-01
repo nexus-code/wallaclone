@@ -188,9 +188,9 @@ const insertAdverts = async function () {
         await Advert.createIndexes()
         .then(console.log('Indexes created'))
         .catch(
-            (err) => {console.log('Error on create indexes', err.message)
+            (err) => {console.log('Error on create Avert indexes', err.message)
         });
-        console.log('DB installed -> Adverts inserts: ', advertsArray.length);
+        console.log('DB  -> Adverts inserts: ', advertsArray.length);
         
     } catch (err) {
         
@@ -222,7 +222,7 @@ db.once('open', async () => {
 
         await initUsers();
         db.close();
-        console.log('End process');
+        console.log('******* wallacloneDB created sucesfully ******');
 
         process.exit();
 
@@ -237,14 +237,23 @@ async function initUsers() {
 
     await User.insertMany([
         {
+            username: 'user',
             email: 'user@example.com',
             password: await User.hashPassword('1234')
         },
         {
+            username: 'testing',
             email: 'testing@wallaclone.dev',
             password: await User.hashPassword('testing+')
         }
     ]);
+
+    await User.createIndexes()
+        .then(console.log('User Indexes created'))
+        .catch(
+            (err) => {
+                console.log('Error on User create indexes', err.message)
+            });
 
     console.log('Testing user created on users collection');
 }

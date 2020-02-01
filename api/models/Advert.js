@@ -10,6 +10,7 @@
  */
 
 const mongoose = require('mongoose');
+
 const advertSchema = mongoose.Schema({
     name: {
         type: String,
@@ -49,7 +50,7 @@ const advertSchema = mongoose.Schema({
     updated: { type: Date }
 });
 
-advertSchema.index({ name: 1, type: 1, price: -1, active: 1});
+advertSchema.index({ name: 1, type: 1, price: -1, active: 1, created: 1});
 
 /**
  * advert image microservice
@@ -60,7 +61,7 @@ const requesterImageService = (advert) => {
 
     const requester = new cote.Requester({ name: 'image.requester' });
 
-    console.log('requesterImageService');
+    // console.log('requesterImageService');
 
     requester.send({
         type: 'image.service',
@@ -73,14 +74,13 @@ const requesterImageService = (advert) => {
 
 
 /** 
- * Averts Methods
+ * Adverts Methods
  */
 
 // insert a document
-// advertSchema.statics.insert = async function (req, res, next) {
 advertSchema.statics.insert = async function (req, next) {
     try {
-        console.log('-- adverts.js insert advert: ', req.body);
+        // console.log('-- adverts.js insert advert: ', req.body);
 
         // data
         const data  = req.body;
@@ -157,6 +157,7 @@ advertSchema.statics.select = async function (req) {
     const limit = parseInt(req.query.limit);
     const fields = req.query.fields;
     // const sort = req.query.sort || { 'created': -1 }; // sort created by default
+
     const sort = { 'created': 1 }; // sort created by default
 
     let filter = {};
