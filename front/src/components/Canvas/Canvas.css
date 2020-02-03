@@ -15,7 +15,7 @@ form p::before {
   content: "⚠ ";
 }
 
-input {
+input, select {
   display: block;
   box-sizing: border-box;
   width: 100%;

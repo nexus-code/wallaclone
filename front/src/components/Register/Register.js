@@ -2,32 +2,39 @@ import React from "react";
 
 import Canvas from '../Canvas/Canvas';
 
-import { Button } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import { useForm } from "react-hook-form";
+
+import i18n from '../../i18n';
+import { useTranslation } from 'react-i18next';
 
 export default function Register({ user, setUser, logout }) { 
 
-    // uses toast to ui add notifications   
-    const notifyWarning = (warning) => toast.warning(warning);
-    ///
+    const { t } = useTranslation();
 
     const status = typeof (user) === 'undefined' ? 0 : 1; // 0 'REGISTER' : 1 'EDIT';
     const pageTitle = status ? 'Edit profile' : 'Register user';
 
 
+    // console.log(user);
 
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: user });
     const onSubmit = data => {
+
+        changeLanguage(data.language)
+
         setUser(data);
     };
 
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    }
+
     const handleLogout = () => {
-        // setUserInput({name: '', password: ''});
+        
         reset();
         logout();
     }
-    const logoutButton = status ? <Button variant="secondary" className="float-right logoutButton" onClick={handleLogout}>Logout</Button> : '';
+    const logoutButton = status ? <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>Logout</button> : '';
     
     function validator (field, minLength, maxLength) {
         return {
@@ -46,7 +53,7 @@ export default function Register({ user, setUser, logout }) {
     return (
         <Canvas>
             <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
-                <h2>{ pageTitle }</h2>
+                <h2>{ t(pageTitle) }</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>Username</label>
                     <input 
@@ -77,12 +84,24 @@ export default function Register({ user, setUser, logout }) {
                     />
                     {errors.email && <p>{errors.email.message}</p>}
 
+                    <label>{t('Language')}</label>
+                    <select ref={register} name="language">
+                        <option value="en">English</option>
+                        <option value="es">Castellano</option>
+                    </select>
+
                     <label>Remember me?<input name="remember" type="checkbox" ref={register} /></label>
                     
                     <input type="submit" />
                 </form>
                     
                 { logoutButton }
+                <br />
+                <hr />
+                <br />
+                {/* <button onClick={() => changeLanguage('es')}>es</button>
+                <button onClick={() => changeLanguage('en')}>en</button> */}
+
             </div>
         </Canvas>
     );

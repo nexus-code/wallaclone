@@ -9,6 +9,8 @@ import { configureStore } from './store';
 import * as userTypes from './store/user/types';
 // import * as adsTypes  from './store/ads/types';
 
+import './i18n';
+
 const renderApp = props =>
     ReactDOM.render(<Root {...props} />, document.getElementById('root'));
 

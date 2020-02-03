@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ErrorBoundary from '../../ErrorBoundary/ErrorBoundary';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useLocation } from 'react-router';
@@ -27,21 +27,23 @@ function App({ user, ads, props }) {
   }
 
   return <div>
-      <ToastContainer />
-      <ErrorBoundary>
-            <Switch>
-              <Route path='/register' exact component={ Register } />
-              <Route path="/profile" exact component={ Register } />
-              <Route path='/advert/create' exact component={ AdEdit } />
-              <Route path='/advert/edit/:id' exact component={ AdEdit } />
-              <Route path='/advert/:id' exact component={ AdDetail } />
-              <Route path='/advert/' exact component={ Search } />
-              <Route path='/home' exact component={ Home } />
-              <Route path='/' exact component={ Home } />
-              <Route path='*' component={ NotFoundPage } />
-              {/* <Route component={ Register } /> */}
-            </Switch>
-      </ErrorBoundary>
+      <Suspense fallback={(<div>Loading</div>)}>
+        <ToastContainer />
+        <ErrorBoundary>
+              <Switch>
+                <Route path='/register' exact component={ Register } />
+                <Route path="/profile" exact component={ Register } />
+                <Route path='/advert/create' exact component={ AdEdit } />
+                <Route path='/advert/edit/:id' exact component={ AdEdit } />
+                <Route path='/advert/:id' exact component={ AdDetail } />
+                <Route path='/advert/' exact component={ Search } />
+                <Route path='/home' exact component={ Home } />
+                <Route path='/' exact component={ Home } />
+                <Route path='*' component={ NotFoundPage } />
+                {/* <Route component={ Register } /> */}
+              </Switch>
+        </ErrorBoundary>
+      </Suspense>
   </div>
 }
 
