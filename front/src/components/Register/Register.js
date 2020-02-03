@@ -1,6 +1,7 @@
 import React from "react";
 import Canvas from '../Canvas/Canvas';
 import { useForm } from "react-hook-form";
+
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 
@@ -27,6 +28,7 @@ export default function Register({ user, setUser, logout }) {
         reset();    // does not empty entries !!
         logout();
     }
+    
     const logoutButton = status ? <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> : '';
     
     function validator (field, minLength, maxLength) {
@@ -79,13 +81,13 @@ export default function Register({ user, setUser, logout }) {
 
                     <label>{ t('Language') }</label>
                     <select ref={register} name="language">
-                        <option value="en">English</option>
-                        <option value="es">Castellano</option>
+                        <option value="en">{t('English')}</option>
+                        <option value="es">{t('Spanish')}</option>
                     </select>
 
                     <label>{ t('Remember me?') }<input name="remember" type="checkbox" ref={register} /></label>
                     
-                    <input type="submit" />
+                    <input type="submit" value={t('Submit')} />
                 </form>
                     
                 { logoutButton }
