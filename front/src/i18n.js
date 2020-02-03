@@ -1,4 +1,4 @@
-// https://react.i18next.com/latest/using-with-hooks && https://dev.to/ksushiva/how-to-translate-your-react-js-app-with-i18next-12mn
+// https://react.i18next.com/ && https://dev.to/ksushiva/how-to-translate-your-react-js-app-with-i18next-12mn
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
@@ -21,10 +21,12 @@ i18n
     // init i18next
     // for all options read: https://www.i18next.com/overview/configuration-options
     .init({
-        lng: 'es',
+        // lng: 'en', // Caution !don't uses, lost user select language
         fallbackLng: ['en', 'es'],
-        // debug: true,
+
         saveMissing: true, // send not translated keys to endpoint
+
+        keySeparator: false, // we do not use keys in form messages.welcome
 
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default

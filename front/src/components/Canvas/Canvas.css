@@ -37,6 +37,7 @@ label {
   font-weight: 400;
 }
 
+input[type="button"],
 input[type="submit"] {
   background: #00B7FF;
   color: white;
@@ -49,6 +50,7 @@ input[type="submit"] {
   letter-spacing: 10px;
 }
 
+input[type="button"]:hover,
 input[type="submit"]:hover {
   background: #ffc800;
 }

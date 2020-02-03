@@ -1,11 +1,18 @@
 {
     "Register user" : "Register user",
     "Edit profile": "Edit profile",
+    "Username": "Username",
+    "Password": "Password",
+    "Email": "Email",
     "Language": "Language",
+    "is required": "is required",
+    "Remember me?": "Remember me?",
+    "Logout": "Logout",
+    "Invalid email address": "Invalid email address",
 
 
 
 
 
-    "NO TOCAR":"EVITA ERRORES EN LA EDICIÓN DEL JSON ->,"
+    "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

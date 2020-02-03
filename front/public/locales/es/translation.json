@@ -1,10 +1,16 @@
 {
-    "Register user" : "Registro de usuario",
+    "Register user": "Registro de usuario",
     "Edit profile": "Editar perfil",
+    "Username": "Nombre de usuario",
+    "Password": "Contraseña",
+    "Email": "Email",
     "Language": "Idioma",
+    "is required": "obligatorio",
+    "Remember me?": "Recuérdame en este dispositivo",
+    "Logout": "Salir",
+    "Invalid email address": "Formato de email no válido",
 
 
 
-
-    "NO TOCAR": "EVITA ERRORES EN LA EDICIÓN DEL JSON ->,"
+    "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }
