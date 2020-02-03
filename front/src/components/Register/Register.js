@@ -1,13 +1,10 @@
-import React, { useReducer } from "react";
+import React from "react";
 
 import Canvas from '../Canvas/Canvas';
 
-import { Form, Button } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-
-/**
- *  session user handler
- */
+import { useForm } from "react-hook-form";
 
 export default function Register({ user, setUser, logout }) { 
 
@@ -19,66 +16,73 @@ export default function Register({ user, setUser, logout }) {
     const pageTitle = status ? 'Edit profile' : 'Register user';
 
 
-    const [userInput, setUserInput] = useReducer(
-        (state, newState) => ({ ...state, ...newState }),
-        {
-            name: status ? user.name : '',
-            surname: status ? user.surname : '',
-        }
-    );
+
+    const { register, handleSubmit, reset, errors } = useForm({ defaultValues: user });
+    const onSubmit = data => {
+        setUser(data);
+    };
 
     const handleLogout = () => {
-        setUserInput({name: '', surname: ''});
+        // setUserInput({name: '', password: ''});
+        reset();
         logout();
     }
     const logoutButton = status ? <Button variant="secondary" className="float-right logoutButton" onClick={handleLogout}>Logout</Button> : '';
     
-
-    const handleChange = event => {
-
-        const name = event.target.name;
-        const newValue = event.target.value;
-        setUserInput({ [name]: newValue });
-    }
-
-    const handleSubmit = event => {
-        event.preventDefault();
-
-        if (userInput.name.trim().length <= 3) {
-            notifyWarning('The name must be bigger than 3 characters');
-            return;
+    function validator (field, minLength, maxLength) {
+        return {
+            required: `${field} is required`,
+            minLength: {
+                value: minLength,
+                message: `Min length is ${minLength}`
+            },
+            maxLength: {
+                value: maxLength,
+                message: `Max length is ${maxLength}`
+            }
         }
-
-        if (userInput.surname.trim().length <= 3) {
-            notifyWarning('The surrname must be bigger than 3 characters');
-            return;
-        }
-
-        setUser({ name: userInput.name, surname: userInput.surname});
-    }
-        
+    };
+      
     return (
         <Canvas>
             <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
                 <h2>{ pageTitle }</h2>
-                <Form onSubmit = { handleSubmit }>
-                    <Form.Group controlId="formGroupname" >
-                        <Form.Label>Name</Form.Label>
-                        <Form.Control name="name" placeholder="Enter name" value={ userInput.name } onChange={ handleChange } />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupsurname" >
-                        <Form.Label>Surname</Form.Label>
-                        <Form.Control name="surname" placeholder="Enter surname" value={ userInput.surname } onChange={ handleChange } />
-                    </Form.Group>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <label>Username</label>
+                    <input 
+                        name="username" 
+                        placeholder="Insert your unique username" 
+                        ref={register(validator('username', 3, 25))}  
+                    />
+                    {errors.username && <p>{errors.username.message}</p>}
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Insert your password"
+                        ref={register(validator('password', 3, 25))}  
+                    />
+                    {errors.password && <p>Password is required</p>}
+                    <label>Email</label>
+                    <input
+                        type="text"
+                        name="email"
+                        ref={register({
+                            required: "Email is required",
+                            pattern: {
+                                value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                message: "Invalid email address"
+                            }
+                        })}
+                    />
+                    {errors.email && <p>{errors.email.message}</p>}
 
-
-                    <Button variant="primary" className="submitButton" type="submit">
-                        Save
-                    </Button>
+                    <label>Remember me?<input name="remember" type="checkbox" ref={register} /></label>
                     
-                    { logoutButton }
-
-                </Form>
+                    <input type="submit" />
+                </form>
+                    
+                { logoutButton }
             </div>
         </Canvas>
     );

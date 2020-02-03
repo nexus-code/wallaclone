@@ -10,13 +10,43 @@
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
 
+function validEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
 const userSchema = mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    email: { type: String, required: true, unique: true },
-    password: String,
-    role: { type: String, default: 'user' },
-    created: { type: Date, default: Date.now },
-    updated: { type: Date }
+    username: {
+        type: String,
+        required: true,
+        unique: true,
+        trim: true,
+        minlength: [3, 'Username is too short (min 3 characters)!'],
+        maxlength: [25, 'Username is too long (max 25 characters)!']
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        validate: validEmail,
+        trim: true,
+        minlength: [7, 'email is too short (min 7 characters)!'],
+        maxlength: [60, 'email is too long (max 60 characters)!']
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        default: 'user'
+    },
+    created: {
+        type: Date,
+        default: Date.now
+    },
+    updated: {
+        type: Date
+    }
 });
 
 userSchema.index({ username: 1, email: 1, role: 1});

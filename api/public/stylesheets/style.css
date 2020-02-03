@@ -9,7 +9,10 @@ body {
 
 a {
   color: #00B7FF;
+  background-color: white;
 }
+
+a {}
 
 .flex-container {
   background-color: #f8f8f8;

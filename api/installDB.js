@@ -239,23 +239,19 @@ async function initUsers() {
         {
             username: 'user',
             email: 'user@example.com',
-            password: await User.hashPassword('1234')
+            password: await User.hashPassword('1234567')
         },
         {
             username: 'testing',
             email: 'testing@wallaclone.dev',
             password: await User.hashPassword('testing+')
-        },
+        }, 
         {
-            username: 'user2',
-            email: 'user2@example2.com',
-            password: await User.hashPassword('1234')
-        },
-        {
-            username: 'testing 2',
-            email: 'testing@wallaclone.dev',
-            password: await User.hashPassword('testing+')
+            username: 'testing3',
+            email: 'testing3@wallaclone.dev',
+            password: await User.hashPassword('1')
         }
+        // ,{ runValidators: true } // Produce empty username error!
     ]);
 
     await User.createIndexes()
