@@ -51,7 +51,7 @@ export default function Register({ user, setUser, logout }) {
                     <label>{ t('Username') }</label>
                     <input 
                         name="username" 
-                        placeholder="{{ t(Insert your unique username) }}" 
+                        placeholder={t('Insert your') + ' ' + t('username')  }
                         ref={register(validator('username', 3, 25))}  
                     />
                     {errors.username && <p>{errors.username.message}</p>}
@@ -59,7 +59,7 @@ export default function Register({ user, setUser, logout }) {
                     <input
                         type="password"
                         name="password"
-                        placeholder="Insert your password"
+                        placeholder={ t('Insert your password') }
                         ref={register(validator('password', 3, 25))}  
                     />
                     {errors.password && <p>{errors.password.message}</p>}
@@ -68,7 +68,7 @@ export default function Register({ user, setUser, logout }) {
                         type="text"
                         name="email"
                         ref={register({
-                            required: "Email is required",
+                            required: t("Email required"),
                             pattern: {
                                 value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
                                 message: t("Invalid email address")
