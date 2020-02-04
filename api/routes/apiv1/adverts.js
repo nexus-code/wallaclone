@@ -23,7 +23,7 @@ router.get('/', async (req, res, next) => {
 
         res.json({
             status: 200,
-            results: adverts
+            result: adverts
         }); // API output
 
     } catch (err) {
@@ -41,7 +41,7 @@ router.post('/', async (req, res, next) => {
 
         res.json({
             status: 200,
-            results: savedAdvert
+            result: savedAdvert
         }); // API output
 
     } catch (err) {
@@ -62,7 +62,7 @@ router.put('/:id', async (req, res, next) => {
 
         res.json({
             status: 200,
-            results: savedAdvert
+            result: savedAdvert
         }); // API output
 
     } catch (err) {

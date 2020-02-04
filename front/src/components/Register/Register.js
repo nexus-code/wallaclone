@@ -18,7 +18,7 @@ export default function Register({ user, setUser, logout }) {
         changeLanguage(data.language)
 
         
-        setUser(data);
+        setUser(data, 'POST');
     };
 
     const changeLanguage = (lng) => {
@@ -83,8 +83,8 @@ export default function Register({ user, setUser, logout }) {
 
                     <label>{ t('Language') }</label>
                     <select ref={register} name="language">
-                        <option value="en">{t('English')}</option>
-                        <option value="es">{t('Spanish')}</option>
+                        <option value="en-GB">{t('English')}</option>
+                        <option value="es-ES">{t('Spanish')}</option>
                     </select>
 
                     <label>{ t('Remember me?') }<input name="remember" type="checkbox" ref={register} /></label>

@@ -1,6 +1,6 @@
 
 import Axios from 'axios';
-import AdModel from '../models/AdModel';
+import UserModel from '../models/UserModel';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -32,27 +32,18 @@ const getFetch = (url) => {
     // return aux;
 }
 
-/**
- * return[] of tags (strings)
- */
-const getTagsList = () => {
-    
-    return getFetch(`${API_URL}tags`)
-        .then(res => res.result)
-        .catch(error => console.error('Error:', error));
-}
 
 /**
  * 
  * @param {*} id The ad id to fetch
  */
-const getAdDetail = (id) => {
-    return getFetch(`${API_URL}adverts/${id}`)
+const getUser = (id) => {
+    return getFetch(`${API_URL}users/${id}`)
         .then(res => {
             if (!res.success) {
                 return res;
             } else {
-                return new AdModel(res.result);
+                return new UserModel(res.result);
             }
         })
         .catch(error => console.error('Error:', error));
@@ -60,53 +51,49 @@ const getAdDetail = (id) => {
 
 /**
  * 
- * @param {*} query: filter ads. Optimize  with searchAd
+ * @param {*} query: filter users. Optimize  with searchAd
  */
 
-const searchAds = (query) => {
+const searchUsers = (query) => {
     
-    // const url = query === 'undefined' || query === ''  ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
+    const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
     
     console.log('query', query);
-    console.log('url', `${API_URL}adverts`);
+    console.log('url', `${API_URL}users`);
 
-    return getFetch(`${API_URL}adverts`)
-        .then(res => res.result.map(ad => new AdModel(ad)))
+    return getFetch(`${API_URL}users`)
+        .then(res => res.result.map(ad => new UserModel(ad)))
         .catch(error => console.error('Error:', error));
 }
 
 
 /**
- *
- * @param {*} id: filter by ad.id. Optimize with searchAds
- */
-const searchAd = (id) => {
-
-    const url = `${API_URL}adverts/${id}`;
-
-    return Axios.get(url).then(res =>
-        new AdModel(res.data.result),
-    );
-}
-
-/**
  * 
- * @param {*} ad {advertisement}
+ * @param {*} user 
  * @param {*} method POST / PUT for insert or update
  */
-const saveAd = (ad, method) => {
+const saveUser = (user, method) => {
 
-    const baseURL = `${API_URL}adverts`;
+    const baseURL = `${API_URL}users`;
+
+    console.log('UserService saveUser', user);
+
+    const { language, remember } = user;
 
     switch (method) {
+        // case 'POST':
+        //     return Axios.post(baseURL, null, { data: user }).then(
+        //         res => new UserModel(res.data.result),
+        //     );
+
         case 'POST':
-            return Axios.post(baseURL, null, { data: ad }).then(
-                res => new AdModel(res.data.result),
+            return Axios.post(baseURL, null, { data: user }).then(
+                res => new UserModel(res.data.result),
             );
 
         case 'PUT':
-            return Axios.put(`${baseURL}/${ad.id}`, null, { data: ad }).then(
-                res => new AdModel(res.data.result),
+            return Axios.put(`${baseURL}/${user.id}`, null, { data: user }).then(
+                res => new UserModel(res.data.result),
             );
 
         default:
@@ -115,9 +102,7 @@ const saveAd = (ad, method) => {
 }
 
 export {
-    getTagsList,
-    searchAds,
-    searchAd,
-    getAdDetail,
-    saveAd
+    // searchUsers,
+    getUser,
+    saveUser
 };

@@ -239,17 +239,17 @@ async function initUsers() {
         {
             username: 'user',
             email: 'user@example.com',
-            password: await User.hashPassword('1234567')
+            password: '1234567'
         },
         {
             username: 'testing',
             email: 'testing@wallaclone.dev',
-            password: await User.hashPassword('testing+')
+            password: 'testing+'
         }, 
         {
             username: 'testing3',
             email: 'testing3@wallaclone.dev',
-            password: await User.hashPassword('1')
+            password: '1'
         }
         // ,{ runValidators: true } // Produce empty username error!
     ]);

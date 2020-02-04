@@ -228,7 +228,7 @@ advertSchema.statics.select = async function (req) {
 
     const adverts = await list({filter, skip, limit, fields, sort});
     // console.log('       - Query filter: ', filter);
-    // console.log('       - Query results count: ', adverts.length);
+    // console.log('       - Query result count: ', adverts.length);
 
     return adverts;          
 };

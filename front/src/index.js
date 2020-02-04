@@ -31,7 +31,9 @@ store.subscribe(() => {
     const { lastAction, user } = store.getState();
 
     // User user.user & ads.ads by combineReducers.View to rename
-    setUserLS(user.user);
+    if (lastAction.type === userTypes.USER_SAVE_SUCCESS) {
+        setUserLS(lastAction.user);
+    }
 
     if (lastAction.type === userTypes.LOGOUT) {
         clearLocalStorage();

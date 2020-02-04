@@ -1,7 +1,16 @@
 import {
-    SET_USER,
+    USER_FETCH_REQUEST,
+    USER_FETCH_FAILURE,
+    USER_FETCH_SUCCESS,
+
+    USER_SAVE_REQUEST,
+    USER_SAVE_FAILURE,
+    USER_SAVE_SUCCESS,
+    // SET_USER,
     LOGOUT,
 } from './types';
+
+import { getUser, saveUser } from '../../services/UserService';
 
 import { toast } from 'react-toastify';
 
@@ -11,32 +20,106 @@ const notifyError = () => toast.error('Error on save profile!');
 // const notifyWarning = (warning) => toast.warning(warning);
 
 
-export const saveUser = user => ({
-    type: SET_USER,
+
+export const fetchUser = id => {
+
+    async function __fetchUser(dispatch, getState, extraArgument) {
+        dispatch(fetchUserRequest());
+        try {
+            const user = await getUser(id);
+            dispatch(fetchUserSuccess(user));
+        } catch (error) {
+            dispatch(fetchUserFailure(error));
+        }
+    };
+
+    return __fetchUser;
+};
+
+
+export const fetchUserRequest = () => ({
+    type: USER_FETCH_REQUEST,
+});
+
+export const fetchUserFailure = error => ({
+    type: USER_FETCH_FAILURE,
+    error,
+});
+
+export const fetchUserSuccess = user => ({
+    type: USER_FETCH_SUCCESS,
     user,
 });
+
+
+export const savedUserRequest = user => ({
+    type: USER_SAVE_REQUEST,
+    user,
+});
+
+export const savedUserFailure = error => ({
+    type: USER_SAVE_FAILURE,
+    error,
+});
+
+export const savedUserSuccess = user => ({
+    type: USER_SAVE_SUCCESS,
+    user,
+});
+
+// export const saveUser = user => ({
+//     type: SET_USER,
+//     user,
+// });
 
 export const userLogout = () => ({
     type: LOGOUT,
 });
 
-export const setUser = (...args) => (dispatch, _getState, { history }) => {
+//savedUser
+export const setUser = (user, method) => async (dispatch, getState, { history }) => {
+
+    dispatch(savedUserRequest(user));
 
     try {
 
-        dispatch(saveUser(...args));
+        const result = await saveUser(user, method);
+        console.log('action setUser result', result);
 
+        dispatch(savedUserSuccess(result));
+
+        notifySaved();
         if (history.location.pathname === '/register')
             history.push("/");
-            
-        notifySaved();
+
 
     } catch (error) {
 
+        dispatch(savedUserFailure());
         notifyError();
         console.log(error);
-    }    
+
+        return false;
+    }
 };
+
+// export const setUser = (...args) => (dispatch, _getState, { history }) => {
+
+//     try {
+
+//         dispatch(saveUser(...args));
+
+//         if (history.location.pathname === '/register')
+//             history.push("/");
+            
+//         notifySaved();
+
+//     } catch (error) {
+
+//         notifyError();
+//         console.log(error);
+//     }    
+// };
 
 
 export const logout = (...args) => (dispatch, _getState, { history }) => {

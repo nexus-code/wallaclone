@@ -8,9 +8,8 @@ export const setUserLS = user => {
 
 export const getUserLS = () => {
   const user = localStorage.getItem('user');
-  // console.log('user', user);
-
-  return !user ? undefined : JSON.parse(user);
+  
+  return !user || user === 'undefined' ? undefined : JSON.parse(user);
 };
 
 export const setAdsLS = ads => {

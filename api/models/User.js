@@ -13,7 +13,7 @@ const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const token = (username, email) => {
     const t = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES, mutatePayload: true });
@@ -46,6 +46,10 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'user'
     },
+    language: {
+        type: String,
+        default: 'en'
+    },
     created: {
         type: Date,
         default: Date.now
@@ -65,9 +69,20 @@ const userSchema = mongoose.Schema({
 
 userSchema.index({ username: 1, email: 1, role: 1});
 
-userSchema.statics.hashPassword = function (plainPassword) {
-    return bcrypt.hash(plainPassword, 10);
-}
+userSchema.pre("save", function (next) {
+    // https://www.thepolyglotdeveloper.com/2019/02/hash-password-data-mongodb-mongoose-bcrypt/
+    // encrypt password
+
+    if (!this.isModified("password")) {
+        return next();
+    }
+    this.password = bcrypt.hashSync(this.password, 10);
+    next();
+});
+
+userSchema.methods.comparePassword = function (plaintext, callback) {
+    return callback(null, bcrypt.compareSync(plaintext, this.password));
+};
 
 
 /** 
@@ -78,13 +93,10 @@ userSchema.statics.hashPassword = function (plainPassword) {
 userSchema.statics.insert = async function (req, next) {
     try {
         
-        // data
-        const data = req.body;
-        const user = new User(data);
-        console.log('User insert', data, user);
-        const newuser = await user.save();
-
-        return newuser
+        const user = new User(req.body);
+        const newUser = await user.save();
+        
+        return newUser
 
     } catch (err) {
         next(err);
@@ -165,7 +177,7 @@ userSchema.statics.select = async function (req) {
 
     const users = await list({ filter, skip, limit, fields, sort });
     // console.log('       - Query filter: ', filter);
-    // console.log('       - Query results count: ', users.length);
+    // console.log('       - Query result count: ', users.length);
 
     return users;
 };
@@ -181,12 +193,5 @@ function list({ filter, skip, limit, fields, sort }) {
     return query.exec();
 };
 
-function validUser(){
-
-
-}
-
-
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;

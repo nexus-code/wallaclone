@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
 
         res.json({
             status: 200,
-            results: Users
+            result: Users
         }); // API output
 
     } catch (err) {
@@ -35,7 +35,7 @@ router.post('/', async (req, res, next) => {
 
         // improve?
         // req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
-        
+
         const savedUser = await User.insert(req, next);
 
         // only return certain data 
@@ -44,12 +44,13 @@ router.post('/', async (req, res, next) => {
             token: savedUser.token,
             username: savedUser.username,
             email: savedUser.email,
+            language: savedUser.language,
             // role: savedUser.role == 'user' ? '' : savedUser.role
         }
 
         res.json({
             status: 200,
-            results: returnedUser
+            result: returnedUser
         }); // API output
 
     } catch (err) {
@@ -69,7 +70,7 @@ router.put('/:id', async (req, res, next) => {
 
         res.json({
             status: 200,
-            results: savedUser
+            result: savedUser
         }); // API output
 
     } catch (err) {

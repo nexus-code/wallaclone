@@ -23,10 +23,18 @@ class LoginController {
             const user = await User.findOne({ email: email });
             
             // user not exits
-            if (!user || !await bcrypt.compare(password, user.password)) {
+            // if (!user || !await bcrypt.compare(password, user.password)) {
+            if (!user) {
                 res.json({ success: false, error: 'Invalid credentials', });
                 return;
             }
+
+            user.comparePassword(password, (error, match) => {
+                if (!match) {
+                    res.json({ success: false, error: 'Invalid credentials p', });
+                    return;
+                }
+            });
 
             // create JWT
             const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {

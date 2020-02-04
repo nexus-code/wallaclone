@@ -1,2 +1,11 @@
-export const SET_USER = 'SET_USER';
+export const USER_FETCH_REQUEST = 'USER_FETCH_REQUEST';
+export const USER_FETCH_FAILURE = 'USER_FETCH_FAILURE';
+export const USER_FETCH_SUCCESS = 'USER_FETCH_SUCCESS';
+
+export const USER_SAVE_REQUEST = 'USER_SAVE_REQUEST';
+export const USER_SAVE_FAILURE = 'USER_SAVE_FAILURE';
+
+export const USER_SAVE_SUCCESS = 'USER_SAVE_SUCCESS';
+
+// export const SET_USER = 'SET_USER';
 export const LOGOUT   = 'LOGOUT';
