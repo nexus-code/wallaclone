@@ -15,9 +15,9 @@ const jwt = require('jsonwebtoken');
 
 const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const token = (username, email) => {
+const token = email => {
     const t = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES, mutatePayload: true });
-    console.log('<br> token', email)
+    console.log('<br> ************token', email)
     return t}
 
 const userSchema = mongoose.Schema({
@@ -63,7 +63,7 @@ const userSchema = mongoose.Schema({
     },
     token: {
         type: String,
-        default: token(this.email),
+        default: token('this.email'),
     }
 });
 
@@ -107,13 +107,13 @@ userSchema.statics.insert = async function (req, next) {
 userSchema.statics.update = async function (id, data, next) {
     try {
 
-        const updatedUser = await User.findOneAndUpdate({ _id: id }, data, { new: true });
-
-        //  console.log('-- users.js update: ', updatedUser);
+        // const updatedUser = await User.findOneAndUpdate({ _id: id }, data, { new: true });
+        const updatedUser = await User.findByIdAndUpdate(id, data, { new: true, overwrite: true });
 
         return updatedUser;
 
     } catch (err) {
+
         next(err);
     }
 }
@@ -194,4 +194,5 @@ function list({ filter, skip, limit, fields, sort }) {
 };
 
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;

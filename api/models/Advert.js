@@ -36,6 +36,11 @@ const advertSchema = mongoose.Schema({
         type: [String],
         require: true,
     },
+    status: {
+        type: [String],
+        require: true,
+        default: ''
+    },
     active: {
         // 0 sold or found
         type: Boolean,

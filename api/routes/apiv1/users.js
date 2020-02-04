@@ -66,7 +66,7 @@ router.put('/:id', async (req, res, next) => {
         const id = req.params.id;
         const data = req.body;
 
-        const savedUser = await User.updateUser(id, data, next);
+        const savedUser = await User.update(id, data, next);
 
         res.json({
             status: 200,

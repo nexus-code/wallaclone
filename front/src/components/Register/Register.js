@@ -11,14 +11,19 @@ export default function Register({ user, setUser, logout }) {
 
     const status = typeof (user) === 'undefined' ? 0 : 1; // 0 'REGISTER' : 1 'EDIT';
     const pageTitle = status ? 'Edit profile' : 'Register user';
+    const method = status ? 'PUT' : 'POST';
+
 
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: user });
     const onSubmit = data => {
 
         changeLanguage(data.language)
 
+        console.log('data', data);
+        console.log('user', user);
+        // const state = getState();
         
-        setUser(data, 'POST');
+        setUser(data, method);
     };
 
     const changeLanguage = (lng) => {
@@ -83,7 +88,7 @@ export default function Register({ user, setUser, logout }) {
 
                     <label>{ t('Language') }</label>
                     <select ref={register} name="language">
-                        <option value="en-GB">{t('English')}</option>
+                        <option value="en">{t('English')}</option>
                         <option value="es-ES">{t('Spanish')}</option>
                     </select>
 

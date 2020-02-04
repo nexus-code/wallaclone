@@ -109,7 +109,7 @@ app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
-  res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.header('Allow', 'GET, POST, PUT, DELETE');
   next();
 });
 
@@ -121,8 +121,8 @@ const jwtAuth = require('./lib/jwtAuth');
 // v2.2 add upload.single('image') & jwtAuth()
 // v3 jwtAuth() Only for registered users
 
-// app.use('/apiv1/ads', upload.single('image'), jwtAuth(), require('./routes/apiv1/adverts'));
 app.use('/apiv1/adverts', upload.single('image'), require('./routes/apiv1/adverts'));
+app.put('/apiv1/users', jwtAuth(), require('./routes/apiv1/users'));
 app.use('/apiv1/users', require('./routes/apiv1/users'));
 
 
