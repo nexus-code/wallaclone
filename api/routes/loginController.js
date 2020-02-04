@@ -21,10 +21,10 @@ class LoginController {
 
             // find user on DB
             const user = await User.findOne({ email: email });
-
+            
             // user not exits
             if (!user || !await bcrypt.compare(password, user.password)) {
-                res.json({ success: false, error: 'Invalid credentials' });
+                res.json({ success: false, error: 'Invalid credentials', });
                 return;
             }
 

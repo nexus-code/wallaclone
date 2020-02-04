@@ -1,18 +1,24 @@
-'use strict';
-
 /**
  * userSchema: User definition
  * 
  * Use mongoose
  * Export User (with CRUD methods)
+ * https://mongoosejs.com/docs/validation.html
+ * 
  */
+
+'use strict';
 
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
+const jwt = require('jsonwebtoken');
 
-function validEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
+const validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+const token = (email) => {
+    const t = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
+    console.log('<br> token', email)
+    return t}
 
 const userSchema = mongoose.Schema({
     username: {
@@ -46,6 +52,14 @@ const userSchema = mongoose.Schema({
     },
     updated: {
         type: Date
+    },
+    lastLogin: {
+        type: Date,
+        default: Date.now
+    },
+    token: {
+        type: String,
+        default: token(this.email),
     }
 });
 
@@ -66,10 +80,9 @@ userSchema.statics.insert = async function (req, next) {
         
         // data
         const data = req.body;
-        const user = new user(data);
+        const user = new User(data);
+        console.log('User insert', data, user);
         const newuser = await user.save();
-
-        https://mongoosejs.com/docs/validation.html
 
         return newuser
 
@@ -79,15 +92,14 @@ userSchema.statics.insert = async function (req, next) {
 }
 
 // update a document
-userSchema.statics.updateuser = async function (id, data, next) {
+userSchema.statics.update = async function (id, data, next) {
     try {
 
-        const updateduser = await user.findOneAndUpdate({ _id: id }, data, { new: true });
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, data, { new: true });
 
-        //  console.log('-- users.js update: ', updateduser);
-        https://mongoosejs.com/docs/validation.html
+        //  console.log('-- users.js update: ', updatedUser);
 
-        return updateduser;
+        return updatedUser;
 
     } catch (err) {
         next(err);
@@ -98,9 +110,9 @@ userSchema.statics.updateuser = async function (id, data, next) {
 userSchema.statics.delete = async function (_id, next) {
     try {
 
-        await user.deleteOne({ _id }).exec;
+        await User.deleteOne({ _id }).exec;
 
-        // DELETE user adverts!
+        // DELETE user adverts FIRST (¿transaction?)!
 
         return 200;
 
