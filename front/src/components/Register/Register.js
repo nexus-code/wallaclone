@@ -16,6 +16,8 @@ export default function Register({ user, setUser, logout }) {
     const onSubmit = data => {
 
         changeLanguage(data.language)
+
+        
         setUser(data);
     };
 

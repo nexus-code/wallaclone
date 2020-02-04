@@ -38,9 +38,18 @@ router.post('/', async (req, res, next) => {
         
         const savedUser = await User.insert(req, next);
 
+        // only return certain data 
+        const returnedUser = {
+            _id: savedUser._id,
+            token: savedUser.token,
+            username: savedUser.username,
+            email: savedUser.email,
+            // role: savedUser.role == 'user' ? '' : savedUser.role
+        }
+
         res.json({
             status: 200,
-            results: savedUser
+            results: returnedUser
         }); // API output
 
     } catch (err) {

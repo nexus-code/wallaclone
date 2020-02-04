@@ -15,8 +15,8 @@ const jwt = require('jsonwebtoken');
 
 const validEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const token = (email) => {
-    const t = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES });
+const token = (username, email) => {
+    const t = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES, mutatePayload: true });
     console.log('<br> token', email)
     return t}
 
