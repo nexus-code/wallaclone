@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import ErrorBoundary from '../../ErrorBoundary/ErrorBoundary';
 import { Switch, Route } from 'react-router-dom';
 
+import PrivateRoute from '../PrivateRoute';
 import Home from '../Home';
 import Search from '../Search';
 import Register from '../Register';
@@ -25,10 +26,10 @@ function App({ user, ads, props }) {
         <ErrorBoundary>
               <Switch>
                 <Route path='/register' exact component={ Register } />
-                <Route path="/profile" exact component={ Register } />
+                <PrivateRoute path="/profile" exact component={ Register } />
                 <Route path="/login" exact component={ Login } />
-                <Route path='/advert/create' exact component={ AdEdit } />
-                <Route path='/advert/edit/:id' exact component={ AdEdit } />
+                <PrivateRoute path='/advert/create' exact component={ AdEdit } />
+                <PrivateRoute path='/advert/edit/:id' exact component={ AdEdit } />
                 <Route path='/advert/:id' exact component={ AdDetail } />
                 <Route path='/advert/' exact component={ Search } />
                 <Route path='/home' exact component={ Home } />

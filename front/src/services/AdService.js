@@ -67,8 +67,8 @@ const searchAds = (query) => {
     
     // const url = query === 'undefined' || query === ''  ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
     
-    console.log('query', query);
-    console.log('url', `${API_URL}adverts`);
+    // console.log('query', query);
+    // console.log('url', `${API_URL}adverts`);
 
     return getFetch(`${API_URL}adverts`)
         .then(res => res.result.map(ad => new AdModel(ad)))
