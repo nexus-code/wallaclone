@@ -128,7 +128,7 @@ app.use('/api/users', require('./routes/api/users'));
 
 // app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
 app.use('/api/tags', require('./routes/api/tags'));
-app.post('/api/login', loginController.loginJWT);
+app.use('/api/login', loginController.loginJWT);
 
 // public app
 app.use('/', require('./routes/index'));

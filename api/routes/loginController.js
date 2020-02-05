@@ -13,6 +13,9 @@ class LoginController {
     */
 
     async loginJWT(req, res, next) {
+
+        console.log('loginJWT', req.headers);
+
         try {
 
             // get credentials

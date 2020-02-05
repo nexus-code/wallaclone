@@ -49,29 +49,6 @@ const getUser = (id) => {
         .catch(error => console.error('Error:', error));
 }
 
-/**
- * Call login API method
- * @param {*} username 
- * @param {*} password 
- */
-const login = (user) => {
-    // return getFetch(`${API_URL}login/`)
-    //     .then(res => {
-    //         if (!res.success) {
-    //             return res;
-    //         } else {
-    //             return new UserModel(res.result);
-    //         }
-    //     })
-    //     .catch(error => console.error('Error:', error));
-
-
-    const baseURL = `${API_URL}login`;
-
-    return Axios.post(baseURL, null, { data: user }).then(
-        res => new UserModel(res.data.result),
-    );        
-}
 
 /**
  * 
@@ -90,6 +67,19 @@ const searchUsers = (query) => {
         .catch(error => console.error('Error:', error));
 }
 
+/**
+ * Call login API method
+ * @param {*} username 
+ * @param {*} password 
+ */
+const doLogin = (user) => {
+
+    const baseURL = `${API_URL}login`;
+
+    return Axios.post(baseURL, null, { data: user }).then(
+        res => new UserModel(res.data.result),
+    );
+}
 
 /**
  * 
@@ -101,8 +91,6 @@ const saveUser = (user, method) => {
     const baseURL = `${API_URL}users`;
 
     // console.log('UserService saveUser', user);
-
-    const { language, remember } = user;
 
     switch (method) {
         // case 'POST':
@@ -127,6 +115,7 @@ const saveUser = (user, method) => {
 
 export {
     // searchUsers,
+    doLogin,
     getUser,
     saveUser
 };

@@ -32,7 +32,7 @@ store.subscribe(() => {
     const { lastAction } = store.getState();
 
     // User user.user & ads.ads by combineReducers.View to rename
-    if (lastAction.type === userTypes.USER_SAVE_SUCCESS) {
+    if (lastAction.type === userTypes.USER_SAVE_SUCCESS || lastAction.type === userTypes.USER_FETCH_SUCCESS) {
         setUserLS(lastAction.user);
     }
 

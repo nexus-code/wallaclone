@@ -49,7 +49,7 @@ exports.listAdverts = async function (req, res, next) {
 
             const vPrice = price.split('-');
 
-            console.log('vPice: ', vPrice);
+            // console.log('vPice: ', vPrice);
 
             if (vPrice.length == 1) {
 
@@ -85,7 +85,7 @@ exports.listAdverts = async function (req, res, next) {
             }
         }
 
-        console.log('filter: ', filter);
+        // console.log('filter: ', filter);
         const adverts = await Advert.list({
             filter,
             skip,

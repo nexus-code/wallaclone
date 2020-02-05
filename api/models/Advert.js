@@ -243,7 +243,7 @@ advertSchema.statics.select = async function (req) {
 // advertSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list ({filter, skip, limit, fields, sort}) {
     const query = Advert.find(filter); 
-    console.log('       - Query: ', query);
+    // console.log('       - Query: ', query);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();

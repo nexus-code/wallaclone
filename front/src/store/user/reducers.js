@@ -8,7 +8,7 @@ const initialState = {
 export const user = (state = initialState, action) => {
     switch (action.type) {
         // case TYPES.SET_USER:
-        case TYPES.USER_SAVE_SUCCESS:
+        case TYPES.USER_SAVE_SUCCESS || TYPES.USER_FETCH_SUCCESS :
             return {
                 ...state,
                 user: action.user,

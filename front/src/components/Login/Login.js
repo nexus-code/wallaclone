@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { useTranslation } from 'react-i18next';
 
-export default function Login() { 
+export default function Login({ login }) { 
 
     const { t } = useTranslation();
 
@@ -12,7 +12,7 @@ export default function Login() {
     
     const onSubmit = data => {
 
-        // setUser(data, method);
+        login(data);
     };
 
     

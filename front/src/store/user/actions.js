@@ -10,7 +10,7 @@ import {
     LOGOUT,
 } from './types';
 
-import { getUser, saveUser } from '../../services/UserService';
+import { doLogin, saveUser } from '../../services/UserService';
 
 import { toast } from 'react-toastify';
 
@@ -21,20 +21,20 @@ const notifyError = () => toast.error('Error on save profile!');
 
 
 
-export const fetchUser = id => {
+// export const fetchUser = id => {
 
-    async function __fetchUser(dispatch, getState, extraArgument) {
-        dispatch(fetchUserRequest());
-        try {
-            const user = await getUser(id);
-            dispatch(fetchUserSuccess(user));
-        } catch (error) {
-            dispatch(fetchUserFailure(error));
-        }
-    };
+//     async function __fetchUser(dispatch, getState, extraArgument) {
+//         dispatch(fetchUserRequest());
+//         try {
+//             const user = await getUser(id);
+//             dispatch(fetchUserSuccess(user));
+//         } catch (error) {
+//             dispatch(fetchUserFailure(error));
+//         }
+//     };
 
-    return __fetchUser;
-};
+//     return __fetchUser;
+// };
 
 
 export const fetchUserRequest = () => ({
@@ -103,15 +103,14 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
     }
 };
 
-//saveUser
-export const login = (user, method) => async (dispatch, getState, { history }) => {
+export const login = (user) => async (dispatch, getState, { history }) => {
 
     dispatch(fetchUserRequest(user));
 
     try {
 
-        const result = await saveUser(user, method);
-        console.log('action setUser result', result);
+        const result = await doLogin(user);
+        console.log('action login result', result);
 
         dispatch(fetchUserSuccess(result));
 
@@ -130,5 +129,5 @@ export const login = (user, method) => async (dispatch, getState, { history }) =
 
 export const logout = (...args) => (dispatch, _getState, { history }) => {
     dispatch(userLogout(...args));
-    history.push('/register');
+    history.push('/');
 };

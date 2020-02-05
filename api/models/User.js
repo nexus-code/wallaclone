@@ -182,8 +182,8 @@ userSchema.statics.select = async function (req) {
 // return query predefinition
 // userSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list({ filter, skip, limit, fields, sort }) {
-    const query = user.find(filter);
-    console.log('       - Query: ', query);
+    // const query = user.find(filter);
+    // console.log('       - Query: ', query);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();
