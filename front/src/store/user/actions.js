@@ -13,10 +13,19 @@ import {
 import { doLogin, saveUser } from '../../services/UserService';
 
 import { toast } from 'react-toastify';
+// import { withTranslation } from 'react-i18next';
+// const { t } = this.props;
+const t = (txt) => txt; //mac
+
+
 
 // uses toast to ui add notifications   
-const notifySaved = () => toast.success('Profile saved!');
-const notifyError = () => toast.error('Error on save profile!');
+
+const notifySaved = () => toast.success(t('Profile saved!'));
+const notifyError = () => toast.error(t('Error on save profile!'));
+const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
+const notifyLoginError = () => toast.error(t('Invalid credentials'));
+
 // const notifyWarning = (warning) => toast.warning(warning);
 
 
@@ -110,18 +119,18 @@ export const login = (user) => async (dispatch, getState, { history }) => {
     try {
 
         const result = await doLogin(user);
-        console.log('action login result', result);
+        // console.log('action login result', result);
 
         dispatch(fetchUserSuccess(result));
 
-        notifySaved();
+        notifyLogin(result.username);
         history.push("/");
 
     } catch (error) {
 
         dispatch(fetchUserFailure());
-        notifyError();
-        console.log(error);
+        notifyLoginError();
+        // console.log(error);
 
         return false;
     }

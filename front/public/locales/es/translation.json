@@ -20,6 +20,11 @@
     "Invalid credentials": "Datos de acceso incorrectos",
     "Login": "Acceso",
     "Register": "Registro",
+    "Wellcome": "Bienvenido",
+    "Profile saved!": "¡Perfil guardado!",
+    "Error on save profile!": "Error al guardar el perfil",
+
+
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

@@ -88,16 +88,6 @@ export const savedAdSuccess = ad => ({
     ad,
 });
 
-// export const updateAdSuccess = ad => ({
-//     type: AD_UPDATE_SUCCESS,
-//     ad,
-// });
-
-// export const createAdSuccess = ad => ({
-//     type: AD_CREATE_SUCCESS,
-//     ad,
-// });
-
 export const savedAd = (ad, method) => async (dispatch, getState, { history }) => {
 
     dispatch(savedAdRequest(ad));
@@ -105,19 +95,10 @@ export const savedAd = (ad, method) => async (dispatch, getState, { history }) =
     try {
 
         const result = await saveAd(ad, method);
-        console.log('result', result);
+        // console.log('result', result);
 
         dispatch(savedAdSuccess(result));
         
-        // if (method === 'POST') {
-
-        //     dispatch(createAdSuccess(result));
-        // } else {
-        //     //PUT
-
-        //     dispatch(updateAdSuccess(result));
-        // }
-
         notifySaved();
         history.push(`/advert/${result.id}`);
 
@@ -127,7 +108,7 @@ export const savedAd = (ad, method) => async (dispatch, getState, { history }) =
 
         dispatch(savedAdFailure());
         notifyError();
-       // console.log(error); // Improve
+       // console.log(error);
 
         return false;
     }
