@@ -17,11 +17,13 @@ const User = require('../../models/User');
 // GET /Users -> List Users
 router.get('/', async (req, res, next) => {
     try {        
-        const Users = await User.select(req);
+        const users = await User.select(req);
+
+        // only returns relevant user information ?
 
         res.json({
             status: 200,
-            result: Users
+            result: users
         }); // API output
 
     } catch (err) {
@@ -38,14 +40,13 @@ router.post('/', async (req, res, next) => {
 
         const savedUser = await User.insert(req, next);
 
-        // only return certain data 
+        // only returns necessary  user information
         const returnedUser = {
             _id: savedUser._id,
             token: savedUser.token,
             username: savedUser.username,
             email: savedUser.email,
             language: savedUser.language,
-            // role: savedUser.role == 'user' ? '' : savedUser.role
         }
 
         res.json({

@@ -9,38 +9,41 @@ export default function Register({ user, setUser, logout }) {
 
     const { t } = useTranslation();
 
-    const status = typeof (user) === 'undefined' ? 0 : 1; // 0 'REGISTER' : 1 'EDIT';
-    const pageTitle = status ? 'Edit profile' : 'Register user';
-    const method = status ? 'PUT' : 'POST';
-
-
+    const onEdit = typeof (user) === 'undefined' ? 0 : 1; // 0 'REGISTER' : 1 'EDIT';
+    const pageTitle = onEdit ? 'Edit profile' : 'Register user';
+    const method = onEdit ? 'PUT' : 'POST';
+    
+    
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: user });
+    
     const onSubmit = data => {
 
-        changeLanguage(data.language)
-
+        changeLanguage(data.language);       
+        
+        if (onEdit && data.password === '')
+            delete data.password;
+        
         console.log('data', data);
-        console.log('user', user);
-        // const state = getState();
         
         setUser(data, method);
     };
 
-    const changeLanguage = (lng) => {
+    const changeLanguage = lng => {
         i18n.changeLanguage(lng);
     }
 
     const handleLogout = () => {
-        
         reset();    // does not empty entries !!
         logout();
     }
     
-    const logoutButton = status ? <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> : '';
+    const logoutButton = onEdit ? <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> : '';
+    const idHidden = onEdit ? <input type="hidden" name="id" defaultValue={user.id} ref={register()} /> : '';
+    const passwordTitle = onEdit ? 'Enter new password to change it' : 'Password';
+    const passwordPlaceholder = onEdit ? 'New password' : 'Insert your password';
     
-    function validator (field, minLength, maxLength) {
-        return {
-            required: t(field) +` ${t('is required')}`,
+    const validator = (field, minLength, maxLength) => ({
+            required: t(field) + ` ${t('is required')}`,
             minLength: {
                 value: minLength,
                 message: `Min length is ${minLength}`
@@ -49,9 +52,25 @@ export default function Register({ user, setUser, logout }) {
                 value: maxLength,
                 message: `Max length is ${maxLength}`
             }
-        }
-    };
-      
+    });
+    
+    const validatorPassword = (field, minLength, maxLength) => {
+
+        if (onEdit)
+            return {
+                minLength: {
+                    value: minLength,
+                    message: `Min length is ${minLength}`
+                },
+                maxLength: {
+                    value: maxLength,
+                    message: `Max length is ${maxLength}`
+                }
+            }
+        else
+            return validator('password', 3, 25)
+    }
+    
     return (
         <Canvas>
             <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
@@ -64,14 +83,15 @@ export default function Register({ user, setUser, logout }) {
                         ref={register(validator('username', 3, 25))}  
                     />
                     {errors.username && <p>{errors.username.message}</p>}
-                    <label>{ t('Password') }</label>
+                    <label>{t(passwordTitle) }</label>
                     <input
                         type="password"
                         name="password"
-                        placeholder={ t('Insert your password') }
-                        ref={register(validator('password', 3, 25))}  
+                        placeholder={t(passwordPlaceholder)}
+                        ref={register(validatorPassword('password', 3, 25))}
                     />
                     {errors.password && <p>{errors.password.message}</p>}
+
                     <label>{ t('Email') }</label>
                     <input
                         type="text"
@@ -93,7 +113,9 @@ export default function Register({ user, setUser, logout }) {
                     </select>
 
                     <label>{ t('Remember me?') }<input name="remember" type="checkbox" ref={register} /></label>
-                    
+
+                    { idHidden }
+
                     <input type="submit" value={t('Submit')} />
                 </form>
                     

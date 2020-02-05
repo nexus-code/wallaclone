@@ -121,14 +121,14 @@ const jwtAuth = require('./lib/jwtAuth');
 // v2.2 add upload.single('image') & jwtAuth()
 // v3 jwtAuth() Only for registered users
 
-app.use('/apiv1/adverts', upload.single('image'), require('./routes/apiv1/adverts'));
-app.put('/apiv1/users', jwtAuth(), require('./routes/apiv1/users'));
-app.use('/apiv1/users', require('./routes/apiv1/users'));
+app.use('/api/adverts', upload.single('image'), require('./routes/api/adverts'));
+app.put('/api/users', jwtAuth(), require('./routes/api/users'));
+app.use('/api/users', require('./routes/api/users'));
 
 
-// app.use('/apiv1/tags', jwtAuth(), require('./routes/apiv1/tags'));
-app.use('/apiv1/tags', require('./routes/apiv1/tags'));
-app.post('/apiv1/login', loginController.loginJWT);
+// app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
+app.use('/api/tags', require('./routes/api/tags'));
+app.post('/api/login', loginController.loginJWT);
 
 // public app
 app.use('/', require('./routes/index'));
