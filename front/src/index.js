@@ -28,7 +28,8 @@ const store = configureStore({ history })({ user });
 // subscribes to store -> sincronizes localStorage
 store.subscribe(() => {
 
-    const { lastAction, user } = store.getState();
+    // const { lastAction, user } = store.getState();
+    const { lastAction } = store.getState();
 
     // User user.user & ads.ads by combineReducers.View to rename
     if (lastAction.type === userTypes.USER_SAVE_SUCCESS) {

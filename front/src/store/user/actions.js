@@ -76,7 +76,7 @@ export const userLogout = () => ({
     type: LOGOUT,
 });
 
-//savedUser
+//old savedUser:
 export const setUser = (user, method) => async (dispatch, getState, { history }) => {
 
     dispatch(savedUserRequest(user));
@@ -103,24 +103,30 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
     }
 };
 
-// export const setUser = (...args) => (dispatch, _getState, { history }) => {
+//saveUser
+export const login = (user, method) => async (dispatch, getState, { history }) => {
 
-//     try {
+    dispatch(fetchUserRequest(user));
 
-//         dispatch(saveUser(...args));
+    try {
 
-//         if (history.location.pathname === '/register')
-//             history.push("/");
-            
-//         notifySaved();
+        const result = await saveUser(user, method);
+        console.log('action setUser result', result);
 
-//     } catch (error) {
+        dispatch(fetchUserSuccess(result));
 
-//         notifyError();
-//         console.log(error);
-//     }    
-// };
+        notifySaved();
+        history.push("/");
 
+    } catch (error) {
+
+        dispatch(fetchUserFailure());
+        notifyError();
+        console.log(error);
+
+        return false;
+    }
+};
 
 export const logout = (...args) => (dispatch, _getState, { history }) => {
     dispatch(userLogout(...args));

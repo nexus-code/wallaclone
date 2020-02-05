@@ -17,22 +17,22 @@ export default function Login() {
 
     
     const validator = (field, minLength, maxLength) => ({
-            required: t(field) + ` ${t('is required')}`,
-            minLength: {
-                value: minLength,
-                message: `Min length is ${minLength}`
-            },
-            maxLength: {
-                value: maxLength,
-                message: `Max length is ${maxLength}`
-            }
+        required: t(field) + ` ${t('is required')}`,
+        minLength: {
+            value: minLength,
+            message: `Min length is ${minLength}`
+        },
+        maxLength: {
+            value: maxLength,
+            message: `Max length is ${maxLength}`
+        }
     });
 
     
     return (
         <Canvas>
             <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
-                <h2>Login</h2>
+                <h2>{t('Login')}</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>{ t('Username') }</label>
                     <input 

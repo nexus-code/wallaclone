@@ -1,14 +1,14 @@
 import React, { Suspense } from 'react';
 import ErrorBoundary from '../../ErrorBoundary/ErrorBoundary';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import { useLocation } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
 
-import Home      from '../Home';
-import Search    from '../Search';
-import Register  from '../Register';
+import Home from '../Home';
+import Search from '../Search';
+import Register from '../Register';
+import Login from '../Login';
 import AdEdit from '../AdEdit';
-import AdDetail  from '../AdDetail';
-import * as config  from '../../constants';
+import AdDetail from '../AdDetail';
+import * as config from '../../constants';
 import NotFoundPage from '../404/NotFoundPage';
 
 import { ToastContainer, toast } from "react-toastify";
@@ -19,13 +19,6 @@ function App({ user, ads, props }) {
   
   toast.configure(config.toastConfigure);
 
-  const  location = useLocation();
- 
-  if (!user.user && location.pathname !== config.PATH_REGISTER){
-      
-    return <Redirect to={config.PATH_REGISTER} />
-  }
-
   return <div>
       <Suspense fallback={(<div>Loading</div>)}>
         <ToastContainer />
@@ -33,6 +26,7 @@ function App({ user, ads, props }) {
               <Switch>
                 <Route path='/register' exact component={ Register } />
                 <Route path="/profile" exact component={ Register } />
+                <Route path="/login" exact component={ Login } />
                 <Route path='/advert/create' exact component={ AdEdit } />
                 <Route path='/advert/edit/:id' exact component={ AdEdit } />
                 <Route path='/advert/:id' exact component={ AdDetail } />
@@ -40,7 +34,6 @@ function App({ user, ads, props }) {
                 <Route path='/home' exact component={ Home } />
                 <Route path='/' exact component={ Home } />
                 <Route path='*' component={ NotFoundPage } />
-                {/* <Route component={ Register } /> */}
               </Switch>
         </ErrorBoundary>
       </Suspense>

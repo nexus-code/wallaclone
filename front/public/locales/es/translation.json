@@ -18,6 +18,8 @@
     "New password": "Nueva contraseña",
     "Insert password": "Indique su contraseña",
     "Invalid credentials": "Datos de acceso incorrectos",
+    "Login": "Acceso",
+    "Register": "Registro",
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

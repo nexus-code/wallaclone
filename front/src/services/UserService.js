@@ -50,6 +50,30 @@ const getUser = (id) => {
 }
 
 /**
+ * Call login API method
+ * @param {*} username 
+ * @param {*} password 
+ */
+const login = (user) => {
+    // return getFetch(`${API_URL}login/`)
+    //     .then(res => {
+    //         if (!res.success) {
+    //             return res;
+    //         } else {
+    //             return new UserModel(res.result);
+    //         }
+    //     })
+    //     .catch(error => console.error('Error:', error));
+
+
+    const baseURL = `${API_URL}login`;
+
+    return Axios.post(baseURL, null, { data: user }).then(
+        res => new UserModel(res.data.result),
+    );        
+}
+
+/**
  * 
  * @param {*} query: filter users. Optimize  with searchAd
  */
@@ -58,8 +82,8 @@ const searchUsers = (query) => {
     
     const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
     
-    console.log('query', query);
-    console.log('url', `${API_URL}users`);
+    // console.log('query', query);
+    // console.log('url', `${API_URL}users`);
 
     return getFetch(`${API_URL}users`)
         .then(res => res.result.map(ad => new UserModel(ad)))

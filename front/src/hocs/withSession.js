@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { getUser } from '../store/user/selectors';
-import { setUser, logout } from '../store/user/actions'
+import { setUser, login, logout } from '../store/user/actions'
 
 const mapStateToProps = (store, ownProps) => ({
     
@@ -11,6 +11,7 @@ const mapStateToProps = (store, ownProps) => ({
 
 const mapDispatchToProps = {
     setUser,
+    login,
     logout,
 }
 

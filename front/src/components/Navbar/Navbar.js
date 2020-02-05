@@ -43,6 +43,13 @@ function AppNavbar({ user, logout }) {
                         </Navbar.Collapse>
                     </>
                 }
+                {
+                    !user &&
+                    <>
+                        <Nav.Link className={getNavLinkClass("/login/")} href="/login">{t('Login')}</Nav.Link>
+                        <Nav.Link className={getNavLinkClass("/login/")} href="/register">{t('Register')}</Nav.Link>
+                    </>
+                }
 
                 <NavDropdown title={t('Language')} id="collasible-nav-dropdown">
                     <Nav.Link onClick={() => changeLanguage('en')} >En</Nav.Link>

@@ -41,7 +41,16 @@ class LoginController {
                 expiresIn: process.env.JWT_EXPIRES
             });
 
-            res.json({ success: true, token: token });
+            // only returns necessary  user information
+            const returnedUser = {
+                _id: user._id,
+                token: token,
+                username: user.username,
+                email: user.email,
+                language: user.language,
+            }
+
+            res.json({ success: true, token: token, result: returnedUser });
         } catch (err) {
             
             next(err);
