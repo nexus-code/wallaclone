@@ -1,7 +1,6 @@
 'use strict';
+
 const User = require('../models/User');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 // Authenticate access to API
 
@@ -9,24 +8,20 @@ class LoginController {
 
 
     /* 
-    * Get user credentials via POST and authenticate
+    * Get user credentials ({username, password})
+    * via POST and authenticate
     */
 
-    async loginJWT(req, res, next) {
+    async login(req, res, next) {
 
-        console.log('loginJWT', req.headers);
+        // console.log('LoginController.login', req.headers);
 
         try {
 
-            // get credentials
-            const username = req.body.username;
-            const password = req.body.password;
+            const { username, password } = req.body;
 
-            // find user on DB
-            const user = await User.findOne({ username: username });
+            const user = await User.findOne({ username });
             
-            // user not exits
-            // if (!user || !await bcrypt.compare(password, user.password)) {
             if (!user) {
                 res.json({ success: false, error: 'Invalid credentials', });
                 return;
@@ -39,21 +34,9 @@ class LoginController {
                 }
             });
 
-            // create JWT
-            const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-                expiresIn: process.env.JWT_EXPIRES
-            });
+            const packData = user.packData(user);
 
-            // only returns necessary  user information
-            const returnedUser = {
-                _id: user._id,
-                token: token,
-                username: user.username,
-                email: user.email,
-                language: user.language,
-            }
-
-            res.json({ success: true, token: token, result: returnedUser });
+            res.json({ success: true, token: packData.token, result: packData });
         } catch (err) {
             
             next(err);

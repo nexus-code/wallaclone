@@ -9,6 +9,7 @@ const express = require('express');
 const router  = express.Router();
 
 const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
 
 /**
  * User Routes
@@ -40,18 +41,26 @@ router.post('/', async (req, res, next) => {
 
         const savedUser = await User.insert(req, next);
 
-        // only returns necessary  user information
-        const returnedUser = {
-            _id: savedUser._id,
-            token: savedUser.token,
-            username: savedUser.username,
-            email: savedUser.email,
-            language: savedUser.language,
-        }
+        // // create JWT
+        // const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET, {
+        //     expiresIn: process.env.JWT_EXPIRES
+        // });
+
+        // // only returns necessary  user information
+        // const returnedUser = {
+        //     _id: savedUser._id,
+        //     token: token,
+        //     username: savedUser.username,
+        //     email: savedUser.email,
+        //     language: savedUser.language,
+        // }
+
+        const packData = savedUser.packData(savedUser);
 
         res.json({
             status: 200,
-            result: returnedUser
+            // result: returnedUser
+            result: packData
         }); // API output
 
     } catch (err) {

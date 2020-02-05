@@ -15,10 +15,6 @@ const jwt = require('jsonwebtoken');
 
 const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-const token = email => {
-    const t = jwt.sign({ email: email }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES, mutatePayload: true });
-    console.log('<br> ************token', email)
-    return t}
 
 const userSchema = mongoose.Schema({
     username: {
@@ -46,6 +42,16 @@ const userSchema = mongoose.Schema({
         type: String,
         default: 'user'
     },
+    forgotten_password: {
+        code: {
+            type: String,
+            default: ''
+        },
+        time: {
+            type: Date, 
+            default: Date.now
+        }
+    },
     language: {
         type: String,
         default: 'en'
@@ -60,10 +66,6 @@ const userSchema = mongoose.Schema({
     lastLogin: {
         type: Date,
         default: Date.now
-    },
-    token: {
-        type: String,
-        default: token('this.email'),
     }
 });
 
@@ -71,7 +73,7 @@ userSchema.index({ username: 1, email: 1, role: 1});
 
 userSchema.pre("save", function (next) {
     // https://www.thepolyglotdeveloper.com/2019/02/hash-password-data-mongodb-mongoose-bcrypt/
-    // encrypt password
+    // encrypt user password
 
     if (!this.isModified("password")) {
         return next();
@@ -84,6 +86,23 @@ userSchema.methods.comparePassword = function (plaintext, callback) {
     return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
 
+/**
+ * only returns necessary user information
+ */
+userSchema.methods.packData = user => {
+    // create JWT
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES
+    });
+
+    return {
+        _id: user._id,
+        token: token,
+        username: user.username,
+        email: user.email,
+        language: user.language,
+    }
+}
 
 /** 
  * User Methods
@@ -128,7 +147,6 @@ userSchema.statics.delete = async function (_id, next) {
         next(err);
     }
 }
-
 
 // making the query:
 // get url params via router
