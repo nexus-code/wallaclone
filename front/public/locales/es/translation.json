@@ -14,7 +14,8 @@
     "Spanish": "Español",
     "New advert": "Añadir anuncio",
     "Search": "Buscar",
-
+    "Enter password ONLY to change it": "Introduza contraseña SÓLO para cambiarla",
+    "New password": "Nueva contraseña",
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

@@ -23,8 +23,6 @@ export default function Register({ user, setUser, logout }) {
         if (onEdit && data.password === '')
             delete data.password;
         
-        console.log('data', data);
-        
         setUser(data, method);
     };
 
@@ -39,7 +37,7 @@ export default function Register({ user, setUser, logout }) {
     
     const logoutButton = onEdit ? <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> : '';
     const idHidden = onEdit ? <input type="hidden" name="id" defaultValue={user.id} ref={register()} /> : '';
-    const passwordTitle = onEdit ? 'Enter new password to change it' : 'Password';
+    const passwordTitle = onEdit ? 'Enter password ONLY to change it' : 'Password';
     const passwordPlaceholder = onEdit ? 'New password' : 'Insert your password';
     
     const validator = (field, minLength, maxLength) => ({

@@ -76,7 +76,7 @@ const saveUser = (user, method) => {
 
     const baseURL = `${API_URL}users`;
 
-    console.log('UserService saveUser', user);
+    // console.log('UserService saveUser', user);
 
     const { language, remember } = user;
 
