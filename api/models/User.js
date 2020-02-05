@@ -107,8 +107,7 @@ userSchema.statics.insert = async function (req, next) {
 userSchema.statics.update = async function (id, data, next) {
     try {
 
-        // const updatedUser = await User.findOneAndUpdate({ _id: id }, data, { new: true });
-        const updatedUser = await User.findByIdAndUpdate(id, data, { new: true, overwrite: true });
+        const updatedUser = await User.findOneAndUpdate({ _id: id }, data, { new: true });
 
         return updatedUser;
 
