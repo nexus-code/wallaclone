@@ -1,23 +1,23 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import Register from './Register';
+import Login from './Login';
 
-describe('Register', () => {
+describe('Login', () => {
     
     const props = {
         user: {
             username: 'test username',
-            email: 'test email',
+            password: 'test password',
         },
         setUser: jest.fn(),
         logout: jest.fn(),
     };
     
-    const wrapper = shallow(<Register {...props} />);
+    const wrapper = shallow(<Login {...props} />);
 
 
-    it('should render a Register component', () => {
+    it('should render a Login component', () => {
         
         expect(wrapper).toMatchSnapshot();
     });
@@ -33,14 +33,14 @@ describe('Register', () => {
         });
     });
 
-    describe('should register user', () => {
+    describe('should login user', () => {
         wrapper
         .find('[name="username"]')
             .simulate("change", { target: { value: props.user.username, name: "username" } });
         
         wrapper
-            .find('[name="email"]')
-            .simulate("change", { target: { value: props.user.email, name: "email" } });
+            .find('[name="password"]')
+            .simulate("change", { target: { value: props.user.password, name: "password" } });
             
             
         

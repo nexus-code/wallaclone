@@ -16,11 +16,11 @@ class LoginController {
         try {
 
             // get credentials
-            const email = req.body.email;
+            const username = req.body.username;
             const password = req.body.password;
 
             // find user on DB
-            const user = await User.findOne({ email: email });
+            const user = await User.findOne({ username: username });
             
             // user not exits
             // if (!user || !await bcrypt.compare(password, user.password)) {
@@ -31,7 +31,7 @@ class LoginController {
 
             user.comparePassword(password, (error, match) => {
                 if (!match) {
-                    res.json({ success: false, error: 'Invalid credentials p', });
+                    res.json({ success: false, error: 'Invalid credentials', });
                     return;
                 }
             });

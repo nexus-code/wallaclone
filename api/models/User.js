@@ -89,7 +89,6 @@ userSchema.methods.comparePassword = function (plaintext, callback) {
  * User Methods
  */
 
-// insert a document
 userSchema.statics.insert = async function (req, next) {
     try {
         
@@ -103,7 +102,6 @@ userSchema.statics.insert = async function (req, next) {
     }
 }
 
-// update a document
 userSchema.statics.update = async function (id, data, next) {
     try {
 
@@ -117,7 +115,6 @@ userSchema.statics.update = async function (id, data, next) {
     }
 }
 
-// delete a user document
 userSchema.statics.delete = async function (_id, next) {
     try {
 
