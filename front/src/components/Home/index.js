@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { fetchAds } from '../../store/ads/actions';
+import { fetchAdverts } from '../../store/adverts/actions';
 
 import Home from './Home';
 
 const mapDispatchToProps = {
-    loadAds: fetchAds,
+    loadAdverts: fetchAdverts,
 };
 
 

@@ -12,36 +12,36 @@ function Advert(props) {
     
     const goToDetail = () => {
         
-        props.history.push(`/advert/${props.ad.id}`);
+        props.history.push(`/advert/${props.advert.id}`);
     };
     
-    const { ad } = props;
+    const { advert } = props;
     
     return (
         
             <div
                 style={{
                     cursor: 'pointer',
-                    borderColor: ad.type === 'sell' ? 'orange' : 'blue'
+                    borderColor: advert.type === 'sell' ? 'orange' : 'blue'
                 }}
-                key={ ad.id }
+                key={ advert.id }
                 className='card'
                 onClick={ goToDetail }
             >
                 <div className='card-header'
                     style={{
-                        color: ad.type === 'sell' ? 'orange' : 'blue',
+                        color: advert.type === 'sell' ? 'orange' : 'blue',
                         textTransform: 'uppercase'
                     }}
-                >{t(ad.type)}</div>
-                <img className='card-img-top text-center'  src={ ad.image } alt={ ad.name } />
+                >{t(advert.type)}</div>
+                <img className='card-img-top text-center'  src={ advert.image } alt={ advert.name } />
                 <div className='card-body'>
-                    <h5 className='card-title'>{ ad.name }</h5>
-                    <h2 className='text-center'><span className='badge badge-primary'>{ ad.price } €</span></h2>                
-                    <p className='card-text'>{ ad.description }</p>
+                    <h5 className='card-title'>{ advert.name }</h5>
+                    <h2 className='text-center'><span className='badge badge-primary'>{ advert.price } €</span></h2>                
+                    <p className='card-text'>{ advert.description }</p>
                     <p>
                         {
-                            ad.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> { tag } </span> )
+                            advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> { tag } </span> )
                         }
                     </p>
                 </div>

@@ -1,27 +1,27 @@
 import React  from "react";
 import Canvas from '../Canvas/Canvas';
-import AdList from '../AdList/AdList';
+import AdvertList from '../AdvertList/AdvertList';
 
 export default class Home extends React.Component {
 
     componentDidMount() {
-        this.loadAds();
+        this.loadAdverts();
     }
 
-    loadAds = this.props.loadAds;
+    loadAdverts = this.props.loadAdverts;
 
     render() {
 
-        const { ads } = this.props; 
+        const { adverts } = this.props; 
 
         return (
             <Canvas>
                 {
-                    ads
+                    adverts
                     &&
-                    ads.length
+                    adverts.length
                     &&
-                    <AdList ads={ads} />
+                    <AdvertList adverts={adverts} />
                 }
             </Canvas>
         );

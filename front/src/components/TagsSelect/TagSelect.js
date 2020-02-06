@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import * as API from '../../services/AdService';
+import * as API from '../../services/AdvertService';
 
 export default class TagSelect extends React.Component {
 

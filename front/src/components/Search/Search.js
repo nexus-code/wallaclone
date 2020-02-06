@@ -2,10 +2,10 @@ import React  from "react";
 import Canvas from '../Canvas/Canvas';
 
 import { Container, Row, Col, Button }  from 'react-bootstrap';
-import AdList    from '../AdList/AdList';
+import AdvertList    from '../AdvertList/AdvertList';
 import TagSelect from '../TagsSelect/TagSelect'
 import Input     from '../Input/Input'
-import * as API  from '../../services/AdService';
+import * as API  from '../../services/AdvertService';
 
 const TYPES = ['sell', 'buy']
 
@@ -17,7 +17,7 @@ export default class Search extends React.Component {
         super(props);
 
         this.state = {
-            ads: [],
+            adverts: [],
             // user: getUserLS(),
             tags: '',
             type: '',
@@ -30,7 +30,7 @@ export default class Search extends React.Component {
         this.reset = this.reset.bind(this);
     }
 
-    searchAds = () => {
+    searchAdverts = () => {
 
 
         // Mounting searchString to send to the API
@@ -48,7 +48,7 @@ export default class Search extends React.Component {
         searchString += maxPrice === '' ? '' : `-${maxPrice}`;
 
 
-        API.searchAds(searchString)
+        API.searchAdverts(searchString)
             .then(ads => {
             this.setState({
                 ads
@@ -66,7 +66,7 @@ export default class Search extends React.Component {
 
     componentDidMount() {
 
-        this.searchAds();
+        this.searchAdverts();
     }
 
 
@@ -76,9 +76,9 @@ export default class Search extends React.Component {
         // console.log(name, value);
 
         this.setState({
-            ads: [],    // reset 
+            adverts: [],    // reset 
             [name]: value
-        }, () => this.searchAds()); // search after setState via callback
+        }, () => this.searchAdverts()); // search after setState via callback
 
     }
     
@@ -89,7 +89,7 @@ export default class Search extends React.Component {
     
 
     render() {
-        const { ads, tags, name, type, minPrice, maxPrice } = this.state;
+        const { adverts, tags, name, type, minPrice, maxPrice } = this.state;
 
         return (
             <Canvas>
@@ -97,9 +97,9 @@ export default class Search extends React.Component {
                     <h2 className="mb-4">Search products.</h2>
                     <h5 
                         className="mb-4" 
-                        style= {{ color: ads.length === 0 ? 'red' : 'green' }}
+                        style= {{ color: adverts.length === 0 ? 'red' : 'green' }}
 
-                    >Founds: { ads.length }</h5>
+                    >Founds: { adverts.length }</h5>
                     <Row>
                         <Col md={4} xs={12} >
                             Tag: <TagSelect onChange={this.handleChange} value={ [tags] } />
@@ -143,11 +143,11 @@ export default class Search extends React.Component {
                 </Container>
 
                 {
-                    ads
+                    adverts
                     &&
-                    ads.length
+                    adverts.length
                     &&
-                    <AdList ads={ads} />
+                    <AdvertList adverts={adverts} />
                 }
             </Canvas>
         );

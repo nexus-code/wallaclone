@@ -4,7 +4,7 @@ import loggerMiddleware from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { user } from './user/reducers';
-import { ads } from './ads/reducers';
+import { adverts } from './adverts/reducers';
 
 // thanks @davidjj76!
 
@@ -27,7 +27,7 @@ const lastActionReducerEnhancer = reducer => (
 
 const reducer = combineReducers({
     user,
-    ads,
+    adverts,
 });
 
 

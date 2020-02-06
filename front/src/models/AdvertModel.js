@@ -1,4 +1,4 @@
-export default class AdModel {
+export default class AdvertModel {
     id;
     name;
     description;

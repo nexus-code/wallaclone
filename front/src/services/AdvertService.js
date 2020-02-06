@@ -1,6 +1,6 @@
 
 import Axios from 'axios';
-import AdModel from '../models/AdModel';
+import AdvertModel from '../models/AdvertModel';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -46,13 +46,13 @@ const getTagsList = () => {
  * 
  * @param {*} id The ad id to fetch
  */
-const getAdDetail = (id) => {
+const getAdvertDetail = (id) => {
     return getFetch(`${API_URL}adverts/${id}`)
         .then(res => {
             if (!res.success) {
                 return res;
             } else {
-                return new AdModel(res.result);
+                return new AdvertModel(res.result);
             }
         })
         .catch(error => console.error('Error:', error));
@@ -60,10 +60,10 @@ const getAdDetail = (id) => {
 
 /**
  * 
- * @param {*} query: filter ads. Optimize  with searchAd
+ * @param {*} query: filter ads. Optimize  with searchAdvert
  */
 
-const searchAds = (query) => {
+const searchAdverts = (query) => {
     
     // const url = query === 'undefined' || query === ''  ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
     
@@ -71,21 +71,21 @@ const searchAds = (query) => {
     // console.log('url', `${API_URL}adverts`);
 
     return getFetch(`${API_URL}adverts`)
-        .then(res => res.result.map(ad => new AdModel(ad)))
+        .then(res => res.result.map(ad => new AdvertModel(ad)))
         .catch(error => console.error('Error:', error));
 }
 
 
 /**
  *
- * @param {*} id: filter by ad.id. Optimize with searchAds
+ * @param {*} id: filter by ad.id. Optimize with searchAdverts
  */
-const searchAd = (id) => {
+const searchAdvert = (id) => {
 
     const url = `${API_URL}adverts/${id}`;
 
     return Axios.get(url).then(res =>
-        new AdModel(res.data.result),
+        new AdvertModel(res.data.result),
     );
 }
 
@@ -101,12 +101,12 @@ const saveAd = (ad, method) => {
     switch (method) {
         case 'POST':
             return Axios.post(baseURL, null, { data: ad }).then(
-                res => new AdModel(res.data.result),
+                res => new AdvertModel(res.data.result),
             );
 
         case 'PUT':
             return Axios.put(`${baseURL}/${ad.id}`, null, { data: ad }).then(
-                res => new AdModel(res.data.result),
+                res => new AdvertModel(res.data.result),
             );
 
         default:
@@ -116,8 +116,8 @@ const saveAd = (ad, method) => {
 
 export {
     getTagsList,
-    searchAds,
-    searchAd,
-    getAdDetail,
+    searchAdverts,
+    searchAdvert,
+    getAdvertDetail,
     saveAd
 };

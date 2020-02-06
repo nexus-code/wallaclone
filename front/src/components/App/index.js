@@ -3,7 +3,7 @@ import App from './App';
 
 const mapStateToProps = store => ({
     user: store.user,
-    ads: store.ads,    
+    adverts: store.ads,    
 })
 
 export default connect(

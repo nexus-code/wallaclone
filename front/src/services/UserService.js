@@ -52,7 +52,7 @@ const getUser = (id) => {
 
 /**
  * 
- * @param {*} query: filter users. Optimize  with searchAd
+ * @param {*} query: filter users. Optimize  with searchAdvert
  */
 
 // const searchUsers = (query) => {

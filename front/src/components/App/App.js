@@ -7,8 +7,8 @@ import Home from '../Home';
 import Search from '../Search';
 import Register from '../Register';
 import Login from '../Login';
-import AdEdit from '../AdEdit';
-import AdDetail from '../AdDetail';
+import AdEdit from '../AdvertEdit';
+import AdDetail from '../AdvertDetail';
 import * as config from '../../constants';
 import NotFoundPage from '../404/NotFoundPage';
 

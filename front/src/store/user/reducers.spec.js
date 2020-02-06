@@ -5,7 +5,7 @@ describe('user reducers', () => {
   
   const initialState = { 
     user: { name: 'initial user name', surname: 'initial user surname' },
-    ads: [],
+    adverts: [],
     lastAction: {},
   };
 
@@ -19,7 +19,7 @@ describe('user reducers', () => {
     const action = { type: TYPES.SET_USER, user: testUSer };
     const expectedState = {
       user: testUSer,
-      ads: [],
+      adverts: [],
       lastAction: {},
     };
 

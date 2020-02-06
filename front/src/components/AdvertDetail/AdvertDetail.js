@@ -2,39 +2,39 @@ import React, { useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { useParams, useHistory } from 'react-router';
 
-import { getAd }  from '../../store/ads/selectors';
+import { getAdvert }  from '../../store/adverts/selectors';
 
 import { Button } from 'react-bootstrap';
 
 
-export default function AdDetail(props) {
+export default function AdvertDetail(props) {
 
 
     const history = useHistory();
     const { id } = useParams();
 
     useEffect(() => {
-        props.loadAd(id);
+        props.loadAdvert(id);
     }, [props, id]);
 
-    const ad = getAd(props, id);
+    const advert = getAdvert(props, id);
 
     return <Canvas>
 
         <div className="container">
             {
-                ad
+                advert
                 &&
                 <div>
-                    <img src={ad.image} alt={ad.name} />
+                    <img src={advert.image} alt={advert.name} />
 
                     <h1 style={{
-                        color: ad.type === 'sell' ? 'green' : 'blue'
-                    }}>{ad.name} <span className='badge badge-primary'>{ad.price}€</span>
+                        color: advert.type === 'sell' ? 'green' : 'blue'
+                    }}>{advert.name} <span className='badge badge-primary'>{advert.price}€</span>
                     </h1>
-                    <p>{ad.description}</p>
+                    <p>{advert.description}</p>
                     <p>
-                       { ad.tags && ad.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>) }
+                       { advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>) }
                     </p>
                     <br />
                     <hr />
@@ -44,7 +44,7 @@ export default function AdDetail(props) {
                 </div>
             }
             {
-                !ad
+                !advert
                 &&
                 <div>
                     <h3><br />404. Elemento no encontrado</h3>

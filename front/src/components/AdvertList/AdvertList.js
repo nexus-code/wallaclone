@@ -1,27 +1,27 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
-import Ad from '../Advert/Advert'
+import Advert from '../Advert/Advert'
 import AppPagination from '../AppPagination/AppPagination'
 
 const ITEMS_PER_PAGE = 3; // !! pending: to config or register !!
 
-export class AdList extends React.Component {
+export class AdvertList extends React.Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            pages: Math.ceil(this.props.ads.length / ITEMS_PER_PAGE),
-            currentPage: this.getCurrentPage(this.props.ads.length),
+            pages: Math.ceil(this.props.adverts.length / ITEMS_PER_PAGE),
+            currentPage: this.getCurrentPage(this.props.adverts.length),
         }
     }
 
-    buildAdList = (ads) => {
+    buildAdList = (adverts) => {
         return (
             <>
                 {
-                    ads.map(ad => <Ad ad={ ad } key={ ad.id } />)
+                    adverts.map(advert => <Advert advert={ advert } key={ advert.id } />)
                 }
             </>
         )
@@ -60,33 +60,33 @@ export class AdList extends React.Component {
     }
     
     render() {
-        let { ads } = this.props;
+        let { adverts } = this.props;
         // const { currentPage, pages } = this.state;
         
         // pagination
-        const pages = Math.ceil(ads.length / ITEMS_PER_PAGE);
-        let currentPage = this.getCurrentPage(ads.length);
+        const pages = Math.ceil(adverts.length / ITEMS_PER_PAGE);
+        let currentPage = this.getCurrentPage(adverts.length);
         
         if (currentPage > pages)
             currentPage = pages;            
 
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;    // first index on [ads] to show in this page
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;    // first index on [adverts] to show in this page
 
-        ads = ads.slice(startIndex, startIndex + ITEMS_PER_PAGE); // Optimize on API call
+        adverts = adverts.slice(startIndex, startIndex + ITEMS_PER_PAGE); // Optimize on API call
         
         return (
             <div className='container mt-5 mb-5'>
                 <div className='card-columns'>
                     {
-                        ads
+                        adverts
                         &&
-                        ads.length
+                        adverts.length
                         &&
-                        this.buildAdList(ads)
+                        this.buildAdList(adverts)
                     }
 
                     {
-                        !ads
+                        !adverts
                         &&
                         <div className='text-center mt-5'>
                             <h2>No advertisements found</h2>
@@ -104,8 +104,8 @@ export class AdList extends React.Component {
     }
 }
 
-AdList.propTypes = {
-    ads: PropTypes.array.isRequired
+AdvertList.propTypes = {
+    adverts: PropTypes.array.isRequired
 }
 
-export default withRouter(AdList);
+export default withRouter(AdvertList);

@@ -12,15 +12,15 @@ export const getUserLS = () => {
   return !user || user === 'undefined' ? undefined : JSON.parse(user);
 };
 
-export const setAdsLS = ads => {
+export const setAdsLS = adverts => {
 
-  localStorage.setItem('ads', JSON.stringify(ads));
+  localStorage.setItem('adverts', JSON.stringify(adverts));
 };
 
-export const getAdsLS = () => {
-  const ads = localStorage.getItem('ads');
+export const getAdvertsLS = () => {
+  const adverts = localStorage.getItem('adverts');
 
-  return !ads ? [] : JSON.parse(ads);
+  return !adverts ? [] : JSON.parse(adverts);
 };
 
 /**

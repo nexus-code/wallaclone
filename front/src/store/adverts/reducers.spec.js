@@ -1,9 +1,9 @@
-import { ads } from './reducers';
+import { adverts } from './reducers';
 import * as TYPES from './types';
 
-describe('ads reducers', () => {
+describe('adverts reducers', () => {
 
-  const adsList = [
+  const advertsList = [
     { id: "5e19a0db2ab1b61184740c44", name: "PS4Pro", description: "Compro PS4 Pro con menos de 1 año de uso", price: 200.99, type: "buy", photo: ""},
     { id: "5e19a0db2ab1b61184740c45", name: "XBOX OneX", description: "Vendo XBOX One X como nueva. No tengo tiempo para jugar.", price: 170.05, type: "sell", photo: ""},
     { id: "5e19a0db2ab1b61184740c46", name: "Raton Gaming Razer Mamba", description: "El mejor ratón gamer del mercado. Como nuevo (1 año)", price: 35.5, type: "sell", photo: ""},
@@ -14,44 +14,44 @@ describe('ads reducers', () => {
 
   const initialState = {
     user: {},
-    ads: [],
+    adverts: [],
     lastAction: {},
   };
 
   it('send dummy_action: should return the initial state', () => {
     const action = { type: 'dummy_action' };
 
-    expect(ads(initialState, action)).toEqual(initialState);
+    expect(adverts(initialState, action)).toEqual(initialState);
   })
 
-  it('send TYPES.ADS_FETCH_SUCCESS: should return adsList', () => {
+  it('send TYPES.ADVERTS_FETCH_SUCCESS: should return advertsList', () => {
 
     const action = {
-      type: TYPES.ADS_FETCH_SUCCESS, 
-      ads: adsList,
+      type: TYPES.ADVERTS_FETCH_SUCCESS, 
+      adverts: advertsList,
     };
 
-    expect(ads(initialState, action)).toEqual(adsList)
+    expect(adverts(initialState, action)).toEqual(advertsList)
   })
 
-  it('send TYPES.AD_SAVE_SUCCESS new ad: should return [ad]', () => {
+  it('send TYPES.ADVERT_SAVE_SUCCESS new ad: should return [ad]', () => {
 
     const ad = { name: "new Advert", description: "new advert for testing", price: 1.99, type: "buy", photo: ""};
     const action = {
-      type: TYPES.AD_SAVE_SUCCESS,
+      type: TYPES.ADVERT_SAVE_SUCCESS,
       ad,
     };
 
-    expect(ads(initialState, action)).toEqual([ad])
+    expect(adverts(initialState, action)).toEqual([ad])
   })
 
   // // Revisar
-  // it('send TYPES.AD_SAVE_SUCCESS modify ad: should return [modified adList]', () => {
+  // it('send TYPES.ADVERT_SAVE_SUCCESS modify ad: should return [modified adList]', () => {
 
   //   const __initialState = {
   //     user: {},
-  //     ads: {
-  //       ads: adsList
+  //     adverts: {
+  //       adverts: adsList
   //     },
   //     lastAction: {},
   //   };
@@ -59,7 +59,7 @@ describe('ads reducers', () => {
   //   const adModified = { id: "5e19a0db2ab1b61184740c44", name: "PS4Pro MODIFIED", description: "Compro PS4 Pro con menos de 1 año de uso", price: 100.99, type: "buy", photo: "" };
 
   //   const action = {
-  //     type: TYPES.AD_SAVE_SUCCESS,
+  //     type: TYPES.ADVERT_SAVE_SUCCESS,
   //     ad: adModified,
   //   };
 

@@ -4,7 +4,7 @@ import Canvas from '../Canvas/Canvas';
 import { useParams, useHistory } from 'react-router';
 import useForm from '../Form/useForm';
 import { Form, Button } from 'react-bootstrap';
-import { getAd } from '../../store/ads/selectors';
+import { getAdvert } from '../../store/ads/selectors';
 import TagSelect from '../TagsSelect/TagSelect'
 
 const TYPES = ['sell', 'buy'];
@@ -29,7 +29,7 @@ function AdEdit(props) {
     const { id } = useParams();
     
     if (id !== undefined) {
-        ad = getAd(props, id);
+        ad = getAdvert(props, id);
     }
 
     const handleSubmitCallback = () => {

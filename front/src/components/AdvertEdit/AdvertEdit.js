@@ -5,12 +5,12 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 
 import { useParams, useHistory } from 'react-router';
-import { getAd } from '../../store/ads/selectors';
+import { getAdvert } from '../../store/adverts/selectors';
 // import TagSelect from '../TagsSelect/TagSelect'
 
 const TYPES = ['sell', 'buy'];
 
-export default function AdEdit(props) {
+export default function AdvertEdit(props) {
 
     const { t } = useTranslation();
         
@@ -20,7 +20,7 @@ export default function AdEdit(props) {
     
     console.log('AdEdit', props.match, onEdit, method);
 
-    let  ad = {
+    let  advert = {
         id: '',
         name: '',
         price: '',
@@ -33,20 +33,21 @@ export default function AdEdit(props) {
     const history = useHistory();
     const { id } = useParams();
     
-    if (id !== undefined) {
-        
-        ad = getAd(props, id);
-    
-    } 
-    
-    if (ad.id === undefined){
-        // load out of redux
-        history.push('/');
-    }
+    console.log('id', id);
+    console.log('props', props);
 
-    console.log('ad', ad.id);
+    if (id !== undefined) 
+        advert = getAdvert(props, id);
+
+        
+    // load out of redux
+    // if (ad.id === undefined)
+    //     history.push('/');
+
+
+    console.log('advert', advert.id);
     
-    const { register, handleSubmit, reset, errors } = useForm({ defaultValues: ad });
+    const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
     const onSubmit = data => {
         
@@ -108,7 +109,7 @@ export default function AdEdit(props) {
 
                     <input type="submit" value={t('Submit')} />
                     
-                    {onEdit && <input type="button" value={t('Reset')} onClick={() => { reset(ad); }} /> }
+                    {onEdit && <input type="button" value={t('Reset')} onClick={() => { reset(advert); }} /> }
                 </form>
 
                 {onEdit && <button variant="secondary" className="float-right" onClick={() => history.push(`../${id}`)}>View advert</button> }
