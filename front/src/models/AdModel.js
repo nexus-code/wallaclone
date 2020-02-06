@@ -17,6 +17,7 @@ export default class AdModel {
         this.type = value.type;
         // this.photo = value.photo.startsWith('/images/') ? `${process.env.REACT_APP_API_URL}${value.photo}` : value.photo;
         this.image = `${process.env.REACT_APP_API_IMAGES}${value.image}`;
+        
         // this.createdAt = value.createdAt;
         // this.updatedAt = value.updatedAt;
         this.tags = value.tags;

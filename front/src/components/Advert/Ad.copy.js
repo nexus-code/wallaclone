@@ -1,16 +1,23 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
+import { withTranslation } from 'react-i18next';
+
+
 // https://getbootstrap.com/docs/4.0/components/card/
 class Ad extends React.Component {
     
+    
+    
     goToDetail = () => {
-
+        
         this.props.history.push(`/advert/${this.props.ad.id}`);
     };
-
+    
     render() {
-        const { ad } = this.props;
+        
+        // const { t } = withTranslation();
+        const { t, ad } = this.props;
         
         return (
             
@@ -28,7 +35,7 @@ class Ad extends React.Component {
                             color: ad.type === 'sell' ? 'orange' : 'blue',
                             textTransform: 'uppercase'
                         }}
-                    >{ad.type}</div>
+                    >{t(ad.type)}</div>
                     <img className='card-img-top text-center'  src={ ad.image } alt={ ad.name } />
                     <div className='card-body'>
                         <h5 className='card-title'>{ ad.name }</h5>

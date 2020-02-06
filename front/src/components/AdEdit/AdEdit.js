@@ -13,8 +13,7 @@ const TYPES = ['sell', 'buy'];
 export default function AdEdit(props) {
 
     const { t } = useTranslation();
-    
-    
+        
     const onEdit = props.match.path !== '/advert/create';
     const pageTitle  = onEdit ? 'Edit advert' : 'Create advert';
     const method = onEdit ? 'PUT' : 'POST';
@@ -35,15 +34,22 @@ export default function AdEdit(props) {
     const { id } = useParams();
     
     if (id !== undefined) {
+        
         ad = getAd(props, id);
+    
+    } 
+    
+    if (ad.id === undefined){
+        // load out of redux
+        history.push('/');
     }
+
+    console.log('ad', ad.id);
     
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: ad });
 
     const onSubmit = data => {
         
-        console.log('onSubmit', data, method);
-
         return props.savedAd(data, method);
     }
     
@@ -92,16 +98,17 @@ export default function AdEdit(props) {
 
                     <label>{t('Type')}</label>
                     <select ref={register} name="type">
-                        <option value="true">{t('Sell')}</option>
-                        <option value="false">{t('Buy')}</option>
+                        <option value="sell">{t('Sell')}</option>
+                        <option value="buy">{t('Buy')}</option>
                     </select>
 
-                    <label>{t('Tags')}</label>
-
+                    {/* <label>{t('Tags')}</label> */}
 
                     { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
 
                     <input type="submit" value={t('Submit')} />
+                    
+                    {onEdit && <input type="button" value={t('Reset')} onClick={() => { reset(ad); }} /> }
                 </form>
 
                 {onEdit && <button variant="secondary" className="float-right" onClick={() => history.push(`../${id}`)}>View advert</button> }

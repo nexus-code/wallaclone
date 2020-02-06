@@ -21,8 +21,13 @@ const advertSchema = mongoose.Schema({
     },
     type: {
         // true for sale, false for search 
-        type: Boolean,
+        type: String,
         require: true,
+        default: 'sell'
+    },
+    owner: {
+        type: String,
+        default: ''
     },
     price: {
         type: Number,
@@ -37,7 +42,7 @@ const advertSchema = mongoose.Schema({
         require: true,
     },
     status: {
-        type: [String],
+        type: String,
         require: true,
         default: ''
     },
@@ -52,7 +57,7 @@ const advertSchema = mongoose.Schema({
         maxlength: 500,
     },
     created: { type: Date, default: Date.now },
-    updated: { type: Date }
+    updated: { type: Date }    
 });
 
 advertSchema.index({ name: 1, type: 1, price: -1, active: 1, created: 1});
@@ -107,8 +112,6 @@ advertSchema.statics.updateAdvert = async function (id, data, next) {
 
          const updatedAdvert = await Advert.findOneAndUpdate({_id: id}, data, {new: true});
 
-        //  console.log('-- adverts.js update: ', updatedAdvert);
-
          return updatedAdvert;
 
      } catch (err) {
@@ -120,9 +123,7 @@ advertSchema.statics.updateAdvert = async function (id, data, next) {
 advertSchema.statics.delete = async function (_id, next) {
     try {
 
-         await Advert.deleteOne({_id}).exec;
-
-        // console.log('-- adverts.js delete: ', _id);
+        await Advert.deleteOne({_id}).exec;
 
         return 200;
 

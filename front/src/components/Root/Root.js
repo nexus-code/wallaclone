@@ -4,6 +4,7 @@ import { PropTypes } from 'prop-types';
 import { Router } from 'react-router-dom';
 
 import App from '../App';
+import '../../index.css';
 
 export default function Root({ store, history, ...props }) {
   return (

@@ -16,7 +16,7 @@ const User = require('./models/User');
 const advertsArray = [
         {
             name: 'lifestyle 1',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 150,
             tags: ['lifestyle', 'mobile'],
@@ -26,7 +26,7 @@ const advertsArray = [
         },
         {
             name: 'lifestyle 2',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 15,
             tags: ['lifestyle', 'work'],
@@ -36,7 +36,7 @@ const advertsArray = [
         },
         {
             name: 'lifestyle 3',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 80,
             tags: ['lifestyle'],
@@ -46,7 +46,7 @@ const advertsArray = [
         },
         {
             name: 'motor 1',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 150,
             tags: ['motor', 'mobile', 'lifestyle'],
@@ -55,7 +55,7 @@ const advertsArray = [
             created: '2020-01-31 8:56'
         }, {
             name: 'motor 2',
-            type: '0',
+            type: 'buy',
             active: 1,
             price: 180,
             tags: ['motor', 'work'],
@@ -64,7 +64,7 @@ const advertsArray = [
             created: '2020-01-30 8:56'
         }, {
             name: 'motor 3',
-            type: '0',
+            type: 'buy',
             active: 1,
             price: 80,
             tags: ['motor', 'lifestyle'],
@@ -74,7 +74,7 @@ const advertsArray = [
         },
         {
             name: 'mobile 1',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 150,
             tags: ['mobile', 'lifestyle'],
@@ -83,7 +83,7 @@ const advertsArray = [
             created: '2020-01-28 18:56'
         }, {
             name: 'mobile 2',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 45,
             tags: ['mobile', 'work'],
@@ -92,7 +92,7 @@ const advertsArray = [
             created: '2020-02-28 18:00'
         }, {
             name: 'mobile 3',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 120,
             tags: ['mobile'],
@@ -102,7 +102,7 @@ const advertsArray = [
         },
         {
             name: 'work 1',
-            type: '1',
+            type: 'sell',
             active: 1,
             price: 150,
             tags: ['work', 'mobile', 'lifestyle'],
@@ -111,7 +111,7 @@ const advertsArray = [
             created: '2020-02-25 9:56'
         }, {
             name: 'work 2',
-            type: '0',
+            type: 'buy',
             active: 1,
             price: 15,
             tags: ['work'],
@@ -120,7 +120,7 @@ const advertsArray = [
             created: '2020-02-24 18:56'
         }, {
             name: 'work 3',
-            type: '0',
+            type: 'buy',
             active: 1,
             price: 80,
             tags: ['work', 'lifestyle'],
@@ -130,7 +130,7 @@ const advertsArray = [
         },
         {
             name: 'deactivated 1',
-            type: '1',
+            type: 'sell',
             active: 0,
             price: 170,
             tags: ['work', 'mobile', 'lifestyle'],
@@ -139,7 +139,7 @@ const advertsArray = [
             created: '2020-02-24 12:56'
         }, {
             name: 'deactivated 2',
-            type: '0',
+            type: 'buy',
             active: 0,
             price: 40,
             tags: ['work', 'work'],
@@ -148,7 +148,7 @@ const advertsArray = [
             created: '2020-02-01 18:56'
         }, {
             name: 'deactivated 3',
-            type: '0',
+            type: 'buy',
             active: 0,
             price: 80,
             tags: ['work', 'lifestyle'],
@@ -217,20 +217,20 @@ deleteAll().then(() => {
 db.model('user', User.schema);
 
 // Add user example
-db.once('open', async () => {
-    try {
+// db.once('open', async () => {
+//     try {
 
-        await initUsers();
-        db.close();
-        console.log('******* wallacloneDB created sucesfully ******');
+//         await initUsers();
+//         db.close();
+//         console.log('******* wallacloneDB created sucesfully ******');
 
-        process.exit();
+//         process.exit();
 
-    } catch (err) {
-        console.log('Error on install user:', err);
-        process.exit(1);
-    }
-});
+//     } catch (err) {
+//         console.log('Error on install user:', err);
+//         process.exit(1);
+//     }
+// });
 
 async function initUsers() {
     await User.deleteMany();

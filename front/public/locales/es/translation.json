@@ -24,6 +24,14 @@
     "Profile saved!": "¡Perfil guardado!",
     "Error on save profile!": "Error al guardar el perfil",
 
+    "Edit advert": "Editar anuncio",
+    "Create advert": "Añadir anuncio",
+    "Product name": "Nombre del producto",
+    "Price": "Precio",
+    "Image": "Foto",
+    "Type": "Tipo",
+    "sell": "En venta",
+    "buy": "Se compra",
 
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"

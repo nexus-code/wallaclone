@@ -24,9 +24,16 @@
     "Profile saved!": "Profile saved!",
     "Error on save profile!": "Error on save profile!",
 
-
-
-
+    "Edit advert": "Edit advert",
+    "Create advert": "Create advert",
+    "Product name": "Product name",
+    "Price": "Price",
+    "Image": "Image",
+    "Type": "Type",
+    
+    "sell": "sell",
+    "buy": "buy",
+    
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

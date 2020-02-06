@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from "react-router-dom";
-import Ad from '../Ad/Ad'
+import Ad from '../Advert/Advert'
 import AppPagination from '../AppPagination/AppPagination'
 
 const ITEMS_PER_PAGE = 3; // !! pending: to config or register !!
