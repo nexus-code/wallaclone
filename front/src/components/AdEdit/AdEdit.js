@@ -1,19 +1,25 @@
 import React  from "react";
 import Canvas from '../Canvas/Canvas';
 
+import { useForm } from "react-hook-form";
+import { useTranslation } from 'react-i18next';
+
 import { useParams, useHistory } from 'react-router';
-import useForm from '../Form/useForm';
-import { Form, Button } from 'react-bootstrap';
 import { getAd } from '../../store/ads/selectors';
-import TagSelect from '../TagsSelect/TagSelect'
+// import TagSelect from '../TagsSelect/TagSelect'
 
 const TYPES = ['sell', 'buy'];
 
-function AdEdit(props) {
+export default function AdEdit(props) {
 
-    const adding = props.match.path === '/advert/create';
-    const title  = adding ? 'Create advert' : 'Edit advert';
-    const method = adding ? 'POST' : 'PUT';
+    const { t } = useTranslation();
+    
+    
+    const onEdit = props.match.path !== '/advert/create';
+    const pageTitle  = onEdit ? 'Edit advert' : 'Create advert';
+    const method = onEdit ? 'PUT' : 'POST';
+    
+    console.log('AdEdit', props.match, onEdit, method);
 
     let  ad = {
         id: '',
@@ -24,71 +30,88 @@ function AdEdit(props) {
         image: '',
         tags: []
     };
-
+    
     const history = useHistory();
     const { id } = useParams();
     
     if (id !== undefined) {
         ad = getAd(props, id);
     }
+    
+    const { register, handleSubmit, reset, errors } = useForm({ defaultValues: ad });
 
-    const handleSubmitCallback = () => {
+    const onSubmit = data => {
+        
+        console.log('onSubmit', data, method);
 
-        return props.savedAd(formInput, method, ad.id);
+        return props.savedAd(data, method);
     }
     
-    const [handleChange, handleSubmit, formInput] = useForm(ad, handleSubmitCallback );
+    const validator = (field, minLength, maxLength) => ({
+        required: t(field) + ` ${t('is required')}`,
+        minLength: {
+            value: minLength,
+            message: `Min length is ${minLength}`
+        },
+        maxLength: {
+            value: maxLength,
+            message: `Max length is ${maxLength}`
+        }
+    });
 
-    return <Canvas>
+    return (
+        <Canvas>
             
             <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
-                <h2>{title}</h2>
-            <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="formGroupName" >
-                        <Form.Label>Name</Form.Label>
-                    <Form.Control name="name" placeholder="Product name" value={formInput.name} onChange={handleChange} />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupPrice" >
-                        <Form.Label>Price</Form.Label>
-                        <Form.Control name="price" placeholder="on €" value={formInput.price} onChange={handleChange} type="number" />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupPhoto" >
-                        <Form.Label>Photo</Form.Label>
-                        <Form.Control name="photo" placeholder="Select a prety photo" value={formInput.image} onChange={handleChange} />
-                    </Form.Group>
-                    <Form.Group controlId="formGroupType" >
-                        <Form.Label>Type</Form.Label>
-                        {TYPES.map(type => (
-                            <div key={`inline-${type}`} className="mb-3">
-                                <Form.Check inline type='radio' id={`check-api-${type}`}>
-                                    <Form.Check.Input
-                                        name='type'
-                                        value={`${type}`}
-                                        type='radio'
-                                        onChange={handleChange}
-                                        checked={`${type}` === formInput.type}
-                                    />
-                                    <Form.Check.Label style={{ textTransform: 'capitalize' }}>{` ${type}`}</Form.Check.Label>
-                                </Form.Check>
-                            </div>
-                        ))}
-                    </Form.Group>
-                    <Form.Group controlId="formGroupDescription">
-                        <Form.Label>Description</Form.Label>
-                        <Form.Control name="description" as="textarea" rows="3" value={formInput.description} onChange={handleChange} />
-                    </Form.Group>
-                    <Form.Group controlId="formGrouptags" >
-                        <Form.Label>Tag</Form.Label>
-                        <TagSelect onChange={handleChange} value={formInput.tags} isMulti />
-                    </Form.Group>
+                <h2>{t(pageTitle)}</h2>
 
-                    <Button variant="primary" type="submit">
-                        Save
-                    </Button>
-                <Button variant="secondary" className="float-right" onClick={() => history.push(`../${id}`)}>View advert</Button>
-                </Form>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                    <label>{t('Name')}</label>
+                    <input
+                        name="name"
+                        placeholder={t('Product name')}
+                        ref={register(validator('name', 3, 25))}
+                    />
+                    {errors.name && <p>{errors.name.message}</p>}
+                    
+                    <label>{t('Price')}</label>
+                    <input
+                        name="price"
+                        placeholder={t('Product price')}
+                        ref={register(validator('price', 3, 25))}
+                    />
+                    {errors.price && <p>{errors.price.message}</p>}
+
+                    <label>{t('Image')}</label>
+                    <input
+                        name="image"
+                        placeholder={t('Product image')}
+                        ref={register(validator('image', 3, 120))}
+                    />
+                    {errors.image && <p>{errors.image.message}</p>}
+
+                    <label>{t('Type')}</label>
+                    <select ref={register} name="type">
+                        <option value="true">{t('Sell')}</option>
+                        <option value="false">{t('Buy')}</option>
+                    </select>
+
+                    <label>{t('Tags')}</label>
+
+
+                    { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
+
+                    <input type="submit" value={t('Submit')} />
+                </form>
+
+                {onEdit && <button variant="secondary" className="float-right" onClick={() => history.push(`../${id}`)}>View advert</button> }
+
+                
+                <br />
+                <hr />
+                <br />
+
             </div>
         </Canvas>
+    );
 }
-
-export default AdEdit;

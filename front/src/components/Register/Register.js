@@ -5,16 +5,21 @@ import { useForm } from "react-hook-form";
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 
+/**
+ * 
+ * Registers user on API and edit her profile
+ */
+
 export default function Register({ user, setUser, logout }) { 
 
     const { t } = useTranslation();
-
-    const onEdit = typeof (user) === 'undefined' ? 0 : 1; // 0 'REGISTER' : 1 'EDIT';
-    const pageTitle = onEdit ? 'Edit profile' : 'Register user';
-    const method = onEdit ? 'PUT' : 'POST';
-    
     
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: user });
+
+    const onEdit = typeof (user) === 'undefined' ? false : true;
+    const pageTitle = onEdit ? 'Edit profile' : 'Register user';
+    const method = onEdit ? 'PUT' : 'POST';
+        
     
     const onSubmit = data => {
 
@@ -35,8 +40,6 @@ export default function Register({ user, setUser, logout }) {
         logout();
     }
     
-    const logoutButton = onEdit ? <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> : '';
-    const idHidden = onEdit ? <input type="hidden" name="id" defaultValue={user.id} ref={register()} /> : '';
     const passwordTitle = onEdit ? 'Enter password ONLY to change it' : 'Password';
     const passwordPlaceholder = onEdit ? 'New password' : 'Insert your password';
     
@@ -66,7 +69,7 @@ export default function Register({ user, setUser, logout }) {
                 }
             }
         else
-            return validator('password', 3, 25)
+            return validator(field, minLength, maxLength)
     }
     
     return (
@@ -110,14 +113,15 @@ export default function Register({ user, setUser, logout }) {
                         <option value="es-ES">{t('Spanish')}</option>
                     </select>
 
-                    <label>{ t('Remember me?') }<input name="remember" type="checkbox" ref={register} /></label>
+                    {/* <label>{ t('Remember me?') }<input name="remember" type="checkbox" ref={register} /></label> */}
 
-                    { idHidden }
+                    { onEdit && <input type="hidden" name="id" defaultValue={user.id} ref={register()} /> }
 
                     <input type="submit" value={t('Submit')} />
                 </form>
                     
-                { logoutButton }
+                { onEdit && <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> }
+                
                 <br />
                 <hr />
                 <br />

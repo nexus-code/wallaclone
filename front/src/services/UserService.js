@@ -55,17 +55,17 @@ const getUser = (id) => {
  * @param {*} query: filter users. Optimize  with searchAd
  */
 
-const searchUsers = (query) => {
+// const searchUsers = (query) => {
     
-    const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
+//     const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
     
-    // console.log('query', query);
-    // console.log('url', `${API_URL}users`);
+//     // console.log('query', query);
+//     // console.log('url', `${API_URL}users`);
 
-    return getFetch(`${API_URL}users`)
-        .then(res => res.result.map(ad => new UserModel(ad)))
-        .catch(error => console.error('Error:', error));
-}
+//     return getFetch(`${API_URL}users`)
+//         .then(res => res.result.map(ad => new UserModel(ad)))
+//         .catch(error => console.error('Error:', error));
+// }
 
 /**
  * Call login API method
