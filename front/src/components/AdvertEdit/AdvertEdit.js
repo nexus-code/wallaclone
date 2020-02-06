@@ -69,50 +69,58 @@ export default function AdvertEdit(props) {
     return (
         <Canvas>
             
-            <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
+            <div style = {{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
                 <h2>{t(pageTitle)}</h2>
 
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} method="put" encType="multipart/form-data">
                     <label>{t('Name')}</label>
                     <input
-                        name="name"
-                        placeholder={t('Product name')}
-                        ref={register(validator('name', 3, 25))}
+                        name = "name"
+                        placeholder = {t('Product name')}
+                        ref = {register(validator('name', 3, 25))}
                     />
                     {errors.name && <p>{errors.name.message}</p>}
                     
                     <label>{t('Price')}</label>
                     <input
-                        name="price"
-                        placeholder={t('Product price')}
-                        ref={register(validator('price', 3, 25))}
+                        name = "price"
+                        placeholder = {t('Product price')}
+                        ref = {register(validator('price', 3, 25))}
                     />
                     {errors.price && <p>{errors.price.message}</p>}
 
                     <label>{t('Image')}</label>
                     <input
-                        name="image"
-                        placeholder={t('Product image')}
-                        ref={register(validator('image', 3, 120))}
+                    type="file"
+                        name = "image"
+                        placeholder = {t('Product image')}
                     />
                     {errors.image && <p>{errors.image.message}</p>}
 
                     <label>{t('Type')}</label>
-                    <select ref={register} name="type">
-                        <option value="sell">{t('Sell')}</option>
-                        <option value="buy">{t('Buy')}</option>
+                    <select ref = {register} name = "type">
+                        <option value = "sell">{t('Sell')}</option>
+                        <option value = "buy">{t('Buy')}</option>
                     </select>
 
                     {/* <label>{t('Tags')}</label> */}
 
-                    { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
+                    <label>{t('Description')}</label>
+                    <textarea
+                        name = "description"
+                        placeholder = {t('Product description')}
+                        ref = {register(validator('description', 3, 250))}
+                    />
+                    {errors.description && <p>{errors.description.message}</p>}
 
-                    <input type="submit" value={t('Submit')} />
+                    { onEdit && <input type = "hidden" name = "id" defaultValue = {id} ref = {register()} /> }
+
+                    <input type = "submit" value = {t('Submit')} />
                     
-                    {onEdit && <input type="button" value={t('Reset')} onClick={() => { reset(advert); }} /> }
+                    {onEdit && <input type = "button" value = {t('Reset')} onClick = {() => { reset(advert); }} /> }
                 </form>
 
-                {onEdit && <button variant="secondary" className="float-right" onClick={() => history.push(`../${id}`)}>View advert</button> }
+                {onEdit && <button variant = "secondary" className = "float-right" onClick = {() => history.push(`../${id}`)}>View advert</button> }
 
                 
                 <br />

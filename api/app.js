@@ -121,7 +121,7 @@ const jwtAuth = require('./lib/jwtAuth');
 // v2.2 add upload.single('image') & jwtAuth()
 // v3 jwtAuth() Only for registered users
 
-app.use('/api/adverts', upload.single('image'), require('./routes/api/adverts'));
+app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
 app.put('/api/users', jwtAuth(), require('./routes/api/users'));
 app.use('/api/users', require('./routes/api/users'));
 

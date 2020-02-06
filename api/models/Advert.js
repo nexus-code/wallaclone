@@ -36,6 +36,7 @@ const advertSchema = mongoose.Schema({
     },
     image: {
         type: String,
+        default: ''
     },
     tags: {
         type: [String],
@@ -109,6 +110,9 @@ advertSchema.statics.insert = async function (req, next) {
 // update a document
 advertSchema.statics.updateAdvert = async function (id, data, next) {
      try {
+
+         console.log('updateAdvert', data);
+         delete data.imageFile
 
          const updatedAdvert = await Advert.findOneAndUpdate({_id: id}, data, {new: true});
 

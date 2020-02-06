@@ -1,0 +1,113 @@
+2020-02-06 11:51: (node:10008) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:51: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:51: (node:11240) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:51: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:51: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m53.990 ms - 211[0m
+2020-02-06 11:52: (node:16296) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:52: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:52: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m61.311 ms - 211[0m
+2020-02-06 11:52: (node:19376) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:52: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:52: [0mPOST /api/adverts/5e3be86fbddb1e4278903b91 [33m404 [0m44.044 ms - 1951[0m
+2020-02-06 11:52: (node:5824) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:52: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:52: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m59.466 ms - 211[0m
+2020-02-06 11:52: (node:5008) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:52: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:53: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m60.671 ms - 210[0m
+2020-02-06 11:53: (node:13352) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:53: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:54: [0mGET /api/adverts [32m200 [0m69.867 ms - 4307[0m
+2020-02-06 11:54: [0mGET /images/mobile1.jpg [32m200 [0m9.519 ms - 211498[0m
+2020-02-06 11:54: [0mGET /images/motor3.jpg [32m200 [0m13.710 ms - 195298[0m
+2020-02-06 11:54: [0mGET /images/motor2.jpg [32m200 [0m12.278 ms - 282109[0m
+2020-02-06 11:54: [0mGET /images/mobile3.jpg [32m200 [0m1.576 ms - 136601[0m
+2020-02-06 11:54: [0mGET /images/work2.jpg [32m200 [0m2.282 ms - 175437[0m
+2020-02-06 11:54: [0mGET /images/work1.jpg [32m200 [0m2.577 ms - 296327[0m
+2020-02-06 11:54: [0mGET /images/mobile2.jpg [32m200 [0m3.703 ms - 140362[0m
+2020-02-06 11:54: [0mGET /images/ [33m404 [0m22.012 ms - 1926[0m
+2020-02-06 11:54: [0mGET /images/work3.jpg [32m200 [0m23.091 ms - 166552[0m
+2020-02-06 11:54: [0mGET /images/lifestyle1.jpg [32m200 [0m24.893 ms - 288191[0m
+2020-02-06 11:54: [0mGET /images/ [33m404 [0m2.348 ms - 1926[0m
+2020-02-06 11:55: [0mGET /api/adverts [32m200 [0m13.178 ms - 4307[0m
+2020-02-06 11:55: [0mGET /images/mobile1.jpg [32m200 [0m0.779 ms - 211498[0m
+2020-02-06 11:55: [0mGET /images/motor3.jpg [32m200 [0m1.523 ms - 195298[0m
+2020-02-06 11:55: [0mGET /images/motor2.jpg [32m200 [0m1.100 ms - 282109[0m
+2020-02-06 11:55: [0mGET /images/ [33m404 [0m3.481 ms - 1926[0m
+2020-02-06 11:55: [0mGET /images/lifestyle1.jpg [32m200 [0m6.012 ms - 288191[0m
+2020-02-06 11:55: [0mGET /images/work3.jpg [32m200 [0m1.129 ms - 166552[0m
+2020-02-06 11:55: [0mGET /images/ [33m404 [0m5.598 ms - 1926[0m
+2020-02-06 11:56: [0mGET /api/adverts/5e3be86fbddb1e4278903b91 [33m404 [0m4.157 ms - 1951[0m
+2020-02-06 11:56: [0mGET /api/adverts/5e3be86fbddb1e4278903b91 [33m404 [0m2.287 ms - 1951[0m
+2020-02-06 11:56: [0mGET /api/adverts [32m200 [0m11.329 ms - 4307[0m
+2020-02-06 11:56: [0mGET /images/mobile1.jpg [32m200 [0m3.795 ms - 211498[0m
+2020-02-06 11:56: [0mGET /images/motor2.jpg [32m200 [0m3.696 ms - 282109[0m
+2020-02-06 11:56: [0mGET /images/motor3.jpg [32m200 [0m3.144 ms - 195298[0m
+2020-02-06 11:56: [0mGET /images/ [33m404 [0m2.354 ms - 1926[0m
+2020-02-06 11:56: [0mGET /images/work3.jpg [32m200 [0m3.903 ms - 166552[0m
+2020-02-06 11:56: [0mGET /images/lifestyle1.jpg [32m200 [0m4.178 ms - 288191[0m
+2020-02-06 11:56: [0mGET /images/ [33m404 [0m2.402 ms - 1926[0m
+2020-02-06 11:56: [0mOPTIONS /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m1.340 ms - 10[0m
+2020-02-06 11:56: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m45.036 ms - 250[0m
+2020-02-06 11:57: (node:16904) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:57: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:57: [0mOPTIONS /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m7.516 ms - 10[0m
+2020-02-06 11:57: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m61.334 ms - 250[0m
+2020-02-06 11:58: (node:18516) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:58: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:58: (node:9952) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:58: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:59: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m57.278 ms - 250[0m
+2020-02-06 11:59: (node:2664) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:59: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 11:59: (node:9980) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 11:59: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 12:00: (node:15448) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 12:00: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 12:00: (node:2856) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 12:00: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 12:01: (node:14448) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 12:01: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 12:02: updateAdvert [Object: null prototype] { price: ' 200' }
+2020-02-06 12:02: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [32m200 [0m59.967 ms - 250[0m
+2020-02-06 12:12: (node:19512) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 12:12: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 12:12: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [31m500 [0m37.080 ms - 1732[0m
+2020-02-06 12:15: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [31m500 [0m6.084 ms - 1732[0m
+2020-02-06 12:15: (node:12872) DeprecationWarning: current Server Discovery and Monitoring engine is deprecated, and will be removed in a future version. To use the new Server Discover and Monitoring engine, pass option { useUnifiedTopology: true } to the MongoClient constructor.
+2020-02-06 12:15: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-06 12:15: [0mPUT /api/adverts/5e3be86fbddb1e4278903b91 [31m500 [0m40.139 ms - 1732[0m

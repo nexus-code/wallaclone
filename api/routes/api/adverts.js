@@ -35,6 +35,9 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
 
+        console.log('advert post file', req.file);
+        console.log('advert post body', req.body);
+
         req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
         
         const savedAdvert = await Advert.insert(req, next);
@@ -55,8 +58,20 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
     try {
 
+        console.log('advert post file', req.file);
+        console.log('advert post body', req.body);
+
+        // if (req.file === undefined)
+        //     console.log('advert post file _undefined', req.file);
+
         const id = req.params.id;
         const data = req.body;
+
+        if (req.file !== undefined){
+            data.image = req.file.filename
+        }
+
+
 
         const savedAdvert = await Advert.updateAdvert(id, data, next);
 
