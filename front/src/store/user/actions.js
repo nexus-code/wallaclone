@@ -26,6 +26,7 @@ const notifySaved = () => toast.success(t('Profile saved!'));
 const notifyError = () => toast.error(t('Error on save profile!'));
 const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
 const notifyLoginError = () => toast.error(t('Invalid credentials'));
+const notifyRecover = () => toast.info(t('Recovery process started'));
 
 // const notifyWarning = (warning) => toast.warning(warning);
 
@@ -147,6 +148,7 @@ export const resetPasswd = (...args) => (dispatch, _getState, { history }) => {
 
 export const recoverPasswd = (...args) => (dispatch, _getState, { history }) => {
     dispatch(userRecoverPasswd(...args));
+    notifyRecover();
     history.push('/');
 };
 

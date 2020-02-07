@@ -9,36 +9,17 @@ import { useTranslation } from 'react-i18next';
  * Recover user password
  */
 
-export default function RecoverPasswd() { 
+export default function RecoverPasswd({ recoverPasswd }) { 
 
     const { t } = useTranslation();
     
     const { register, handleSubmit, reset, errors } = useForm({});
-
     
     const onSubmit = data => {
 
-        // changeLanguage(data.language);       
-        
-        // if (onEdit && data.password === '')
-        //     delete data.password;
-        
-        // setUser(data, method);
+        recoverPasswd();
     };
 
-  
-    const validator = (field, minLength, maxLength) => ({
-            required: t(field) + ` ${t('is required')}`,
-            minLength: {
-                value: minLength,
-                message: `Min length is ${minLength}`
-            },
-            maxLength: {
-                value: maxLength,
-                message: `Max length is ${maxLength}`
-            }
-    });
-    
     
     return (
         <Canvas>
@@ -50,11 +31,19 @@ export default function RecoverPasswd() {
 
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <input
-                        name="username"
-                        placeholder={t('Insert your') + ' ' + t('username')}
-                        ref={register(validator('username', 3, 25))}
+                        type="text"
+                        name="email"
+                        placeholder="email"
+                        ref={register({
+                            required: t("Email required"),
+                            pattern: {
+                                value: /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                                message: t("Invalid email address")
+                            }
+                        })}
                     />
-                    { errors.username && <p>{errors.username.message}</p> }
+                    {errors.email && <p>{errors.email.message}</p>}
+
 
                     <input type="submit" value={t('Submit')} />
                 </form>
