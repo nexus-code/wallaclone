@@ -12,6 +12,7 @@
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const nodemailerTransport = require('../lib/nodemailerConfigure');
 
 const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -92,28 +93,44 @@ userSchema.methods.comparePassword = function (plaintext, callback) {
 /**
  * only returns necessary user information
  */
-userSchema.methods.packData = user => {
+userSchema.methods.packData = function() {
     // create JWT
-    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+    const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES
     });
 
     return {
-        _id: user._id,
+        _id: this._id,
         token: token,
-        username: user.username,
-        email: user.email,
-        language: user.language,
+        username: this.username,
+        email: this.email,
+        language: this.language,
     }
 }
 
+userSchema.methods.sendEmail = async function (from, subject, body) {
+    // enviar el correo
+    return nodemailerTransport.sendMail({
+        from: from,
+        to: this.email,
+        subject: subject,
+        html: body
+    })
+}
+
+userSchema.statics.recoverPassword = async function () {
+    
+}
 
 userSchema.statics.insert = async function (req, next) {
     try {
         
         const user = new User(req.body);
         const newUser = await user.save();
-        
+
+        const wellcomeEmail = await newUser.sendEmail(process.env.APP_EMAIL, 'testing', `Wellcome`);
+        // GUARDAR!! : console.log(wellcomeEmail);
+
         return newUser
 
     } catch (err) {

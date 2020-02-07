@@ -101,8 +101,8 @@ const savedAdvert = (advert, method) => {
     const config = {
         headers: {
             // 'Authorization': `Bearer  ${token}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
-            // 'Access-Control-Allow-Origin': '*'
+            // 'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded'
                 } 
         };
 

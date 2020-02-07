@@ -41,21 +41,10 @@ router.post('/', async (req, res, next) => {
 
         const savedUser = await User.insert(req, next);
 
-        // // create JWT
-        // const token = jwt.sign({ _id: savedUser._id }, process.env.JWT_SECRET, {
-        //     expiresIn: process.env.JWT_EXPIRES
-        // });
+        // const wellcomeEmail = await savedUser.sendEmail(process.env.APP_EMAIL, 'testing', `Wellcome ${savedUser.username}`);
+        // console.log(wellcomeEmail);
 
-        // // only returns necessary  user information
-        // const returnedUser = {
-        //     _id: savedUser._id,
-        //     token: token,
-        //     username: savedUser.username,
-        //     email: savedUser.email,
-        //     language: savedUser.language,
-        // }
-
-        const packData = savedUser.packData(savedUser);
+        const packData = savedUser.packData();
 
         res.json({
             status: 200,
