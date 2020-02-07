@@ -51,7 +51,7 @@ export default function AdvertEdit(props) {
 
     const onSubmit = data => {
         
-        return props.savedAd(data, method);
+        return props.saveAdvert(data, method);
     }
     
     const validator = (field, minLength, maxLength) => ({
@@ -90,12 +90,12 @@ export default function AdvertEdit(props) {
                     {errors.price && <p>{errors.price.message}</p>}
 
                     <label>{t('Image')}</label>
-                    <input
+                    {/* <input
                     type="file"
-                        name = "image"
+                        name = "imageFile"
                         placeholder = {t('Product image')}
                     />
-                    {errors.image && <p>{errors.image.message}</p>}
+                    {errors.imageFile && <p>{errors.imageFile.message}</p>} */}
 
                     <label>{t('Type')}</label>
                     <select ref = {register} name = "type">

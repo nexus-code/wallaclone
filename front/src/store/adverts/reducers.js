@@ -15,6 +15,8 @@ export const adverts = (state = initialState, action) => {
 
 
         case TYPES.ADVERT_SAVE_SUCCESS:
+            
+            console.log('TYPES.ADVERT_SAVE_SUCCESS', state)
 
             if (typeof state.map === 'function'){
                 // updating

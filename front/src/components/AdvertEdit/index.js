@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AdEdit from './AdvertEdit';
-import { savedAd, fetchAdverts } from '../../store/adverts/actions';
+import { saveAdvert, fetchAdverts } from '../../store/adverts/actions';
 
 
 const mapStateToProps = (store) => ({
@@ -9,7 +9,7 @@ const mapStateToProps = (store) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    savedAd: (ad, method) => dispatch(savedAd(ad, method)),
+    saveAdvert: (advert, method) => dispatch(saveAdvert(advert, method)),
     loadAd: (id) => dispatch(fetchAdverts(id)),
 });
 

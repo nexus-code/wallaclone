@@ -106,6 +106,11 @@ require('./models/Advert');
 
 // Middleware: Configures headers & CORS
 app.use((req, res, next) => {
+
+  console.log('\r\n\r\nheaders & CORS file\r\n', req.file);
+  console.log('\r\n\r\nheaders & CORS body\r\n', req.body);
+
+
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -159,6 +164,12 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
 
   if (isAPI(req)) {
+    
+    console.log('\r\n\r\nAPI ERRs file\r\n', req.file);
+    console.log('\r\n\r\nAPI ERRs body\r\n', req.body);
+    console.log('\r\n\r\nAPI ERRs status\r\n', err.status);
+    console.log('\r\n\r\nAPI ERRs message\r\n', err.message);
+    
     res.json({
       // status: 500,
       status: err.status,

@@ -10,7 +10,7 @@ import {
     // ADVERT_CREATE_SUCCESS,
 } from './types';
 
-import { searchAdvert, searchAdverts, saveAd } from '../../services/AdvertService';
+import { searchAdvert, searchAdverts, savedAdvert } from '../../services/AdvertService';
 import { getAdvert } from './selectors';
 
 import { toast } from 'react-toastify';
@@ -73,9 +73,9 @@ export const fetchAdvertsSuccess = adverts => ({
     adverts,
 });
 
-export const savedAdvertRequest = ad => ({
+export const savedAdvertRequest = advert => ({
     type: ADVERT_SAVE_REQUEST,
-    ad,
+    advert,
 });
 
 export const savedAdFailure = error => ({
@@ -83,18 +83,18 @@ export const savedAdFailure = error => ({
     error,
 });
 
-export const savedAdvertSuccess = ad => ({
+export const savedAdvertSuccess = advert => ({
     type: ADVERT_SAVE_SUCCESS,
-    ad,
+    advert,
 });
 
-export const savedAd = (ad, method) => async (dispatch, getState, { history }) => {
+export const saveAdvert = (advert, method) => async (dispatch, getState, { history }) => {
 
-    dispatch(savedAdvertRequest(ad));
+    dispatch(savedAdvertRequest(advert));
 
     try {
 
-        const result = await saveAd(ad, method);
+        const result = await savedAdvert(advert, method);
         // console.log('result', result);
 
         dispatch(savedAdvertSuccess(result));
@@ -108,7 +108,7 @@ export const savedAd = (ad, method) => async (dispatch, getState, { history }) =
 
         dispatch(savedAdFailure());
         notifyError();
-       // console.log(error);
+        console.log('savedAdvert ', error);
 
         return false;
     }

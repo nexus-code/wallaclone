@@ -94,18 +94,18 @@ const searchAdvert = (id) => {
  * @param {*} ad {advertisement}
  * @param {*} method POST / PUT for insert or update
  */
-const saveAd = (ad, method) => {
+const savedAdvert = (advert, method) => {
 
     const baseURL = `${API_URL}adverts`;
 
     switch (method) {
         case 'POST':
-            return Axios.post(baseURL, null, { data: ad }).then(
+            return Axios.post(baseURL, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),
             );
 
         case 'PUT':
-            return Axios.put(`${baseURL}/${ad.id}`, null, { data: ad }).then(
+            return Axios.put(`${baseURL}/${advert.id}`, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),
             );
 
@@ -119,5 +119,5 @@ export {
     searchAdverts,
     searchAdvert,
     getAdvertDetail,
-    saveAd
+    savedAdvert
 };
