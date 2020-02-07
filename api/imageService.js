@@ -16,8 +16,11 @@ const moveFile = require('move-file');
 
 const imgFolder = path.join(__dirname, process.env.IMG_FOLDER);
 
+console.log('\r\nStarts image.service');
+
+
 responder.on('image.service', (req, done) => {
-  console.log('image.service: ', req.file);
+  console.log('image.service: ', req);
   
   const from = path.join(__dirname, 'uploads', req.file);
   const to   = path.join(imgFolder, req.file);

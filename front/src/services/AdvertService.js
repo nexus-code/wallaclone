@@ -98,14 +98,26 @@ const savedAdvert = (advert, method) => {
 
     const baseURL = `${API_URL}adverts`;
 
+    const config = {
+        headers: {
+            // 'Authorization': `Bearer  ${token}`,
+            'Content-Type': 'application/x-www-form-urlencoded',
+            // 'Access-Control-Allow-Origin': '*'
+                } 
+        };
+
     switch (method) {
         case 'POST':
+            console.log('savedAdvert POST', advert);
+
             return Axios.post(baseURL, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),
             );
 
         case 'PUT':
-            return Axios.put(`${baseURL}/${advert.id}`, null, { data: advert }).then(
+            console.log('savedAdvert PUT', advert);
+
+            return Axios.put(`${baseURL}/${advert.id}`, { data: advert }, config).then(
                 res => new AdvertModel(res.data.result),
             );
 

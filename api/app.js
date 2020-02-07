@@ -25,6 +25,9 @@ const storage = multer.diskStorage({
 // define multer filter
 const fileFilter = (req, file, cb) => {
 
+  console.log('mulster fileFilter', file.mimetype, file);
+
+
   const mimeTypes = process.env.IMG_MIME_TYPES.split(',');
 
   //console.log('mimeTypes', mimeTypes, file.mimetype, file);

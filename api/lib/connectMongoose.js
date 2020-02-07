@@ -23,5 +23,5 @@ conn.once('open', () => {
     console.log('\r\n\r\nWallaclone app conect to MongoDB: DB->', conn.name); //mongoose.connection.name;
 })
 
-mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true  });
 module.exports = conn;

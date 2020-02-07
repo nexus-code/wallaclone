@@ -15,7 +15,6 @@ const jwt = require('jsonwebtoken');
 
 const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
-
 const userSchema = mongoose.Schema({
     username: {
         type: String,
@@ -82,6 +81,10 @@ userSchema.pre("save", function (next) {
     next();
 });
 
+/** 
+ * User Methods
+ */
+
 userSchema.methods.comparePassword = function (plaintext, callback) {
     return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
@@ -104,9 +107,6 @@ userSchema.methods.packData = user => {
     }
 }
 
-/** 
- * User Methods
- */
 
 userSchema.statics.insert = async function (req, next) {
     try {

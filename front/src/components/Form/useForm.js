@@ -24,7 +24,7 @@ const useForm = (initialArgs, handleSubmitCallback) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    return await handleSubmitCallback();
+    return await handleSubmitCallback(event);
   }
 
 

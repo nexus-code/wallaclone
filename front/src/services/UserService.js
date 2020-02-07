@@ -93,10 +93,6 @@ const saveUser = (user, method) => {
     // console.log('UserService saveUser', user);
 
     switch (method) {
-        // case 'POST':
-        //     return Axios.post(baseURL, null, { data: user }).then(
-        //         res => new UserModel(res.data.result),
-        //     );
 
         case 'POST':
             return Axios.post(baseURL, null, { data: user }).then(
