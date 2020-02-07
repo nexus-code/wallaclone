@@ -41,7 +41,7 @@ function AdEdit(props) {
 
     return <Canvas>
             
-            <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
+            <div className="formContainer">
                 <h2>{title}</h2>
             <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formGroupName" >

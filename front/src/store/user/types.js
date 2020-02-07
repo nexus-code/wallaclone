@@ -7,5 +7,7 @@ export const USER_SAVE_FAILURE = 'USER_SAVE_FAILURE';
 
 export const USER_SAVE_SUCCESS = 'USER_SAVE_SUCCESS';
 
-// export const SET_USER = 'SET_USER';
+export const RECOVER_PASSWD = 'RECOVER_PASSWD';
+export const RESET_PASSWD = 'RESET_PASSWD';
+
 export const LOGOUT   = 'LOGOUT';

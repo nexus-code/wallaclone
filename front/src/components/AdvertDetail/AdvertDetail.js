@@ -39,7 +39,7 @@ export default function AdvertDetail(props) {
                     <br />
                     <hr />
                     <br />
-                    <Button className='btn btn-warning' onClick={() => history.push(`/advert/edit/${id}`)} style={{ float: 'right' }} >Edit</Button>
+                    <Button className='btn btn-warning right' onClick={() => history.push(`/advert/edit/${id}`)} >Edit</Button>
                     <Button className='btn btn-dark' onClick={() => history.goBack()}>Go back</Button>
                 </div>
             }

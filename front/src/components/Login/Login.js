@@ -1,7 +1,7 @@
 import React from "react";
 import Canvas from '../Canvas/Canvas';
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-
 import { useTranslation } from 'react-i18next';
 
 export default function Login({ login }) { 
@@ -31,7 +31,7 @@ export default function Login({ login }) {
     
     return (
         <Canvas>
-            <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
+            <div className="formContainer">
                 <h2>{t('Login')}</h2>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>{ t('Username') }</label>
@@ -48,6 +48,7 @@ export default function Login({ login }) {
                         placeholder={t('Insert password')}
                         ref={register(validator('password', 3, 25))}
                     />
+                    <Link to='/recoverpasswd' className='right'>{t('Recover password')}</Link>
                     {errors.password && <p>{errors.password.message}</p>}
 
 
@@ -56,6 +57,8 @@ export default function Login({ login }) {
                     
                 <br />
                 <hr />
+                    <Link to='/register'>{t('Create a new account')}</Link>
+
                 <br />
 
             </div>

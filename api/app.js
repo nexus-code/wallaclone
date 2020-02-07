@@ -25,16 +25,15 @@ const storage = multer.diskStorage({
 // define multer filter
 const fileFilter = (req, file, cb) => {
 
-  console.log('mulster fileFilter', file.mimetype, file);
+  console.log('multer fileFilter', file.mimetype, file);
+  console.log('multer fileFilter req', req);
 
 
   const mimeTypes = process.env.IMG_MIME_TYPES.split(',');
 
   //console.log('mimeTypes', mimeTypes, file.mimetype, file);
 
-  if (
-    mimeTypes.indexOf(file.mimetype) > -1
-  ) {
+  if ( mimeTypes.indexOf(file.mimetype) > -1 ) {
     // Pending: read real file mimetype, this not work: change extension to an html a test 
 
     cb(null, true);
@@ -124,6 +123,7 @@ app.use((req, res, next) => {
 
  // API authenticate via JWT
 const loginController = require('./routes/loginController');
+const recoverPasswdController = require('./routes/recoverPasswdController');
 const jwtAuth = require('./lib/jwtAuth');
 
 // v2.2 add upload.single('image') & jwtAuth()
@@ -137,6 +137,7 @@ app.use('/api/users', require('./routes/api/users'));
 // app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
 app.use('/api/tags', require('./routes/api/tags'));
 app.use('/api/login', loginController.login);
+app.post('/api/recoverpasswd', recoverPasswdController.recover);
 
 // public app
 app.use('/', require('./routes/index'));

@@ -1,6 +1,23 @@
+
+.right {
+  float: right;
+}
+
 /*
 * form 
 */
+
+.formContainer { 
+  padding: 24px 32px;
+  max-width: 420px;
+  margin: 50px auto;
+  border: 1px solid;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  border-radius: 6px;
+}
+
 form {
   max-width: 500px;
   margin: 0 auto;

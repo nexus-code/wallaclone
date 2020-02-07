@@ -6,15 +6,16 @@ import {
     USER_SAVE_REQUEST,
     USER_SAVE_FAILURE,
     USER_SAVE_SUCCESS,
-    // SET_USER,
+    
+    RECOVER_PASSWD,
+    RESET_PASSWD,
     LOGOUT,
 } from './types';
 
 import { doLogin, saveUser } from '../../services/UserService';
 
 import { toast } from 'react-toastify';
-// import { withTranslation } from 'react-i18next';
-// const { t } = this.props;
+
 const t = (txt) => txt; //mac
 
 
@@ -76,10 +77,13 @@ export const savedUserSuccess = user => ({
     user,
 });
 
-// export const saveUser = user => ({
-//     type: SET_USER,
-//     user,
-// });
+export const userResetPasswd = () => ({
+    type: RESET_PASSWD,
+});
+
+export const userRecoverPasswd = () => ({
+    type: RECOVER_PASSWD,
+});
 
 export const userLogout = () => ({
     type: LOGOUT,
@@ -134,6 +138,16 @@ export const login = (user) => async (dispatch, getState, { history }) => {
 
         return false;
     }
+};
+
+export const resetPasswd = (...args) => (dispatch, _getState, { history }) => {
+    dispatch(userResetPasswd(...args));
+    history.push('/');
+};
+
+export const recoverPasswd = (...args) => (dispatch, _getState, { history }) => {
+    dispatch(userRecoverPasswd(...args));
+    history.push('/');
 };
 
 export const logout = (...args) => (dispatch, _getState, { history }) => {

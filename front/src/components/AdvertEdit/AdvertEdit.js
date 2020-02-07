@@ -53,11 +53,11 @@ export default function AdvertEdit(props) {
         // imageFile.mimetype = imageFile.type;
         // imageFile.encoding = imageFile.size;
 
-        // let formData = new FormData();
-        // formData.append('imageFile', imageFile);
-        // data.imageFile = formData.get('imageFile');
+        let formData = new FormData();
+        formData.append('imageFile', imageFile);
+        data.imageFile = formData.get('imageFile');
         
-        data.imageFile = imageFile;
+        // data.imageFile = imageFile;
 
         console.log('data', data);
 
@@ -87,7 +87,7 @@ export default function AdvertEdit(props) {
     return (
         <Canvas>
 
-            <div style={{ padding: "20px", maxWidth: "420px", margin: "50px auto" }}>
+            <div className="formContainer">
                 <h2>{t(pageTitle)}</h2>
 
                 <form onSubmit={handleSubmit(onSubmit)} >
