@@ -15,21 +15,6 @@ const getFetch = (url) => {
         { mode: "cors" }
     )
     .then(res => res.json());
-
-    // const token  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTM0NGQxODlhOWNjMjNlNTllMGNlZmUiLCJpYXQiOjE1ODA0OTEyMDgsImV4cCI6MTU4MDY2NDAwOH0.GzAC4h7Gi2mLrjH3riVO27Cb4uvbb7Hzt6WBdWLggUc';
-    // const config = {
-    //     headers: {
-    //         // 'Authorization': `Bearer  ${token}`,
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //         'Access-Control-Allow-Origin': '*'
-    //             } 
-    //     };
-
-    // return Axios.get(url, config).then(res => res.json());
-    // return Axios.get(url).then(res => res.json());
-    // const aux = Axios.get(url, config).then(res => res.json());
-    // console.log('aux', aux);
-    // return aux;
 }
 
 

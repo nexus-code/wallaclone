@@ -32,7 +32,7 @@ function App({ user, ads, props }) {
                 <PrivateRoute path='/advert/create' exact component={ AdEdit } />
                 <PrivateRoute path='/advert/edit/:id' exact component={ AdEdit } />
                 <Route path='/recoverpasswd' exact component={ RecoverPasswd } />
-                <Route path='/resetpasswd' exact component={ ResetPasswd } />
+                <Route path='/resetpasswd/:key' exact component={ ResetPasswd } />
                 <Route path='/advert/:id' exact component={ AdDetail } />
                 <Route path='/advert/' exact component={ Search } />
                 <Route path='/home' exact component={ Home } />

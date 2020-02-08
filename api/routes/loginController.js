@@ -35,8 +35,8 @@ class LoginController {
             //save lastLogin
 
             const packData = user.packData(user);
-
             res.json({ success: true, token: packData.token, result: packData });
+            
         } catch (err) {
             
             next(err);

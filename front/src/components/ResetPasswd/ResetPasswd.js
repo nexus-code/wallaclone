@@ -1,6 +1,7 @@
 import React from "react";
 import Canvas from '../Canvas/Canvas';
 import { useForm } from "react-hook-form";
+import { useParams, useHistory } from 'react-router';
 
 import { useTranslation } from 'react-i18next';
 
@@ -12,6 +13,9 @@ import { useTranslation } from 'react-i18next';
 export default function RecoverPasswd() { 
 
     const { t } = useTranslation();
+
+    const { key } = useParams();
+
     
     const { register, handleSubmit, reset, getValues, errors } = useForm({});
 
@@ -74,7 +78,10 @@ export default function RecoverPasswd() {
                         </p>
                     )}
 
+                    <input type="hidden" name="recoverKey" defaultValue={ key } ref={register()} />
+
                     <input type="submit" value={t('Submit')} />
+
                 </form>
                     
                 <br />

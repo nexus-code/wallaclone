@@ -132,7 +132,10 @@ userSchema.statics.insert = async function (req, next) {
         const user = new User(req.body);
         const newUser = await user.save();
 
-        const wellcomeEmail = await User.sendEmail(process.env.APP_EMAIL, newUser.email, 'testing', `Wellcome`);
+        //Improve and format message
+        const emailMessage = `<br><br><h1>Wellcome to Wallaclone!${newUser.name}</h1><br>`
+
+        const wellcomeEmail = await User.sendEmail(process.env.APP_EMAIL, newUser.email, `${newUser.name}: Wellcome to Wallaclone!`, emailMessage);
         // Store!! : console.log(wellcomeEmail);
 
         return newUser
