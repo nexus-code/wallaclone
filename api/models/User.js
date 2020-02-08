@@ -12,6 +12,7 @@
 const mongoose = require('mongoose');
 const bcrypt   = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const moment = require('moment');
 const nodemailerTransport = require('../lib/nodemailerConfigure');
 
 const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -90,11 +91,9 @@ userSchema.methods.comparePassword = function (plaintext, callback) {
     return callback(null, bcrypt.compareSync(plaintext, this.password));
 };
 
-/**
- * only returns necessary user information
- */
 userSchema.methods.packData = function() {
-    // create JWT
+    // Returns necessary information only
+    
     const token = jwt.sign({ _id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES
     });
@@ -108,19 +107,24 @@ userSchema.methods.packData = function() {
     }
 }
 
-userSchema.methods.sendEmail = async function (from, subject, body) {
-    // enviar el correo
+/**
+ * @param to optional
+ */
+userSchema.statics.sendEmail = async function (from, to, subject, body) {
+    
     return nodemailerTransport.sendMail({
-        from: from,
-        to: this.email,
-        subject: subject,
+        from,
+        to,
+        subject,
         html: body
     })
 }
 
-userSchema.statics.recoverPassword = async function () {
-    
-}
+/**
+ * 
+ * CRUD functions
+ * 
+ */
 
 userSchema.statics.insert = async function (req, next) {
     try {
@@ -128,8 +132,8 @@ userSchema.statics.insert = async function (req, next) {
         const user = new User(req.body);
         const newUser = await user.save();
 
-        const wellcomeEmail = await newUser.sendEmail(process.env.APP_EMAIL, 'testing', `Wellcome`);
-        // GUARDAR!! : console.log(wellcomeEmail);
+        const wellcomeEmail = await User.sendEmail(process.env.APP_EMAIL, newUser.email, 'testing', `Wellcome`);
+        // Store!! : console.log(wellcomeEmail);
 
         return newUser
 
@@ -138,10 +142,11 @@ userSchema.statics.insert = async function (req, next) {
     }
 }
 
-userSchema.statics.update = async function (id, data, next) {
+userSchema.statics.update = async function (data, next) {
     try {
 
-        const updatedUser = await User.findOneAndUpdate({ _id: id }, data, { new: true });
+        data.updated = moment().format();
+        const updatedUser = await User.findOneAndUpdate({ _id: data.id }, data, { new: true });
 
         return updatedUser;
 

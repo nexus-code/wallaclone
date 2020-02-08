@@ -1,40 +1,46 @@
 'use strict';
 
-const User = require('../models/User');
+const UserModel = require('../models/User');
+const moment = require('moment');
 
-// Recover password
+// Recovers password by email. Generates email whith link to reset it
 
 class recoverPasswdController {
-
-
+    
     async recover(req, res, next) {
 
-        // FROM LOGIN
-        // try {
+        try {
 
-        //     const { username, password } = req.body;
-
-        //     const user = await User.findOne({ username });
+            const { email } = req.body;
+            const hash = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+            const user = await UserModel.findOne({ email });
             
-        //     if (!user) {
-        //         res.json({ success: false, error: 'Invalid credentials', });
-        //         return;
-        //     }
-
-        //     user.comparePassword(password, (error, match) => {
-        //         if (!match) {
-        //             res.json({ success: false, error: 'Invalid credentials', });
-        //             return;
-        //         }
-        //     });
-
-        //     const packData = user.packData(user);
-
-        //     res.json({ success: true, token: packData.token, result: packData });
-        // } catch (err) {
+            if (!user) {
+                res.json({ success: false, error: 'Invalid credentials', });
+                return;
+            }
             
-        //     next(err);
-        // }
+            const forgotten_password = {
+                code: hash,
+                time: moment().format()
+            }
+            user.forgotten_password = forgotten_password;
+
+            const updatedUser = UserModel.update(user);
+
+            const link = `${process.env.APP_ROOT}:${process.env.PORT}/recoverpasswd/${forgotten_password.code}`;
+            const recoverPasswdLink = `<br><br><br>To reset your Wallaclone password <a href="${link}">click here</a>`;
+
+            const recoverPasswdEmail = await UserModel.sendEmail(process.env.APP_EMAIL, email, 'Wallaclone recover password', recoverPasswdLink);
+            res.json({ success: true });
+
+
+            // return void
+        } catch (err) {
+            console.log(err);
+            
+            next(err);
+        }
     }
 }
 

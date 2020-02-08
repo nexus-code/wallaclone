@@ -12,7 +12,7 @@ import {
     LOGOUT,
 } from './types';
 
-import { doLogin, saveUser } from '../../services/UserService';
+import { doLogin, saveUser, doRecoverPasswd } from '../../services/UserService';
 
 import { toast } from 'react-toastify';
 
@@ -21,15 +21,12 @@ const t = (txt) => txt; //mac
 
 
 // uses toast to ui add notifications   
-
 const notifySaved = () => toast.success(t('Profile saved!'));
 const notifyError = () => toast.error(t('Error on save profile!'));
 const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
 const notifyLoginError = () => toast.error(t('Invalid credentials'));
 const notifyRecover = () => toast.info(t('Recovery process started'));
-
-// const notifyWarning = (warning) => toast.warning(warning);
-
+const notifyRecoverError = () => toast.error(t('Invalid credentials'));
 
 
 // export const fetchUser = id => {
@@ -90,7 +87,6 @@ export const userLogout = () => ({
     type: LOGOUT,
 });
 
-//old savedUser:
 export const setUser = (user, method) => async (dispatch, getState, { history }) => {
 
     dispatch(savedUserRequest(user));
@@ -105,7 +101,6 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
         notifySaved();
         if (history.location.pathname === '/register')
             history.push("/");
-
 
     } catch (error) {
 
@@ -146,10 +141,26 @@ export const resetPasswd = (...args) => (dispatch, _getState, { history }) => {
     history.push('/');
 };
 
-export const recoverPasswd = (...args) => (dispatch, _getState, { history }) => {
-    dispatch(userRecoverPasswd(...args));
-    notifyRecover();
-    history.push('/');
+export const recoverPasswd = (email) => async (dispatch, _getState, { history }) => {
+
+    dispatch(userRecoverPasswd(email));
+
+    try {
+
+        const result = await doRecoverPasswd(email);
+
+        dispatch(fetchUserSuccess(result));
+
+        notifyRecover();
+        // history.push("/");
+
+    } catch (error) {
+
+        dispatch(fetchUserFailure());
+        notifyRecoverError();
+
+        return false;
+    }
 };
 
 export const logout = (...args) => (dispatch, _getState, { history }) => {

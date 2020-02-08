@@ -1,6 +1,6 @@
 'use strict';
 
-const User = require('../models/User');
+const UserModel = require('../models/User');
 
 // Authenticate access to API
 
@@ -9,18 +9,16 @@ class LoginController {
 
     /* 
     * Get user credentials ({username, password})
-    * via POST and authenticate
+    * via POST 
     */
 
     async login(req, res, next) {
-
-        // console.log('LoginController.login', req.headers);
 
         try {
 
             const { username, password } = req.body;
 
-            const user = await User.findOne({ username });
+            const user = await UserModel.findOne({ username });
             
             if (!user) {
                 res.json({ success: false, error: 'Invalid credentials', });
@@ -33,6 +31,8 @@ class LoginController {
                     return;
                 }
             });
+
+            //save lastLogin
 
             const packData = user.packData(user);
 

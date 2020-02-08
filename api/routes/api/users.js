@@ -8,7 +8,7 @@
 const express = require('express');
 const router  = express.Router();
 
-const User = require('../../models/User');
+const UserModel = require('../../models/User');
 const jwt = require('jsonwebtoken');
 
 /**
@@ -18,14 +18,14 @@ const jwt = require('jsonwebtoken');
 // GET /Users -> List Users
 router.get('/', async (req, res, next) => {
     try {        
-        const users = await User.select(req);
+        const users = await UserModel.select(req);
 
-        // only returns relevant user information ?
+        // map packData useres?
 
         res.json({
             status: 200,
             result: users
-        }); // API output
+        });
 
     } catch (err) {
         next(err);
@@ -36,21 +36,13 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
 
-        // improve?
-        // req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
-
-        const savedUser = await User.insert(req, next);
-
-        // const wellcomeEmail = await savedUser.sendEmail(process.env.APP_EMAIL, 'testing', `Wellcome ${savedUser.username}`);
-        // console.log(wellcomeEmail);
-
+        const savedUser = await UserModel.insert(req, next);
         const packData = savedUser.packData();
 
         res.json({
             status: 200,
-            // result: returnedUser
             result: packData
-        }); // API output
+        });
 
     } catch (err) {
         next(err);
@@ -58,19 +50,19 @@ router.post('/', async (req, res, next) => {
 });
 
 
-// PUT /Users:id -> Update User by id
 router.put('/:id', async (req, res, next) => {
     try {
 
-        const id = req.params.id;
+        // const id = req.params.id;
         const data = req.body;
+        data.id = req.params.id;
 
-        const savedUser = await User.update(id, data, next);
+        const savedUser = await UserModel.update(data, next);
 
         res.json({
             status: 200,
             result: savedUser
-        }); // API output
+        });
 
     } catch (err) {
         next(err);
@@ -82,7 +74,7 @@ router.delete('/:id', async (req, res, next) => {
     try {
 
         const _id = req.params.id; 
-        const _status = await User.delete(_id, next);
+        const _status = await UserModel.delete(_id, next);
 
         res.json({
             status: _status

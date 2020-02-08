@@ -17,7 +17,7 @@ export default function RecoverPasswd({ recoverPasswd }) {
     
     const onSubmit = data => {
 
-        recoverPasswd();
+        recoverPasswd(data.email);
     };
 
     

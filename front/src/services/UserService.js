@@ -49,24 +49,6 @@ const getUser = (id) => {
         .catch(error => console.error('Error:', error));
 }
 
-
-/**
- * 
- * @param {*} query: filter users. Optimize  with searchAdvert
- */
-
-// const searchUsers = (query) => {
-    
-//     const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
-    
-//     // console.log('query', query);
-//     // console.log('url', `${API_URL}users`);
-
-//     return getFetch(`${API_URL}users`)
-//         .then(res => res.result.map(ad => new UserModel(ad)))
-//         .catch(error => console.error('Error:', error));
-// }
-
 /**
  * Call login API method
  * @param {*} username 
@@ -74,12 +56,26 @@ const getUser = (id) => {
  */
 const doLogin = (user) => {
 
-    const baseURL = `${API_URL}login`;
+    const url = `${API_URL}login`;
 
-    return Axios.post(baseURL, null, { data: user }).then(
+    return Axios.post(url, null, { data: user }).then(
         res => new UserModel(res.data.result),
     );
 }
+
+/**
+ * Call login API method
+ * @param {*} email
+ */
+const doRecoverPasswd = (email) => {
+
+    const url = `${API_URL}recoverpasswd`;
+
+    return Axios.post(url, null, { data: {email: email} }).then(
+        res => res.data.result,
+    );
+}
+
 
 /**
  * 
@@ -88,19 +84,19 @@ const doLogin = (user) => {
  */
 const saveUser = (user, method) => {
 
-    const baseURL = `${API_URL}users`;
+    const url = `${API_URL}users`;
 
     // console.log('UserService saveUser', user);
 
     switch (method) {
 
         case 'POST':
-            return Axios.post(baseURL, null, { data: user }).then(
+            return Axios.post(url, null, { data: user }).then(
                 res => new UserModel(res.data.result),
             );
 
         case 'PUT':
-            return Axios.put(`${baseURL}/${user.id}`, null, { data: user }).then(
+            return Axios.put(`${url}/${user.id}`, null, { data: user }).then(
                 res => new UserModel(res.data.result),
             );
 
@@ -109,9 +105,27 @@ const saveUser = (user, method) => {
     }
 }
 
+/**
+ *
+ * @param {*} query: filter users. Optimize  with searchAdvert
+ */
+
+// const searchUsers = (query) => {
+
+//     const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
+
+//     // console.log('query', query);
+//     // console.log('url', `${API_URL}users`);
+
+//     return getFetch(`${API_URL}users`)
+//         .then(res => res.result.map(ad => new UserModel(ad)))
+//         .catch(error => console.error('Error:', error));
+// }
+
 export {
     // searchUsers,
     doLogin,
+    doRecoverPasswd,
     getUser,
     saveUser
 };

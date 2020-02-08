@@ -23,6 +23,7 @@
     "i18n": "^0.8.4",
     "jimp": "^0.8.5",
     "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
     "mongoose": "^5.8.11",
     "morgan": "~1.9.1",
     "move-file": "^1.2.0",
