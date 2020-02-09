@@ -72,7 +72,7 @@ const doResetPasswd = (password, recoverKey) => {
     const data = { password, recoverKey }
 
     return Axios.post(url, null, { data }).then(
-        res => res.data.result,
+        res => new UserModel(res.data.result),
     );
 }
 

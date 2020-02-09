@@ -33,9 +33,11 @@
     "sell": "En venta",
     "buy": "Se compra",
 
+    "Insert your": "Indique su",
+    "new password": "nueva constraseña",
     "Recover password": "Recuperar constraseña",
     "Recover password instructions": "Indique su email y pulse enviar, recibirá en su email intrucciones para recuperar su constraseña",
-    "Type your new password again": "Vuelvaa escribir su nueva contraseña",
+    "Type your new password again": "Repita su nueva contraseña",
     "Passwords should match!": "Las contraseñas no coinciden",
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"

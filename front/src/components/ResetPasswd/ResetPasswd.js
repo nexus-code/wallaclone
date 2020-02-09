@@ -43,7 +43,7 @@ export default function RecoverPasswd({ resetPasswd }) {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>{ t('New password') }</label>
                     <input
-                        // type="password"
+                        type="password" 
                         name="password" 
                         placeholder={t('Insert your') + ' ' + t('new password')  }
                         ref={register(validator('password', 3, 25))}  
@@ -51,7 +51,7 @@ export default function RecoverPasswd({ resetPasswd }) {
                     {errors.password && <p>{errors.password.message}</p>}
                     <label>{t('Confirm password') }</label>
                     <input
-                        // type="password"
+                        type="password"
                         name="passwordConfirmation"
                         placeholder={t('Type your new password again')}
                         ref={register({

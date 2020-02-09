@@ -25,10 +25,10 @@ const notifySaved = () => toast.success(t('Profile saved!'));
 const notifyError = () => toast.error(t('Error on save profile!'));
 const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
 const notifyLoginError = () => toast.error(t('Invalid credentials'));
-const notifyRecover = () => toast.info(t('Recovery process started'));
-const notifyRecoverError = () => toast.error(t('Invalid credentials'));
-const notifyReset = () => toast.success(t('Password updated'));
-const notifyResetError = () => toast.error(t('Invalid credentials'));
+const notifyRecoverPasswd = () => toast.info(t('Recovery process started'));
+const notifyRecoverPasswdError = () => toast.error(t('Invalid credentials'));
+const notifyResetPasswd = () => toast.success(t('Password updated'));
+const notifyResetPasswdError = () => toast.error(t('Invalid credentials'));
 
 // export const fetchUser = id => {
 
@@ -145,15 +145,17 @@ export const resetPasswd = (password, recoverKey) => async (dispatch, _getState,
 
         const result = await doResetPasswd(password, recoverKey);
 
-        dispatch(fetchUserSuccess(result));
+        console.log('resetPasswd', result)
 
-        notifyReset();
+        dispatch(fetchUserSuccess(result)); // do login
+
+        notifyResetPasswd();
         // history.push("/");
 
     } catch (error) {
 
         dispatch(fetchUserFailure());
-        notifyResetError();
+        notifyResetPasswdError();
 
         return false;
     }
@@ -169,13 +171,13 @@ export const recoverPasswd = (email) => async (dispatch, _getState, { history })
 
         dispatch(fetchUserSuccess(result));
 
-        notifyRecover();
+        notifyRecoverPasswd();
         history.push("/");
 
     } catch (error) {
 
         dispatch(fetchUserFailure());
-        notifyRecoverError();
+        notifyRecoverPasswdError();
 
         return false;
     }
