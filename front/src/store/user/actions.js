@@ -12,7 +12,7 @@ import {
     LOGOUT,
 } from './types';
 
-import { doLogin, saveUser, doRecoverPasswd } from '../../services/UserService';
+import { doLogin, saveUser, doRecoverPasswd, doResetPasswd } from '../../services/UserService';
 
 import { toast } from 'react-toastify';
 
@@ -27,7 +27,8 @@ const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
 const notifyLoginError = () => toast.error(t('Invalid credentials'));
 const notifyRecover = () => toast.info(t('Recovery process started'));
 const notifyRecoverError = () => toast.error(t('Invalid credentials'));
-
+const notifyReset = () => toast.success(t('Password updated'));
+const notifyResetError = () => toast.error(t('Invalid credentials'));
 
 // export const fetchUser = id => {
 
@@ -136,9 +137,26 @@ export const login = (user) => async (dispatch, getState, { history }) => {
     }
 };
 
-export const resetPasswd = (...args) => (dispatch, _getState, { history }) => {
-    dispatch(userResetPasswd(...args));
-    history.push('/');
+export const resetPasswd = (password, recoverKey) => async (dispatch, _getState, { history }) => {
+    
+    dispatch(userResetPasswd(password, recoverKey));
+
+    try {
+
+        const result = await doResetPasswd(password, recoverKey);
+
+        dispatch(fetchUserSuccess(result));
+
+        notifyReset();
+        // history.push("/");
+
+    } catch (error) {
+
+        dispatch(fetchUserFailure());
+        notifyResetError();
+
+        return false;
+    }
 };
 
 export const recoverPasswd = (email) => async (dispatch, _getState, { history }) => {
@@ -152,7 +170,7 @@ export const recoverPasswd = (email) => async (dispatch, _getState, { history })
         dispatch(fetchUserSuccess(result));
 
         notifyRecover();
-        // history.push("/");
+        history.push("/");
 
     } catch (error) {
 

@@ -50,7 +50,7 @@ const userSchema = mongoose.Schema({
         },
         time: {
             type: Date, 
-            default: Date.now
+            default: null
         }
     },
     language: {
@@ -148,7 +148,25 @@ userSchema.statics.insert = async function (req, next) {
 userSchema.statics.update = async function (data, next) {
     try {
 
-        data.updated = moment().format();
+        data.updated = moment();
+        const updatedUser = await User.findOneAndUpdate({ _id: data.id }, data, { new: true });
+
+        return updatedUser;
+
+    } catch (err) {
+
+        next(err);
+    }
+}
+
+
+userSchema.statics.updateUserPasswd = async function (data, next) {
+    try {
+
+        data.updated = moment();
+        data.password = bcrypt.hashSync(data.password, 10);
+        data.forgotten_password = { code: '', time: null };   //reset
+
         const updatedUser = await User.findOneAndUpdate({ _id: data.id }, data, { new: true });
 
         return updatedUser;

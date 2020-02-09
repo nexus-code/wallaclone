@@ -55,12 +55,26 @@ const doLogin = (user) => {
 const doRecoverPasswd = (email) => {
 
     const url = `${API_URL}recoverpasswd`;
+    const data = { email }
 
-    return Axios.post(url, null, { data: {email: email} }).then(
+    return Axios.post(url, null, { data }).then(
         res => res.data.result,
     );
 }
 
+/**
+ * Call login API method
+ * @param {*} email
+ */
+const doResetPasswd = (password, recoverKey) => {
+
+    const url = `${API_URL}resetpasswd`;
+    const data = { password, recoverKey }
+
+    return Axios.post(url, null, { data }).then(
+        res => res.data.result,
+    );
+}
 
 /**
  * 
@@ -111,6 +125,7 @@ export {
     // searchUsers,
     doLogin,
     doRecoverPasswd,
+    doResetPasswd,
     getUser,
     saveUser
 };

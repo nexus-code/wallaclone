@@ -1,46 +1,38 @@
 import React from "react";
 import Canvas from '../Canvas/Canvas';
 import { useForm } from "react-hook-form";
-import { useParams, useHistory } from 'react-router';
+import { useParams } from 'react-router';
 
 import { useTranslation } from 'react-i18next';
 
 /**
  * 
- * Recover user password
+ * Reset user password
  */
 
-export default function RecoverPasswd() { 
+export default function RecoverPasswd({ resetPasswd }) { 
 
     const { t } = useTranslation();
-
     const { key } = useParams();
-
     
-    const { register, handleSubmit, reset, getValues, errors } = useForm({});
-
+    const { register, handleSubmit, getValues, errors } = useForm({});
     
     const onSubmit = data => {
 
-        // changeLanguage(data.language);       
         
-        // if (onEdit && data.password === '')
-        //     delete data.password;
-        
-        // setUser(data, method);
+        resetPasswd(data.password, data.recoverKey);
     };
 
-  
     const validator = (field, minLength, maxLength) => ({
-            required: t(field) + ` ${t('is required')}`,
-            minLength: {
-                value: minLength,
-                message: `Min length is ${minLength}`
-            },
-            maxLength: {
-                value: maxLength,
-                message: `Max length is ${maxLength}`
-            }
+        required: t(field) + ` ${t('is required')}`,
+        minLength: {
+            value: minLength,
+            message: `Min length is ${minLength}`
+        },
+        maxLength: {
+            value: maxLength,
+            message: `Max length is ${maxLength}`
+        }
     });
     
     
@@ -51,15 +43,15 @@ export default function RecoverPasswd() {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <label>{ t('New password') }</label>
                     <input
-                        type="password"
-                        name="newPasswd" 
+                        // type="password"
+                        name="password" 
                         placeholder={t('Insert your') + ' ' + t('new password')  }
-                        ref={register(validator('newPasswd', 3, 25))}  
+                        ref={register(validator('password', 3, 25))}  
                     />
-                    {errors.newPasswd && <p>{errors.newPasswd.message}</p>}
+                    {errors.password && <p>{errors.password.message}</p>}
                     <label>{t('Confirm password') }</label>
                     <input
-                        type="password"
+                        // type="password"
                         name="passwordConfirmation"
                         placeholder={t('Type your new password again')}
                         ref={register({

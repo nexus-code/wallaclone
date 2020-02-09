@@ -25,7 +25,7 @@ function encrypt(str) {
 function decrypt(str){
 
     const key = crypto.createDecipher(algorithm, process.env.PW_RECOVER_SECRET);
-    let decryptedStr = key.update(encryptedStr, 'hex', 'utf8')
+    let decryptedStr = key.update(str, 'hex', 'utf8')
     decryptedStr += key.final('utf8');
     
     return decryptedStr;
@@ -52,7 +52,7 @@ class recoverPasswdController {
             
             const forgotten_password = {
                 code: hash,
-                time: moment().format()
+                time: moment()
             }
             user.forgotten_password = forgotten_password;
 
@@ -82,13 +82,16 @@ class recoverPasswdController {
 
     async reset(req, res, next) {
 
+        // console.log('starts recoverPasswdController.reset', req.body)
+
+
         try {
 
             const { password, recoverKey } = req.body;
 
             if (!password || !recoverKey){
-                console.log('params error: ', password, recoverKey)
-                res.json({ success: false });
+                // console.log('params error: ', password, recoverKey);
+                res.json({ success: false, error: 'Invalid credentials', });
                 return;
             }
 
@@ -96,7 +99,8 @@ class recoverPasswdController {
 
             const recoverObj = JSON.parse(dcrypt)
             if (!recoverObj){
-                console.log('error recoverObj: ', recoverObj)
+                // console.log('error recoverObj: ', recoverObj);
+                res.json({ success: false, error: 'Invalid credentials', });
                 return;
             }
 
@@ -104,34 +108,33 @@ class recoverPasswdController {
 
             const user = await UserModel.findOne({ email });
 
-            if (!user) {
+            if (!user || user.forgotten_password.code === '' ) {
                 console.log('No user ');
-                res.json({ success: false });
+                res.json({ success: false, error: 'Invalid credentials', });
                 return;
             }
 
-            const _now = moment().format();
 
             // key expires in PW_RECOVER_EXPIRES days
+            const _now = moment();          
             if (user.forgotten_password.code !== hash || _now.diff(user.forgotten_password.time, 'days') > process.env.PW_RECOVER_EXPIRES ) {
                 console.log('Invalid has or time expired');
-                res.json({ success: false });
+                res.json({ success: false, error: 'Invalid credentials', });
                 return;
             }
 
             // all right!!
-            user.forgotten_password = { code: '', time: '' };   //reset
             user.password = password;
-
-            const updatedUser = UserModel.update(user);
+            const updatedUser = UserModel.updateUserPasswd(user);
 
             // do login:
-            const packData = user.packData(user);
+            const packData = user.packData(updatedUser);
             res.json({ success: true, token: packData.token, result: packData });
 
             // return void
         } catch (err) {
             console.log(err);
+            res.json({ success: false, error: 'Invalid credentials', });
 
             next(err);
         }
