@@ -66,10 +66,10 @@ const advertSchema = mongoose.Schema({
 
 advertSchema.index({ name: 1, type: 1, price: -1, active: 1, created: 1});
 
-// advertSchema.pre("find", function () {
+advertSchema.pre("find", function () {
 
-//     this.populate('Users');
-// });
+    this.populate('owner', { username: 1, language: 1 });
+});
 
 /**
  * advert image microservice
@@ -257,21 +257,10 @@ advertSchema.statics.select = async function (req) {
 function list ({filter, skip, limit, fields, sort}) {
     
     //v1
-    // const query = Advert.find(filter); 
+    const query = Advert.find(filter); 
 
     //v3
-    const query = Advert.find(filter).populate('owner');
-
-    // mal
-    // const query = Advert.find({
-    //     $lookup:
-    //    {
-    //      from: 'users',
-    //      localField: 'owner',
-    //      foreignField: '_id',
-    //      as: 'owner_details'
-    //    }
-    // }); 
+    // const query = Advert.find(filter).populate('owner');
 
    
     // console.log('       - Query: ', query);
