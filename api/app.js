@@ -98,8 +98,9 @@ app.locals.app_root = `${process.env.APP_ROOT}:${process.env.PORT}/`;
  * DB connection
  */
 
+// require('./models/User');
+// require('./models/Advert'); 
 require('./lib/connectMongoose');
-require('./models/Advert'); 
 
 /**
  * Routes

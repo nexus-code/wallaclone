@@ -10,7 +10,6 @@
  */
 
 const mongoose = require('mongoose');
-// const {User} = require('./User');
 
 const advertSchema = mongoose.Schema({
     name: {
@@ -67,10 +66,10 @@ const advertSchema = mongoose.Schema({
 
 advertSchema.index({ name: 1, type: 1, price: -1, active: 1, created: 1});
 
-advertSchema.pre("find", function () {
+// advertSchema.pre("find", function () {
 
-    this.populate('Users');
-});
+//     this.populate('Users');
+// });
 
 /**
  * advert image microservice
@@ -261,7 +260,7 @@ function list ({filter, skip, limit, fields, sort}) {
     // const query = Advert.find(filter); 
 
     //v3
-    const query = Advert.find(filter).populate({ path: 'Users', select: 'username' });
+    const query = Advert.find(filter).populate('owner');
 
     // mal
     // const query = Advert.find({
@@ -277,7 +276,7 @@ function list ({filter, skip, limit, fields, sort}) {
    
     // console.log('       - Query: ', query);
 
-    query.skip(skip).limit(limit).select(fields).sort(sort);
+    // query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();
 };
 
