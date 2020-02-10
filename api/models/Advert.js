@@ -3,13 +3,14 @@
 /**
  * AdvertSchema: Advert definition
  * 
- * Use mongoose to store data
+ * Use mongoose to store dataaggregate
  * Use cote to store advert image (via microservice)
  * 
  * Export Advert (with CRUD methods)
  */
 
 const mongoose = require('mongoose');
+// const {User} = require('./User');
 
 const advertSchema = mongoose.Schema({
     name: {
@@ -20,12 +21,15 @@ const advertSchema = mongoose.Schema({
         trim: true,
     },
     type: {
-        // true for sale, false for search 
         type: String,
         require: true,
         default: 'sell'
     },
     owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
+    status: {
         type: String,
         default: ''
     },
@@ -62,6 +66,11 @@ const advertSchema = mongoose.Schema({
 });
 
 advertSchema.index({ name: 1, type: 1, price: -1, active: 1, created: 1});
+
+advertSchema.pre("find", function () {
+
+    this.populate('Users');
+});
 
 /**
  * advert image microservice
@@ -166,8 +175,8 @@ advertSchema.statics.select = async function (req) {
     const skip = parseInt(req.query.skip);
     const limit = parseInt(req.query.limit);
     const fields = req.query.fields;
+    
     // const sort = req.query.sort || { 'created': -1 }; // sort created by default
-
     const sort = { 'created': 1 }; // sort created by default
 
     let filter = {};
@@ -237,7 +246,7 @@ advertSchema.statics.select = async function (req) {
     }
 
     const adverts = await list({filter, skip, limit, fields, sort});
-    // console.log('       - Query filter: ', filter);
+    console.log('       - Query filter: ', filter);
     // console.log('       - Query result count: ', adverts.length);
 
     return adverts;          
@@ -247,12 +256,31 @@ advertSchema.statics.select = async function (req) {
 // return query predefinition
 // advertSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list ({filter, skip, limit, fields, sort}) {
-    const query = Advert.find(filter); 
+    
+    //v1
+    // const query = Advert.find(filter); 
+
+    //v3
+    const query = Advert.find(filter).populate({ path: 'Users', select: 'username' });
+
+    // mal
+    // const query = Advert.find({
+    //     $lookup:
+    //    {
+    //      from: 'users',
+    //      localField: 'owner',
+    //      foreignField: '_id',
+    //      as: 'owner_details'
+    //    }
+    // }); 
+
+   
     // console.log('       - Query: ', query);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();
 };
+
 
 
 const Advert = mongoose.model('Advert', advertSchema);

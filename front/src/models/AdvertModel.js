@@ -8,6 +8,7 @@ export default class AdvertModel {
     // createdAt;
     // updatedAt;
     tags;
+    username;
 
     constructor(value) {
         this.id = value._id;
@@ -21,5 +22,6 @@ export default class AdvertModel {
         // this.createdAt = value.createdAt;
         // this.updatedAt = value.updatedAt;
         this.tags = value.tags;
+        this.username = value.username
     }
 }

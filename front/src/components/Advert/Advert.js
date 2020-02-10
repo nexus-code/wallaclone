@@ -37,6 +37,7 @@ function Advert(props) {
                 <img className='card-img-top text-center'  src={ advert.image } alt={ advert.name } />
                 <div className='card-body'>
                     <h5 className='card-title'>{ advert.name }</h5>
+                    <p>By: { advert.username }</p>
                     <h2 className='text-center'><span className='badge badge-primary'>{ advert.price } €</span></h2>                
                     <p className='card-text'>{ advert.description }</p>
                     <p>

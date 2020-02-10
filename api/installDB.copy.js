@@ -17,8 +17,7 @@ const advertsArray = [
         {
             name: 'lifestyle 1',
             type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
+            active: 1,
             price: 150,
             tags: ['lifestyle', 'mobile'],
             image: 'lifestyle1.jpg',
@@ -28,8 +27,7 @@ const advertsArray = [
         {
             name: 'lifestyle 2',
             type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: 'reserved',
+            active: 1,
             price: 15,
             tags: ['lifestyle', 'work'],
             image: 'lifestyle2.jpg',
@@ -39,8 +37,7 @@ const advertsArray = [
         {
             name: 'lifestyle 3',
             type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
+            active: 1,
             price: 80,
             tags: ['lifestyle'],
             image: 'lifestyle3.jpg',
@@ -50,8 +47,7 @@ const advertsArray = [
         {
             name: 'motor 1',
             type: 'sell',
-            owner: '5e40faae9f22490b1cd9b59f',
-            status: 'sold',
+            active: 1,
             price: 150,
             tags: ['motor', 'mobile', 'lifestyle'],
             image: 'motor1.jpg',
@@ -60,8 +56,7 @@ const advertsArray = [
         }, {
             name: 'motor 2',
             type: 'buy',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
+            active: 1,
             price: 180,
             tags: ['motor', 'work'],
             image: 'motor2.jpg',
@@ -70,8 +65,7 @@ const advertsArray = [
         }, {
             name: 'motor 3',
             type: 'buy',
-            owner: '5e40faae9f22490b1cd9b59f',
-            status: '',
+            active: 1,
             price: 80,
             tags: ['motor', 'lifestyle'],
             image: 'motor3.jpg',
@@ -81,8 +75,7 @@ const advertsArray = [
         {
             name: 'mobile 1',
             type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: '',
+            active: 1,
             price: 150,
             tags: ['mobile', 'lifestyle'],
             image: 'mobile1.jpg',
@@ -91,55 +84,78 @@ const advertsArray = [
         }, {
             name: 'mobile 2',
             type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: 'reserved',
+            active: 1,
             price: 45,
             tags: ['mobile', 'work'],
             image: 'mobile2.jpg',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ',
-            created: '2020-02-10 18:00'
+            created: '2020-02-28 18:00'
         }, {
             name: 'mobile 3',
             type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: 'reserved',
+            active: 1,
             price: 120,
             tags: ['mobile'],
             image: 'mobile3.jpg',
             description: '',
-            created: '2020-02-09 19:56'
+            created: '2020-02-25 19:56'
         },
         {
             name: 'work 1',
             type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: 'Sold',
+            active: 1,
             price: 150,
             tags: ['work', 'mobile', 'lifestyle'],
             image: 'work1.jpg',
             description: 'Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.',
-            created: '2020-02-10 9:56'
+            created: '2020-02-25 9:56'
         }, {
             name: 'work 2',
             type: 'buy',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: '',
+            active: 1,
             price: 15,
             tags: ['work'],
             image: 'work2.jpg',
             description: 'Eget gravida cum sociis natoque penatibus et. Neque laoreet suspendisse interdum consectetur libero. Nullam non nisi est sit. ',
-            created: '2020-02-03 18:56'
+            created: '2020-02-24 18:56'
         }, {
             name: 'work 3',
             type: 'buy',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
+            active: 1,
             price: 80,
             tags: ['work', 'lifestyle'],
             image: 'work3.jpg',
             description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2020-02-02 16:56'
-        }
+            created: '2020-02-24 16:56'
+        },
+        {
+            name: 'deactivated 1',
+            type: 'sell',
+            active: 0,
+            price: 170,
+            tags: ['work', 'mobile', 'lifestyle'],
+            image: '',
+            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
+            created: '2020-02-24 12:56'
+        }, {
+            name: 'deactivated 2',
+            type: 'buy',
+            active: 0,
+            price: 40,
+            tags: ['work', 'work'],
+            image: '',
+            description: 'Eget gravida cum sociis natoque penatibus et. Neque laoreet suspendisse interdum consectetur libero. Nullam non nisi est sit. ',
+            created: '2020-02-01 18:56'
+        }, {
+            name: 'deactivated 3',
+            type: 'buy',
+            active: 0,
+            price: 80,
+            tags: ['work', 'lifestyle'],
+            image: '',
+            description: 'Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.',
+            created: '2020-02-01 8:56'
+        },
     ];
 
 /**
@@ -226,14 +242,14 @@ async function initUsers() {
             password: '1234567'
         },
         {
-            username: 'wallaclone',
-            email: 'wallaclone@wallaclone.dev',
-            password: 'wallaclone'
+            username: 'testing',
+            email: 'testing@wallaclone.dev',
+            password: 'testing+'
         }, 
         {
-            username: 'Programación',
-            email: 'ma.cardenas@nexuscode.com',
-    password: 'Programación'
+            username: 'testing3',
+            email: 'testing3@wallaclone.dev',
+            password: '1'
         }
         // ,{ runValidators: true } // Produce empty username error!
     ]);
