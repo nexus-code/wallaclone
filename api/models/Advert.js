@@ -172,11 +172,11 @@ advertSchema.statics.select = async function (req) {
     const created = req.query.created;
 
     const skip = parseInt(req.query.skip);
-    const limit = parseInt(req.query.limit);
+    const limit = parseInt(req.query.limit) || parseInt(process.env.ADVERT_PAGINATION_LIMIT);   
     const fields = req.query.fields;
     
     // const sort = req.query.sort || { 'created': -1 }; // sort created by default
-    const sort = { 'created': 1 }; // sort created by default
+    const sort = { 'created': -1 }; // sort created by default
 
     let filter = {};
 
@@ -265,7 +265,7 @@ function list ({filter, skip, limit, fields, sort}) {
    
     // console.log('       - Query: ', query);
 
-    // query.skip(skip).limit(limit).select(fields).sort(sort);
+    query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();
 };
 

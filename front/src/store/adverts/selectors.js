@@ -1,5 +1,5 @@
 export function getAdverts(state) {
-
+    console.log('selector state', state)
     return state.adverts;
 }
 

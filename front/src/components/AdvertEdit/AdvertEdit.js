@@ -133,6 +133,7 @@ export default function AdvertEdit(props) {
                     {errors.description && <p>{errors.description.message}</p>}
 
                     {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
+                    <input type="hidden" name="owner" defaultValue={props.user.user.id} ref={register()} />
 
                     <input type="submit" value={t('Submit')} />
 

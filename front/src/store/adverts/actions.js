@@ -11,7 +11,7 @@ import {
 } from './types';
 
 import { searchAdvert, searchAdverts, savedAdvert } from '../../services/AdvertService';
-import { getAdvert } from './selectors';
+import { getAdvert, getAdverts } from './selectors';
 
 import { toast } from 'react-toastify';
 
@@ -35,6 +35,42 @@ export const fetchAdverts = () => {
 
     return __fetchAdverts;
 };
+
+
+export const fetchMoreAdverts = () => {
+
+
+    console.log('fetchMoreAdverts in');
+
+    // const storedAdverts = getAdverts();
+    // console.log('storedAdverts.length', storedAdverts.length)
+    // const skip = `skip=${storedAdverts.length}`;
+
+    async function __fetchAdverts(dispatch, getState, extraArgument) {
+        console.log('__fetchAdverts in');
+
+        dispatch(fetchAdvertsRequest());
+        try {
+
+            const { adverts } = getState();
+            const skip = `skip=${adverts.length}`;
+
+            console.log('skip', skip)
+
+            const newAdverts = await searchAdverts(skip);
+
+
+            console.log('newAdverts.length', newAdverts.length)
+
+            dispatch(fetchAdvertsSuccess(adverts.concat(newAdverts)));
+        } catch (error) {
+            dispatch(fetchAdvertsFailure(error));
+        }
+    };
+
+    return __fetchAdverts;
+};
+
 
 /**
  * 

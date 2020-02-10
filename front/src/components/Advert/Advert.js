@@ -36,9 +36,9 @@ function Advert(props) {
                 <img className='card-img-top text-center'  src={ advert.image } alt={ advert.name } />
                 <div className='card-body'>
                     <h5 className='card-title'>{ advert.name }</h5>
-                    <p>By: { advert.owner.username }</p>
+                <p>By: {advert.owner.username}</p>
                     <h2 className='text-center'><span className='badge badge-primary'>{ advert.price } €</span></h2>                
-                    <p className='card-text'>{ advert.description }</p>
+                    {/* <p className='card-text'>{ advert.description }</p> */}
                     <p>
                         {
                             advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> { tag } </span> )

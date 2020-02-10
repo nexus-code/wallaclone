@@ -33,8 +33,7 @@ i18n
         interpolation: {
             escapeValue: false, // not needed for react as it escapes by default
             format: (value, format, lng) => {
-                if (format === 'currentDate') return
-                moment(value).locale(lng).format('LL');
+                if (value instanceof Date) return moment(value).format(format);
                 return value;
             },//if the format is 'currentDate', then take its __value__ transfom it to a moment object, translate it to the current language and show it in Month DD, YYYY format.    
         }
