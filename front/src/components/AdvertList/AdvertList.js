@@ -26,20 +26,21 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
     }
 
     function fetchMoreListItems() {
+        
+        setIsFetching(true);
+
         setTimeout(() => {
             
             getMoreAdverts();
             setListItems(getAdverts(adverts));
 
             setIsFetching(false);
-        }, 2000);
+        }, 1000);
     }
 
     const getMoreAdverts = async () => {
 
         loadMoreAdverts();
-
-        setListItems(getAdverts(adverts));
     };
 
 
