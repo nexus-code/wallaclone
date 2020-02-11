@@ -1,18 +1,19 @@
 export function getAdverts(state) {
-    // console.log('selector state', state)
+//    console.log('selector state', state)
     return state.adverts;
 }
 
-export const getAdvert = (props, id) => {
+export const getAdvert = (adverts, id) => {
 
     //Improve this on store!!
 
+    console.log('getAdvert', adverts);
     try{
         
-        return props.adverts.filter(advert => advert.id === id)[0];
+        return adverts.filter(advert => advert.id === id)[0];
     }
     catch(err){
         
-        return 'error? props.adverts.adverts';
+        return;// 'error? state.adverts.adverts';
     }
 };

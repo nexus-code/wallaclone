@@ -5,9 +5,9 @@ import { getAdverts } from '../../store/adverts/selectors';
 
 // font: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
 
-export default function AdvertList(props) {
+export default function AdvertList({ adverts, loadMoreAdverts }) {
 
-    // const [listItems, setListItems] = useState(props.adverts);
+    const [listItems, setListItems] = useState(adverts);
     const [isFetching, setIsFetching] = useState(false);
 
     useEffect(() => {
@@ -29,8 +29,7 @@ export default function AdvertList(props) {
         setTimeout(() => {
             
             getMoreAdverts();
-            getAdverts(props);
-            // setListItems(getAdverts(props));
+            setListItems(getAdverts(adverts));
 
             setIsFetching(false);
         }, 2000);
@@ -38,9 +37,9 @@ export default function AdvertList(props) {
 
     const getMoreAdverts = async () => {
 
-        props.loadMoreAdverts();
+        loadMoreAdverts();
 
-        // setListItems(getAdverts(props));
+        setListItems(getAdverts(adverts));
     };
 
 
@@ -48,18 +47,18 @@ export default function AdvertList(props) {
         <div className='container mt-5 mb-5'>
             <div className='card-columns'>
                 {
-                    props.adverts
+                    adverts
                     &&
-                    props.adverts.length
+                    adverts.length
                     &&
-                    props.adverts.map(advert => <Advert advert={advert} key={advert.id} />)
+                    adverts.map(advert => <Advert advert={advert} key={advert.id} />)
 
                 }
 
                 {isFetching && 'Fetching more list items...'}
 
                 {
-                    !props.adverts
+                    !adverts
                     &&
                     <div className='text-center mt-5'>
                         <h2>No advertisements found</h2>

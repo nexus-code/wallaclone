@@ -18,7 +18,8 @@ const Advert = require('../../models/Advert');
 
 // GET /adverts -> List adverts
 router.get('/', async (req, res, next) => {
-    try {        
+    try {
+
         const adverts = await Advert.select(req);
 
         res.json({

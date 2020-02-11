@@ -82,11 +82,17 @@ const searchAdverts = (query) => {
  */
 const searchAdvert = (id) => {
 
-    const url = `${API_URL}adverts/${id}`;
+    const url = `${API_URL}adverts/?id=${id}`;
 
-    return Axios.get(url).then(res =>
-        new AdvertModel(res.data.result),
-    );
+    console.log('searchAdvert', url);
+
+    // return Axios.get(url).then(res =>
+    //     new AdvertModel(res.data.result),
+    // );
+
+    return getFetch(`${url}`)
+        .then(res => new AdvertModel(res.result[0]))
+        .catch(error => console.error('Error:', error));
 }
 
 /**

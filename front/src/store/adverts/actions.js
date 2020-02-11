@@ -77,9 +77,16 @@ export const fetchMoreAdverts = () => {
  * @param {*} id search ad by id in store and API
  */
 export const fetchAdvert = id => async (dispatch, getState) => {
+
     const state = getState();
-    const advert = getAdvert(state.adverts, id);
+
+    // console.log('fetchAdvert state', state)
+    const advert = getAdvert(state, id);
+
     if (advert) {
+
+    console.log(' exit fetchAdvert advert on store', state)
+
         return advert;
     }
 
@@ -87,10 +94,10 @@ export const fetchAdvert = id => async (dispatch, getState) => {
     try {
         const advert = await searchAdvert(id);
         dispatch(fetchAdvertsSuccess([advert]));
-        return id;
+        // return id;
     } catch (error) {
         dispatch(fetchAdvertsFailure(error));
-        return `Error: ${error}`
+        // return `Error: ${error}`
     }
 };
 
