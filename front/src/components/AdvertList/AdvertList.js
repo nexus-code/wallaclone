@@ -1,40 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Advert from '../Advert/Advert';
-// import InfiniteScroll from 'react-infinite-scroll-component';
-// import { fetchMoreAdverts }  from '../../store/adverts/actions';
 import { getAdverts } from '../../store/adverts/selectors';
 
-// font: https://levelup.gitconnected.com/how-to-add-infinite-scrolling-to-your-react-app-efe7002123b8
+// font: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
 
 let page = 0;
 
 export default function AdvertList(props) {
 
-    const [items, setItems] = useState(props.adverts);
-    const [initialized, setInitialized] = useState(true);
-    // const [totalHits, setTotalHits] = useState(0);
-
-    const getMoreAdverts = async () => {
-console.log('clicked', props);
-
-        // page++;
-        // const response = await getPhotos(page);
-        const response = [];
-        props.loadMoreAdverts();
-
-        // const response = getAdverts();
-
-        setItems(getAdverts(props));
-        // setTotalHits(response.length);
-        setInitialized(true);
-    };
+    const [listItems, setListItems] = useState(props.adverts);
+    const [isFetching, setIsFetching] = useState(false);
 
     useEffect(() => {
-        if (!initialized) {
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
+        if (!isFetching) return;
+        fetchMoreListItems();
+    }, [isFetching]);
+
+    function handleScroll() {
+        if (window.innerHeight + document.documentElement.scrollTop !== document.documentElement.offsetHeight || isFetching) return;
+        setIsFetching(true);
+    }
+
+    function fetchMoreListItems() {
+        setTimeout(() => {
+            
             getMoreAdverts();
-        }
-    });
+
+            setListItems(getAdverts(props));
+
+            setIsFetching(false);
+        }, 2000);
+    }
+
+    const getMoreAdverts = async () => {
+
+        props.loadMoreAdverts();
+
+        setListItems(getAdverts(props));
+    };
 
 
     return <>
@@ -45,17 +54,11 @@ console.log('clicked', props);
                     &&
                     props.adverts.length
                     &&
-                    props.adverts.map(advert => <Advert advert={advert} key={advert.id} />) 
+                    props.adverts.map(advert => <Advert advert={advert} key={advert.id} />)
 
-                    // <InfiniteScroll
-                    //     pageStart={0}
-                    //     loadMore={getMoreAdverts}
-                    //     hasMore={true || false}
-                    //     loader={<div className="loader" key={0}>Loading ...</div>}
-                    // >
-                    //     {adverts.map(advert => <Advert advert={advert} key={advert.id} />)} 
-                    // </InfiniteScroll>
                 }
+
+                {isFetching && 'Fetching more list items...'}
 
                 {
                     !props.adverts
@@ -64,9 +67,6 @@ console.log('clicked', props);
                         <h2>No advertisements found</h2>
                     </div>
                 }
-
-                <button onClick={getMoreAdverts}>Load more adverts</button>
-
             </div>
         </div>
 

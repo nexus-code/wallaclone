@@ -1,8 +1,7 @@
 export function getAdverts(state) {
-    console.log('selector state', state)
+    // console.log('selector state', state)
     return state.adverts;
 }
-
 
 export const getAdvert = (props, id) => {
 
@@ -16,5 +15,4 @@ export const getAdvert = (props, id) => {
         
         return 'error? props.adverts.adverts';
     }
-
 };

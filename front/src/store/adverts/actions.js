@@ -47,7 +47,7 @@ export const fetchMoreAdverts = () => {
     // const skip = `skip=${storedAdverts.length}`;
 
     async function __fetchAdverts(dispatch, getState, extraArgument) {
-        console.log('__fetchAdverts in');
+    console.log('__fetchAdverts in');
 
         dispatch(fetchAdvertsRequest());
         try {
