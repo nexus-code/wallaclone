@@ -10,7 +10,7 @@ const mapStateToProps = (store) => ({
 
 const mapDispatchToProps = dispatch => ({
     saveAdvert: (advert, method) => dispatch(saveAdvert(advert, method)),
-    loadAd: (id) => dispatch(fetchAdverts(id)),
+    loadAdvert: (id) => dispatch(fetchAdverts(id)),
 });
 
 

@@ -1,43 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 
-import { useParams, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import { getAdvert } from '../../store/adverts/selectors';
 // import TagSelect from '../TagsSelect/TagSelect'
 
 const TYPES = ['sell', 'buy'];
 
-export default function AdvertEdit(props) {
+export default function AdvertDetail({
+    user,
+    adverts,
+    loadAdvert,
+    saveAdvert,
+    match: {
+        params: { id },
+        path
+    },
+    }) {
 
     const { t } = useTranslation();
 
-    const onEdit = props.match.path !== '/advert/create';
+    const onEdit = path !== '/advert/create';
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
     const method = onEdit ? 'PUT' : 'POST';
+    const history = useHistory();
 
-    let advert = {
+    const defaultAdvert = {
         id: '',
         name: '',
         price: '',
         description: '',
         type: TYPES[0],
         image: '',
-        tags: []
+        tags: [],
     };
 
-    const history = useHistory();
-    const { id } = useParams();
+    useEffect(() => {
 
-    if (id !== undefined)
-        advert = getAdvert(props, id);
+        loadAdvert(id);
+    }, [loadAdvert, id]);
 
 
-    // load out of redux
-    // if (ad.id === undefined)
-    //     history.push('/');
+    const advert = getAdvert(adverts, id) || defaultAdvert;
+
 
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
@@ -61,7 +69,7 @@ export default function AdvertEdit(props) {
 
         console.log('data', data);
 
-        return props.saveAdvert(data, method);
+        return saveAdvert(data, method);
     }
 
     const validator = (field, minLength, maxLength) => ({
@@ -133,7 +141,7 @@ export default function AdvertEdit(props) {
                     {errors.description && <p>{errors.description.message}</p>}
 
                     {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
-                    {! onEdit && <input type="hidden" name="owner" defaultValue={props.user.user.id} ref={register()} />}
+                    {! onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />}
 
                     <input type="submit" value={t('Submit')} />
 

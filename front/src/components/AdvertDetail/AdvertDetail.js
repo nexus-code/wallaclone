@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { useHistory } from 'react-router';
 
@@ -9,11 +9,22 @@ import 'react-sharingbuttons/dist/main.css'
 
 import { Button } from 'react-bootstrap';
 
+/**
+ * 
+ * Show selected advert details.
+ * loadAdvert find advert on Store or fetch in API
+ * 
+ */
 
-export default function AdvertDetail({ user, adverts, loadAdvert,
-    match: {
-        params: { id },
-    }, }) {
+
+export default function AdvertDetail({ 
+        user, 
+        adverts, 
+        loadAdvert,
+        match: {
+            params: { id },
+        }, 
+    }) {
     
     useEffect(() => {
 
@@ -21,9 +32,8 @@ export default function AdvertDetail({ user, adverts, loadAdvert,
     }, [loadAdvert, id]);
     
     const advert = getAdvert(adverts, id);
-
     const history = useHistory();
-
+    
     if (!advert){
         return <Canvas>
                 <div>
@@ -31,7 +41,7 @@ export default function AdvertDetail({ user, adverts, loadAdvert,
                 </div>
             </Canvas>
     }
-
+    
     const editButton =  advert.owner._id === user.id ? <Button className='btn btn-warning right' onClick={() => history.push(`/advert/edit/${id}`)} >Edit</Button> : '';
     
     return <Canvas>
