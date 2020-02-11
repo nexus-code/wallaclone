@@ -17,7 +17,7 @@ import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-function App({ user, ads, props }) {
+function App({ user, adverts, props }) {
   
   toast.configure(config.toastConfigure);
 

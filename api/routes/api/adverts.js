@@ -59,8 +59,8 @@ router.post('/', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
     try {
 
-        console.log('advert post file', req.file);
-        console.log('advert post body', req.body);
+        console.log('advert put file', req.file);
+        console.log('advert put body', req.body);
 
         // if (req.file === undefined)
         //     console.log('advert post file _undefined', req.file);
@@ -69,9 +69,10 @@ router.put('/:id', async (req, res, next) => {
         const data = req.body;
 
         if (req.file !== undefined){
-            data.image = req.file.filename
-        }
 
+            data.image = req.file.filename
+            delete data.filename;
+        }
 
 
         const savedAdvert = await Advert.updateAdvert(id, data, next);

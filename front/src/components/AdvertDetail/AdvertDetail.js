@@ -8,14 +8,14 @@ import { Facebook, Twitter, Email } from 'react-sharingbuttons'
 import 'react-sharingbuttons/dist/main.css'
 
 import { Button } from 'react-bootstrap';
+// import { useTranslation } from 'react-i18next';
 
 /**
  * 
  * Show selected advert details.
- * loadAdvert find advert on Store or fetch in API
+ * loadAdvert find advert on Store or fetch from API
  * 
  */
-
 
 export default function AdvertDetail({ 
         user, 
@@ -25,7 +25,9 @@ export default function AdvertDetail({
             params: { id },
         }, 
     }) {
-    
+
+    // const { t } = useTranslation();
+
     useEffect(() => {
 
         loadAdvert(id);

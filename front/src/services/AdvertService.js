@@ -46,17 +46,17 @@ const getTagsList = () => {
  * 
  * @param {*} id The ad id to fetch
  */
-const getAdvertDetail = (id) => {
-    return getFetch(`${API_URL}adverts/${id}`)
-        .then(res => {
-            if (!res.success) {
-                return res;
-            } else {
-                return new AdvertModel(res.result);
-            }
-        })
-        .catch(error => console.error('Error:', error));
-}
+// const getAdvertDetail = (id) => {
+//     return getFetch(`${API_URL}adverts/${id}`)
+//         .then(res => {
+//             if (!res.success) {
+//                 return res;
+//             } else {
+//                 return new AdvertModel(res.result);
+//             }
+//         })
+//         .catch(error => console.error('Error:', error));
+// }
 
 /**
  * 
@@ -65,9 +65,8 @@ const getAdvertDetail = (id) => {
 
 const searchAdverts = (query) => {
     
-    const url = query === 'undefined' || query === ''  ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
+    const url = query === undefined || query === '' ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
     
-    // console.log('query', query);
     // console.log('url', `${API_URL}adverts`);
 
     return getFetch(`${url}`)
@@ -136,6 +135,6 @@ export {
     getTagsList,
     searchAdverts,
     searchAdvert,
-    getAdvertDetail,
+    // getAdvertDetail,
     savedAdvert
 };

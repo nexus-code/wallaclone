@@ -1,6 +1,6 @@
 import React  from "react";
 import Canvas from '../Canvas/Canvas';
-import AdvertList from '../AdvertList/AdvertList';
+import AdvertList from '../AdvertList';
 
 export default class Home extends React.Component {
 

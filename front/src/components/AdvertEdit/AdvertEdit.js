@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
+import { useHistory } from 'react-router';
+
+import { getAdvert } from '../../store/adverts/selectors';
 
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 
-import { useHistory } from 'react-router';
-import { getAdvert } from '../../store/adverts/selectors';
 // import TagSelect from '../TagsSelect/TagSelect'
 
-const TYPES = ['sell', 'buy'];
+// const TYPES = ['sell', 'buy'];
 
-export default function AdvertDetail({
+export default function AdvertEdit({
     user,
     adverts,
     loadAdvert,
@@ -23,31 +24,36 @@ export default function AdvertDetail({
 
     const { t } = useTranslation();
 
+    useEffect(() => {
+
+        console.log('in useEffect');
+
+        loadAdvert(id);
+    }, [loadAdvert, id]);
+
+    console.log('passed useEffect');
+
+
+    const advert = getAdvert(adverts, id);
+    console.log('advert', advert);
+
     const onEdit = path !== '/advert/create';
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
     const method = onEdit ? 'PUT' : 'POST';
     const history = useHistory();
 
-    const defaultAdvert = {
-        id: '',
-        name: '',
-        price: '',
-        description: '',
-        type: TYPES[0],
-        image: '',
-        tags: [],
-    };
 
-    useEffect(() => {
+        /**
+         * 
+         * 
+         * ON RELOAD useFORM not relaoad 
+         * 
+         */
 
-        loadAdvert(id);
-    }, [loadAdvert, id]);
-
-
-    const advert = getAdvert(adverts, id) || defaultAdvert;
 
 
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
+
 
     const onSubmit = data => {
 
@@ -90,6 +96,14 @@ export default function AdvertDetail({
         e.persist();
 
         setImageFile(e.target.files[0]); // you get all the files object here
+    }
+
+    if (onEdit && advert.owner._id !== user.id) {
+        return <Canvas>
+            <div>
+                <h3><br />404. Elemento no encontrado</h3>
+            </div>
+        </Canvas>
     }
 
     return (

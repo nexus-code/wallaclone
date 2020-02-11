@@ -85,7 +85,7 @@ export const fetchAdvert = id => async (dispatch, getState) => {
 
     if (advert) {
 
-    console.log(' exit fetchAdvert advert on store', state)
+        console.log(' exit fetchAdvert advert on store', state)
 
         return advert;
     }
@@ -96,6 +96,9 @@ export const fetchAdvert = id => async (dispatch, getState) => {
         dispatch(fetchAdvertsSuccess([advert]));
         // return id;
     } catch (error) {
+
+        console.log('fetchAdvert ', error);
+
         dispatch(fetchAdvertsFailure(error));
         // return `Error: ${error}`
     }
@@ -138,7 +141,7 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
     try {
 
         const result = await savedAdvert(advert, method);
-        // console.log('result', result);
+        console.log('saveAdvert result ', result);
 
         dispatch(savedAdvertSuccess(result));
         
@@ -151,7 +154,7 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
 
         dispatch(savedAdFailure());
         notifyError();
-        console.log('savedAdvert ', error);
+        console.log('savedAdvert error ', error);
 
         return false;
     }

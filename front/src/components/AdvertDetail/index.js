@@ -13,6 +13,7 @@ const mapStateToProps = (store, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    
     loadAdvert: (id) => dispatch(fetchAdvert(id)),
 });
 

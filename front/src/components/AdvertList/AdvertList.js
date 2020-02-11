@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Advert from '../Advert/Advert';
-import { getAdverts } from '../../store/adverts/selectors';
 
 // font: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
 
 export default function AdvertList({ adverts, loadMoreAdverts }) {
 
-    const [listItems, setListItems] = useState(adverts);
     const [isFetching, setIsFetching] = useState(false);
 
     useEffect(() => {
@@ -32,8 +30,6 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
         setTimeout(() => {
             
             getMoreAdverts();
-            setListItems(getAdverts(adverts));
-
             setIsFetching(false);
         }, 1000);
     }
