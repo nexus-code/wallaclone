@@ -35,7 +35,7 @@ function getHash(){
     return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
-class recoverPasswdController {
+class RecoverPasswdController {
     
     async recover(req, res, next) {
 
@@ -82,7 +82,7 @@ class recoverPasswdController {
 
     async reset(req, res, next) {
 
-        // console.log('starts recoverPasswdController.reset', req.body)
+        // console.log('starts RecoverPasswdController.reset', req.body)
 
 
         try {
@@ -141,4 +141,4 @@ class recoverPasswdController {
     }
 }
 
-module.exports = new recoverPasswdController();
+module.exports = new RecoverPasswdController();

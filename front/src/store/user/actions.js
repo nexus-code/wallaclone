@@ -6,44 +6,31 @@ import {
     USER_SAVE_REQUEST,
     USER_SAVE_FAILURE,
     USER_SAVE_SUCCESS,
-    
+
+    USER_UNSUSCRIBE_REQUEST,
+    USER_UNSUSCRIBE_FAILURE,
+    USER_UNSUSCRIBE_SUCCESS,
+
     RECOVER_PASSWD,
     RESET_PASSWD,
     LOGOUT,
 } from './types';
 
-import { doLogin, saveUser, doRecoverPasswd, doResetPasswd } from '../../services/UserService';
-
-import { toast } from 'react-toastify';
-
-const t = (txt) => txt; //mac
-
-
+import { doLogin, doUnsuscribe, saveUser, doRecoverPasswd, doResetPasswd } from '../../services/UserService';
 
 // uses toast to ui add notifications   
+import { toast } from 'react-toastify';
+
+const t = (txt) => txt; //mac: translations
+
+/**
+ * 
+ * Get and save user
+ * 
+ */
+
 const notifySaved = () => toast.success(t('Profile saved!'));
 const notifyError = () => toast.error(t('Error on save profile!'));
-const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
-const notifyLoginError = () => toast.error(t('Invalid credentials'));
-const notifyRecoverPasswd = () => toast.info(t('Recovery process started'));
-const notifyRecoverPasswdError = () => toast.error(t('Invalid credentials'));
-const notifyResetPasswd = () => toast.success(t('Password updated'));
-const notifyResetPasswdError = () => toast.error(t('Invalid credentials'));
-
-// export const fetchUser = id => {
-
-//     async function __fetchUser(dispatch, getState, extraArgument) {
-//         dispatch(fetchUserRequest());
-//         try {
-//             const user = await getUser(id);
-//             dispatch(fetchUserSuccess(user));
-//         } catch (error) {
-//             dispatch(fetchUserFailure(error));
-//         }
-//     };
-
-//     return __fetchUser;
-// };
 
 
 export const fetchUserRequest = () => ({
@@ -76,17 +63,6 @@ export const savedUserSuccess = user => ({
     user,
 });
 
-export const userResetPasswd = () => ({
-    type: RESET_PASSWD,
-});
-
-export const userRecoverPasswd = () => ({
-    type: RECOVER_PASSWD,
-});
-
-export const userLogout = () => ({
-    type: LOGOUT,
-});
 
 export const setUser = (user, method) => async (dispatch, getState, { history }) => {
 
@@ -113,6 +89,19 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
     }
 };
 
+/**
+ * 
+ * Login / logout
+ */
+
+const notifyLogin = username => toast.success(t('Wellcome') + ` ${username} !`);
+const notifyLoginError = () => toast.error(t('Invalid credentials'));
+const notifyLogout = () => toast.info(t('See you soon! '));
+
+export const userLogout = () => ({
+    type: LOGOUT,
+});
+
 export const login = (user) => async (dispatch, getState, { history }) => {
 
     dispatch(fetchUserRequest(user));
@@ -136,6 +125,30 @@ export const login = (user) => async (dispatch, getState, { history }) => {
         return false;
     }
 };
+
+export const logout = (...args) => (dispatch, _getState, { history }) => {
+    dispatch(userLogout(...args));
+    notifyLogout();
+    history.push('/');
+};
+
+/**
+ * 
+ * RESET passwd methods
+ * 
+ */
+const notifyRecoverPasswd = () => toast.info(t('Recovery process started'));
+const notifyRecoverPasswdError = () => toast.error(t('Invalid credentials'));
+const notifyResetPasswd = () => toast.success(t('Password updated'));
+const notifyResetPasswdError = () => toast.error(t('Invalid credentials'));
+
+export const userResetPasswd = () => ({
+    type: RESET_PASSWD,
+});
+
+export const userRecoverPasswd = () => ({
+    type: RECOVER_PASSWD,
+});
 
 export const resetPasswd = (password, recoverKey) => async (dispatch, _getState, { history }) => {
     
@@ -183,7 +196,48 @@ export const recoverPasswd = (email) => async (dispatch, _getState, { history })
     }
 };
 
-export const logout = (...args) => (dispatch, _getState, { history }) => {
-    dispatch(userLogout(...args));
-    history.push('/');
+
+/**
+ * 
+ * UNSUSCRIBE
+ * 
+ */
+const notifyUnsuscribe = () => toast.success(t('Unsuscribe completed'));
+const notifyUnsuscribeError = () => toast.error(t('Error on unsuscribe'));
+
+export const unsuscribeUserRequest = () => ({
+    type: USER_UNSUSCRIBE_REQUEST,
+});
+
+export const unsuscribeUserFailure = error => ({
+    type: USER_UNSUSCRIBE_FAILURE,
+    error,
+});
+
+export const unsuscribeUserSuccess = () => ({
+    type: USER_UNSUSCRIBE_SUCCESS,
+});
+
+export const unsuscribe = (user) => async (dispatch, _getState, { history }) => {
+
+    dispatch(unsuscribeUserRequest());
+
+    try {
+        
+
+        const aux = await doUnsuscribe(user);
+
+        dispatch(unsuscribeUserSuccess());
+        notifyUnsuscribe();
+
+        //logout();
+        //history.push("/");
+
+    } catch (error) {
+
+        dispatch(unsuscribeUserFailure(user));
+        notifyUnsuscribeError();
+
+        return false;
+    }
 };

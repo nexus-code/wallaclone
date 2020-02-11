@@ -17,10 +17,9 @@ const getFetch = (url) => {
     .then(res => res.json());
 }
 
-
 /**
  * 
- * @param {*} id The ad id to fetch
+ * @param {*} id The advert id to fetch
  */
 const getUser = (id) => {
     return getFetch(`${API_URL}users/${id}`)
@@ -49,8 +48,8 @@ const doLogin = (user) => {
 }
 
 /**
- * Call login API method
- * @param {*} email
+ * Reset password methods
+ * 
  */
 const doRecoverPasswd = (email) => {
 
@@ -62,10 +61,6 @@ const doRecoverPasswd = (email) => {
     );
 }
 
-/**
- * Call login API method
- * @param {*} email
- */
 const doResetPasswd = (password, recoverKey) => {
 
     const url = `${API_URL}resetpasswd`;
@@ -73,6 +68,22 @@ const doResetPasswd = (password, recoverKey) => {
 
     return Axios.post(url, null, { data }).then(
         res => new UserModel(res.data.result),
+    );
+}
+
+/**
+ * Unsuscribe
+ * 
+ */
+const doUnsuscribe = (user) => {
+
+    const url = `${API_URL}unsuscribe`;
+    const data = { id: user.id, token: user.token }
+
+    console.log('UserService doUnsuscribe', url, data);
+
+    return Axios.post(url, null, { data }).then(
+        res => res.data.result,
     );
 }
 
@@ -85,7 +96,7 @@ const saveUser = (user, method) => {
 
     const url = `${API_URL}users`;
 
-    // console.log('UserService saveUser', user);
+    console.log('UserService saveUser', user);
 
     switch (method) {
 
@@ -104,26 +115,10 @@ const saveUser = (user, method) => {
     }
 }
 
-/**
- *
- * @param {*} query: filter users. Optimize  with searchAdvert
- */
-
-// const searchUsers = (query) => {
-
-//     const url = query === 'undefined' || query === ''  ? `${API_URL}users` : `${API_URL}users/?${query}`;
-
-//     // console.log('query', query);
-//     // console.log('url', `${API_URL}users`);
-
-//     return getFetch(`${API_URL}users`)
-//         .then(res => res.result.map(ad => new UserModel(ad)))
-//         .catch(error => console.error('Error:', error));
-// }
-
 export {
-    // searchUsers,
+    
     doLogin,
+    doUnsuscribe,
     doRecoverPasswd,
     doResetPasswd,
     getUser,

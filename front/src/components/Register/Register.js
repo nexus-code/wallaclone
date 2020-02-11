@@ -5,12 +5,15 @@ import { useForm } from "react-hook-form";
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
 
+import Button from '@material-ui/core/Button';
+import { useConfirm } from 'material-ui-confirm';
+
 /**
  * 
  * Registers user on API and edit her profile
  */
 
-export default function Register({ user, setUser, logout }) { 
+export default function Register({ user, setUser, logout, unsuscribe }) { 
 
     const { t } = useTranslation();
     
@@ -71,7 +74,16 @@ export default function Register({ user, setUser, logout }) {
         else
             return validator(field, minLength, maxLength)
     }
-    
+
+    /**
+     * Unsuscribe
+     */
+    const confirm = useConfirm();
+    const handleUnsubscribe = () => {
+        confirm({ title: 'Confirm to unsuscribe', description: 'This action is permanent! All your adverts and your profile will be removed' })
+            .then(() => { unsuscribe(user) });
+    };
+
     return (
         <Canvas>
             <div className="formContainer">
@@ -120,8 +132,14 @@ export default function Register({ user, setUser, logout }) {
                     <input type="submit" value={t('Submit')} />
                 </form>
                     
-                { onEdit && <button variant="secondary" className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</button> }
+                {onEdit && <Button className="float-right logoutbutton" onClick={handleLogout}>{t('Logout')}</Button> }
                 
+                <br />
+                <hr />
+                <br />
+
+                { onEdit && <Button onClick={handleUnsubscribe}>{t('Unsubscribe')}</Button> }
+
                 <br />
                 <hr />
                 <br />

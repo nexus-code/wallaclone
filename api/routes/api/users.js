@@ -74,7 +74,13 @@ router.delete('/:id', async (req, res, next) => {
     try {
 
         const _id = req.params.id; 
-        const _status = await UserModel.delete(_id, next);
+
+        console.log('delete user:', _id)
+        res.json({
+            status: false
+        });
+        
+        const _status = await UserModel.removeById(_id, next);
 
         res.json({
             status: _status

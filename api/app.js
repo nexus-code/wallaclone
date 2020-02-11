@@ -125,6 +125,7 @@ app.use((req, res, next) => {
  // API authenticate via JWT
 const loginController = require('./routes/loginController');
 const recoverPasswdController = require('./routes/recoverPasswdController');
+const unsuscribeController = require('./routes/unsuscribeController');
 const jwtAuth = require('./lib/jwtAuth');
 
 // v2.2 add upload.single('image') & jwtAuth()
@@ -134,6 +135,8 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/login', loginController.login);
 app.use('/api/recoverpasswd', recoverPasswdController.recover);
 app.use('/api/resetpasswd', recoverPasswdController.reset);
+// app.use('/api/unsuscribe', jwtAuth(), unsuscribeController.do);
+app.use('/api/unsuscribe', unsuscribeController.do);
 
 app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
 // app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
