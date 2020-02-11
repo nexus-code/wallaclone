@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { useParams, useHistory } from 'react-router';
 
-import { getAdvert }  from '../../store/adverts/selectors';
+import { getAdvert } from '../../store/adverts/selectors';
 
 import { Facebook, Twitter, Email } from 'react-sharingbuttons'
 import 'react-sharingbuttons/dist/main.css'
@@ -10,20 +10,20 @@ import 'react-sharingbuttons/dist/main.css'
 import { Button } from 'react-bootstrap';
 
 
-export default function AdvertDetail(props) {
+export default function AdvertDetail({user, props}) {
 
 
     const history = useHistory();
     const { id } = useParams();
     
-
-
     useEffect(() => {
         props.loadAdvert(id);
     }, [props, id]);
-
+    
     const advert = getAdvert(props, id);
-
+    
+   
+    const editButton = advert.owner === user.id ? <Button className='btn btn-warning right' onClick={() => history.push(`/advert/edit/${id}`)} >Edit</Button> : '';
     
     
     return <Canvas>
@@ -39,9 +39,9 @@ export default function AdvertDetail(props) {
                         color: advert.type === 'sell' ? 'green' : 'blue'
                     }}>{advert.name} <span className='badge badge-primary'>{advert.price}€</span>
                     </h1>
-                    <Email url={props.location.path } />
-                    <Facebook url={props.location.path} />
-                    <Twitter url={props.location.path} />
+                    <Email url={history.location.path } />
+                    <Facebook url={history.location.path} />
+                    <Twitter url={history.location.path} />
 
                     <p>By: {advert.owner.username}</p>
                     <p>{advert.description}</p>
@@ -51,7 +51,7 @@ export default function AdvertDetail(props) {
                     <br />
                     <hr />
                     <br />
-                    <Button className='btn btn-warning right' onClick={() => history.push(`/advert/edit/${id}`)} >Edit</Button>
+                    { editButton }
                     <Button className='btn btn-dark' onClick={() => history.goBack()}>Go back</Button>
                 </div>
             }

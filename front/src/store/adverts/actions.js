@@ -11,7 +11,7 @@ import {
 } from './types';
 
 import { searchAdvert, searchAdverts, savedAdvert } from '../../services/AdvertService';
-import { getAdvert, getAdverts } from './selectors';
+import { getAdvert } from './selectors';
 
 import { toast } from 'react-toastify';
 

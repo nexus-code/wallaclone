@@ -119,8 +119,9 @@ advertSchema.statics.insert = async function (req, next) {
 advertSchema.statics.updateAdvert = async function (id, data, next) {
      try {
 
-         console.log('updateAdvert', data);
-         delete data.imageFile
+        //  delete data.imageFile
+         console.log('updateAdvert: ', id);
+         console.log('updateAdvert: ', data);
 
          const updatedAdvert = await Advert.findOneAndUpdate({_id: id}, data, {new: true});
 

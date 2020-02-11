@@ -13,7 +13,7 @@ export default function RecoverPasswd({ recoverPasswd }) {
 
     const { t } = useTranslation();
     
-    const { register, handleSubmit, reset, errors } = useForm({});
+    const { register, handleSubmit, errors } = useForm({});
     
     const onSubmit = data => {
 
