@@ -83,6 +83,12 @@ userSchema.pre("save", function (next) {
     next();
 });
 
+// userSchema.pre("remove", async function (next) {
+
+//     Advert.delete
+    
+
+// });
 /** 
  * User Methods
  */

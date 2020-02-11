@@ -124,7 +124,7 @@ advertSchema.statics.updateAdvert = async function (id, data, next) {
          console.log('updateAdvert*: ', id);
          console.log('updateAdvert*: ', data);
 
-         const updatedAdvert = await Advert.findOneAndUpdate({_id: id}, data, {new: true});
+         const updatedAdvert = await Advert.findOneAndDelete({_id: id}, data, {new: true});
 
          return updatedAdvert;
 

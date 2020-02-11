@@ -1,6 +1,7 @@
 'use strict';
 
 const UserModel = require('../models/User');
+const AdvertModel = require('../models/Advert');
 
 //  Unsuscribe a user removing al her adverts
 
@@ -10,25 +11,17 @@ class UnsuscribeController {
 
         try {
 
+
             const { id, token } = req.body;
 
             console.log('unsuscribe', req.body)
 
-            // const user = await UserModel.findOne({ username });
-            
-            // if (!user) {
-            //     res.json({ success: false, error: 'Invalid credentials', });
-            //     return;
-            // }
+            const removeAdverts = await AdvertModel.deleteMany({ owner: id }, function (err) {});
+            const removeUser = await UserModel.findOneAndDelete({ _id: id });
 
-            // user.comparePassword(password, (error, match) => {
-            //     if (!match) {
-            //         res.json({ success: false, error: 'Invalid credentials', });
-            //         return;
-            //     }
-            // });
+            console.log('removeAdverts', removeAdverts);
+            console.log('removeUser', removeUser);
 
-            //save lastLogin
 
             res.json({ success: true,  });
             
