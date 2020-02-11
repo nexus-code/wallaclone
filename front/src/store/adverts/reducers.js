@@ -16,15 +16,22 @@ export const adverts = (state = initialState, action) => {
 
         case TYPES.ADVERT_SAVE_SUCCESS:
             
-            if (typeof state.map === 'function'){
-                // updating
+            // if (typeof state.map === 'function'){
+            //     // updating
 
-                return state.map(advert => advert.id === action.advert.id ? action.advert : advert);
+            //     return state.map(advert => advert.id === action.advert.id ? action.advert : advert);
 
-            } else {
+            // } else {
 
-                return [action.advert];
-            }
+            //     return [action.advert];
+            // }
+            // return action.advert;
+
+            //20200211: Guarda pero no actualiza ¿api?
+            return {
+                ...state,
+                user: action.user,
+            };
 
         default:
             return state;

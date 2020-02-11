@@ -121,14 +121,17 @@ advertSchema.statics.updateAdvert = async function (id, data, next) {
      try {
 
         //  delete data.imageFile
-         console.log('updateAdvert: ', id);
-         console.log('updateAdvert: ', data);
+         console.log('updateAdvert*: ', id);
+         console.log('updateAdvert*: ', data);
 
          const updatedAdvert = await Advert.findOneAndUpdate({_id: id}, data, {new: true});
 
          return updatedAdvert;
 
      } catch (err) {
+
+         console.log('updateAdvert*: ', err);
+
          next(err);
      }
  }

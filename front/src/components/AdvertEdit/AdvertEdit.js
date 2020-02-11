@@ -155,7 +155,8 @@ export default function AdvertEdit({
                     {errors.description && <p>{errors.description.message}</p>}
 
                     {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
-                    {! onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />}
+                    {/* {!onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />} */}
+                    <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
 
                     <input type="submit" value={t('Submit')} />
 
