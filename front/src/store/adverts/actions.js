@@ -23,12 +23,12 @@ const notifyError = () => toast.error('Error on save advert!');
 // const notifyWarning = (warning) => toast.warning(warning);
 
 
-export const fetchAdverts = () => {
+export const fetchAdverts = (query) => {
 
     async function __fetchAdverts(dispatch, getState, extraArgument) {
         dispatch(fetchAdvertsRequest());
         try {
-            const adverts = await searchAdverts();
+            const adverts = await searchAdverts(query);
             dispatch(fetchAdvertsSuccess(adverts));
         } catch (error) {
             dispatch(fetchAdvertsFailure(error));
@@ -39,7 +39,7 @@ export const fetchAdverts = () => {
 };
 
 
-export const fetchMoreAdverts = () => {
+export const fetchMoreAdverts = (query) => {
 
 
     console.log('fetchMoreAdverts in');
@@ -57,9 +57,11 @@ export const fetchMoreAdverts = () => {
             const { adverts } = getState();
             const skip = `skip=${adverts.length}`;
 
-            console.log('skip', skip)
+            
+            const _query = `${query}&${skip}`
+            console.log('_query', _query)
 
-            const newAdverts = await searchAdverts(skip);
+            const newAdverts = await searchAdverts(_query);
 
 
             console.log('newAdverts.length', newAdverts.length)

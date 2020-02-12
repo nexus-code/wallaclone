@@ -25,12 +25,12 @@ function AppNavbar({ user, logout }) {
 
     return (
 
-        <Navbar bg="dark" variant="dark" expand="lg">
+        <Navbar bg="dark" variant="dark" expand="lg" fixed="top" >
             <Navbar.Brand href="/" >Wallaclone</Navbar.Brand> 
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
 
-                <Nav.Link className={getNavLinkClass("/advert/")} href="/advert/">{t('Search')}</Nav.Link>
+                {/* <Nav.Link className={getNavLinkClass("/advert/")} href="/advert/">{t('Search')}</Nav.Link> */}
                 {
                     user &&
                     <>

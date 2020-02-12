@@ -2,6 +2,15 @@ import React  from "react";
 import Canvas from '../Canvas/Canvas';
 import AdvertList from '../AdvertList';
 
+import SearchPanel from '../SearchPanel/SearchPanel';
+
+function getAdverts() {
+    console.log('getAdverts');
+}
+
+const tags = ['work', 'mobile', 'lifestyle'];
+
+
 export default class Home extends React.Component {
 
     componentDidMount() {
@@ -16,6 +25,9 @@ export default class Home extends React.Component {
 
         return (
             <Canvas>
+                <div className='container mt-5 mb-5'>
+                    <SearchPanel handleSearch={getAdverts} tags={tags} />
+                </div>
                 {
                     adverts
                     &&

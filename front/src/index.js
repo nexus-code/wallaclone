@@ -7,7 +7,6 @@ import { clearLocalStorage, getUserLS, setUserLS } from './utils/localStorage';
 import { configureStore } from './store';
 
 import * as userTypes from './store/user/types';
-// import * as adsTypes  from './store/ads/types';
 
 import './i18n';
 
@@ -28,7 +27,6 @@ const store = configureStore({ history })({ user });
 // subscribes to store -> sincronizes localStorage
 store.subscribe(() => {
 
-    // const { lastAction, user } = store.getState();
     const { lastAction } = store.getState();
 
     // User user.user & ads.ads by combineReducers.View to rename

@@ -1,6 +1,6 @@
-# Wallakeep: <br>PRACTICE for ADVANCED REACT. VII Full Stack Developer KeepCoding Course:
+# Wallaclone: <br>PRACTICE for ADVANCED REACT. VII Full Stack Developer KeepCoding Course:
 
-Specifications in Práctica Wallakeep Redux.pdf
+Specifications in Práctica Wallaclone Redux.pdf
 
 
 ### Redux

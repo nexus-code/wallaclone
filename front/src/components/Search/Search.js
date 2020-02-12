@@ -1,78 +1,93 @@
+
+
 import React from "react";
 import Canvas from '../Canvas/Canvas';
 
 import { Container, Row, Col, Button } from 'react-bootstrap';
-import AdvertList from '../AdvertList';
+import AdvertList from '../AdvertList/AdvertList';
 import TagSelect from '../TagsSelect/TagSelect'
 import Input from '../Input/Input'
+import * as API from '../../services/AdvertService';
 
 const TYPES = ['sell', 'buy']
 
-export default function Search({ adverts, loadAdverts }) {
+export default class Search extends React.Component {
 
     /* Show ads by filters */
 
-    const thisState = {
-        adverts: adverts,
-        // user: getUserLS(),
-        tags: '',
-        type: '',
-        name: '',
-        minPrice: '',
-        maxPrice: ''
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            adverts: [],
+            // user: getUserLS(),
+            tags: '',
+            type: '',
+            name: '',
+            minPrice: '',
+            maxPrice: ''
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+        this.reset = this.reset.bind(this);
     }
-    // constructor(props) {
-    //     super(props);
+
+    searchAdverts = () => {
 
 
-    //     this.handleChange = this.handleChange.bind(this);
-    //     this.reset = this.reset.bind(this);
-    // }
+        // Mounting searchString to send to the API
+        const { tags, name, type, minPrice, maxPrice } = this.state;
 
-    // searchAdverts = () => {
+        let searchString = tags === '' ? '' : `tag=${tags}&`;
+        searchString += name === '' ? '' : `name=${name}&`;
 
+        if (type !== '')
+            searchString += type === 'sell' ? 'venta=true&' : `venta=false&`;
 
-    //     // Mounting searchString to send to the API
-    //     const { tags, name, type, minPrice, maxPrice } = this.state;
+        searchString += (minPrice !== '' || maxPrice !== '') ? 'Price=' : '';
 
-    //     let searchString = tags === '' ? '' : `tag=${tags}&`;
-    //     searchString += name === '' ? '' : `name=${name}&`;
-
-    //     if(type !== '')
-    //         searchString += type === 'sell' ? 'venta=true&' : `venta=false&`;
-
-    //     searchString += (minPrice !== '' || maxPrice !== '') ? 'Price=' : '';
-
-    //     searchString += minPrice === '' ? '' : `${minPrice}`;
-    //     searchString += maxPrice === '' ? '' : `-${maxPrice}`;
+        searchString += minPrice === '' ? '' : `${minPrice}`;
+        searchString += maxPrice === '' ? '' : `-${maxPrice}`;
 
 
-    //     API.searchAdverts(searchString)
-    //         .then(ads => {
-    //         this.setState({
-    //             ads
-    //         }, () => (this.goTo(1)))
-    //     });
+        API.searchAdverts(searchString)
+            .then(ads => {
+                this.setState({
+                    ads
+                }, () => (this.goTo(1)))
+            });
 
-    // }
+    }
+
+    goTo(index) {
+        // redirect to first index of serie
+
+        const path = `${this.props.location.pathname}?page=${index}`;
+        this.props.history.push(path);
+    }
+
+    componentDidMount() {
+
+        this.searchAdverts();
+    }
 
 
-    // handleChange(event) {
+    handleChange(event) {
 
-    //     const { name, value } = event.target;
-    //     // console.log(name, value);
+        const { name, value } = event.target;
+        // console.log(name, value);
 
-    //     this.setState({
-    //         adverts: [],    // reset 
-    //         [name]: value
-    //     }, () => this.searchAdverts()); // search after setState via callback
+        this.setState({
+            adverts: [],    // reset 
+            [name]: value
+        }, () => this.searchAdverts()); // search after setState via callback
 
-    // }
+    }
 
-    // reset () {
+    reset() {
 
-    //     window.location.reload(false);
-    // }
+        window.location.reload(false);
+    }
 
 
     render() {
