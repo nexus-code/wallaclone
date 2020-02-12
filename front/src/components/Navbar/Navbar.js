@@ -34,13 +34,12 @@ function AppNavbar({ user, logout }) {
                 {
                     user &&
                     <>
-                        <Nav.Link className={getNavLinkClass("/advert/create")} href="/advert/create">{t('New advert')}</Nav.Link>
-                        <Navbar.Collapse className="justify-content-end">
-                            <Navbar.Text> | </Navbar.Text>
-                            <Nav.Link className={getNavLinkClass("/profile/")} href="/profile"> {user.username}</Nav.Link>
+                        <NavDropdown title={user.username} className="justify-content-end" id="collasible-nav-dropdown-user">
+                            <Nav.Link className={getNavLinkClass("/profile/")} href="/profile">{t('Edit profile')}</Nav.Link>
+                            <Nav.Link className={getNavLinkClass("/advert/create")} href="/advert/create">{t('New advert')}</Nav.Link>
+                            <NavDropdown.Divider />                        
                             <Nav.Link className={getNavLinkClass("/logout/")} href="" onClick={handleLogout}>{t('Logout')}</Nav.Link>
-                            <Navbar.Text> | </Navbar.Text>
-                        </Navbar.Collapse>
+                        </NavDropdown>
                     </>
                 }
                 {
@@ -48,13 +47,13 @@ function AppNavbar({ user, logout }) {
                     <>
                         <Nav.Link className={getNavLinkClass("/login/")} href="/login">{t('Login')}</Nav.Link>
                         <Nav.Link className={getNavLinkClass("/login/")} href="/register">{t('Register')}</Nav.Link>
+                        <NavDropdown title={t('Language')} id="collasible-nav-dropdown">
+                            <Nav.Link onClick={() => changeLanguage('en')} >En</Nav.Link>
+                            <Nav.Link onClick={() => changeLanguage('es')} >Es</Nav.Link>
+                        </NavDropdown>
                     </>
                 }
 
-                <NavDropdown title={t('Language')} id="collasible-nav-dropdown">
-                    <Nav.Link onClick={() => changeLanguage('en')} >En</Nav.Link>
-                    <Nav.Link onClick={() => changeLanguage('es')} >Es</Nav.Link>
-                </NavDropdown>
 
             </Navbar.Collapse>
         </Navbar>

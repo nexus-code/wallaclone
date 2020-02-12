@@ -225,13 +225,13 @@ export const unsuscribe = (user) => async (dispatch, _getState, { history }) => 
     try {
         
 
-        const aux = await doUnsuscribe(user);
+        await doUnsuscribe(user);
 
         dispatch(unsuscribeUserSuccess());
-        notifyUnsuscribe();
+        dispatch(userLogout());
+        history.push("/");
 
-        //logout();
-        //history.push("/");
+        notifyUnsuscribe();
 
     } catch (error) {
 
