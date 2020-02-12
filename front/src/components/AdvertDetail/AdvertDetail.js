@@ -81,6 +81,9 @@ export default function AdvertDetail({
 
         <div className="container">
             <div>
+                <br />
+                <br />
+                <br />
                 <img src={advert.image} alt={advert.name} />
                 {editButton} | {removeButton}
                 <h1 style={{

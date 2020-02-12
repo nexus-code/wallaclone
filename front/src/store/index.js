@@ -4,7 +4,8 @@ import loggerMiddleware from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 import { user } from './user/reducers';
-import { adverts } from './adverts/reducers';
+import { query, tags, adverts } from './adverts/reducers';
+// import * as adverts from './adverts/reducers';
 
 // thanks @davidjj76!
 
@@ -28,6 +29,8 @@ const lastActionReducerEnhancer = reducer => (
 const reducer = combineReducers({
     user,
     adverts,
+    query,
+    tags
 });
 
 
@@ -37,6 +40,9 @@ export const configureStore = config => preloadedState =>  {
     
     const middlewares = configureMiddleware(config);
     const composeEnhancers = composeWithDevTools;
+
+
+    console.log('reducer', reducer);
 
     return createStore(
         createRootReducer(reducer),

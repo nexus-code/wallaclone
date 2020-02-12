@@ -1,16 +1,5 @@
-import {
-    ADVERTS_FETCH_REQUEST,
-    ADVERTS_FETCH_FAILURE,
-    ADVERTS_FETCH_SUCCESS,
 
-    ADVERT_SAVE_REQUEST,
-    ADVERT_SAVE_FAILURE,
-    ADVERT_SAVE_SUCCESS,
-    
-    ADVERT_REMOVE_REQUEST,
-    ADVERT_REMOVE_FAILURE,
-    ADVERT_REMOVE_SUCCESS,
-} from './types';
+import * as TYPES from './types';
 
 import { searchAdvert, searchAdverts, savedAdvert, doRemoveAdvert } from '../../services/AdvertService';
 import { getAdvert } from './selectors';
@@ -104,31 +93,31 @@ export const fetchAdvert = id => async (dispatch, getState) => {
 
 
 export const fetchAdvertsRequest = () => ({
-    type: ADVERTS_FETCH_REQUEST,
+    type: TYPES.ADVERTS_FETCH_REQUEST,
 });
 
 export const fetchAdvertsFailure = error => ({
-    type: ADVERTS_FETCH_FAILURE,
+    type: TYPES.ADVERTS_FETCH_FAILURE,
     error,
 });
 
 export const fetchAdvertsSuccess = adverts => ({
-    type: ADVERTS_FETCH_SUCCESS,
+    type: TYPES.ADVERTS_FETCH_SUCCESS,
     adverts,
 });
 
 export const savedAdvertRequest = advert => ({
-    type: ADVERT_SAVE_REQUEST,
+    type: TYPES.ADVERT_SAVE_REQUEST,
     advert,
 });
 
 export const savedAdvertFailure = error => ({
-    type: ADVERT_SAVE_FAILURE,
+    type: TYPES.ADVERT_SAVE_FAILURE,
     error,
 });
 
 export const savedAdvertSuccess = advert => ({
-    type: ADVERT_SAVE_SUCCESS,
+    type: TYPES.ADVERT_SAVE_SUCCESS,
     advert,
 });
 
@@ -166,15 +155,15 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
 const notifyRemoved = () => toast.success('Advert removed succesfully!');
 
 export const removeAdvertRequest = () => ({
-    type: ADVERT_REMOVE_REQUEST,
+    type: TYPES.ADVERT_REMOVE_REQUEST,
 });
 
 export const removeAdvertFailure = error => ({
-    type: ADVERT_REMOVE_FAILURE,
+    type: TYPES.ADVERT_REMOVE_FAILURE,
 });
 
 export const removeAdvertSuccess = () => ({
-    type: ADVERT_REMOVE_SUCCESS,
+    type: TYPES.ADVERT_REMOVE_SUCCESS,
 });
 
 export const removeAdvert = (advert) => async (dispatch, getState, { history }) => {
@@ -199,3 +188,40 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
         return false;
     }
 };
+
+/**
+ *
+ * Set filter
+ *
+ */
+// export const ADVERT_SET_QUERY = 'ADVERT_SET_QUERY';
+
+export const adverQueryReset = () => ({
+    type: TYPES.ADVERT_QUERY_RESET,
+});
+
+export const adverQuerySet = () => ({
+    type: TYPES.ADVERT_QUERY_SET,
+});
+
+
+
+
+/**
+ *
+ * Tags
+ *
+ */
+export const loadTagsRequest = () => ({
+    type: TYPES.TAGS_LOAD_REQUEST,
+});
+
+export const loadTagsSuccess = tags => ({
+    type: TYPES.TAGS_LOAD_SUCCESS,
+    tags,
+});
+
+export const loadTagsFailure = error => ({
+    type: TYPES.TAGS_LOAD_FAILURE,
+    error,
+});
