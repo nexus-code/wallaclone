@@ -14,6 +14,7 @@ import { Button } from 'react-bootstrap';
 // import Button from '@material-ui/core/Button';
 import { useConfirm } from 'material-ui-confirm';
 
+import { Helmet } from 'react-helmet'
 /**
  * 
  * Show selected advert details.
@@ -43,6 +44,11 @@ export default function AdvertDetail({
     const history = useHistory();
 
     /**
+     * SEO: Helmet
+     */
+
+
+    /**
      * Unsuscribe
      */
     const confirm = useConfirm();
@@ -66,6 +72,12 @@ export default function AdvertDetail({
     const removeButton = (user && advert.owner._id === user.id) ? <Link onClick={handleRemove} >{t('Remove')}</Link> : '';
 
     return <Canvas>
+        <Helmet>
+            <html lang={ advert.owner.language } amp />
+            <title>{ advert.name } | Wallaclone</title>
+            <meta name="description" content= {advert.description} />
+            <meta name="keywords" content={advert.tags && advert.tags.map(tag => `${tag},`)} />
+        </Helmet>
 
         <div className="container">
             <div>
@@ -82,7 +94,7 @@ export default function AdvertDetail({
                 <p>By: {advert.owner.username}</p>
                 <p>{advert.description}</p>
                 <p>
-                    { advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>) }
+                    {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
                 </p>
                 <br />
                 <hr />
