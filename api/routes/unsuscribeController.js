@@ -17,6 +17,8 @@ class UnsuscribeController {
             console.log('unsuscribe', req.body)
 
             const removeAdverts = await AdvertModel.deleteMany({ owner: id }, function (err) {});
+            // Remains remove images & ¿notify via email ?
+            
             const removeUser = await UserModel.findOneAndDelete({ _id: id });
 
             console.log('removeAdverts', removeAdverts);

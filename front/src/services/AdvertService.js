@@ -121,7 +121,7 @@ const savedAdvert = (advert, method) => {
  */
 const doRemoveAdvert = (id) => {
 
-    const url = `${API_URL}adverts/?id=${id}`;
+    const url = `${API_URL}removeadvert/`;
 
     const config = {
         headers: {
@@ -131,8 +131,8 @@ const doRemoveAdvert = (id) => {
         }
     };
 
-    return Axios.delete(url, { data: id }, config).then(
-        res => new AdvertModel(res.data.result),
+    return Axios.post(url, { data: id }, null, config).then(
+        res => res.data.success,
     );
 }
 

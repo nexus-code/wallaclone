@@ -89,21 +89,4 @@ router.put('/', async (req, res, next) => {
     }
 });
 
-// DELETE /adverts:id -> Delete advert by id
-router.delete('/:id', async (req, res, next) => {
-    try {
-
-        const _id = req.params.id; 
-        const _status = await Advert.delete(_id, next);
-
-        res.json({
-            status: _status
-        });
-
-    } catch (err) {
-        next(err);
-    }
-});
-/// ^----------------------
-
 module.exports = router;

@@ -126,6 +126,7 @@ app.use((req, res, next) => {
 const loginController = require('./routes/loginController');
 const recoverPasswdController = require('./routes/recoverPasswdController');
 const unsuscribeController = require('./routes/unsuscribeController');
+const removeAdvertController = require('./routes/removeAdvertController');
 const jwtAuth = require('./lib/jwtAuth');
 
 // v2.2 add upload.single('image') & jwtAuth()
@@ -139,7 +140,9 @@ app.use('/api/resetpasswd', recoverPasswdController.reset);
 app.use('/api/unsuscribe', unsuscribeController.do);
 
 app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
-// app.delete('/api/adverts', require('./routes/api/adverts'));
+// app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
+app.use('/api/removeadvert', removeAdvertController.do);
+
 // app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
 app.use('/api/tags', require('./routes/api/tags'));
 

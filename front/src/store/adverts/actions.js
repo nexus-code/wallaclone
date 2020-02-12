@@ -19,7 +19,6 @@ import { toast } from 'react-toastify';
 
 // uses toast to ui add notifications   
 const notifySaved = () => toast.success('Advert saved!');
-const notifyRemoved = () => toast.success('Advert removed!');
 const notifyError = () => toast.error('Error on save advert!');
 // const notifyWarning = (warning) => toast.warning(warning);
 
@@ -162,6 +161,7 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
  * Remove advert
  * 
  */
+const notifyRemoved = () => toast.success('Advert removed succesfully!');
 
 export const removeAdvertRequest = () => ({
     type: ADVERT_REMOVE_REQUEST,
@@ -175,7 +175,7 @@ export const removeAdvertSuccess = () => ({
     type: ADVERT_REMOVE_SUCCESS,
 });
 
-export const removeAdvert = (advert, method) => async (dispatch, getState, { history }) => {
+export const removeAdvert = (advert) => async (dispatch, getState, { history }) => {
 
     dispatch(removeAdvertRequest());
 
@@ -192,7 +192,7 @@ export const removeAdvert = (advert, method) => async (dispatch, getState, { his
 
         dispatch(removeAdvertFailure());
         notifyError();
-        console.log('savedAdvert error ', error);
+        console.log('removeAdvert error ', error);
 
         return false;
     }
