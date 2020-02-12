@@ -40,5 +40,8 @@
     "Type your new password again": "Repita su nueva contraseña",
     "Passwords should match!": "Las contraseñas no coinciden",
 
+    "Confirm to unsuscribe": "Confirmación baja",
+    "This action is permanent! All your adverts and your profile will be removed": "Esta acción es permanente: Sus datos de usuario y sus anuncios serán eliminados.",
+
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

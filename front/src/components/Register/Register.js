@@ -79,8 +79,10 @@ export default function Register({ user, setUser, logout, unsuscribe }) {
      * Unsuscribe
      */
     const confirm = useConfirm();
+    const title = t('Confirm to unsuscribe');
+    const description = t('This action is permanent! All your adverts and your profile will be removed');
     const handleUnsubscribe = () => {
-        confirm({ title: 'Confirm to unsuscribe', description: 'This action is permanent! All your adverts and your profile will be removed' })
+        confirm({ title, description })
             .then(() => { unsuscribe(user) });
     };
 
