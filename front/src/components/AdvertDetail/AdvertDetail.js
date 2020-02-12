@@ -52,11 +52,8 @@ export default function AdvertDetail({
         confirm({ title, description: msg })
             .then(() => { removeAdvert(id) });
     };
+    ///
     
-    
-    const editButton = (user && advert.owner._id === user.id) ? <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link> : '';
-    const removeButton = (user && advert.owner._id === user.id) ? <Link onClick={handleRemove} >{t('Remove')}</Link> : '';
-
     if (!advert){
         return <Canvas>
                 <div>
@@ -64,6 +61,9 @@ export default function AdvertDetail({
                 </div>
             </Canvas>
     }
+    
+    const editButton = (user && advert.owner._id === user.id) ? <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link> : '';
+    const removeButton = (user && advert.owner._id === user.id) ? <Link onClick={handleRemove} >{t('Remove')}</Link> : '';
 
     return <Canvas>
 

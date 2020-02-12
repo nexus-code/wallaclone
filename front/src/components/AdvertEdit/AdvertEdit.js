@@ -29,7 +29,7 @@ export default function AdvertEdit({
         console.log('in useEffect');
 
         loadAdvert(id);
-    }, [loadAdvert, id]);
+    }, [loadAdvert]);
 
     console.log('passed useEffect');
 
