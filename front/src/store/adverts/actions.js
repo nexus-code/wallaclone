@@ -6,17 +6,20 @@ import {
     ADVERT_SAVE_REQUEST,
     ADVERT_SAVE_FAILURE,
     ADVERT_SAVE_SUCCESS,
-    // ADVERT_UPDATE_SUCCESS,
-    // ADVERT_CREATE_SUCCESS,
+    
+    ADVERT_REMOVE_REQUEST,
+    ADVERT_REMOVE_FAILURE,
+    ADVERT_REMOVE_SUCCESS,
 } from './types';
 
-import { searchAdvert, searchAdverts, savedAdvert } from '../../services/AdvertService';
+import { searchAdvert, searchAdverts, savedAdvert, doRemoveAdvert } from '../../services/AdvertService';
 import { getAdvert } from './selectors';
 
 import { toast } from 'react-toastify';
 
 // uses toast to ui add notifications   
 const notifySaved = () => toast.success('Advert saved!');
+const notifyRemoved = () => toast.success('Advert removed!');
 const notifyError = () => toast.error('Error on save advert!');
 // const notifyWarning = (warning) => toast.warning(warning);
 
@@ -79,14 +82,11 @@ export const fetchMoreAdverts = () => {
 export const fetchAdvert = id => async (dispatch, getState) => {
 
     const state = getState();
-
-    // console.log('fetchAdvert state', state)
     const advert = getAdvert(state, id);
 
     if (advert) {
 
-        console.log(' exit fetchAdvert advert on store', state)
-
+        // console.log(' exit fetchAdvert advert on store', state)
         return advert;
     }
 
@@ -94,13 +94,10 @@ export const fetchAdvert = id => async (dispatch, getState) => {
     try {
         const advert = await searchAdvert(id);
         dispatch(fetchAdvertsSuccess([advert]));
-        // return id;
+
     } catch (error) {
 
-        console.log('fetchAdvert ', error);
-
         dispatch(fetchAdvertsFailure(error));
-        // return `Error: ${error}`
     }
 };
 
@@ -124,7 +121,7 @@ export const savedAdvertRequest = advert => ({
     advert,
 });
 
-export const savedAdFailure = error => ({
+export const savedAdvertFailure = error => ({
     type: ADVERT_SAVE_FAILURE,
     error,
 });
@@ -141,7 +138,7 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
     try {
 
         const result = await savedAdvert(advert, method);
-        console.log('saveAdvert result ', result);
+        // console.log('saveAdvert result ', result);
 
         dispatch(savedAdvertSuccess(result));
         
@@ -152,7 +149,48 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
 
     } catch (error) {
 
-        dispatch(savedAdFailure());
+        dispatch(savedAdvertFailure());
+        notifyError();
+        console.log('savedAdvert error ', error);
+
+        return false;
+    }
+};
+
+/**
+ * 
+ * Remove advert
+ * 
+ */
+
+export const removeAdvertRequest = () => ({
+    type: ADVERT_REMOVE_REQUEST,
+});
+
+export const removeAdvertFailure = error => ({
+    type: ADVERT_REMOVE_FAILURE,
+});
+
+export const removeAdvertSuccess = () => ({
+    type: ADVERT_REMOVE_SUCCESS,
+});
+
+export const removeAdvert = (advert, method) => async (dispatch, getState, { history }) => {
+
+    dispatch(removeAdvertRequest());
+
+    try {
+
+        await doRemoveAdvert(advert);
+
+        dispatch(removeAdvertSuccess());
+
+        notifyRemoved();
+        history.push("/");
+
+    } catch (error) {
+
+        dispatch(removeAdvertFailure());
         notifyError();
         console.log('savedAdvert error ', error);
 

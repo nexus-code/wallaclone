@@ -139,6 +139,7 @@ app.use('/api/resetpasswd', recoverPasswdController.reset);
 app.use('/api/unsuscribe', unsuscribeController.do);
 
 app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
+// app.delete('/api/adverts', require('./routes/api/adverts'));
 // app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
 app.use('/api/tags', require('./routes/api/tags'));
 

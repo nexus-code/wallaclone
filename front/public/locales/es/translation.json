@@ -43,5 +43,10 @@
     "Confirm to unsuscribe": "Confirmación baja",
     "This action is permanent! All your adverts and your profile will be removed": "Esta acción es permanente: Sus datos de usuario y sus anuncios serán eliminados.",
 
+    "Edit": "Editar",
+    "Remove": "Eliminar",
+    "Confirm to remove advert": "Confirmación borrado de anuncio",
+    "This action is permanent! The advert will be removed": "Esta acción es permanente: El anuncio será completamente eliminado",
+
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

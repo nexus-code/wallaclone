@@ -55,6 +55,8 @@ router.put('/:id', async (req, res, next) => {
 
         // const id = req.params.id;
         const data = req.body;
+
+        console.log('data user', data);
         data.id = req.params.id;
 
         const savedUser = await UserModel.update(data, next);

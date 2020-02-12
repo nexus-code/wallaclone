@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { getUser } from '../../store/user/selectors';
 import { getAdverts } from '../../store/adverts/selectors';
-import { fetchAdvert } from '../../store/adverts/actions';
+import { fetchAdvert, removeAdvert } from '../../store/adverts/actions';
 
 import AdvertDetail from './AdvertDetail';
 
@@ -15,6 +15,7 @@ const mapStateToProps = (store, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
     
     loadAdvert: (id) => dispatch(fetchAdvert(id)),
+    removeAdvert: (id) => dispatch(removeAdvert(id)),
 });
 
 export default connect(

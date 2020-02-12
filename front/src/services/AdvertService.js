@@ -44,22 +44,6 @@ const getTagsList = () => {
 
 /**
  * 
- * @param {*} id The ad id to fetch
- */
-// const getAdvertDetail = (id) => {
-//     return getFetch(`${API_URL}adverts/${id}`)
-//         .then(res => {
-//             if (!res.success) {
-//                 return res;
-//             } else {
-//                 return new AdvertModel(res.result);
-//             }
-//         })
-//         .catch(error => console.error('Error:', error));
-// }
-
-/**
- * 
  * @param {*} query: filter ads. Optimize  with searchAdvert
  */
 
@@ -73,7 +57,6 @@ const searchAdverts = (query) => {
         .then(res => res.result.map(ad => new AdvertModel(ad)))
         .catch(error => console.error('Error:', error));
 }
-
 
 /**
  *
@@ -122,7 +105,8 @@ const savedAdvert = (advert, method) => {
         case 'PUT':
             console.log('savedAdvert PUT', advert);
 
-            return Axios.put(`${baseURL}/${advert.id}`, { data: advert }, config).then(
+            // return Axios.put(`${baseURL}/${advert.id}`, { data: advert }, config).then(
+            return Axios.put(baseURL, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),
             );
 
@@ -131,10 +115,31 @@ const savedAdvert = (advert, method) => {
     }
 }
 
+
+/**
+ *
+ */
+const doRemoveAdvert = (id) => {
+
+    const url = `${API_URL}adverts/?id=${id}`;
+
+    const config = {
+        headers: {
+            // 'Authorization': `Bearer  ${token}`,
+            // 'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    };
+
+    return Axios.delete(url, { data: id }, config).then(
+        res => new AdvertModel(res.data.result),
+    );
+}
+
 export {
     getTagsList,
     searchAdverts,
     searchAdvert,
-    // getAdvertDetail,
+    doRemoveAdvert,
     savedAdvert
 };

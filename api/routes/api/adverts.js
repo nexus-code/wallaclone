@@ -56,17 +56,17 @@ router.post('/', async (req, res, next) => {
 
 // -------------------- not required 
 // PUT /adverts:id -> Update advert by id
-router.put('/:id', async (req, res, next) => {
+router.put('/', async (req, res, next) => {
     try {
 
-        console.log('advert put file', req.file);
-        console.log('advert put body', req.body);
+        // console.log('advert put file', req.file);
+        // console.log('advert put body', req.body);
 
         // if (req.file === undefined)
         //     console.log('advert post file _undefined', req.file);
 
-        const id = req.params.id;
-        const data = req.body;
+        // const id = req.params.id;
+        // const data = req.body;
 
         if (req.file !== undefined){
 
@@ -74,8 +74,8 @@ router.put('/:id', async (req, res, next) => {
             delete data.filename;
         }
 
-
-        const savedAdvert = await Advert.updateAdvert(id, data, next);
+        const savedAdvert = await Advert.updateAdvert(req, next);
+        // const savedAdvert = await Advert.updateAdvert(id, data, next);
 
         res.json({
             status: 200,
@@ -83,6 +83,8 @@ router.put('/:id', async (req, res, next) => {
         }); // API output
 
     } catch (err) {
+
+        console.log('savedAdvert err', err)
         next(err);
     }
 });

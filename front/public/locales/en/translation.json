@@ -44,7 +44,10 @@
     "Confirm to unsuscribe": "Confirm to unsuscribe",
     "This action is permanent! All your adverts and your profile will be removed": "This action is permanent! All your adverts and your profile will be removed",
 
-    
+    "Edit": "Edit",
+    "Remove": "Remove",
+    "Confirm to remove advert": "Confirm to remove advert",
+    "This action is permanent! The advert will be removed": "This action is permanent! The advert will be removed",
 
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

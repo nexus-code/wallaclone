@@ -10,6 +10,7 @@
  */
 
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const advertSchema = mongoose.Schema({
     name: {
@@ -102,7 +103,6 @@ advertSchema.statics.insert = async function (req, next) {
     try {
         // console.log('-- adverts.js insert advert: ', req.body);
 
-        // data
         const data  = req.body;
         const advert    = new Advert(data);
         const newAdvert = await advert.save();
@@ -117,20 +117,21 @@ advertSchema.statics.insert = async function (req, next) {
 }
 
 // update a document
-advertSchema.statics.updateAdvert = async function (id, data, next) {
+advertSchema.statics.updateAdvert = async function (req, next) {
      try {
 
-        //  delete data.imageFile
-         console.log('updateAdvert*: ', id);
-         console.log('updateAdvert*: ', data);
+        //  console.log('updateAdvert*: ', req.body);
 
-         const updatedAdvert = await Advert.findOneAndDelete({_id: id}, data, {new: true});
+         const data = req.body;
+
+        data.updated = moment();
+        const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});
 
          return updatedAdvert;
 
      } catch (err) {
 
-         console.log('updateAdvert*: ', err);
+        //  console.log('updateAdvert* ERROR: ', err);
 
          next(err);
      }
@@ -139,6 +140,9 @@ advertSchema.statics.updateAdvert = async function (id, data, next) {
 // delete a advert document
 advertSchema.statics.delete = async function (_id, next) {
     try {
+
+        console.log('deleteAdvert*: ', id);
+        console.log('deleteAdvert*: ', data);
 
         await Advert.deleteOne({_id}).exec;
 

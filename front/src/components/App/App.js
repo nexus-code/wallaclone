@@ -29,8 +29,8 @@ function App({ user, adverts, props }) {
           <ErrorBoundary>
                 <Switch>
                   <Route path='/register' exact component={ Register } />
-                  <PrivateRoute path="/profile" exact component={ Register } />
                   <Route path="/login" exact component={ Login } />
+                  <PrivateRoute path="/profile" exact component={ Register } />
                   <PrivateRoute path='/advert/create' exact component={ AdEdit } />
                   <PrivateRoute path='/advert/edit/:id' exact component={ AdEdit } />
                   <Route path='/recoverpasswd' exact component={ RecoverPasswd } />

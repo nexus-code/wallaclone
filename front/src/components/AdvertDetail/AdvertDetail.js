@@ -1,19 +1,24 @@
 import React, { useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { getAdvert } from '../../store/adverts/selectors';
 
 import { Facebook, Twitter, Email } from 'react-sharingbuttons'
 import 'react-sharingbuttons/dist/main.css'
 
+import { useTranslation } from 'react-i18next';
+
 import { Button } from 'react-bootstrap';
-// import { useTranslation } from 'react-i18next';
+// import Button from '@material-ui/core/Button';
+import { useConfirm } from 'material-ui-confirm';
 
 /**
  * 
  * Show selected advert details.
- * loadAdvert find advert on Store or fetch from API
+ * loadAdvert fn, find advert on Store or fetch from API
+ * Only owner can edit or remove her adverts
  * 
  */
 
@@ -21,12 +26,13 @@ export default function AdvertDetail({
         user, 
         adverts, 
         loadAdvert,
+        removeAdvert,
         match: {
             params: { id },
         }, 
     }) {
 
-    // const { t } = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
 
@@ -35,7 +41,22 @@ export default function AdvertDetail({
     
     const advert = getAdvert(adverts, id);
     const history = useHistory();
+
+    /**
+     * Unsuscribe
+     */
+    const confirm = useConfirm();
+    const title = t('Confirm to remove advert');
+    const msg = t('This action is permanent! The advert will be removed');
+    const handleRemove = () => {
+        confirm({ title, description: msg })
+            .then(() => { removeAdvert(id) });
+    };
     
+    
+    const editButton = (user && advert.owner._id === user.id) ? <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link> : '';
+    const removeButton = (user && advert.owner._id === user.id) ? <Link onClick={handleRemove} >{t('Remove')}</Link> : '';
+
     if (!advert){
         return <Canvas>
                 <div>
@@ -43,15 +64,13 @@ export default function AdvertDetail({
                 </div>
             </Canvas>
     }
-    
-    const editButton =  advert.owner._id === user.id ? <Button className='btn btn-warning right' onClick={() => history.push(`/advert/edit/${id}`)} >Edit</Button> : '';
-    
+
     return <Canvas>
 
         <div className="container">
             <div>
                 <img src={advert.image} alt={advert.name} />
-
+                {editButton} | {removeButton}
                 <h1 style={{
                     color: advert.type === 'sell' ? 'green' : 'blue'
                 }}>{advert.name} <span className='badge badge-primary'>{advert.price}€</span>
@@ -67,9 +86,10 @@ export default function AdvertDetail({
                 </p>
                 <br />
                 <hr />
-                <br />
-                { editButton }
                 <Button className='btn btn-dark' onClick={() => history.goBack()}>Go back</Button>
+                <br />
+
+                <br />
             </div>
         </div>
     </Canvas>;
