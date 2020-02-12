@@ -1,17 +1,22 @@
 
 import { connect } from 'react-redux';
+
+import { getUser } from '../../store/user/selectors';
+import { getAdverts } from '../../store/adverts/selectors';
 import { fetchAdverts } from '../../store/adverts/actions'
 
 import Search from './Search';
 
-const mapDispatchToProps = {
-    loadadverts: fetchAdverts,
-};
+const mapStateToProps = (store, ownProps) => ({
+
+    user: getUser(store),
+    adverts: getAdverts(store),
+});
 
 
-function mapStateToProps(state) {
-    return state;
-}
+const mapDispatchToProps = dispatch => ({
+    loadAdverts: () => dispatch(fetchAdverts()),
+});
 
 export default connect(
     mapStateToProps,
