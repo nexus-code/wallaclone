@@ -41,9 +41,6 @@ export const configureStore = config => preloadedState =>  {
     const middlewares = configureMiddleware(config);
     const composeEnhancers = composeWithDevTools;
 
-
-    console.log('reducer', reducer);
-
     return createStore(
         createRootReducer(reducer),
         preloadedState,

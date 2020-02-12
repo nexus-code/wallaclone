@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { getUser } from '../../store/user/selectors';
-import { getAdverts } from '../../store/adverts/selectors';
+import { getAdverts, getQuery } from '../../store/adverts/selectors';
 import { fetchAdverts, fetchMoreAdverts } from '../../store/adverts/actions';
 
 import AdvertList from './AdvertList';
@@ -12,6 +12,7 @@ const mapStateToProps = (store, ownProps) => ({
 
     user: getUser(store),
     adverts: getAdverts(store),
+    query: getQuery(store),
 });
 
 

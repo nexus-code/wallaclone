@@ -1,6 +1,4 @@
-import { useSelector, useDispatch } from 'react-redux';
-import React, { Component } from 'react';
-/* Material UI */
+import React, { useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,67 +8,33 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import Chip from '@material-ui/core/Chip';
-/* Own modules */
-/* Assets */
-/* CSS */
+
 import './SearchPanel.css';
 
-/**
- * Main App
- */
-export default function SearchPanel () {
+// https://medium.com/@ger86/react-hooks-y-redux-funcionando-juntos-869d2900f0cb
+//  
 
-  const query = {
-      name: '',
-      type: 'all',
-      tag: 'all',
-      priceFrom: 0,
-      priceTo: 0,
+export default function SearchPanel({ query, tags, adverQuerySet, adverQueryReset }) {
+
+  const handleChange = (event) => {
+
+    const { name, value } = event.target;
+    // console.log('name', name);
+    // console.log('value', value);
+
+    query = {
+      ...query,
+      [name]: value,
+    }
+
+    adverQuerySet(query);
   };
 
-  const tags = [];
 
-  /**
-   * Cambio en alguno de los campo del formulario
-   */
-  const handleChange = name => event => {
-    console.log(name);
-    console.log(event);
-    // this.setState(
-    //   {
-    //     [name]: event.target.value,
-    //   },
-    //   () => {
-    //     // Los campos numérico NO quiero que lancen busqueda automática (salvo que estén en blanco).
-    //     // Para el resto de campos la búsqueda se activa en cuanto el usuario modifica el formulario (mejor UX)
-    //     if (
-    //       !name.startsWith('price') ||
-    //       (name.startsWith('price') && query[name] === '')
-    //     ) {
-    //       handleSearch(query);
-    //     }
-    //   },
-    // );
-  };
-
-  /**
-   * Reseteo el estado a los valores originales de búsqueda
-   */
   const handleReset = () => {
-    console.log('handleReset');
+    // console.log('handleReset', query);
 
-    // this.setState(
-    //   {
-    //     type: 'all',
-    //     tag: 'all',
-    //     priceFrom: null,
-    //     priceTo: null,
-    //   },
-    //   () => {
-    //     // Llamo a realizar la busqueda
-    //     handleSearch(query);
-    //   },
-    // );
+    adverQueryReset();    
   };
 
   /**
@@ -80,12 +44,9 @@ export default function SearchPanel () {
     ev.preventDefault();
     console.log('handleSubmit');
 
-    // handleSearch(query);
+    adverQuerySet(query);
   };
 
-  /**
-   * Render
-   */
 
     return <>
       <form className="SearchPanel" onSubmit={handleSubmit}>
@@ -100,7 +61,7 @@ export default function SearchPanel () {
             name="name"
             type="text"
             value={query.name}
-            onChange={handleChange('name')}
+            onChange={handleChange}
             className="InputSearch__Input"
             autoComplete="off"
             placeholder="Buscar productos por nombre"
@@ -114,7 +75,7 @@ export default function SearchPanel () {
             <Select
               id="filter_type"
               name="type"
-              onChange={handleChange('type')}
+              onChange={handleChange}
               className="SearchPanel__Type"
               value={query.type}
               displayEmpty
@@ -150,7 +111,7 @@ export default function SearchPanel () {
               id="filter_tag"
               name="tag"
               value={query.tag}
-              onChange={handleChange('tag')}
+              onChange={handleChange}
               displayEmpty
             >
               <MenuItem key="all" value="all">
@@ -183,7 +144,7 @@ export default function SearchPanel () {
               name="priceFrom"
               type="number"
               value={parseInt(query.priceFrom) || 0}
-              onChange={handleChange('priceFrom')}
+              onChange={handleChange}
               endAdornment={<InputAdornment position="start">€</InputAdornment>}
             />
           </FormControl>
@@ -194,23 +155,21 @@ export default function SearchPanel () {
               name="priceTo"
               type="number"
               value={parseInt(query.priceTo) || 0}
-              onChange={handleChange('priceTo')}
+              onChange={handleChange}
               endAdornment={<InputAdornment position="start">€</InputAdornment>}
             />
           </FormControl>
         </div>
         <div className="SearchPanel__Footer">
           <Button type="submit" variant="contained" color="primary">
-            {' '}
-            Search{' '}
+            {' '}Search{' '}
           </Button>
           <Button
             variant="contained"
             color="secondary"
             onClick={handleReset}
           >
-            {' '}
-            Reset{' '}
+            {' '}Reset{' '}
           </Button>
         </div>
       </form>

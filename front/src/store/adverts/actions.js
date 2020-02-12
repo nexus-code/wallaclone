@@ -43,14 +43,15 @@ export const fetchMoreAdverts = (query) => {
         dispatch(fetchAdvertsRequest());
         try {
 
-            const { adverts } = getState();
-            const skip = `skip=${adverts.length}`;
+            const { adverts, query } = getState();
+            // const skip = `skip=${adverts.length}`;
 
             
-            const _query = `${query}&${skip}`
-            console.log('_query', _query)
+            // const queryStr = `${query}&${skip}`
+            const queryStr = mountAdvertsQuery(query);
+            console.log('fetchMoreAdverts', queryStr)
 
-            const newAdverts = await searchAdverts(_query);
+            const newAdverts = await searchAdverts(queryStr);
 
 
             console.log('newAdverts.length', newAdverts.length)
@@ -194,18 +195,35 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
  * Set filter
  *
  */
-// export const ADVERT_SET_QUERY = 'ADVERT_SET_QUERY';
+
+const mountAdvertsQuery = query => {
+
+    // Mount search String to send to the API
+    const { tags, name, type, minPrice, maxPrice, skip } = query;
+
+    let searchString = tags === '' ? '' : `tag=${tags}&`;
+    searchString += name === '' ? '' : `name=${name}&`;
+    searchString += (minPrice !== '' || maxPrice !== '') ? 'Price=' : '';
+    searchString += minPrice === '' ? '' : `${minPrice}`;
+    searchString += maxPrice === '' ? '' : `-${maxPrice}`;
+
+    if (type !== '' && type !== 'all')
+        searchString += type === 'sell' ? 'venta=true&' : `venta=false&`;
+    
+    console.log('mountAdvertsQuery -> ',searchString);
+
+    return searchString;
+}
+
+
+export const adverQuerySet = query => ({
+    type: TYPES.ADVERT_QUERY_SET,
+    query
+});
 
 export const adverQueryReset = () => ({
     type: TYPES.ADVERT_QUERY_RESET,
 });
-
-export const adverQuerySet = () => ({
-    type: TYPES.ADVERT_QUERY_SET,
-});
-
-
-
 
 /**
  *

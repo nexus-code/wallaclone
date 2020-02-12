@@ -6,26 +6,22 @@ const advertsLS =  getAdvertsLS();
 
 const initialState = {
     adverts: [] && advertsLS,
-    tags: [],
+    tags: ['work', 'mobile', 'lifestyle', 'motor'],
     query: {
         name: '',
         type: 'all',
         tag: 'all',
         priceFrom: 0,
         priceTo: 0,
+        skip: 0,
     },
 };
 
 export const query = (state = initialState.query, action) => {
-    if (action.type === TYPES.ADVERT_QUERY_SET) {
-        return action.query;
-    }
 
     switch (action.type) {
         case TYPES.ADVERT_QUERY_SET:
-            return {
-                query: action.query,
-            };
+            return action.query;
 
 
         case TYPES.ADVERT_QUERY_RESET:
@@ -60,7 +56,6 @@ export const adverts = (state = initialState.adverts, action) => {
 
                 return [action.advert];
             }
-            
 
             //20200211: Guarda pero no actualiza ¿api?
             // return {

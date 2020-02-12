@@ -2,7 +2,7 @@ import React  from "react";
 import Canvas from '../Canvas/Canvas';
 import AdvertList from '../AdvertList';
 
-import SearchPanel from '../SearchPanel/SearchPanel';
+import SearchPanel from '../SearchPanel';
 
 function getAdverts() {
     console.log('getAdverts');
