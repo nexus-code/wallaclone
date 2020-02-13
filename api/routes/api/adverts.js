@@ -54,33 +54,16 @@ router.post('/', async (req, res, next) => {
 });
 
 
-// -------------------- not required 
-// PUT /adverts:id -> Update advert by id
+// PUT /adverts Update advert by req.body.id
 router.put('/', async (req, res, next) => {
     try {
 
-        // console.log('advert put file', req.file);
-        // console.log('advert put body', req.body);
-
-        // if (req.file === undefined)
-        //     console.log('advert post file _undefined', req.file);
-
-        // const id = req.params.id;
-        // const data = req.body;
-
-        if (req.file !== undefined){
-
-            data.image = req.file.filename
-            delete data.filename;
-        }
-
         const savedAdvert = await Advert.updateAdvert(req, next);
-        // const savedAdvert = await Advert.updateAdvert(id, data, next);
 
         res.json({
             status: 200,
             result: savedAdvert
-        }); // API output
+        });
 
     } catch (err) {
 

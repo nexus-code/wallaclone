@@ -25,13 +25,11 @@ const storage = multer.diskStorage({
 // define multer filter
 const fileFilter = (req, file, cb) => {
 
-  console.log('multer fileFilter', file.mimetype, file);
-  console.log('multer fileFilter req', req);
+  // console.log('multer fileFilter', file.mimetype, file);
+  // console.log('multer fileFilter req', req);
 
 
   const mimeTypes = process.env.IMG_MIME_TYPES.split(',');
-
-  //console.log('mimeTypes', mimeTypes, file.mimetype, file);
 
   if ( mimeTypes.indexOf(file.mimetype) > -1 ) {
     // Pending: read real file mimetype, this not work: change extension to an html a test 
@@ -70,7 +68,6 @@ app.use(mongoSanitize());
 app.use(xss());
 ///
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -98,8 +95,6 @@ app.locals.app_root = `${process.env.APP_ROOT}:${process.env.PORT}/`;
  * DB connection
  */
 
-// require('./models/User');
-// require('./models/Advert'); 
 require('./lib/connectMongoose');
 
 /**

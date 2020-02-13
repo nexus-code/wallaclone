@@ -95,13 +95,11 @@ const requesterImageService = (advert) => {
 
 
 /** 
- * Adverts Methods
+ * Adverts CRUD Methods
  */
 
-// insert a document
 advertSchema.statics.insert = async function (req, next) {
     try {
-        // console.log('-- adverts.js insert advert: ', req.body);
 
         const data  = req.body;
         const advert    = new Advert(data);
@@ -116,11 +114,10 @@ advertSchema.statics.insert = async function (req, next) {
     }
 }
 
-// update a document
 advertSchema.statics.updateAdvert = async function (req, next) {
      try {
 
-        //  console.log('updateAdvert*: ', req.body);
+        //  console.log('updateAdvert: ', req.body);
 
          const data = req.body;
 
@@ -131,13 +128,12 @@ advertSchema.statics.updateAdvert = async function (req, next) {
 
      } catch (err) {
 
-        //  console.log('updateAdvert* ERROR: ', err);
+         console.log('updateAdvert ERROR: ', err);
 
          next(err);
      }
  }
  
-// delete a advert document
 advertSchema.statics.delete = async function (_id, next) {
     try {
 
