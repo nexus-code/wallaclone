@@ -82,59 +82,27 @@ const searchAdvert = (id) => {
  * @param {*} ad {advertisement}
  * @param {*} method POST / PUT for insert or update
  */
-const savedAdvert = (advert, imageData, method) => {
+const savedAdvert = (advert, method) => {
 
     const baseURL = `${API_URL}adverts`;
 
-    const config = {
-        headers: {
-            // 'Authorization': `Bearer  ${token}`,
-            // 'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'multipart/form-data'
-                } 
-        };
-
-    console.log('savedAdvert advert', advert);
-    console.log('savedAdvert imageData', imageData);
-
-    advert.imageFile = imageData;
-    console.log('savedAdvert advert FINAL', advert);
-
+    // wraps advert data in FormData format
+    // must include imageFile to upload it
+    // font:  https://github.com/axios/axios/issues/2002#issuecomment-562841806 
+    // body-parser on server needed 
     const formData = new FormData();
+    Object.keys(advert).forEach(key => { formData.append(key, advert[key]) });
 
-    // Object.keys(advert).forEach((key, value) => { formData.append(key, value) });
-
-    formData.append('id', advert.id);
-    formData.append('price', advert.price );
-    formData.append('imageFile', imageData);
-
-    console.log('savedAdvert formData FINAL', formData);
-
-
-
-    switch (method) {
-        case 'POST':
-            console.log('savedAdvert POST', advert);
-
-            return Axios.post(baseURL, null, { data: advert }).then(
-                res => new AdvertModel(res.data.result),
-            );
-
-        case 'PUT':
-            console.log('savedAdvert PUT', formData);
-
-            return Axios({
-                method: "PUT", url: baseURL, data: formData, headers: {
-                    'Content-Type': 'multipart/form-data'
-                } }).then(
-            // return Axios.put(baseURL, null, { data: advert }, config).then(
-            // return Axios.put(baseURL, null, { data: advert }).then(
-                res => new AdvertModel(res.data.result),
-            );
-
-        default:
-            return 'Invalid method';
-    }
+    return Axios({
+        method: method, 
+        url: baseURL, 
+        data: formData, 
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(
+        res => new AdvertModel(res.data.result),
+    );
 }
 
 

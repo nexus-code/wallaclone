@@ -45,40 +45,14 @@ export default function AdvertEdit({
     const method = onEdit ? 'PUT' : 'POST';
     const history = useHistory();
 
-
-        /**
-         * 
-         * 
-         * ON RELOAD useFORM not relaoad 
-         * 
-         */
-
-
-
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
-
 
     const onSubmit = data => {
 
-        // data.imageFile = imageFile;
-
-        // console.log('data send onSubmit', data);
-
-        console.log('imageFile', imageFile);
-
-        // // imageFile.originalname = imageFile.name;
-        // // imageFile.mimetype = imageFile.type;
-        // // imageFile.encoding = imageFile.size;
-
-        // let formData = new FormData();
-        // formData.append('imageFile', imageFile);
-        // data.imageFile = formData.get('imageFile');
-        
+        // must include imageFile to upload it
         data.imageFile = imageFile;
 
-        console.log('AdvertEdit 76 data', data);
-
-        return saveAdvert(data, imageFile, method);
+        return saveAdvert(data, method);
     }
 
     const validator = (field, minLength, maxLength) => ({
