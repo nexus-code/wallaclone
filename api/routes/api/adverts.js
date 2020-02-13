@@ -36,8 +36,8 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
     try {
 
-        console.log('advert post file', req.file);
-        console.log('advert post body', req.body);
+        console.log('advert POST file', req.file);
+        console.log('advert POST body', req.body);
 
         req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
         
@@ -57,6 +57,10 @@ router.post('/', async (req, res, next) => {
 // PUT /adverts Update advert by req.body.id
 router.put('/', async (req, res, next) => {
     try {
+
+        console.log('advert PUT file', req.file);
+        console.log('advert PUT body', req.body);
+
 
         const savedAdvert = await Advert.updateAdvert(req, next);
 

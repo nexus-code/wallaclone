@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 const helmet     = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss        = require('xss-clean');
+var bodyParser   = require('body-parser');
 /**
  * upload ad images with multer
  * https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
@@ -78,11 +79,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.text());
+
 /**
  * Setup i18n
  */
-const i18n = require('./lib/i18nConfigure')();
-app.use(i18n.init);
+// const i18n = require('./lib/i18nConfigure')();
+// app.use(i18n.init);
 
 
 /**
@@ -105,8 +109,8 @@ require('./lib/connectMongoose');
 // Middleware: Configures headers & CORS
 app.use((req, res, next) => {
 
-  console.log('\r\n\r\nheaders & CORS file\r\n', req.file);
-  console.log('\r\n\r\nheaders & CORS body\r\n', req.body);
+  // console.log('\r\n\r\nheaders & CORS file\r\n', req.file);
+  // console.log('\r\n\r\nheaders & CORS body\r\n', req.body);
 
 
   res.header('Access-Control-Allow-Origin', '*');

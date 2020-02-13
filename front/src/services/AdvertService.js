@@ -96,10 +96,16 @@ const savedAdvert = (advert, imageData, method) => {
 
     console.log('savedAdvert advert', advert);
     console.log('savedAdvert imageData', imageData);
-    console.log('savedAdvert method', method);
 
     advert.imageFile = imageData;
     console.log('savedAdvert advert FINAL', advert);
+
+    const formData = new FormData();
+
+    Object.keys(advert).forEach((key, value) => { formData.append(key, value) });
+
+    console.log('savedAdvert formData FINAL', formData);
+
 
 
     switch (method) {
@@ -111,9 +117,10 @@ const savedAdvert = (advert, imageData, method) => {
             );
 
         case 'PUT':
-            console.log('savedAdvert PUT', advert);
+            console.log('savedAdvert PUT', formData);
 
-            return Axios.put(baseURL, null, { data: advert }, config).then(
+            return Axios.put(baseURL, null, { data: formData }, config).then(
+            // return Axios.put(baseURL, null, { data: advert }, config).then(
             // return Axios.put(baseURL, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),
             );

@@ -31,7 +31,10 @@ export default function AdvertEdit({
         loadAdvert(id);
     }, [loadAdvert]);
 
+    const [imageFile, setImageFile] = useState();
+
     console.log('passed useEffect');
+    console.log('passed useEffect imageFile', imageFile);
 
 
     const advert = getAdvert(adverts, id);
@@ -71,9 +74,9 @@ export default function AdvertEdit({
         // formData.append('imageFile', imageFile);
         // data.imageFile = formData.get('imageFile');
         
-        // // data.imageFile = imageFile;
+        data.imageFile = imageFile;
 
-        // console.log('data', data);
+        console.log('AdvertEdit 76 data', data);
 
         return saveAdvert(data, imageFile, method);
     }
@@ -90,7 +93,7 @@ export default function AdvertEdit({
         }
     });
 
-    const [imageFile, setImageFile] = useState();
+    // const [imageFile, setImageFile] = useState();
 
     const handleChange = (e) => {
         e.persist();
