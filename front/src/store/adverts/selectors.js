@@ -6,7 +6,6 @@ export const getAdvert = (adverts, id) => {
 
     //Improve this on store!!
 
-    console.log('getAdvert', adverts);
     try{
         
         return adverts.filter(advert => advert.id === id)[0];

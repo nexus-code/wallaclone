@@ -118,8 +118,6 @@ export const login = (user) => async (dispatch, getState, { history }) => {
 
         dispatch(fetchUserFailure());
         notifyLoginError();
-        // console.log('action mac login error', error);
-
         return false;
     }
 };

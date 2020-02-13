@@ -94,8 +94,6 @@ const saveUser = (user, method) => {
 
     const url = `${API_URL}users`;
 
-    console.log('UserService saveUser', user);
-
     switch (method) {
 
         case 'POST':

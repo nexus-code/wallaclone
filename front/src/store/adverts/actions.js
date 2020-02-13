@@ -103,20 +103,10 @@ export const savedAdvertFailure = error => ({
     error,
 });
 
-// export const savedAdvertSuccess = advert => ({
-//     type: TYPES.ADVERT_SAVE_SUCCESS,
-//     advert,
-// });
-
-
-
-export const savedAdvertSuccess = advert => {
-    console.log('action savedAdvertSuccess mac', advert);
-
-    return{
+export const savedAdvertSuccess = advert => ({
     type: TYPES.ADVERT_SAVE_SUCCESS,
     advert,
-}};
+});
 
 export const saveAdvert = (advert, method) => async (dispatch, getState, { history }) => {
 
@@ -126,8 +116,6 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
 
         const result = await savedAdvert(advert, method);
         
-        // console.log('action result mac', result);
-
         dispatch(savedAdvertSuccess(result));
         history.push(`/advert/${result.id}`);
 
@@ -138,8 +126,6 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
 
         dispatch(savedAdvertFailure());
         notifyError();
-        // console.log('action savedAdvert mac error ', error);
-
         return false;
     }
 };

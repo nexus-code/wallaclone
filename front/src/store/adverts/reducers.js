@@ -55,7 +55,7 @@ export const adverts = (state = initialState.adverts, action) => {
 
             } else {
 
-                return [action.advert];
+                return action.advert;
             }
             // return {
             //     ...state,
