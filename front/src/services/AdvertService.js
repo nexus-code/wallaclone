@@ -101,7 +101,10 @@ const savedAdvert = (advert, method) => {
             'Content-Type': 'multipart/form-data'
         }
     }).then(
-        res => new AdvertModel(res.data.result),
+        res => {
+            console.log('savedAdvert mac', res);
+            new AdvertModel(res.data.result)
+        }
     );
 }
 

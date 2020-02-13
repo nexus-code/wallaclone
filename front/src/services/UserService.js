@@ -80,8 +80,6 @@ const doUnsuscribe = (user) => {
     const url = `${API_URL}unsuscribe`;
     const data = { id: user.id, token: user.token }
 
-    console.log('UserService doUnsuscribe', url, data);
-
     return Axios.post(url, null, { data }).then(
         res => res.data.result,
     );

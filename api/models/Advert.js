@@ -16,7 +16,7 @@ const advertSchema = mongoose.Schema({
     name: {
         type: String,
         require: true,
-        minlength: 4,
+        minlength: 3,
         maxlength: 50,
         trim: true,
     },

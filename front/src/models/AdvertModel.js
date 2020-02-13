@@ -4,6 +4,7 @@ export default class AdvertModel {
     description;
     price;
     type;
+    status;
     image;
     tags;
     owner;
@@ -15,6 +16,7 @@ export default class AdvertModel {
         this.description = value.description;
         this.price = value.price;
         this.type = value.type;
+        this.status = value.status;
         this.image = `${process.env.REACT_APP_API_IMAGES}${value.image}`;
         this.tags = value.tags;
         this.owner = value.owner

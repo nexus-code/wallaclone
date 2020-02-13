@@ -71,7 +71,6 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
     try {
 
         const result = await saveUser(user, method);
-        console.log('action setUser result', result);
 
         dispatch(savedUserSuccess(result));
 
@@ -83,7 +82,7 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
 
         dispatch(savedUserFailure());
         notifyError();
-        console.log(error);
+        // console.log('action mac setUser error', error);
 
         return false;
     }
@@ -109,7 +108,6 @@ export const login = (user) => async (dispatch, getState, { history }) => {
     try {
 
         const result = await doLogin(user);
-        // console.log('action login result', result);
 
         dispatch(fetchUserSuccess(result));
 
@@ -120,7 +118,7 @@ export const login = (user) => async (dispatch, getState, { history }) => {
 
         dispatch(fetchUserFailure());
         notifyLoginError();
-        // console.log(error);
+        // console.log('action mac login error', error);
 
         return false;
     }
@@ -163,7 +161,7 @@ export const resetPasswd = (password, recoverKey) => async (dispatch, _getState,
         dispatch(fetchUserSuccess(result)); // do login
 
         notifyResetPasswd();
-        // history.push("/");
+        history.push("/");
 
     } catch (error) {
 

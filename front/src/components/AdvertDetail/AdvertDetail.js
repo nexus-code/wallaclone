@@ -69,7 +69,7 @@ export default function AdvertDetail({
     }
     
     const editButton = (user && advert.owner._id === user.id) ? <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link> : '';
-    const removeButton = (user && advert.owner._id === user.id) ? <Link onClick={handleRemove} >{t('Remove')}</Link> : '';
+    const removeButton = (user && advert.owner._id === user.id) ? <Button onClick={handleRemove} >{t('Remove')}</Button> : '';
 
     return <Canvas>
         <Helmet>

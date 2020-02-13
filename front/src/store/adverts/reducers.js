@@ -57,12 +57,11 @@ export const adverts = (state = initialState.adverts, action) => {
 
                 return [action.advert];
             }
-
-            //20200211: Guarda pero no actualiza ¿api?
             // return {
             //     ...state,
             //     adverts: action.adverts,
             // };
+
 
         default:
             return state;

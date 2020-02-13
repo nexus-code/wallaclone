@@ -9,8 +9,6 @@ import { useTranslation } from 'react-i18next';
 
 // import TagSelect from '../TagsSelect/TagSelect'
 
-// const TYPES = ['sell', 'buy'];
-
 export default function AdvertEdit({
     user,
     adverts,
@@ -25,17 +23,10 @@ export default function AdvertEdit({
     const { t } = useTranslation();
 
     useEffect(() => {
-
-        console.log('in useEffect');
-
         loadAdvert(id);
     }, [loadAdvert]);
 
     const [imageFile, setImageFile] = useState();
-
-    console.log('passed useEffect');
-    console.log('passed useEffect imageFile', imageFile);
-
 
     const advert = getAdvert(adverts, id);
     console.log('advert', advert);
@@ -71,7 +62,6 @@ export default function AdvertEdit({
 
     const handleChange = (e) => {
         e.persist();
-
         setImageFile(e.target.files[0]); // you get all the files object here
     }
 
@@ -94,7 +84,7 @@ export default function AdvertEdit({
                     <input
                         name="name"
                         placeholder={t('Product name')}
-                        ref={register(validator('name', 3, 25))}
+                        ref={register(validator('name', 3, 50))}
                     />
                     {errors.name && <p>{errors.name.message}</p>}
 
@@ -119,6 +109,13 @@ export default function AdvertEdit({
                     <select ref={register} name="type">
                         <option value="sell">{t('Sell')}</option>
                         <option value="buy">{t('Buy')}</option>
+                    </select>
+
+                    <label>{t('Status')}</label>
+                    <select ref={register} name="status">
+                        <option value="">{t('select')}</option>
+                        <option value="reserved">{t('Reserved')}</option>
+                        <option value="sold">{t('Sold')}</option>
                     </select>
 
                     {/* <label>{t('Tags')}</label> */}
