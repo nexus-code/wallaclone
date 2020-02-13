@@ -79,8 +79,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.text());
+
+
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
+
 
 /**
  * Setup i18n

@@ -102,7 +102,11 @@ const savedAdvert = (advert, imageData, method) => {
 
     const formData = new FormData();
 
-    Object.keys(advert).forEach((key, value) => { formData.append(key, value) });
+    // Object.keys(advert).forEach((key, value) => { formData.append(key, value) });
+
+    formData.append('id', advert.id);
+    formData.append('price', advert.price );
+    formData.append('imageFile', imageData);
 
     console.log('savedAdvert formData FINAL', formData);
 
@@ -119,7 +123,10 @@ const savedAdvert = (advert, imageData, method) => {
         case 'PUT':
             console.log('savedAdvert PUT', formData);
 
-            return Axios.put(baseURL, null, { data: formData }, config).then(
+            return Axios({
+                method: "PUT", url: baseURL, data: formData, headers: {
+                    'Content-Type': 'multipart/form-data'
+                } }).then(
             // return Axios.put(baseURL, null, { data: advert }, config).then(
             // return Axios.put(baseURL, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),

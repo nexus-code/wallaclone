@@ -58,9 +58,6 @@ router.post('/', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
     try {
 
-        console.log('advert PUT file', req.file);
-        console.log('advert PUT body', req.body);
-
 
         const savedAdvert = await Advert.updateAdvert(req, next);
 
