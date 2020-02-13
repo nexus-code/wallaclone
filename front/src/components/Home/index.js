@@ -7,7 +7,6 @@ const mapDispatchToProps = {
     loadAdverts: fetchAdverts,
 };
 
-
 function mapStateToProps(state) {
     return state;
 }

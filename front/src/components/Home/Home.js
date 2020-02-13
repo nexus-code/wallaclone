@@ -8,8 +8,6 @@ function getAdverts() {
     console.log('getAdverts');
 }
 
-const tags = ['work', 'mobile', 'lifestyle'];
-
 
 export default class Home extends React.Component {
 
@@ -26,7 +24,7 @@ export default class Home extends React.Component {
         return (
             <Canvas>
                 <div className='container mt-5 mb-5'>
-                    <SearchPanel handleSearch={getAdverts} tags={tags} />
+                    <SearchPanel handleSearch={getAdverts} />
                 </div>
                 {
                     adverts

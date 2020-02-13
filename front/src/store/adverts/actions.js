@@ -12,12 +12,15 @@ const notifyError = () => toast.error('Error on save advert!');
 // const notifyWarning = (warning) => toast.warning(warning);
 
 
-export const fetchAdverts = (query) => {
+export const fetchAdverts = () => {
 
     async function __fetchAdverts(dispatch, getState, extraArgument) {
+
+        const { query } = getState();
+
         dispatch(fetchAdvertsRequest());
         try {
-            const adverts = await searchAdverts(query);
+            const adverts = await searchAdverts(query.str);
             dispatch(fetchAdvertsSuccess(adverts));
         } catch (error) {
             dispatch(fetchAdvertsFailure(error));
@@ -27,15 +30,7 @@ export const fetchAdverts = (query) => {
     return __fetchAdverts;
 };
 
-
-export const fetchMoreAdverts = (query) => {
-
-
-    console.log('fetchMoreAdverts in');
-
-    // const storedAdverts = getAdverts();
-    // console.log('storedAdverts.length', storedAdverts.length)
-    // const skip = `skip=${storedAdverts.length}`;
+export const fetchMoreAdverts = () => {
 
     async function __fetchAdverts(dispatch, getState, extraArgument) {
     console.log('__fetchAdverts in');
@@ -44,17 +39,9 @@ export const fetchMoreAdverts = (query) => {
         try {
 
             const { adverts, query } = getState();
-            // const skip = `skip=${adverts.length}`;
-
-            
-            // const queryStr = `${query}&${skip}`
-            const queryStr = mountAdvertsQuery(query);
-            console.log('fetchMoreAdverts', queryStr)
-
+            const skip = `&skip=${adverts.length}`;           
+            const queryStr = `${query.str}&${skip}`
             const newAdverts = await searchAdverts(queryStr);
-
-
-            console.log('newAdverts.length', newAdverts.length)
 
             dispatch(fetchAdvertsSuccess(adverts.concat(newAdverts)));
         } catch (error) {
@@ -91,7 +78,6 @@ export const fetchAdvert = id => async (dispatch, getState) => {
         dispatch(fetchAdvertsFailure(error));
     }
 };
-
 
 export const fetchAdvertsRequest = () => ({
     type: TYPES.ADVERTS_FETCH_REQUEST,
@@ -174,7 +160,6 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
     try {
 
         await doRemoveAdvert(advert);
-
         dispatch(removeAdvertSuccess());
 
         notifyRemoved();
@@ -196,30 +181,39 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
  *
  */
 
+// Mount the query string to send to the API
 const mountAdvertsQuery = query => {
 
-    // Mount search String to send to the API
-    const { tags, name, type, minPrice, maxPrice, skip } = query;
+    const { tag, name, type, priceFrom, priceTo } = query;
 
-    let searchString = tags === '' ? '' : `tag=${tags}&`;
-    searchString += name === '' ? '' : `name=${name}&`;
-    searchString += (minPrice !== '' || maxPrice !== '') ? 'Price=' : '';
-    searchString += minPrice === '' ? '' : `${minPrice}`;
-    searchString += maxPrice === '' ? '' : `-${maxPrice}`;
+    let queryString = (tag !== '' || tag !== 'undefined' || tag !== undefined || tag !== 'all') ? `tags=${tag}&` : '';
+        queryString += (name !== '' && name !== undefined) ? `name=${name}&` : '';
+        queryString += (type !== '' && type !== undefined && type !== 'all') ? `type=${type}&` : '';
 
-    if (type !== '' && type !== 'all')
-        searchString += type === 'sell' ? 'venta=true&' : `venta=false&`;
-    
-    console.log('mountAdvertsQuery -> ',searchString);
+    let priceString = 'price=';
+        priceString += (priceFrom !== '0' && priceFrom !== undefined) ? `${priceFrom}` : '0';
+        priceString += (priceTo !== '0' && priceTo !== undefined) ? `-${priceTo}` : '';
+        
+    queryString += priceString !== 'price=0-0' ? priceString : '';
 
-    return searchString;
+    return queryString;
 }
 
+/**
+ * 
+ * Execs the action & compose query string with query values
+ */
+export const adverQuerySet = query => {
 
-export const adverQuerySet = query => ({
-    type: TYPES.ADVERT_QUERY_SET,
-    query
-});
+    query.str = mountAdvertsQuery(query);
+    console.log('adverQuerySet -> ', query);
+
+    return {
+        type: TYPES.ADVERT_QUERY_SET,
+        query
+    }
+};
+
 
 export const adverQueryReset = () => ({
     type: TYPES.ADVERT_QUERY_RESET,

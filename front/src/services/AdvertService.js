@@ -49,7 +49,7 @@ const getTagsList = () => {
 
 const searchAdverts = (query) => {
     
-    const url = query === 'undefined' || query === '' ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
+    const url = query === 'undefined' || query === undefined || query === '' ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
     
     console.log('url', url);
 

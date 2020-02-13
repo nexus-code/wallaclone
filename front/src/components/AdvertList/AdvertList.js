@@ -1,22 +1,20 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Advert from '../Advert/Advert';
-
 import { useTranslation } from 'react-i18next';
 
-
-// import { getAdverts } from '../../store/adverts/selectors';
-
 // font: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
+
+/**
+ * 
+ * List advert with infinite scroll
+ */
 
 export default function AdvertList({ adverts, loadMoreAdverts }) {
 
     const { t } = useTranslation();
 
-    const [query, setQuery] = useState(''); //'tags=work'
     const [isFetching, setIsFetching] = useState(false);
-    // const [adverts, setAdverts] = useState(getAdverts());
-
 
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
@@ -33,7 +31,6 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
         setIsFetching(true);
     }
 
-
     function fetchMoreListItems() {
         
         setIsFetching(true);
@@ -46,7 +43,7 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
 
     const getMoreAdverts = async () => {
 
-        loadMoreAdverts(query);
+        loadMoreAdverts();
     };
 
     return <>
@@ -59,7 +56,6 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
                     adverts.length
                     &&
                     adverts.map(advert => <Advert advert={advert} key={advert.id} />)
-
                 }
 
                 {isFetching && 'Fetching more list items...'}

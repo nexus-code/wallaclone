@@ -4,16 +4,17 @@ import { getAdvertsLS } from '../../utils/localStorage'
 // Persists adverts on LocalStorage. Improve in next versions
 const advertsLS =  getAdvertsLS();
 
+// Improve: get tags!
 const initialState = {
     adverts: [] && advertsLS,
-    tags: ['work', 'mobile', 'lifestyle', 'motor'],
+    tags: ['work', 'mobile', 'lifestyle', 'motor', 'EMPTY'],
     query: {
-        name: '',
         type: 'all',
         tag: 'all',
+        name: '',
         priceFrom: 0,
         priceTo: 0,
-        skip: 0,
+        str: '',
     },
 };
 
