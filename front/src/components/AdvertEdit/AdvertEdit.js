@@ -63,19 +63,19 @@ export default function AdvertEdit({
 
         console.log('imageFile', imageFile);
 
-        // imageFile.originalname = imageFile.name;
-        // imageFile.mimetype = imageFile.type;
-        // imageFile.encoding = imageFile.size;
+        // // imageFile.originalname = imageFile.name;
+        // // imageFile.mimetype = imageFile.type;
+        // // imageFile.encoding = imageFile.size;
 
-        let formData = new FormData();
-        formData.append('imageFile', imageFile);
-        data.imageFile = formData.get('imageFile');
+        // let formData = new FormData();
+        // formData.append('imageFile', imageFile);
+        // data.imageFile = formData.get('imageFile');
         
-        // data.imageFile = imageFile;
+        // // data.imageFile = imageFile;
 
-        console.log('data', data);
+        // console.log('data', data);
 
-        return saveAdvert(data, method);
+        return saveAdvert(data, imageFile, method);
     }
 
     const validator = (field, minLength, maxLength) => ({

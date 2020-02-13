@@ -108,20 +108,18 @@ export const savedAdvertSuccess = advert => ({
     advert,
 });
 
-export const saveAdvert = (advert, method) => async (dispatch, getState, { history }) => {
+export const saveAdvert = (advert, imageData, method) => async (dispatch, getState, { history }) => {
 
     dispatch(savedAdvertRequest(advert));
 
     try {
 
-        const result = await savedAdvert(advert, method);
-        // console.log('saveAdvert result ', result);
-
+        const result = await savedAdvert(advert, imageData, method);
+        
         dispatch(savedAdvertSuccess(result));
         
         notifySaved();
         history.push(`/advert/${result.id}`);
-
         return result;
 
     } catch (error) {

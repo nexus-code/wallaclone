@@ -82,7 +82,7 @@ const searchAdvert = (id) => {
  * @param {*} ad {advertisement}
  * @param {*} method POST / PUT for insert or update
  */
-const savedAdvert = (advert, method) => {
+const savedAdvert = (advert, imageData, method) => {
 
     const baseURL = `${API_URL}adverts`;
 
@@ -90,9 +90,17 @@ const savedAdvert = (advert, method) => {
         headers: {
             // 'Authorization': `Bearer  ${token}`,
             // 'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Content-Type': 'multipart/form-data'
                 } 
         };
+
+    console.log('savedAdvert advert', advert);
+    console.log('savedAdvert imageData', imageData);
+    console.log('savedAdvert method', method);
+
+    advert.imageFile = imageData;
+    console.log('savedAdvert advert FINAL', advert);
+
 
     switch (method) {
         case 'POST':
@@ -105,8 +113,8 @@ const savedAdvert = (advert, method) => {
         case 'PUT':
             console.log('savedAdvert PUT', advert);
 
-            // return Axios.put(`${baseURL}/${advert.id}`, { data: advert }, config).then(
-            return Axios.put(baseURL, null, { data: advert }).then(
+            return Axios.put(baseURL, null, { data: advert }, config).then(
+            // return Axios.put(baseURL, null, { data: advert }).then(
                 res => new AdvertModel(res.data.result),
             );
 

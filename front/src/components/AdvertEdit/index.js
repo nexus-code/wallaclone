@@ -15,7 +15,7 @@ const mapStateToProps = (store, ownProps) => ({
 const mapDispatchToProps = dispatch => ({
     
     loadAdvert: (id) => dispatch(fetchAdvert(id)),
-    saveAdvert: (advert, method) => dispatch(saveAdvert(advert, method)),
+    saveAdvert: (advert, imageData, method) => dispatch(saveAdvert(advert, imageData, method)),
 });
 
 export default connect(
