@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { getQuery, getTags } from '../../store/adverts/selectors';
-import { adverQuerySet, adverQueryReset } from '../../store/adverts/actions';
+import { advertQuerySet, advertQueryReset } from '../../store/adverts/actions';
 
 import SearchPanel from './SearchPanel';
 
@@ -15,8 +15,8 @@ const mapStateToProps = (store, ownProps) => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    adverQuerySet: (query) => dispatch(adverQuerySet(query)),
-    adverQueryReset: () => dispatch(adverQueryReset()),
+    advertQuerySet: (query) => dispatch(advertQuerySet(query)),
+    advertQueryReset: () => dispatch(advertQueryReset()),
 });
 
 export default connect(

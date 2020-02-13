@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,7 +14,7 @@ import './SearchPanel.css';
 // https://medium.com/@ger86/react-hooks-y-redux-funcionando-juntos-869d2900f0cb
 //  
 
-export default function SearchPanel({ query, tags, adverQuerySet, adverQueryReset }) {
+export default function SearchPanel({ query, tags, advertQuerySet, advertQueryReset }) {
 
   const handleChange = (event) => {
 
@@ -27,14 +27,14 @@ export default function SearchPanel({ query, tags, adverQuerySet, adverQueryRese
       [name]: value,
     }
 
-    adverQuerySet(query);
+    advertQuerySet(query);
   };
 
 
   const handleReset = () => {
     // console.log('handleReset', query);
 
-    adverQueryReset();    
+    advertQueryReset();    
   };
 
   /**
@@ -44,7 +44,7 @@ export default function SearchPanel({ query, tags, adverQuerySet, adverQueryRese
     ev.preventDefault();
     console.log('handleSubmit');
 
-    adverQuerySet(query);
+    advertQuerySet(query);
   };
 
 

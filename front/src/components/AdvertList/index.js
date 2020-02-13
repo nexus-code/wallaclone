@@ -12,13 +12,12 @@ const mapStateToProps = (store, ownProps) => ({
 
     user: getUser(store),
     adverts: getAdverts(store),
-    query: getQuery(store),
 });
 
 
 const mapDispatchToProps = dispatch => ({
-    loadAdverts: (query) => dispatch(fetchAdverts(query)),
-    loadMoreAdverts: (query) => dispatch(fetchMoreAdverts(query)),
+    loadAdverts: () => dispatch(fetchAdverts()),
+    loadMoreAdverts: () => dispatch(fetchMoreAdverts()),
 });
 
 export default connect(

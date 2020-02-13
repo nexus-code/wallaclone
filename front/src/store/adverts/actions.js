@@ -199,14 +199,10 @@ const mountAdvertsQuery = query => {
     return queryString;
 }
 
-/**
- * 
- * Execs the action & compose query string with query values
- */
-export const adverQuerySet = query => {
+ // Execs the action & compose query string with query values
+ export const advertQuerySet = query => {
 
     query.str = mountAdvertsQuery(query);
-    console.log('adverQuerySet -> ', query);
 
     return {
         type: TYPES.ADVERT_QUERY_SET,
@@ -214,8 +210,7 @@ export const adverQuerySet = query => {
     }
 };
 
-
-export const adverQueryReset = () => ({
+export const advertQueryReset = () => ({
     type: TYPES.ADVERT_QUERY_RESET,
 });
 
