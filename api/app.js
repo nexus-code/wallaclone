@@ -12,14 +12,17 @@ var bodyParser   = require('body-parser');
  * https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
  */
 
+const slugify = require('slugify')
 const multer = require('multer');
+
+const parseImageName = imageName => slugify(file.originalname.trim(), { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' + file.originalname)
+    cb(null, Date.now() + '_' + parseImageName(file.originalname))
   }
 })
 
@@ -106,10 +109,6 @@ require('./lib/connectMongoose');
 
 // Middleware: Configures headers & CORS
 app.use((req, res, next) => {
-
-  console.log('__________________________________________');
-  console.log('app.js 110: req.body:', req.body);
-
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, Access-Control-Request-Headers');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');

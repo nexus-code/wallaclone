@@ -3,7 +3,7 @@
 /**
  * AdvertSchema: Advert definition
  * 
- * Use mongoose to store dataaggregate
+ * Use mongoose to store data 
  * Use cote to store advert image (via microservice)
  * 
  * Export Advert (with CRUD methods)
@@ -87,7 +87,6 @@ const requesterImageService = (advert) => {
     requester.send({
         type: 'image.service',
         file: advert.image,
-        widths: process.env.IMG_ADvert_SIZES,
     }, response => {
         console.log(`image.service: move & resized ${advert.image} for: ${advert.name} `);
     });
@@ -123,6 +122,8 @@ advertSchema.statics.updateAdvert = async function (req, next) {
 
         data.updated = moment();
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});
+
+         requesterImageService(updatedAdvert);
 
          return updatedAdvert;
 

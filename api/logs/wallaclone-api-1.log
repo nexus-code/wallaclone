@@ -1,0 +1,35 @@
+2020-02-14 18:27: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 18:27: __________________________________________
+2020-02-14 18:27: app.js 110: req.body: {}
+2020-02-14 18:27:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 18:27: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m61.978 ms - 378[0m
+2020-02-14 18:27: __________________________________________
+2020-02-14 18:27: app.js 110: req.body: {}
+2020-02-14 18:27: [0mOPTIONS /api/adverts [32m200 [0m2.122 ms - 17[0m
+2020-02-14 18:27: __________________________________________
+2020-02-14 18:27: app.js 110: req.body: {}
+2020-02-14 18:27: [37m
+Hello! I'm[39m [37mimage.requester[39m[90m#[39m[90m197060b0-2c6a-4721-83f5-4c594f225d11[39m [37m
+========================
+[39m
+2020-02-14 18:27: requesterImageService
+2020-02-14 18:27: advert.image 
+2020-02-14 18:27: [0mPUT /api/adverts [32m200 [0m56.474 ms - 322[0m
+2020-02-14 18:27: __________________________________________
+2020-02-14 18:27: app.js 110: req.body: {}
+2020-02-14 18:27:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 18:27: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m11.481 ms - 378[0m
+2020-02-14 18:27: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 18:28: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 18:28: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 18:29: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
