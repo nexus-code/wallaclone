@@ -126,6 +126,21 @@ userSchema.statics.sendEmail = async function (from, to, subject, body) {
  * 
  */
 
+
+userSchema.statics.get = async function (id, next) {
+    try {
+
+
+        const user = await User.findById(id);
+
+        return user;
+
+    } catch (err) {
+
+        next(err);
+    }
+}
+
 userSchema.statics.insert = async function (req, next) {
     try {
         
@@ -182,73 +197,12 @@ userSchema.statics.delete = async function (_id, next) {
 
         await User.deleteOne({ _id }).exec;
 
-        // DELETE user adverts FIRST (¿transaction?)!
-
         return 200;
 
     } catch (err) {
         next(err);
     }
 }
-
-// making the query:
-// get url params via router
-// return query users via quey
-userSchema.statics.select = async function (req) {
-
-    /** 
-     * I move the search filtering to the model to gather all the logic of the class and avoid duplicate code.
-     */
-
-    // params in querystring. Must be objects for mongo. Schema filter 'typeof them'
-    const id = req.query.id;
-    const username = req.query.username;
-    const role = req.query.role;
-    const email = req.query.email;
-    const created = req.query.created;
-
-    const skip = parseInt(req.query.skip);
-    const limit = parseInt(req.query.limit);
-    const fields = req.query.fields;
-    // const sort = req.query.sort || { 'created': -1 }; // sort created by default
-    const sort = { 'created': 1 }; // sort created by default
-
-    let filter = {};
-
-    if (id) {
-        filter._id = id;
-    }
-
-    if (username) {
-        // 3. name   -> Starts with value
-        filter.username = new RegExp('^' + username, "i");
-    }
-
-    if (role) {
-        filter.role = role;
-    }
-
-    if (email) {
-        filter.email = email;
-    }
-
-    const users = await list({ filter, skip, limit, fields, sort });
-    // console.log('       - Query filter: ', filter);
-    // console.log('       - Query result count: ', users.length);
-
-    return users;
-};
-
-
-// return query predefinition
-// userSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
-function list({ filter, skip, limit, fields, sort }) {
-    // const query = user.find(filter);
-    // console.log('       - Query: ', query);
-
-    query.skip(skip).limit(limit).select(fields).sort(sort);
-    return query.exec();
-};
 
 const User = mongoose.model('User', userSchema);
 

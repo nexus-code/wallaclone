@@ -32,7 +32,7 @@ class LoginController {
                 }
             });
 
-            //save lastLogin
+            //save lastLogin to be done
 
             const packData = user.packData(user);
             res.json({ success: true, token: packData.token, result: packData });

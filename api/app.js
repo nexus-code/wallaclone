@@ -26,14 +26,10 @@ const storage = multer.diskStorage({
 // define multer filter
 const fileFilter = (req, file, cb) => {
 
-  // console.log('multer fileFilter', file.mimetype, file);
-  // console.log('multer fileFilter req', req);
-
-
   const mimeTypes = process.env.IMG_MIME_TYPES.split(',');
 
   if ( mimeTypes.indexOf(file.mimetype) > -1 ) {
-    // Pending: read real file mimetype, this not work: change extension to an html a test 
+    // to be done: read real file mimetype, this not work: change extension to an html a test 
 
     cb(null, true);
 
@@ -59,7 +55,7 @@ var app = express();
  * https://itnext.io/make-security-on-your-nodejs-api-the-priority-50da8dc71d68
  * 
  */
-// Helmet
+// Helmet: https://github.com/helmetjs/helmet
 app.use(helmet());
 
 // Data Sanitization against NoSQL Injection Attacks
@@ -69,9 +65,10 @@ app.use(mongoSanitize());
 app.use(xss());
 ///
 
-// view engine setup
+// view engine setup 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+///
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -79,14 +76,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
-app.use(bodyParser.urlencoded());
+// Body parser config
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
 /**
- * Setup i18n
+ * Setup i18n DEACTIVATED
  */
 // const i18n = require('./lib/i18nConfigure')();
 // app.use(i18n.init);
@@ -108,13 +104,8 @@ require('./lib/connectMongoose');
  * Routes
  */
 
-
 // Middleware: Configures headers & CORS
 app.use((req, res, next) => {
-
-  // console.log('\r\n\r\nheaders & CORS file\r\n', req.file);
-  // console.log('\r\n\r\nheaders & CORS body\r\n', req.body);
-
 
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
@@ -123,18 +114,17 @@ app.use((req, res, next) => {
   next();
 });
 
+// API authenticate with JWT
+const jwtAuth = require('./lib/jwtAuth');
 
- // API authenticate via JWT
 const loginController = require('./routes/loginController');
 const recoverPasswdController = require('./routes/recoverPasswdController');
 const unsuscribeController = require('./routes/unsuscribeController');
 const removeAdvertController = require('./routes/removeAdvertController');
-const jwtAuth = require('./lib/jwtAuth');
 
-// v2.2 add upload.single('image') & jwtAuth()
-// v3 jwtAuth() Some urls Only for registered users
-app.put('/api/users', jwtAuth(), require('./routes/api/users'));
+
 app.use('/api/users', require('./routes/api/users'));
+
 app.use('/api/login', loginController.login);
 app.use('/api/recoverpasswd', recoverPasswdController.recover);
 app.use('/api/resetpasswd', recoverPasswdController.reset);
@@ -147,6 +137,10 @@ app.use('/api/removeadvert', removeAdvertController.do);
 
 // app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
 app.use('/api/tags', require('./routes/api/tags'));
+
+//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTQ0MTg4ZjMzM2ExMDBjY2NkMTU3NWYiLCJpYXQiOjE1ODE2NjI1NjcsImV4cCI6MTU4MTgzNTM2N30.lUaK0NYNfMnVExWrZDPDq_nauECogw80VvVmrvnnWnM
+
+
 
 // public app
 app.use('/', require('./routes/index'));
@@ -184,8 +178,7 @@ app.use(function (err, req, res, next) {
     console.log('\r\n\r\nAPI ERRs message\r\n', err.message);
     
     res.json({
-      // status: 500,
-      status: err.status,
+      status: err.status || 500,
       error: err.message
     });
 
@@ -200,9 +193,7 @@ app.use(function (err, req, res, next) {
   res.render('error');
 });
 
-function isAPI(req) {
-  return req.originalUrl.indexOf('/apiv') === 0;
-}
 
+const isAPI = req => req.originalUrl.indexOf('/api') === 0;
 
 module.exports = app;

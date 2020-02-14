@@ -1,30 +1,31 @@
 /**
  * Wallaclone API
  * Methods to handle user's API
- * - Authentication access
+ * - Access authenticated
  */
 'use strict';
 
 const express = require('express');
 const router  = express.Router();
-
 const UserModel = require('../../models/User');
-const jwt = require('jsonwebtoken');
+const jwtAuth = require('../../lib/jwtAuth');
 
 /**
  * User Routes
  */
 
-// GET /Users -> List Users
-router.get('/', async (req, res, next) => {
-    try {        
-        const users = await UserModel.select(req);
+// Get user info. 
+// Access restricted
+router.get('/:id', jwtAuth(), async (req, res, next) => {
+    try {
 
-        // map packData useres?
+        const id = req.params.id;
+        const user = await UserModel.get(id, next);
+        const packData = user.packData();
 
         res.json({
             status: 200,
-            result: users
+            result: packData
         });
 
     } catch (err) {
@@ -32,7 +33,8 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-// POST /Users -> Insert an User
+// POST /Users -> Insert an User. 
+// Open for registers
 router.post('/', async (req, res, next) => {
     try {
 
@@ -49,21 +51,19 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-
-router.put('/:id', async (req, res, next) => {
+// Update user. Must contain id
+// Access restricted
+router.put('/', jwtAuth(), async (req, res, next) => {
     try {
 
-        // const id = req.params.id;
         const data = req.body;
 
-        console.log('data user', data);
-        data.id = req.params.id;
-
         const savedUser = await UserModel.update(data, next);
+        const packData = savedUser.packData();
 
         res.json({
             status: 200,
-            result: savedUser
+            result: packData
         });
 
     } catch (err) {
@@ -71,18 +71,19 @@ router.put('/:id', async (req, res, next) => {
     }
 });
 
-// DELETE /Users:id -> Delete User by id
-router.delete('/:id', async (req, res, next) => {
+// DELETE /Users -> Delete User by id
+// Access restricted. body: {id, token}
+router.delete('/', jwtAuth(), async (req, res, next) => {
     try {
 
-        const _id = req.params.id; 
+        const _id = req.body.id; 
 
         console.log('delete user:', _id)
         res.json({
             status: false
         });
         
-        const _status = await UserModel.removeById(_id, next);
+        const _status = await UserModel.delete(_id, next);
 
         res.json({
             status: _status
@@ -92,6 +93,6 @@ router.delete('/:id', async (req, res, next) => {
         next(err);
     }
 });
-/// ^----------------------
+
 
 module.exports = router;

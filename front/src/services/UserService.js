@@ -4,6 +4,7 @@ import UserModel from '../models/UserModel';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+
 /**
  * 
  * @param {*} url of API
@@ -37,6 +38,7 @@ const getUser = (id) => {
  * Call login API method
  * @param {*} username 
  * @param {*} password 
+ * return packed user info
  */
 const doLogin = (user) => {
 
@@ -80,35 +82,31 @@ const doUnsuscribe = (user) => {
     const url = `${API_URL}unsuscribe`;
     const data = { id: user.id, token: user.token }
 
-    return Axios.post(url, null, { data }).then(
+    // return Axios.post(url, null, { data }).then(
+    return Axios.delete(url, data).then(
         res => res.data.result,
     );
 }
 
 /**
  * 
- * @param {*} user 
+ * @param {*} user data
  * @param {*} method POST / PUT for insert or update
+ * return packed user info
  */
-const saveUser = (user, method) => {
+const saveUser = (data, method, token) => {
 
     const url = `${API_URL}users`;
 
-    switch (method) {
+    data.token = token;
 
-        case 'POST':
-            return Axios.post(url, null, { data: user }).then(
-                res => new UserModel(res.data.result),
-            );
-
-        case 'PUT':
-            return Axios.put(`${url}/${user.id}`, null, { data: user }).then(
-                res => new UserModel(res.data.result),
-            );
-
-        default:
-            return 'Invalid method';
-    }
+    return Axios({
+        method,
+        url,
+        data
+    }).then(
+        res => new UserModel(res.data.result),
+    );
 }
 
 export {

@@ -25,7 +25,7 @@ const t = (txt) => txt; //mac: translations
 
 /**
  * 
- * Get and save user
+ * Get and save (create/update) user
  * 
  */
 
@@ -70,7 +70,10 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
 
     try {
 
-        const result = await saveUser(user, method);
+        const state = getState();
+        const token = state.user.user === undefined ? '' : state.user.user.token;
+
+        const result = await saveUser(user, method, token);
 
         dispatch(savedUserSuccess(result));
 
@@ -82,7 +85,7 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
 
         dispatch(savedUserFailure());
         notifyError();
-        // console.log('action mac setUser error', error);
+        console.log('action mac setUser error', error);
 
         return false;
     }

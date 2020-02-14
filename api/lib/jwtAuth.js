@@ -7,6 +7,7 @@
 const jwt = require('jsonwebtoken');
 
 module.exports = function() {
+  
   return function(req, res, next) {
     // read get Token
 
@@ -32,7 +33,6 @@ module.exports = function() {
       req.apiUserId = payload._id;
       next();
     });
-
 
   }
 }
