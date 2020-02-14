@@ -15,14 +15,14 @@ var bodyParser   = require('body-parser');
 const slugify = require('slugify')
 const multer = require('multer');
 
-const parseImageName = imageName => slugify(file.originalname.trim(), { replacement: '-', lower: true, remove: /[*+~.()'"!:@]/g});
+const parseImageName = imageName => slugify(imageName.trim(), { replacement: '-', lower: true, remove: /[*+~()_&%{}'"!:@]/g});
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads')
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + '_' + parseImageName(file.originalname))
+    cb(null, Date.now() + '__' + parseImageName(file.originalname))
   }
 })
 

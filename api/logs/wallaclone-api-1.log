@@ -1,35 +1,134 @@
-2020-02-14 18:27: 
+2020-02-14 19:52: 
 
 Wallaclone app conect to MongoDB: DB-> wallacloneDB
-2020-02-14 18:27: __________________________________________
-2020-02-14 18:27: app.js 110: req.body: {}
-2020-02-14 18:27:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
-2020-02-14 18:27: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m61.978 ms - 378[0m
-2020-02-14 18:27: __________________________________________
-2020-02-14 18:27: app.js 110: req.body: {}
-2020-02-14 18:27: [0mOPTIONS /api/adverts [32m200 [0m2.122 ms - 17[0m
-2020-02-14 18:27: __________________________________________
-2020-02-14 18:27: app.js 110: req.body: {}
-2020-02-14 18:27: [37m
-Hello! I'm[39m [37mimage.requester[39m[90m#[39m[90m197060b0-2c6a-4721-83f5-4c594f225d11[39m [37m
+2020-02-14 19:52:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 19:52: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m84.514 ms - 409[0m
+2020-02-14 19:52: [0mOPTIONS /api/adverts [32m200 [0m2.226 ms - 17[0m
+2020-02-14 19:52: update FILE:  { fieldname: 'imageFile',
+  originalname: 'ama-dablam-2064522_640.jpg',
+  encoding: '7bit',
+  mimetype: 'image/jpeg',
+  destination: 'uploads',
+  filename: '1581706347688__ama-dablam-2064522640.jpg',
+  path: 'uploads\\1581706347688__ama-dablam-2064522640.jpg',
+  size: 81119 }
+2020-02-14 19:52: [37m
+Hello! I'm[39m [37mimage.requester[39m[90m#[39m[90mf9f3de06-3957-42c5-bf16-831ebfb27243[39m [37m
 ========================
 [39m
-2020-02-14 18:27: requesterImageService
-2020-02-14 18:27: advert.image 
-2020-02-14 18:27: [0mPUT /api/adverts [32m200 [0m56.474 ms - 322[0m
-2020-02-14 18:27: __________________________________________
-2020-02-14 18:27: app.js 110: req.body: {}
-2020-02-14 18:27:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
-2020-02-14 18:27: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m11.481 ms - 378[0m
-2020-02-14 18:27: 
+2020-02-14 19:52: requesterImageService
+2020-02-14 19:52: advert.image undefined
+2020-02-14 19:52: [0mPUT /api/adverts [32m200 [0m57.927 ms - 362[0m
+2020-02-14 19:52:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 19:52: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m9.880 ms - 418[0m
+2020-02-14 19:52: 
 
 Wallaclone app conect to MongoDB: DB-> wallacloneDB
-2020-02-14 18:28: 
+2020-02-14 19:52: 
 
 Wallaclone app conect to MongoDB: DB-> wallacloneDB
-2020-02-14 18:28: 
+2020-02-14 19:53: 
 
 Wallaclone app conect to MongoDB: DB-> wallacloneDB
-2020-02-14 18:29: 
+2020-02-14 19:53:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 19:53: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m46.578 ms - 418[0m
+2020-02-14 19:53: [0mOPTIONS /api/adverts [32m200 [0m1.489 ms - 17[0m
+2020-02-14 19:53: update FILE:  { fieldname: 'imageFile',
+  originalname: 'b_g{}&%.png',
+  encoding: '7bit',
+  mimetype: 'image/png',
+  destination: 'uploads',
+  filename: '1581706429366__bgandpercent.png',
+  path: 'uploads\\1581706429366__bgandpercent.png',
+  size: 123664 }
+2020-02-14 19:53: [37m
+Hello! I'm[39m [37mimage.requester[39m[90m#[39m[90m65a8595d-9c08-430d-9a0d-bcfef520939e[39m [37m
+========================
+[39m
+2020-02-14 19:53: requesterImageService
+2020-02-14 19:53: advert.image undefined
+2020-02-14 19:53: [0mPUT /api/adverts [32m200 [0m74.808 ms - 353[0m
+2020-02-14 19:53:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 19:53: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m13.802 ms - 409[0m
+2020-02-14 19:53: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:54: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:54: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:54: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:58: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:58: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:58: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:58: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:59:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 19:59: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m68.807 ms - 409[0m
+2020-02-14 19:59: [0mOPTIONS /api/adverts [32m200 [0m2.012 ms - 17[0m
+2020-02-14 19:59: update FILE:  { fieldname: 'imageFile',
+  originalname: 'ama-dablam-2064522_640.jpg',
+  encoding: '7bit',
+  mimetype: 'image/jpeg',
+  destination: 'uploads',
+  filename: '1581706755575__ama-dablam-2064522640.jpg',
+  path: 'uploads\\1581706755575__ama-dablam-2064522640.jpg',
+  size: 81119 }
+2020-02-14 19:59: [37m
+Hello! I'm[39m [37mimage.requester[39m[90m#[39m[90m2ea391f4-24be-48e0-816b-d4e0378de8be[39m [37m
+========================
+[39m
+2020-02-14 19:59: requesterImageService
+2020-02-14 19:59: advert.image undefined
+2020-02-14 19:59: [0mPUT /api/adverts [32m200 [0m57.850 ms - 362[0m
+2020-02-14 19:59:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 19:59: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m9.694 ms - 418[0m
+2020-02-14 19:59: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 19:59: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 20:01: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 20:01:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 20:01: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m67.546 ms - 418[0m
+2020-02-14 20:01: [0mOPTIONS /api/adverts [32m200 [0m1.469 ms - 17[0m
+2020-02-14 20:01: update FILE:  { fieldname: 'imageFile',
+  originalname: 'apple tree.jpg',
+  encoding: '7bit',
+  mimetype: 'image/jpeg',
+  destination: 'uploads',
+  filename: '1581706883103__apple-tree.jpg',
+  path: 'uploads\\1581706883103__apple-tree.jpg',
+  size: 12743 }
+2020-02-14 20:01: [37m
+Hello! I'm[39m [37mimage.requester[39m[90m#[39m[90m4af01466-db9f-4f15-9f15-155dc06ce46e[39m [37m
+========================
+[39m
+2020-02-14 20:01: requesterImageService
+2020-02-14 20:01: advert.image undefined
+2020-02-14 20:01: [0mPUT /api/adverts [32m200 [0m60.388 ms - 351[0m
+2020-02-14 20:01:        - Query filter:  { _id: '5e468741b273b90a3073e797', active: true }
+2020-02-14 20:01: [0mGET /api/adverts/?id=5e468741b273b90a3073e797 [32m200 [0m11.679 ms - 407[0m
+2020-02-14 20:01: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 20:01: 
+
+Wallaclone app conect to MongoDB: DB-> wallacloneDB
+2020-02-14 20:02: 
 
 Wallaclone app conect to MongoDB: DB-> wallacloneDB

@@ -21,14 +21,15 @@ console.log('\r\nStarts image.service:');
 
 
 responder.on('image.service', (req, done) => {
-  console.log('image.service: ');
-  console.log('----> file: ', req.file);
+  console.log('image.service: ', req);
   
   const from = path.join(__dirname, 'uploads', req.file);
   const to   = path.join(imgFolder, req.file);
   const toThumb  = path.join(imgFolder, 'xs-' + req.file);
   const toMedium = path.join(imgFolder, 'md-' + req.file);
   
+  console.log('\r\image.service widths:', widths);
+
 
   (async () => {
     await moveFile(from, to);
@@ -38,27 +39,30 @@ responder.on('image.service', (req, done) => {
       
       // NOTE.- Refactor to a single function:
       // create thumbnail image
-      const _return = {};
-      
+      console.log('create thumbnail image: ', widths[0]);
+
       jimp.read(to)
-      .then(img => {
-          console.log('create thumbnail image: ', widths[0]);
+        .then(img => {
           return img
             .resize(parseInt(widths[0]), jimp.AUTO)
             .writeAsync(toThumb);
         })
-        .catch(error => console.log(error));
+        .catch(err => {
+          console.log(err);
+        });
 
       // create medium image (to front) 
       console.log('create medium image: ', widths[1]);
 
-      // jimp.read(to)
-      //   .then(img => {
-      //     img
-      //       .resize(parseInt(widths[1]), jimp.AUTO)
-      //       .writeAsync(toMedium);
-      //   })
-      //   .catch(error => console.log(error));
+      jimp.read(to)
+        .then(img => {
+          return img
+            .resize(parseInt(widths[1]), jimp.AUTO)
+            .writeAsync(toMedium);
+        })
+        .catch(err => {
+          console.log(err);
+        });
 
       console.log(`The image ${req.file} has been resized`, Date.now().toString());
 
@@ -69,6 +73,6 @@ responder.on('image.service', (req, done) => {
     }
   })();
   
-  done();
+  done(console.log('done'));
 
 });

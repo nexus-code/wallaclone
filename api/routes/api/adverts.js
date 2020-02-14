@@ -59,7 +59,7 @@ router.put('/', jwtAuth(), async (req, res, next) => {
     try {
 
 
-        const savedAdvert = await Advert.updateAdvert(req, next);
+        const savedAdvert = await Advert.update(req, next);
 
         res.json({
             status: 200,

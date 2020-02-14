@@ -77,7 +77,7 @@ advertSchema.pre("find", function () {
  */
 const cote = require('cote');
 
-const requesterImageService = (advert) => {
+const requesterImageService = async (advert) => {
 
     const requester = new cote.Requester({ name: 'image.requester' });
 
@@ -92,6 +92,11 @@ const requesterImageService = (advert) => {
     });
 }
 
+const parseUplodadImage = (fileObj) => {
+
+
+}
+ 
 
 /** 
  * Adverts CRUD Methods
@@ -101,10 +106,16 @@ advertSchema.statics.insert = async function (req, next) {
     try {
 
         const data  = req.body;
+
+        // if(data.imageFile != {}){
+
+        // }
+
         const advert    = new Advert(data);
         const newAdvert = await advert.save();
 
-        requesterImageService(newAdvert);
+
+        await requesterImageService(newAdvert);
 
         return newAdvert
 
@@ -113,23 +124,40 @@ advertSchema.statics.insert = async function (req, next) {
     }
 }
 
-advertSchema.statics.updateAdvert = async function (req, next) {
+advertSchema.statics.update = async function (req, next) {
      try {
 
-        //  console.log('updateAdvert: ', req.body);
+        //  console.log('update BODY : ', req.body);
+         console.log('update FILE: ', req.file);
 
-         const data = req.body;
+// update FILE:  { fieldname: 'imageFile',
+//   originalname: 'ama-dablam-2064522_640.jpg',
+//   encoding: '7bit',
+//   mimetype: 'image/jpeg',
+//   destination: 'uploads',
+//   filename: '1581704702164_ama-dablam-2064522_640.jpg',
+//   path: 'uploads\\1581704702164_ama-dablam-2064522_640.jpg',
+//   size: 81119 }
+
+         const hasFile = req.file !== undefined;
+
+        const data = req.body;
+        data.image = hasFile ? req.file.filename : '';
 
         data.updated = moment();
+
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});
 
-         requesterImageService(updatedAdvert);
+         if (hasFile){
+
+             await requesterImageService(req.file);
+         }
 
          return updatedAdvert;
 
      } catch (err) {
 
-         console.log('updateAdvert ERROR: ', err);
+         console.log('update ERROR: ', err);
 
          next(err);
      }
@@ -138,8 +166,6 @@ advertSchema.statics.updateAdvert = async function (req, next) {
 advertSchema.statics.delete = async function (_id, next) {
     try {
 
-        console.log('deleteAdvert*: ', id);
-        console.log('deleteAdvert*: ', data);
 
         await Advert.deleteOne({_id}).exec;
 
