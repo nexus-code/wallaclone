@@ -55,7 +55,7 @@ router.post('/', jwtAuth(), async (req, res, next) => {
 
 
 // PUT /adverts Update advert by req.body.id
-router.put('/', async (req, res, next) => {
+router.put('/', jwtAuth(), async (req, res, next) => {
     try {
 
 

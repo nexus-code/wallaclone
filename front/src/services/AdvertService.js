@@ -91,10 +91,6 @@ const savedAdvert = (advert, method, token) => {
     }).then(
         res => new AdvertModel(res.data.result),
     );
-
-//     console.log('savedAdvert result mac', result);
-
-//     return result;
 }
 
 
@@ -107,14 +103,25 @@ const doRemoveAdvert = (id) => {
 
     const config = {
         headers: {
-            // 'Authorization': `Bearer  ${token}`,
-            // 'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/x-www-form-urlencoded'
+            'Authorization': `Bearer  ${token}`,
+            'Access-Control-Allow-Origin': '*',
         }
     };
 
-    return Axios.post(url, { data: id }, null, config).then(
-        res => res.data.success,
+    // return Axios.post(url, { data: id }, null, config).then(
+    //     res => res.data.success,
+    // );
+    return Axios({
+        // const result = Axios({
+        method,
+        url,
+        data,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`,
+        }
+    }).then(
+        res => new AdvertModel(res.data.result),
     );
 }
 

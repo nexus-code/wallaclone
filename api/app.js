@@ -135,8 +135,8 @@ app.use('/api/unsubscribe', jwtAuth(), unsubscribeController.do);
 // app.use('/api/unsubscribe', unsubscribeController.do);
 
 app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
-// app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
-app.use('/api/removeadvert', removeAdvertController.do);
+app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
+// app.use('/api/removeadvert', removeAdvertController.do);
 
 app.use('/api/tags', require('./routes/api/tags'));
 
