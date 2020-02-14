@@ -95,11 +95,16 @@ const savedAdvert = (advert, method, token) => {
 
 
 /**
- *
+ * @param {*} advert 
+ * @param {*} token
+ * 
  */
-const doRemoveAdvert = (id) => {
+const doRemoveAdvert = (id, token) => {
 
     const url = `${API_URL}removeadvert/`;
+    const data = { data: id, token }
+
+    console.log('doRemoveAdvert',data)
 
     const config = {
         headers: {
@@ -108,21 +113,10 @@ const doRemoveAdvert = (id) => {
         }
     };
 
-    // return Axios.post(url, { data: id }, null, config).then(
-    //     res => res.data.success,
-    // );
-    return Axios({
-        // const result = Axios({
-        method,
-        url,
-        data,
-        headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`,
-        }
-    }).then(
-        res => new AdvertModel(res.data.result),
+    return Axios.post(url, data, config).then(
+        res => res.data.success,
     );
+
 }
 
 export {

@@ -3,30 +3,27 @@
 const UserModel = require('../models/User');
 const AdvertModel = require('../models/Advert');
 
-//  unsubscribe a user removing al her adverts
-
+//  Unsubscribe a user removing all her adverts
 class unsubscribeController {
 
     async do(req, res, next) {
 
         try {
 
-
             const { id } = req.body;
+            const _return = false;
 
-            console.log('unsubscribe', req.body)
+            const removeAdverts = await AdvertModel.deleteMany({ owner: id });
 
-            const removeAdverts = await AdvertModel.deleteMany({ owner: id }, function (err) {});
-            // Remains remove images & ¿notify via email ?
-            
-            const removeUser = await UserModel.deleteMany({ _id: id }, function (err) { });
+            if (removeAdverts.ok){
 
-            console.log('removeAdverts', removeAdverts);
-            console.log('removeUser', removeUser);
+                const removeUser = await UserModel.deleteMany({ _id: id });
+                res.json({ success: removeUser.ok,  });
+            } else {
 
+                res.json({ success: false, });
+            }
 
-            res.json({ success: true,  });
-            
         } catch (err) {
             
             next(err);

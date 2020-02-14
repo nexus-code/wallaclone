@@ -10,14 +10,13 @@ class RemoveAdvertController {
 
         try {
 
-            console.log('RemoveAdvertController', req.body)
             const { data } = req.body;
+            const removeAdvert = await AdvertModel.deleteMany({ _id: data });
+           
+            res.json({ success: removeAdvert.ok, });
 
-            const removeAdvert = await AdvertModel.findOneAndDelete({ _id: data });
-
-            res.json({ success: true,  });
-            
         } catch (err) {
+            console.log('RemoveAdvertController', err);
             
             next(err);
         }

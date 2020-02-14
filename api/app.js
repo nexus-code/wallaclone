@@ -111,7 +111,7 @@ app.use((req, res, next) => {
   console.log('app.js 110: req.body:', req.body);
 
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+  res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method, Access-Control-Request-Headers');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
   res.header('Allow', 'GET, POST, PUT, DELETE');
   next();
@@ -135,8 +135,8 @@ app.use('/api/unsubscribe', jwtAuth(), unsubscribeController.do);
 // app.use('/api/unsubscribe', unsubscribeController.do);
 
 app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
-app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
-// app.use('/api/removeadvert', removeAdvertController.do);
+// app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
+app.use('/api/removeadvert', removeAdvertController.do);
 
 app.use('/api/tags', require('./routes/api/tags'));
 

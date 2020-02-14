@@ -158,7 +158,11 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
 
     try {
 
-        await doRemoveAdvert(advert);
+        // add token to API access 
+        const state = getState();
+        const token = state.user.user === undefined ? '' : state.user.user.token;
+
+        await doRemoveAdvert(advert, token);
         dispatch(removeAdvertSuccess());
 
         notifyRemoved();
