@@ -9,6 +9,7 @@
     "Remember me?": "Recuérdame en este dispositivo",
     "Submit": "Enviar",        
     "Logout": "Salir",
+    "Unsubscribe": "Eliminar cuenta",
     "Invalid email address": "Formato de email no válido",
     "English": "Inglés",
     "Spanish": "Español",
@@ -40,7 +41,7 @@
     "Type your new password again": "Repita su nueva contraseña",
     "Passwords should match!": "Las contraseñas no coinciden",
 
-    "Confirm to unsuscribe": "Confirmación baja",
+    "Confirm to nsubscribe": "Confirmación baja",
     "This action is permanent! All your adverts and your profile will be removed": "Esta acción es permanente: Sus datos de usuario y sus anuncios serán eliminados.",
 
     "Edit": "Editar",

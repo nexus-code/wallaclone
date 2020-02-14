@@ -13,7 +13,7 @@ import { useConfirm } from 'material-ui-confirm';
  * Registers user on API and edit her profile
  */
 
-export default function Register({ user, setUser, logout, unsuscribe }) { 
+export default function Register({ user, setUser, logout, unsubscribe }) { 
 
     const { t } = useTranslation();
     
@@ -79,11 +79,11 @@ export default function Register({ user, setUser, logout, unsuscribe }) {
      * Unsuscribe
      */
     const confirm = useConfirm();
-    const title = t('Confirm to unsuscribe');
+    const title = t('Confirm to unsubscribe');
     const description = t('This action is permanent! All your adverts and your profile will be removed');
     const handleUnsubscribe = () => {
         confirm({ title, description })
-            .then(() => { unsuscribe(user) });
+            .then(() => { unsubscribe(user) });
     };
 
     return (

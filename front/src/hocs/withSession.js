@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import { getUser } from '../store/user/selectors';
-import { setUser, login, recoverPasswd, resetPasswd, unsuscribe, logout } from '../store/user/actions'
+import { setUser, login, recoverPasswd, resetPasswd, unsubscribe, logout } from '../store/user/actions'
 
 const mapStateToProps = (store, ownProps) => ({
     
@@ -14,7 +14,7 @@ const mapDispatchToProps = {
     login,
     recoverPasswd,
     resetPasswd,
-    unsuscribe,
+    unsubscribe,
     logout,
 }
 

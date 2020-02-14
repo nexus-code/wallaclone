@@ -107,6 +107,9 @@ require('./lib/connectMongoose');
 // Middleware: Configures headers & CORS
 app.use((req, res, next) => {
 
+  console.log('__________________________________________');
+  console.log('app.js 110: req.body:', req.body);
+
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -119,7 +122,7 @@ const jwtAuth = require('./lib/jwtAuth');
 
 const loginController = require('./routes/loginController');
 const recoverPasswdController = require('./routes/recoverPasswdController');
-const unsuscribeController = require('./routes/unsuscribeController');
+const unsubscribeController = require('./routes/unsubscribeController');
 const removeAdvertController = require('./routes/removeAdvertController');
 
 
@@ -128,18 +131,14 @@ app.use('/api/users', require('./routes/api/users'));
 app.use('/api/login', loginController.login);
 app.use('/api/recoverpasswd', recoverPasswdController.recover);
 app.use('/api/resetpasswd', recoverPasswdController.reset);
-// app.use('/api/unsuscribe', jwtAuth(), unsuscribeController.do);
-app.use('/api/unsuscribe', unsuscribeController.do);
+app.use('/api/unsubscribe', jwtAuth(), unsubscribeController.do);
+// app.use('/api/unsubscribe', unsubscribeController.do);
 
 app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
 // app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
 app.use('/api/removeadvert', removeAdvertController.do);
 
-// app.use('/api/tags', jwtAuth(), require('./routes/api/tags'));
 app.use('/api/tags', require('./routes/api/tags'));
-
-//eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZTQ0MTg4ZjMzM2ExMDBjY2NkMTU3NWYiLCJpYXQiOjE1ODE2NjI1NjcsImV4cCI6MTU4MTgzNTM2N30.lUaK0NYNfMnVExWrZDPDq_nauECogw80VvVmrvnnWnM
-
 
 
 // public app

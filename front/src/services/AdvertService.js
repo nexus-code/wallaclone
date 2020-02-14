@@ -49,13 +49,13 @@ const searchAdverts = (query) => {
  */
 const searchAdvert = (id) => {
 
+    if (id === undefined) {
+
+        // console.log('Adding advert');
+        return false;
+    }
+
     const url = `${API_URL}adverts/?id=${id}`;
-
-    console.log('searchAdvert', url);
-
-    // return Axios.get(url).then(res =>
-    //     new AdvertModel(res.data.result),
-    // );
 
     return getFetch(`${url}`)
         .then(res => new AdvertModel(res.result[0]))
@@ -67,27 +67,34 @@ const searchAdvert = (id) => {
  * @param {*} ad {advertisement}
  * @param {*} method POST / PUT for insert or update
  */
-const savedAdvert = (advert, method) => {
+const savedAdvert = (advert, method, token) => {
 
     const url = `${API_URL}adverts`;
+    console.log('savedAdvert result mac PRE');
 
     // wraps advert data in FormData format
     // must include imageFile to upload it
     // font:  https://github.com/axios/axios/issues/2002#issuecomment-562841806 
     // body-parser on server needed 
-    const formData = new FormData();
-    Object.keys(advert).forEach(key => { formData.append(key, advert[key]) });
+    const data = new FormData();
+    Object.keys(advert).forEach(key => { data.append(key, advert[key]) });
 
     return Axios({
-        method: method, 
-        url: url, 
-        data: formData, 
+    // const result = Axios({
+        method, 
+        url, 
+        data, 
         headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`,
         }
     }).then(
         res => new AdvertModel(res.data.result),
     );
+
+//     console.log('savedAdvert result mac', result);
+
+//     return result;
 }
 
 

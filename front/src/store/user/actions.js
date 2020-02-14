@@ -70,10 +70,12 @@ export const setUser = (user, method) => async (dispatch, getState, { history })
 
     try {
 
+        // add token to API access 
         const state = getState();
         const token = state.user.user === undefined ? '' : state.user.user.token;
+        user.token = token;
 
-        const result = await saveUser(user, method, token);
+        const result = await saveUser(user, method);
 
         dispatch(savedUserSuccess(result));
 
@@ -202,31 +204,31 @@ export const recoverPasswd = (email) => async (dispatch, _getState, { history })
  * 
  */
 const notifyUnsuscribe = () => toast.success(t('Unsuscribe completed'));
-const notifyUnsuscribeError = () => toast.error(t('Error on unsuscribe'));
+const notifyUnsuscribeError = () => toast.error(t('Error on unsubscribe'));
 
-export const unsuscribeUserRequest = () => ({
+export const unsubscribeUserRequest = () => ({
     type: USER_UNSUSCRIBE_REQUEST,
 });
 
-export const unsuscribeUserFailure = error => ({
+export const unsubscribeUserFailure = error => ({
     type: USER_UNSUSCRIBE_FAILURE,
     error,
 });
 
-export const unsuscribeUserSuccess = () => ({
+export const unsubscribeUserSuccess = () => ({
     type: USER_UNSUSCRIBE_SUCCESS,
 });
 
-export const unsuscribe = (user) => async (dispatch, _getState, { history }) => {
+export const unsubscribe = (user) => async (dispatch, _getState, { history }) => {
 
-    dispatch(unsuscribeUserRequest());
+    dispatch(unsubscribeUserRequest());
 
     try {
         
 
         await doUnsuscribe(user);
 
-        dispatch(unsuscribeUserSuccess());
+        dispatch(unsubscribeUserSuccess());
         dispatch(userLogout());
         history.push("/");
 
@@ -234,7 +236,7 @@ export const unsuscribe = (user) => async (dispatch, _getState, { history }) => 
 
     } catch (error) {
 
-        dispatch(unsuscribeUserFailure(user));
+        dispatch(unsubscribeUserFailure(user));
         notifyUnsuscribeError();
 
         return false;

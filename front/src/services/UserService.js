@@ -79,26 +79,28 @@ const doResetPasswd = (password, recoverKey) => {
  */
 const doUnsuscribe = (user) => {
 
-    const url = `${API_URL}unsuscribe`;
+    const url = `${API_URL}unsubscribe`;
     const data = { id: user.id, token: user.token }
 
-    // return Axios.post(url, null, { data }).then(
-    return Axios.delete(url, data).then(
-        res => res.data.result,
+    // console.log('doUnsuscribe', data);
+
+    return Axios({
+        method: 'post',
+        url,
+        data: { id: user.id, token: user.token }
+    }).then(
+        res => new UserModel(res.data.result),
     );
 }
-
 /**
  * 
  * @param {*} user data
  * @param {*} method POST / PUT for insert or update
  * return packed user info
  */
-const saveUser = (data, method, token) => {
+const saveUser = (data, method) => {
 
     const url = `${API_URL}users`;
-
-    data.token = token;
 
     return Axios({
         method,

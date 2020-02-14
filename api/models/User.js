@@ -192,12 +192,17 @@ userSchema.statics.updateUserPasswd = async function (data, next) {
     }
 }
 
-userSchema.statics.delete = async function (_id, next) {
+userSchema.statics.delete = async function (id, next) {
     try {
 
-        await User.deleteOne({ _id }).exec;
 
+        const aux = await User.deleteOne({ _id: id }, function (err) {
+            if (err) console.log(err);
+            console.log("Successful deletion");
+        });
+        console.log('userSchema.statics.delete', aux);
         return 200;
+
 
     } catch (err) {
         next(err);

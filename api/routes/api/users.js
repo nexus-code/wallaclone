@@ -7,8 +7,8 @@
 
 const express = require('express');
 const router  = express.Router();
-const UserModel = require('../../models/User');
 const jwtAuth = require('../../lib/jwtAuth');
+const UserModel = require('../../models/User');
 
 /**
  * User Routes
@@ -64,29 +64,6 @@ router.put('/', jwtAuth(), async (req, res, next) => {
         res.json({
             status: 200,
             result: packData
-        });
-
-    } catch (err) {
-        next(err);
-    }
-});
-
-// DELETE /Users -> Delete User by id
-// Access restricted. body: {id, token}
-router.delete('/', jwtAuth(), async (req, res, next) => {
-    try {
-
-        const _id = req.body.id; 
-
-        console.log('delete user:', _id)
-        res.json({
-            status: false
-        });
-        
-        const _status = await UserModel.delete(_id, next);
-
-        res.json({
-            status: _status
         });
 
     } catch (err) {

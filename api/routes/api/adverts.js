@@ -9,7 +9,7 @@
 
 const express = require('express');
 const router  = express.Router();
-
+const jwtAuth = require('../../lib/jwtAuth');
 const Advert = require('../../models/Advert');
 
 /**
@@ -33,7 +33,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // POST /adverts -> Insert an advert
-router.post('/', async (req, res, next) => {
+router.post('/', jwtAuth(), async (req, res, next) => {
     try {
 
         console.log('advert POST file', req.file);

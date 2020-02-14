@@ -9,6 +9,7 @@
     "Remember me?": "Remember me?",
     "Submit": "Submit",
     "Logout": "Logout",
+    "Unsubscribe": "Unsubscribe",
     "Invalid email address": "Invalid email address",
     "English": "English",
     "Spanish": "Spanish",
@@ -41,7 +42,7 @@
     "Type your new password again": "Type your new password again",
     "Passwords should match!": "Passwords should match!",
 
-    "Confirm to unsuscribe": "Confirm to unsuscribe",
+    "Confirm to Unsubscribe": "Confirm to Unsubscribe",
     "This action is permanent! All your adverts and your profile will be removed": "This action is permanent! All your adverts and your profile will be removed",
 
     "Edit": "Edit",

@@ -113,8 +113,11 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
     dispatch(savedAdvertRequest(advert));
 
     try {
+        // add token to API access 
+        const state = getState();
+        const token = state.user.user === undefined ? '' : state.user.user.token;
 
-        const result = await savedAdvert(advert, method);
+        const result = await savedAdvert(advert, method, token);
         
         dispatch(savedAdvertSuccess(result));
         history.push(`/advert/${result.id}`);
