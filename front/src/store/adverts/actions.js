@@ -17,6 +17,7 @@ export const fetchAdverts = () => {
     async function __fetchAdverts(dispatch, getState, extraArgument) {
 
         const { query } = getState();
+        console.log('---- mac query:', query.str)
 
         dispatch(fetchAdvertsRequest());
         try {
@@ -187,17 +188,19 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
 // Mount the query string to send to the API
 const mountAdvertsQuery = query => {
 
-    const { tag, name, type, priceFrom, priceTo } = query;
+    const { tag, name, type, priceFrom, priceTo, sort } = query;
 
-    let queryString = (tag !== '' || tag !== 'undefined' || tag !== undefined || tag !== 'all') ? `tags=${tag}&` : '';
-        queryString += (name !== '' && name !== undefined) ? `name=${name}&` : '';
-        queryString += (type !== '' && type !== undefined && type !== 'all') ? `type=${type}&` : '';
+    let queryString = '?sort=created'
+        queryString += (tag !== '' || tag !== 'undefined' || tag !== undefined || tag !== 'all') ? `&tags=${tag}` : '';
+        queryString += (name !== '' && name !== undefined) ? `&name=${name}` : '';
+        queryString += (type !== '' && type !== undefined && type !== 'all') ? `&type=${type}` : '';
 
-    let priceString = 'price=';
+    let priceString = '&price=';
         priceString += (priceFrom !== '0' && priceFrom !== undefined) ? `${priceFrom}` : '0';
         priceString += (priceTo !== '0' && priceTo !== undefined) ? `-${priceTo}` : '';
         
-    queryString += priceString !== 'price=0-0' ? priceString : '';
+    queryString += priceString !== '&price=0-0' ? priceString : '';
+
 
     return queryString;
 }

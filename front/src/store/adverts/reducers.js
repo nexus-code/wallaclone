@@ -15,6 +15,7 @@ const initialState = {
         priceFrom: 0,
         priceTo: 0,
         str: '',
+        sort: {created:1}
     },
 };
 

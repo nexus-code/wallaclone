@@ -6,8 +6,6 @@ import { fetchAdverts, fetchMoreAdverts } from '../../store/adverts/actions';
 
 import AdvertList from './AdvertList';
 
-
-//No adverts stored
 const mapStateToProps = (store, ownProps) => ({
 
     user: getUser(store),
