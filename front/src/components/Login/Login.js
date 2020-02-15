@@ -48,17 +48,16 @@ export default function Login({ login }) {
                         placeholder={t('Insert password')}
                         ref={register(validator('password', 3, 25))}
                     />
-                    <Link to='/recoverpasswd' className='right'>{t('Recover password')}</Link>
                     {errors.password && <p>{errors.password.message}</p>}
 
-
                     <input type="submit" value={t('Submit')} />
+                    <br />
+                    <Link to='/recoverpasswd' className='right'>{t('Recover password')}</Link>
                 </form>
                     
                 <br />
                 <hr />
-                    <Link to='/register'>{t('Create a new account')}</Link>
-
+                <Link to='/register' className="register">{t('Create a new account')}</Link>
                 <br />
 
             </div>

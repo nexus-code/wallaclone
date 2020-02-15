@@ -37,6 +37,14 @@ img:hover {
   }
 }
 
+.advert a {
+  color: #3F4444;
+  text-decoration: none;
+}
+
+.advert a:hover  {
+  color: #9db0ac;
+}
 
 .advert {
     position: relative;
@@ -50,13 +58,16 @@ img:hover {
 }
 
 .sell {
-    border-left: 2px solid #f0ab00!important;
+    border-left: 2px solid var(--sell-color)!important;
 }
 
 .buy {
     border-left: 2px solid var(--buy-color);
 }
 
+.advert-header {
+  height: 30px;
+}
 .advert-header-sell {
     color: var(--sell-color)
 }
@@ -76,7 +87,6 @@ img:hover {
     margin-bottom: 4px;
 }
 
-
 .advert-header-reserved {
     text-transform: uppercase;
     font-weight: 800;
@@ -85,35 +95,25 @@ img:hover {
     padding: 4px 20px;
 }
 
-
-
-
-.advert-info {
-  bottom: 0;
-  background: rgba(255, 255, 255, .4); /* var(--secondary-color);*/
-  display: none;
-  position: absolute;
-  text-align: left;
-  text-shadow: 1px 1px 2px #fff; 
-}
-
-.advert-info span{
-  color: var(--highlight-color);
-  font-size: calc(var(--font-size)*1.1);
-}
-
 .advert:hover {
-  /*border: 1px solid var(--bg-color);*/
-  transform: scale(1.2);
-  z-index: 1;
-  background-color: white;
-  box-shadow: 0 10px 10px 0px rgba(50, 50, 50, 1);
+    transform: scale(1.2);
+    z-index: 1;
+    background-color: white;
+    box-shadow: 0 10px 10px 0px rgba(50, 50, 50, 1);
+    transition: all .2s ease;
 }
 
-.advert:hover .advert-info {
-  display: inherit;
-  bottom: 0;
-  padding: 24px;
-  position: absolute;
-  width: inherit;
+.advert-img {
+  height: 250px;  
+}
+
+.advert .price {
+    float: right;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    color: #fff;
+    background-color: #007bff;
 }
