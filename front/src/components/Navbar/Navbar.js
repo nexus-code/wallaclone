@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-
 import i18n from '../../i18n';
 import { useTranslation } from 'react-i18next';
+import './navbar.css';
 
+/**
+ * 
+ * Load app header: app menu and title
+ * thanks to:
+ * https://codepen.io/Philippe_Fercha/pen/rqkci
+ * https://codepen.io/erikdkennedy/pen/zNpXee
+ */
 
 function AppNavbar({ user, logout }) {
 
@@ -18,46 +24,68 @@ function AppNavbar({ user, logout }) {
         logout();
     }
 
-    const getNavLinkClass = (path) => {
+    const [menuState, setMenuState] = useState('');
 
-        return ''; //props.location.pathname === path ? 'active' : '';
+    
+    const handleMenuClick = () => {
+        
+        const state = menuState === '' ? 'active' : '';
+        setMenuState(state);
     }
 
-    return (
-
-        <Navbar bg="dark" variant="dark" expand="lg" fixed="top" >
-            <Navbar.Brand href="/" >Wallaclone</Navbar.Brand> 
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-
-                {/* <Nav.Link className={getNavLinkClass("/advert/")} href="/advert/">{t('Search')}</Nav.Link> */}
-                {
-                    user &&
-                    <>
-                        <NavDropdown title={user.username} className="justify-content-end" id="collasible-nav-dropdown-user">
-                            <Nav.Link className={getNavLinkClass("/profile/")} href="/profile">{t('Edit profile')}</Nav.Link>
-                            <Nav.Link className={getNavLinkClass("/advert/create")} href="/advert/create">{t('New advert')}</Nav.Link>
-                            <NavDropdown.Divider />                        
-                            <Nav.Link className={getNavLinkClass("/logout/")} href="" onClick={handleLogout}>{t('Logout')}</Nav.Link>
-                        </NavDropdown>
-                    </>
-                }
-                {
-                    !user &&
-                    <>
-                        <Nav.Link className={getNavLinkClass("/login/")} href="/login">{t('Login')}</Nav.Link>
-                        <Nav.Link className={getNavLinkClass("/login/")} href="/register">{t('Register')}</Nav.Link>
-                        <NavDropdown title={t('Language')} id="collasible-nav-dropdown">
-                            <Nav.Link onClick={() => changeLanguage('en')} >En</Nav.Link>
-                            <Nav.Link onClick={() => changeLanguage('es')} >Es</Nav.Link>
-                        </NavDropdown>
-                    </>
-                }
-
-
-            </Navbar.Collapse>
-        </Navbar>
-    )
+    return <>
+        <div className="header">
+            <a href="/" className="home"><h1>Wallaclone</h1></a>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <polygon className="svg--sm" fill="white" points="0,0 30,100 65,21 90,100 100,75 100,100 0,100" />
+                <polygon className="svg--lg" fill="white" points="0,0 15,100 33,21 45,100 50,75 55,100 72,20 85,100 95,50 100,80 100,100 0,100" />
+            </svg>            
+            <nav className={`menu-opener ${ menuState }`} onClick={handleMenuClick}>
+                <div className={`menu-opener-inner ${ menuState }`}></div>
+            </nav>
+            <nav className={`menu ${ menuState }`}>
+                <ul className={`menu-inner ${ menuState }`}>
+                    {
+                        user
+                        &&
+                        <>
+                            <a href="/profile" className="menu-link">
+                                <li>{t('Edit profile')}</li>
+                            </a>
+                            <a href="/advert/create" className="menu-link">
+                                <li>{t('New advert')}</li>
+                            </a>
+                            <a href="#" onClick={handleLogout} className="menu-link">
+                                <li>{t('Logout')}</li>
+                            </a>
+                        </>
+                    }
+                    {
+                        !user
+                        &&
+                        <>
+                            <a href="/login" className="menu-link">
+                                <li>{t('Login')}</li>
+                            </a>
+                            <a href="/register" className="menu-link">
+                                <li>{t('Register')}</li>
+                            </a>
+                            <a href="#" onClick={() => changeLanguage('en')} className="menu-link">
+                                <li>English</li>
+                            </a>
+                            <a href="#" onClick={() => changeLanguage('es')} className="menu-link">
+                                <li>Español</li>
+                            </a>
+                            
+                        </>
+                    }
+                </ul>
+            </nav>
+        </div>
+        <section>
+            {/* <h1>Section Content</h1> */}
+        </section>
+    </>
 };
 
 AppNavbar.propTypes = {
