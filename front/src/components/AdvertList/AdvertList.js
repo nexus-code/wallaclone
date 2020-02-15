@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import Advert from '../Advert/Advert';
 import { useTranslation } from 'react-i18next';
 
-// font: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
+import './advertlist.css';
+
+// thanks to: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
 
 /**
  * 
@@ -49,8 +51,8 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
 
     return <>
 
-        <div className='container mt-5 mb-5'>
-            <div className='card-columns'>
+        <div className='container'>
+            <div className='advert-grid'>
                 {
                     adverts
                     &&

@@ -1,6 +1,9 @@
  /*
  * Simple reset
  */
+
+ @import url(https://fonts.googleapis.com/css?family=Raleway:100,300,400,700);
+
  *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -11,6 +14,11 @@
 :root {
   font-size: 16px;
   font-family: 'Lato', sans-serif;
+}
+
+:root {
+  --sell-color: #f0ab00;
+  --buy-color: #831552;
 }
 
 ul, li {
@@ -36,4 +44,5 @@ body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
+  font-family: Raleway;
 }

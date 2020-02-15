@@ -1,0 +1,119 @@
+
+.container {
+  margin: auto;
+  border: #fff solid 5px;
+  background: #fff;
+}
+
+/* mak images fill their container*/
+img {
+  max-width: 100%;
+}
+img:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+/* CSS Grid*/
+.advert-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-gap: 5px;
+}
+
+/* Media Query for changing grid on bigger screens*/
+
+/* Bigger than Phones(tablet) */
+@media only screen and (min-width: 750px) {
+  .advert-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Bigger than Phones(laptop / desktop) */
+@media only screen and (min-width: 970px) {
+  .advert-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+
+.advert {
+    position: relative;
+    margin: 8px;
+    padding: 8px;
+    border: 1px solid rgba(50, 50, 50, 0.2);
+}
+
+.advert h3 {
+    padding: 8px 0;
+}
+
+.sell {
+    border-left: 2px solid #f0ab00!important;
+}
+
+.buy {
+    border-left: 2px solid var(--buy-color);
+}
+
+.advert-header-sell {
+    color: var(--sell-color)
+}
+
+.advert-header-buy {
+    color: var(--buy-color)
+}
+
+.advert-header-sold {
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #fff;
+    float: right;
+    padding: 4px 20px;
+    background-color: #ff9d2f;
+    border-radius: 2px;
+    margin-bottom: 4px;
+}
+
+
+.advert-header-reserved {
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #ff9d2f;
+    float: right;
+    padding: 4px 20px;
+}
+
+
+
+
+.advert-info {
+  bottom: 0;
+  background: rgba(255, 255, 255, .4); /* var(--secondary-color);*/
+  display: none;
+  position: absolute;
+  text-align: left;
+  text-shadow: 1px 1px 2px #fff; 
+}
+
+.advert-info span{
+  color: var(--highlight-color);
+  font-size: calc(var(--font-size)*1.1);
+}
+
+.advert:hover {
+  /*border: 1px solid var(--bg-color);*/
+  transform: scale(1.2);
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0 10px 10px 0px rgba(50, 50, 50, 1);
+}
+
+.advert:hover .advert-info {
+  display: inherit;
+  bottom: 0;
+  padding: 24px;
+  position: absolute;
+  width: inherit;
+}

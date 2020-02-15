@@ -16,28 +16,38 @@ function Advert(props) {
     };
     
     const { advert } = props;
-    
+    // let status = '';
+
+    //     switch (advert.status) {
+    //         case 'sold':
+    //             status =  `<span>${t(advert.status)}</span>`; break;
+    //         case 'reserved':
+    //             status = `<span className='reserved'>${t(advert.status)}</span>`; break;
+    //         default:
+    //             status =  '';
+    //     }
+
+    const status = {
+        'sold': <span className='advert-header-sold'>{t(advert.status)}</span>,
+        'reserved': <span className='advert-header-reserved'>{t(advert.status)}</span>,
+        '':''
+    }
+     
     return (
             <div
-                style={{
-                    cursor: 'pointer',
-                    borderColor: advert.type === 'sell' ? 'orange' : 'blue'
-                }}
                 key={ advert.id }
-                className='card'
+                className={`advert ${advert.type}`}
                 onClick={ goToDetail }
             >
-                <div className='card-header'
-                    style={{
-                        color: advert.type === 'sell' ? 'orange' : 'blue',
-                        textTransform: 'uppercase'
-                    }}
-                >{t(advert.type)}</div>
-                <img className='card-img-top text-center'  src={ advert.image } alt={ advert.name } />
-                <div className='card-body'>
-                    <h5 className='card-title'>{ advert.name }</h5>
-                <p>By: {advert.owner.username}</p>
+                <div className={`advert-header-${advert.type}`}>{t(advert.type)} {status[advert.status]} </div>
+                <div className='advert-img'>
+                    <img src={ advert.image } alt={ advert.name } />
+                </div>
+
+                <div className='advert-body'>
+                    <h3>{ advert.name }</h3>
                     <h2 className='text-center'><span className='badge badge-primary'>{ advert.price } €</span></h2>                
+                    <p>By: {advert.owner.username}</p>
                     <p><Moment durationFromNow date={advert.created} /></p>
                     <p>
                         {
