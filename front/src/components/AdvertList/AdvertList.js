@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * 
  * List advert with infinite scroll
+ * 
  */
 
 export default function AdvertList({ adverts, loadMoreAdverts }) {

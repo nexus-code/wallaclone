@@ -4,8 +4,8 @@ import AdvertList from '../AdvertList';
 
 import SearchPanel from '../SearchPanel';
 
-function getAdverts() {
-    console.log('getAdverts');
+function handleSearch() {
+    console.log('handleSearch');
 }
 
 
@@ -19,20 +19,22 @@ export default class Home extends React.Component {
 
     render() {
 
-        const { adverts } = this.props; 
+        // const { adverts } = this.props; 
 
         return (
             <Canvas>
                 <div className='container mt-5 mb-5'>
-                    <SearchPanel handleSearch={getAdverts} />
+                    <SearchPanel handleSearch={handleSearch} />
                 </div>
-                {
+                {/* {
                     adverts
                     &&
                     adverts.length
                     &&
                     <AdvertList adverts={adverts} />
-                }
+                } */}
+                <AdvertList  />
+
             </Canvas>
         );
     }

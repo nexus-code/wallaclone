@@ -36,10 +36,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', jwtAuth(), async (req, res, next) => {
     try {
 
-        console.log('advert POST file', req.file);
-        console.log('advert POST body', req.body);
-
-        req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
+        // req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
         
         const savedAdvert = await Advert.insert(req, next);
 
