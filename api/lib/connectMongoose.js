@@ -20,7 +20,7 @@ conn.on('error', err => {
 });
 
 conn.once('open', () => {
-    console.log('\r\n\r\nWallaclone app conect to MongoDB: DB->', conn.name); //mongoose.connection.name;
+    console.log('\r\n\r\nWallaclone conected.');
 })
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true  });

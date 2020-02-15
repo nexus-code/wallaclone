@@ -77,26 +77,22 @@ advertSchema.pre("find", function () {
  */
 const cote = require('cote');
 
-const requesterImageService = async (advert) => {
+const requesterImageService = (advert) => {
 
-    const requester = new cote.Requester({ name: 'image.requester' });
+    const requester = new cote.Requester({ name: 'wallc.img.requester' });
 
-    console.log('requesterImageService');
-    console.log('advert.image', advert.image);
+    console.log('wallc.img.requester launched! ', advert.image);
 
     requester.send({
-        type: 'image.service',
+        type: 'wallc.image.service',
         file: advert.image,
     }, response => {
-        console.log(`image.service: move & resized ${advert.image} for: ${advert.name} `);
+            // console.log(`image.service: move & resized ${advert.image} for: ${advert.name} `);
+            console.log('wallc.img.requester response', response);
     });
 }
 
-const parseUplodadImage = (fileObj) => {
 
-
-}
- 
 
 /** 
  * Adverts CRUD Methods
@@ -127,30 +123,19 @@ advertSchema.statics.insert = async function (req, next) {
 advertSchema.statics.update = async function (req, next) {
      try {
 
-        //  console.log('update BODY : ', req.body);
-         console.log('update FILE: ', req.file);
-
-// update FILE:  { fieldname: 'imageFile',
-//   originalname: 'ama-dablam-2064522_640.jpg',
-//   encoding: '7bit',
-//   mimetype: 'image/jpeg',
-//   destination: 'uploads',
-//   filename: '1581704702164_ama-dablam-2064522_640.jpg',
-//   path: 'uploads\\1581704702164_ama-dablam-2064522_640.jpg',
-//   size: 81119 }
-
+        //  console.log('uploaded FILE: ', req.file);
          const hasFile = req.file !== undefined;
 
-        const data = req.body;
-        data.image = hasFile ? req.file.filename : '';
+        //  console.log('hasFile: ', req.file, req.file !== undefined);
 
+        const data = req.body;
+         data.image = hasFile ? req.file.filename : data.image;
         data.updated = moment();
 
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});
 
          if (hasFile){
-
-             await requesterImageService(req.file);
+             requesterImageService(updatedAdvert);
          }
 
          return updatedAdvert;
@@ -277,8 +262,6 @@ advertSchema.statics.select = async function (req) {
     }
 
     const adverts = await list({filter, skip, limit, fields, sort});
-    console.log('       - Query filter: ', filter);
-    // console.log('       - Query result count: ', adverts.length);
 
     return adverts;          
 };
