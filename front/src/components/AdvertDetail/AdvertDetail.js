@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom';
 
 import { getAdvert } from '../../store/adverts/selectors';
 
-import { Facebook, Twitter, Email } from 'react-sharingbuttons'
-import 'react-sharingbuttons/dist/main.css'
 
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-// import FavoriteIcon from '@material-ui/icons/Favorite';
-// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+
+import {
+    FacebookShareButton,
+    EmailShareButton,
+    TwitterShareButton
+} from "react-share";
 
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
@@ -83,16 +85,11 @@ export default function AdvertDetail({
             </Canvas>
     }
 
-    const social = <div className="advert-detail social" >
-        <Link to={history.location.path}><FacebookIcon /></Link>
-        <Link to={history.location.path}><TwitterIcon /></Link>
-            <Link to={history.location.path}>envelope</Link>
-        </div>;
-                    
+                   
     const  ownerActions  = (user && advert.owner._id === user.id) 
             ?  <><div className="owner-actions">
                     <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <Link onClick={handleRemove} className="remove"><DeleteForeverIcon /> {t('Remove')}</Link>
+                    <Link to={''} onClick={handleRemove} className="remove"><DeleteForeverIcon /> {t('Remove')}</Link>
                 </div>
                 </> : '';
                 
@@ -112,15 +109,16 @@ export default function AdvertDetail({
                 <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} </div>
                 <h1>{advert.name} <span className='badge badge-primary f-right'>{advert.price}€</span></h1>                
                 <img src={advert.image} alt={advert.name} />
-                <div class={`${advert.type}`}>
+                <div className={`${advert.type}`}>
                     <div className="advert-owner">
                         By: {advert.owner.username} { ownerActions }                    
                     </div>
                     <div className="advert-info">
                         <p>{advert.description}</p>
-                        {
-                            social
-                        }
+                  
+                        <FacebookShareButton url={history.location.path} />
+                        <EmailShareButton url={history.location.path} />
+                        <MailOutlineIcon url={history.location.path} />
                         <p>
                             {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
                         </p>

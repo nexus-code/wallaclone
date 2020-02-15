@@ -57,11 +57,11 @@ img:hover {
     padding: 8px 0;
 }
 
-.sell {
+.advert .sell {
     border-left: 2px solid var(--sell-color)!important;
 }
 
-.buy {
+.advert .buy {
     border-left: 2px solid var(--buy-color);
 }
 
