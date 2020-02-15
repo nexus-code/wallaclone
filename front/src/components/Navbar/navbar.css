@@ -157,13 +157,17 @@ a {
   position: relative;
   height: 220px;
   background-image: linear-gradient(#2f91ff, #26c4ff);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 15;
 }
 
 .header h1 {
     padding: 72px 0;
     font: 44px "Arial";
     text-align: center;
-    color: white;
+    color: #fff;
 }
 
 .header .home:hover {

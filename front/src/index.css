@@ -31,3 +31,9 @@ img, embed, object, video {
 /*
 * App generic styles
 */
+
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}

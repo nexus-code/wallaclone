@@ -15,20 +15,12 @@ import './navbar.css';
 function AppNavbar({ user, logout }) {
 
     const { t } = useTranslation();
-    const changeLanguage = (lng) => {
-        i18n.changeLanguage(lng);
-    }
-
-    const handleLogout = () => {
-
-        logout();
-    }
-
     const [menuState, setMenuState] = useState('');
 
+    const changeLanguage = (lng) => i18n.changeLanguage(lng);
+    const handleLogout = () => logout()
     
-    const handleMenuClick = () => {
-        
+    const handleMenuClick = () => {        
         const state = menuState === '' ? 'active' : '';
         setMenuState(state);
     }
@@ -44,7 +36,7 @@ function AppNavbar({ user, logout }) {
                 <div className={`menu-opener-inner ${ menuState }`}></div>
             </nav>
             <nav className={`menu ${ menuState }`}>
-                <ul className={`menu-inner ${ menuState }`}>
+                <ul className={`menu-inner ${ menuState }`}>                    
                     {
                         user
                         &&
@@ -65,11 +57,11 @@ function AppNavbar({ user, logout }) {
                         &&
                         <>
                             <a href="/login" className="menu-link">
-                                <li>{t('Login')}</li>
+                                <li>{t('Login')}/{t('Register')}</li>
                             </a>
-                            <a href="/register" className="menu-link">
+                            {/* <a href="/register" className="menu-link">
                                 <li>{t('Register')}</li>
-                            </a>
+                            </a> */}
                             <a href="#" onClick={() => changeLanguage('en')} className="menu-link">
                                 <li>English</li>
                             </a>
@@ -79,12 +71,12 @@ function AppNavbar({ user, logout }) {
                             
                         </>
                     }
+                    <a href="/credits" className="menu-link">
+                        <li>{t('Credits')}</li>
+                    </a>
                 </ul>
             </nav>
         </div>
-        <section>
-            {/* <h1>Section Content</h1> */}
-        </section>
     </>
 };
 
@@ -92,5 +84,4 @@ AppNavbar.propTypes = {
     displaySearch: PropTypes.bool
 }
 
-// export default withRouter(AppNavbar);
 export default AppNavbar;

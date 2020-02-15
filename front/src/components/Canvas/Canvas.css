@@ -1,3 +1,8 @@
+.main-section {
+  margin-top: 260px;
+  flex: 1;
+}
+
 
 .right {
   float: right;
