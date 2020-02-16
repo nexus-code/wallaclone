@@ -15,7 +15,7 @@
 .env
 
 
-.copy.*
+*.copy.*
 
 
 *.log
