@@ -85,10 +85,10 @@ app.use(bodyParser.json());
 
 
 /**
- * Setup i18n DEACTIVATED
+ * Setup i18n READY
  */
-// const i18n = require('./lib/i18nConfigure')();
-// app.use(i18n.init);
+const i18n = require('./lib/i18nConfigure')();
+app.use(i18n.init);
 
 
 /**
