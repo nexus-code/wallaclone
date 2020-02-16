@@ -4,7 +4,7 @@
 /certs
 /_review
 
-
+*.pem
 
 # testing
 /coverage
