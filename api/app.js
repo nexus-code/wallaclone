@@ -12,7 +12,7 @@ var bodyParser   = require('body-parser');
  * https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
  */
 
-const slugify = require('slugify')
+const slugify = require('slugify');
 const multer = require('multer');
 
 const parseImageName = imageName => slugify(imageName.trim(), { replacement: '-', lower: true, remove: /[*+~()_&%{}'"!:@]/g});
