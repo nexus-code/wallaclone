@@ -2,21 +2,8 @@ import React, { useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-
 import { getAdvert } from '../../store/adverts/selectors';
-
-
-// import FacebookIcon from '@material-ui/icons/Facebook';
-// import TwitterIcon from '@material-ui/icons/Twitter';
-// import MailOutlineIcon from '@material-ui/icons/MailOutline';
-// import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-import {
-    FacebookShareButton,
-    EmailShareButton,
-    TwitterShareButton
-} from "react-share";
+import Social from '../Social/Social'
 
 import { useTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
@@ -115,26 +102,15 @@ export default function AdvertDetail({
                     </div>
                     <div className="advert-info">
                         <p>{advert.description}</p>
-                  
-                        <FacebookShareButton url={history.location.path} />
-                        <TwitterShareButton url={history.location.path} />
-                        <EmailShareButton url={history.location.path} />
                         <p>
                             {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
                         </p>
+                        <Social url={history.location.path} />
                     </div>
 
                     
                 </div>
-                
-                
-                
                 <br />
-                {/* <Email url={history.location.path } />
-                <Facebook url={history.location.path} />
-                <Twitter url={history.location.path} /> */}
-
-                
                 <br />
                 <hr />
                 <Button className='btn btn-dark' onClick={() => history.goBack()}>Go back</Button>
