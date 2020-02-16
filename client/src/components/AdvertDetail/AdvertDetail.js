@@ -6,11 +6,11 @@ import { Link } from 'react-router-dom';
 import { getAdvert } from '../../store/adverts/selectors';
 
 
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+// import FacebookIcon from '@material-ui/icons/Facebook';
+// import TwitterIcon from '@material-ui/icons/Twitter';
+// import MailOutlineIcon from '@material-ui/icons/MailOutline';
+// import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+// import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 import {
     FacebookShareButton,
@@ -72,7 +72,7 @@ export default function AdvertDetail({
     };
     ///
 
-    const goBack = <Link to={''} className="icon" onClick={() => history.goBack()}><ArrowBackIcon /></Link>
+    const goBack = <Link to={''} className="icon" onClick={() => history.goBack()}>Go back</Link>
     
     if (!advert){
         return <Canvas>
@@ -89,7 +89,7 @@ export default function AdvertDetail({
     const  ownerActions  = (user && advert.owner._id === user.id) 
             ?  <><div className="owner-actions">
                     <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <Link to={''} onClick={handleRemove} className="remove"><DeleteForeverIcon /> {t('Remove')}</Link>
+                    <Link to={''} onClick={handleRemove} className="remove">{t('Remove')}</Link>
                 </div>
                 </> : '';
                 
@@ -117,8 +117,8 @@ export default function AdvertDetail({
                         <p>{advert.description}</p>
                   
                         <FacebookShareButton url={history.location.path} />
+                        <TwitterShareButton url={history.location.path} />
                         <EmailShareButton url={history.location.path} />
-                        <MailOutlineIcon url={history.location.path} />
                         <p>
                             {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
                         </p>

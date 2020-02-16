@@ -125,19 +125,19 @@ const unsubscribeController = require('./routes/unsubscribeController');
 const removeAdvertController = require('./routes/removeAdvertController');
 
 
-app.use('/api/users', require('./routes/api/users'));
+app.use('/apiv1/users', require('./routes/apiv1/users'));
 
-app.use('/api/login', loginController.login);
-app.use('/api/recoverpasswd', recoverPasswdController.recover);
-app.use('/api/resetpasswd', recoverPasswdController.reset);
-app.use('/api/unsubscribe', jwtAuth(), unsubscribeController.do);
-// app.use('/api/unsubscribe', unsubscribeController.do);
+app.use('/apiv1/login', loginController.login);
+app.use('/apiv1/recoverpasswd', recoverPasswdController.recover);
+app.use('/apiv1/resetpasswd', recoverPasswdController.reset);
+app.use('/apiv1/unsubscribe', jwtAuth(), unsubscribeController.do);
+// app.use('/apiv1/unsubscribe', unsubscribeController.do);
 
-app.use('/api/adverts', upload.single('imageFile'), require('./routes/api/adverts'));
-// app.use('/api/removeadvert', jwtAuth(), removeAdvertController.do);
-app.use('/api/removeadvert', removeAdvertController.do);
+app.use('/apiv1/adverts', upload.single('imageFile'), require('./routes/apiv1/adverts'));
+// app.use('/apiv1/removeadvert', jwtAuth(), removeAdvertController.do);
+app.use('/apiv1/removeadvert', removeAdvertController.do);
 
-app.use('/api/tags', require('./routes/api/tags'));
+app.use('/apiv1/tags', require('./routes/apiv1/tags'));
 
 
 // public app

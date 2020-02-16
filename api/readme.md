@@ -46,20 +46,20 @@ This script generate DB, add demo ads and default user (user@example.com / 1234)
 
 
 ## API
-To access API and obtain JWT login with email and pass go to: https://localhost:3021/api/login, next, with token call to:
-* ADS Url:  https://localhost:3021/api/ads
-* TAGS Url: https://localhost:3021/api/tags    // list available tags 
+To access API and obtain JWT login with email and pass go to: https://localhost:3021/apiv1/login, next, with token call to:
+* ADS Url:  https://localhost:3021/apiv1/ads
+* TAGS Url: https://localhost:3021/apiv1/tags    // list available tags 
 
 Token must be send on body, or query string or header
 Default user: user@example.com / clave 1234
 
 ### CRUD methods (into Ad model)
-* POST   -> https://localhost:3021/api/ads/ . Insert new ads with image
+* POST   -> https://localhost:3021/apiv1/ads/ . Insert new ads with image
 The image is upladed to uploads folder. On insert (in models/Ads.js) 
 
 
-* PUT    -> https://localhost:3021/api/ads/_id for update ad by _id
-* DELETE -> https://localhost:3021/api/ads/_id for delete ad by _id
+* PUT    -> https://localhost:3021/apiv1/ads/_id for update ad by _id
+* DELETE -> https://localhost:3021/apiv1/ads/_id for delete ad by _id
 * GET    -> View API Calls
 
 
@@ -77,11 +77,11 @@ The image is upladed to uploads folder. On insert (in models/Ads.js)
 7. _id    -> Find by document _id
 
 ### API CALL with params examples
-* https://localhost:3021/api/ads?price=-79 | https://localhost:3021/api/ads?price=51- | https://localhost:3021/api/ads?price=20-80
-* https://localhost:3021/api/ads?text=a%20long%20time%20ago&active=false
-* https://localhost:3021/api/ads?text=consectetur%20adipiscing%20elit
-* https://localhost:3021/api/ads?tags=work&priceMax=80
-* https://localhost:3021/api/ads?active=false
+* https://localhost:3021/apiv1/ads?price=-79 | https://localhost:3021/apiv1/ads?price=51- | https://localhost:3021/apiv1/ads?price=20-80
+* https://localhost:3021/apiv1/ads?text=a%20long%20time%20ago&active=false
+* https://localhost:3021/apiv1/ads?text=consectetur%20adipiscing%20elit
+* https://localhost:3021/apiv1/ads?tags=work&priceMax=80
+* https://localhost:3021/apiv1/ads?active=false
 * https://localhost:3021/?tags=motor,work
 * https://localhost:3021/?id= document._id
 
