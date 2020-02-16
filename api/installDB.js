@@ -9,264 +9,414 @@
  */
 require('dotenv').config();
 
-const db   = require('./lib/connectMongoose');
+// const db = require('../lib/connectMongoose');
+const db = require('./lib/connectMongoose');
 const Advert = require('./models/Advert');
 const User = require('./models/User');
 
 const advertsArray = [
-        {
-            name: 'lifestyle 1 101',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 150,
-            tags: ['lifestyle', 'mobile'],
-            image: 'lifestyle1.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2020-02-01 8:56'
-        },
-        {
-            name: 'lifestyle 2 102',
-            type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: 'reserved',
-            price: 15,
-            tags: ['lifestyle', 'work'],
-            image: 'lifestyle2.jpg',
-            description: 'Eget gravida cum sociis natoque penatibus et. ',
-            created: '2020-02-01 7:50'
-        },
-        {
-            name: 'lifestyle 3 103',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 80,
-            tags: ['lifestyle'],
-            image: 'lifestyle3.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2020-01-31 20:56'
-        },
-        {
-            name: 'motor 1 104',
-            type: 'sell',
-            owner: '5e40faae9f22490b1cd9b59f',
-            status: 'sold',
-            price: 150,
-            tags: ['motor', 'mobile', 'lifestyle'],
-            image: 'motor1.jpg',
-            description: 'Eget gravida cum sociis natoque penatibus et. ',
-            created: '2020-01-31 8:56'
-        }, {
-            name: 'motor 2 105',
-            type: 'buy',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 180,
-            tags: ['motor', 'work'],
-            image: 'motor2.jpg',
-            description: 'Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.',
-            created: '2020-01-30 8:56'
-        }, {
-            name: 'motor 3 106',
-            type: 'buy',
-            owner: '5e40faae9f22490b1cd9b59f',
-            status: '',
-            price: 80,
-            tags: ['motor', 'lifestyle'],
-            image: 'motor3.jpg',
-            description: '',
-            created: '2020-01-29 8:56'
-        },
-        {
-            name: 'mobile 1 107',
-            type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: '',
-            price: 150,
-            tags: ['mobile', 'lifestyle'],
-            image: 'mobile1.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2020-01-28 18:56'
-        }, {
-            name: 'mobile 2 108',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: 'reserved',
-            price: 45,
-            tags: ['mobile', 'work'],
-            image: 'mobile2.jpg',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ',
-            created: '2020-02-10 18:00'
-        }, {
-            name: 'mobile 3 109',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: 'reserved',
-            price: 120,
-            tags: ['mobile'],
-            image: 'mobile3.jpg',
-            description: '',
-            created: '2020-02-09 19:56'
-        },
-        {
-            name: 'work 1 1010',
-            type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: 'Sold',
-            price: 150,
-            tags: ['work', 'mobile', 'lifestyle'],
-            image: 'work1.jpg',
-            description: 'Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.',
-            created: '2020-02-10 9:56'
-        }, {
-            name: 'work 2 1011',
-            type: 'buy',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: '',
-            price: 15,
-            tags: ['work'],
-            image: 'work2.jpg',
-            description: 'Eget gravida cum sociis natoque penatibus et. Neque laoreet suspendisse interdum consectetur libero. Nullam non nisi est sit. ',
-            created: '2020-02-03 18:56'
-        }, {
-            name: 'work 3 1012',
-            type: 'buy',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 80,
-            tags: ['work', 'lifestyle'],
-            image: 'work3.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2020-02-02 16:56'
-        },
-        {
-            name: 'lifestyle 1 - 2019 - 1013',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 150,
-            tags: ['lifestyle', 'mobile'],
-            image: 'lifestyle1.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2019-02-01 8:56'
-        },
-        {
-            name: 'lifestyle 2 - 2019 - 1014',
-            type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: 'reserved',
-            price: 15,
-            tags: ['lifestyle', 'work'],
-            image: 'lifestyle2.jpg',
-            description: 'Eget gravida cum sociis natoque penatibus et. ',
-            created: '2019-02-01 7:50'
-        },
-        {
-            name: 'lifestyle 3 - 2019 - 1015',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 80,
-            tags: ['lifestyle'],
-            image: 'lifestyle3.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2019-01-31 20:56'
-        },
-        {
-            name: 'motor 1 - 2019 - 1016',
-            type: 'sell',
-            owner: '5e40faae9f22490b1cd9b59f',
-            status: 'sold',
-            price: 150,
-            tags: ['motor', 'mobile', 'lifestyle'],
-            image: 'motor1.jpg',
-            description: 'Eget gravida cum sociis natoque penatibus et. ',
-            created: '2019-01-31 8:56'
-        }, {
-            name: 'motor 2 - 2019 - 1017',
-            type: 'buy',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 180,
-            tags: ['motor', 'work'],
-            image: 'motor2.jpg',
-            description: 'Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.',
-            created: '2019-01-30 8:56'
-        }, {
-            name: 'motor 3 - 2019 - 1018',
-            type: 'buy',
-            owner: '5e40faae9f22490b1cd9b59f',
-            status: '',
-            price: 80,
-            tags: ['motor', 'lifestyle'],
-            image: 'motor3.jpg',
-            description: '',
-            created: '2019-01-29 8:56'
-        },
-        {
-            name: 'mobile 1 - 2019 - 1019',
-            type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: '',
-            price: 150,
-            tags: ['mobile', 'lifestyle'],
-            image: 'mobile1.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2019-01-28 18:56'
-        }, {
-            name: 'mobile 2 - 2019 - 1020',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: 'reserved',
-            price: 45,
-            tags: ['mobile', 'work'],
-            image: 'mobile2.jpg',
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ',
-            created: '2019-02-10 18:00'
-        }, {
-            name: 'mobile 3 - 2019 - 1021',
-            type: 'sell',
-            owner: '5e3fb4810223813c34921164',
-            status: 'reserved',
-            price: 120,
-            tags: ['mobile'],
-            image: 'mobile3.jpg',
-            description: '',
-            created: '2019-02-09 19:56'
-        },
-        {
-            name: 'work 1 - 2019 - 1022',
-            type: 'sell',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: 'Sold',
-            price: 150,
-            tags: ['work', 'mobile', 'lifestyle'],
-            image: 'work1.jpg',
-            description: 'Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.',
-            created: '2019-02-10 9:56'
-        }, {
-            name: 'work 2 - 2019 - 1023',
-            type: 'buy',
-            owner: '5e40fb109f22490b1cd9b5a0',
-            status: '',
-            price: 15,
-            tags: ['work'],
-            image: 'work2.jpg',
-            description: 'Eget gravida cum sociis natoque penatibus et. Neque laoreet suspendisse interdum consectetur libero. Nullam non nisi est sit. ',
-            created: '2019-02-03 18:56'
-        }, {
-            name: 'work 3 - 2019 - 1024',
-            type: 'buy',
-            owner: '5e3fb4810223813c34921164',
-            status: '',
-            price: 80,
-            tags: ['work', 'lifestyle'],
-            image: 'work3.jpg',
-            description: 'Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ',
-            created: '2019-02-02 16:56'
-        }
-    ];
+    {
+        "_id": "5e435f80faf3a305e410e673",
+        "type": "sell",
+        "status": "",
+        "image": "lifestyle1.jpg",
+        "tags": [
+            "lifestyle",
+            "mobile"
+        ],
+        "active": true,
+        "name": "Sem fringilla ut morbi tincidunt",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 150,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2020-02-01T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e674",
+        "type": "sell",
+        "status": "reserved",
+        "image": "lifestyle2.jpg",
+        "tags": [
+            "lifestyle",
+            "work"
+        ],
+        "active": true,
+        "name": "Vulputate sapien nec sagittis aliquam",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 15,
+        "description": "Eget gravida cum sociis natoque penatibus et. ",
+        "created": "2020-02-01T06:50:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e675",
+        "type": "sell",
+        "status": "",
+        "image": "lifestyle3.jpg",
+        "tags": [
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Et odio pellentesque diam",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 80.2,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2020-01-31T19:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e676",
+        "type": "sell",
+        "status": "sold",
+        "image": "motor1.jpg",
+        "tags": [
+            "motor",
+            "mobile",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Sem fringilla ut morbi tincidunt",
+        "owner": "5e40faae9f22490b1cd9b59f",
+        "price": 150,
+        "description": "Eget gravida cum sociis natoque penatibus et. ",
+        "created": "2020-01-31T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e677",
+        "type": "buy",
+        "status": "",
+        "image": "motor2.jpg",
+        "tags": [
+            "motor",
+            "work"
+        ],
+        "active": true,
+        "name": "Ullamcorper dignissim cras tincidunt",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 180,
+        "description": "Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.",
+        "created": "2020-01-30T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e678",
+        "type": "buy",
+        "status": "",
+        "image": "motor3.jpg",
+        "tags": [
+            "motor",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Ante metus dictum at tempor commodo",
+        "owner": "5e40faae9f22490b1cd9b59f",
+        "price": 80,
+        "description": "Ullamcorper dignissim cras tincidunt lobortis. Ante metus dictum at tempor commodo.  Ullamcorper dignissim cras tincidunt lobortis.",
+        "created": "2020-01-29T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e679",
+        "type": "sell",
+        "status": "",
+        "image": "mobile1.jpg",
+        "tags": [
+            "mobile",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Vulputate sapien nec sagittis aliquam malesuada",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 150,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2020-01-28T17:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e67a",
+        "type": "sell",
+        "status": "reserved",
+        "image": "mobile2.jpg",
+        "tags": [
+            "mobile",
+            "work"
+        ],
+        "active": true,
+        "name": "Mauris a diam maecenas sed enim ut sem viverra",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 45,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ",
+        "created": "2020-02-10T17:00:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e67b",
+        "type": "sell",
+        "status": "reserved",
+        "image": "mobile3.jpg",
+        "tags": [
+            "mobile"
+        ],
+        "active": true,
+        "name": "Lorem ipsum dolor sit amet",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 120,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ",
+        "created": "2020-02-09T18:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e67c",
+        "type": "sell",
+        "status": "sold",
+        "image": "work1.jpg",
+        "tags": [
+            "work",
+            "mobile",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Qignissim cras tincidunt lobortis",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 150,
+        "description": "Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.",
+        "created": "2020-02-10T08:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e67d",
+        "type": "buy",
+        "status": "",
+        "image": "work2.jpg",
+        "tags": [
+            "work"
+        ],
+        "active": true,
+        "name": "Neque laoreet suspendisse interdum ",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 15,
+        "description": "Eget gravida cum sociis natoque penatibus et. Neque laoreet suspendisse interdum consectetur libero. Nullam non nisi est sit. ",
+        "created": "2020-02-03T17:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e67e",
+        "type": "buy",
+        "status": "",
+        "image": "work3.jpg",
+        "tags": [
+            "work",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Eu nisl nunc mi ipsum faucibus vitae",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 80,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2020-02-02T15:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e67f",
+        "type": "sell",
+        "status": "",
+        "image": "lifestyle1.jpg",
+        "tags": [
+            "lifestyle",
+            "mobile"
+        ],
+        "active": true,
+        "name": "Aliquam malesuada bibendum",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 150,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2019-02-01T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e680",
+        "type": "sell",
+        "status": "reserved",
+        "image": "lifestyle2.jpg",
+        "tags": [
+            "lifestyle",
+            "work"
+        ],
+        "active": true,
+        "name": "Natoque penatibus et",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 15,
+        "description": "Eget gravida cum sociis natoque penatibus et. ",
+        "created": "2019-02-01T06:50:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e681",
+        "type": "sell",
+        "status": "",
+        "image": "lifestyle3.jpg",
+        "tags": [
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Tapien nec sagittis aliquam malesuada bibendum",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 80,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2019-01-31T19:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e682",
+        "type": "sell",
+        "status": "sold",
+        "image": "motor1.jpg",
+        "tags": [
+            "motor",
+            "mobile",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Patoque penatibus et",
+        "owner": "5e40faae9f22490b1cd9b59f",
+        "price": 150,
+        "description": "Eget gravida cum sociis natoque penatibus et. ",
+        "created": "2019-01-31T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e683",
+        "type": "buy",
+        "status": "",
+        "image": "motor2.jpg",
+        "tags": [
+            "motor",
+            "work"
+        ],
+        "active": true,
+        "name": "Ante metus dictum at tempor commodo",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 180,
+        "description": "Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.",
+        "created": "2019-01-30T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e684",
+        "type": "buy",
+        "status": "",
+        "image": "motor3.jpg",
+        "tags": [
+            "motor",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Eu nisl nunc mi ipsum faucibus vita",
+        "owner": "5e40faae9f22490b1cd9b59f",
+        "price": 80,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2019-01-29T07:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e685",
+        "type": "sell",
+        "status": "",
+        "image": "mobile1.jpg",
+        "tags": [
+            "mobile",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Malesuada bibendum",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 150,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2019-01-28T17:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e686",
+        "type": "sell",
+        "status": "reserved",
+        "image": "mobile2.jpg",
+        "tags": [
+            "mobile",
+            "work"
+        ],
+        "active": true,
+        "name": "Ked do eiusmod tempor incididunt ut",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 45,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ",
+        "created": "2019-02-10T17:00:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e687",
+        "type": "sell",
+        "status": "reserved",
+        "image": "mobile3.jpg",
+        "tags": [
+            "mobile"
+        ],
+        "active": true,
+        "name": "Xenim ut sem viverra",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 120,
+        "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris a diam maecenas sed enim ut sem viverra. ",
+        "created": "2019-02-09T18:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e688",
+        "type": "sell",
+        "status": "sold",
+        "image": "work1.jpg",
+        "tags": [
+            "work",
+            "mobile",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Pretincidunt lobortis",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 150,
+        "description": "Ante metus dictum at tempor commodo. Ullamcorper dignissim cras tincidunt lobortis.",
+        "created": "2019-02-10T08:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e689",
+        "type": "buy",
+        "status": "",
+        "image": "work2.jpg",
+        "tags": [
+            "work"
+        ],
+        "active": true,
+        "name": "Claoreet suspendisse interdum",
+        "owner": "5e40fb109f22490b1cd9b5a0",
+        "price": 15,
+        "description": "Eget gravida cum sociis natoque penatibus et. Neque laoreet suspendisse interdum consectetur libero. Nullam non nisi est sit. ",
+        "created": "2019-02-03T17:56:00.000+0000",
+    },
+    {
+        "_id": "5e435f80faf3a305e410e68a",
+        "type": "buy",
+        "status": "",
+        "image": "work3.jpg",
+        "tags": [
+            "work",
+            "lifestyle"
+        ],
+        "active": true,
+        "name": "Faucibus vitae aliquet",
+        "owner": "5e3fb4810223813c34921164",
+        "price": 80,
+        "description": "Sem fringilla ut morbi tincidunt. Vulputate sapien nec sagittis aliquam malesuada bibendum. Et odio pellentesque diam volutpat commodo sed egestas egestas. Eu nisl nunc mi ipsum faucibus vitae aliquet nec. ",
+        "created": "2019-02-02T15:56:00.000+0000",
+    }
+];
+
+const userArray = [
+    {
+        username: 'user',
+        email: 'user@example.com',
+        password: '1234567'
+    },
+    {
+        username: 'testing',
+        email: 'testing@wallaclone.dev',
+        password: 'testing+'
+    },
+    {
+        username: 'testing3',
+        email: 'testing3@wallaclone.dev',
+        password: '1'
+    }
+];
+
 
 /**
  * 
@@ -291,78 +441,104 @@ const insertAdverts = async function () {
     console.log('Adding adverts ...');
 
     try {
-        
+
         // next line must save ad an tigger imageService, but this (imageService) not launch. Why???
         const result = await Advert.insertMany(advertsArray);
 
         await Advert.createIndexes()
-        .then(console.log('Indexes created'))
-        .catch(
-            (err) => {console.log('Error on create Avert indexes', err.message)
-        });
+            .then(console.log('Indexes created'))
+            .catch(
+                (err) => {
+                    console.log('Error on create Avert indexes', err.message)
+                });
         console.log('DB  -> Adverts inserts: ', advertsArray.length);
-        
+
     } catch (err) {
-        
+
         console.log('DB not installed -> Err: ', err);
     }
 };
 
-// Create Advert collection and add adverts:
-db.model('advert', Advert.schema);
-
-deleteAll().then(() => {
-    
-    insertAdverts().then(() => {
-        console.log('Adverts created');
-    });
-})
-.catch(err => {
-    console.log('Error on install DB: ', err);
-    process.exit();
-});
-
-
 // Create user collection 
 db.model('user', User.schema);
 
-// Add user example
-// db.once('open', async () => {
-//     try {
-
-//         await initUsers();
-//         db.close();
-//         console.log('******* wallacloneDB created sucesfully ******');
-
-//         process.exit();
-
-//     } catch (err) {
-//         console.log('Error on install user:', err);
-//         process.exit(1);
-//     }
-// });
 
 async function initUsers() {
     await User.deleteMany();
 
     await User.insertMany([
         {
-            username: 'user',
-            email: 'user@example.com',
-            password: '1234567'
+            "_id": "5e3fb4810223813c34921164",
+            "forgotten_password": {
+                "code": "",
+                "time": null
+            },
+            "role": "user",
+            "language": "es-ES",
+            "username": "Programación",
+            "password": "$2b$10$mLM36FBRhyHvgE5Vysj6kOW3NwcA47ENzgrvMgRmnv4tbaKkFoYfy",
+            "email": "ma.cardenas@nexuscode.com",
+            "created": "2020-02-09T07:28:01.760+0000",
+            "lastLogin": "2020-02-09T07:28:01.760+0000",
         },
         {
-            username: 'wallaclone',
-            email: 'wallaclone@wallaclone.dev',
-            password: 'wallaclone'
-        }, 
+            "_id": "5e40faae9f22490b1cd9b59f",
+            "forgotten_password": {
+                "code": "",
+                "time": null
+            },
+            "role": "user",
+            "language": "en",
+            "username": "user",
+            "password": "$2b$10$cxJyu8HdzXGzrlfD6j3YbehInpolxmN44oJDDSR36g7ppPvXcSkou",
+            "email": "user@example.com",
+            "created": "2020-02-10T06:39:42.941+0000",
+            "lastLogin": "2020-02-10T06:39:42.941+0000",
+        },
         {
-            username: 'Programación',
-            email: 'ma.cardenas@nexuscode.com',
-    password: 'Programación'
+            "_id": "5e40fb109f22490b1cd9b5a0",
+            "forgotten_password": {
+                "code": "",
+                "time": null
+            },
+            "role": "user",
+            "language": "en",
+            "username": "wallaclone",
+            "password": "$2b$10$g0ONzrqDRQiaSzB4wdN/1.mKJfJZH/JwRZ7Snj7huBf/bE7LIaM7S",
+            "email": "wallaclone@wallaclone.dev",
+            "created": "2020-02-10T06:41:20.213+0000",
+            "lastLogin": "2020-02-10T06:41:20.213+0000",
+        },
+        {
+            "_id": "5e44188f333a100cccd1575f",
+            "forgotten_password": {
+                "code": "",
+                "time": null
+            },
+            "role": "user",
+            "language": "es-ES",
+            "username": "Programación2",
+            "password": "$2b$10$/rzYWCATc2k867gL/87evO1eRc9Pg6XWwpoLDE.lYQzOgEQkOzT8S",
+            "email": "testingpost7@wallaclone.dev",
+            "created": "2020-02-12T15:23:59.999+0000",
+            "lastLogin": "2020-02-12T15:23:59.999+0000",
+        },
+        {
+            "_id": "5e466f12f31f23100499911d",
+            "forgotten_password": {
+                "code": "",
+                "time": null
+            },
+            "role": "user",
+            "language": "en",
+            "username": "ProgramaciónN",
+            "password": "$2b$10$PDTEVDHE3lxPAs8rcqsqaOlHg/4NtX0hN9Zov9dl9PGjFRCzRQ0fm",
+            "email": "testingN@wallaclone.dev",
+            "created": "2020-02-14T09:57:38.426+0000",
+            "lastLogin": "2020-02-14T09:57:38.426+0000",
         }
-        // ,{ runValidators: true } // Produce empty username error!
     ]);
+
 
     await User.createIndexes()
         .then(console.log('User Indexes created'))
@@ -371,5 +547,22 @@ async function initUsers() {
                 console.log('Error on User create indexes', err.message)
             });
 
-    console.log('Testing user created on users collection');
+    console.log('Initial user created on users collection');
 }
+
+
+// Create Advert collection and add adverts:
+db.model('advert', Advert.schema);
+
+deleteAll().then(() => {
+
+    insertAdverts().then(() => {
+        console.log('Initial adverts created');
+    });
+})
+    .catch(err => {
+        console.log('Error on install DB: ', err);
+        process.exit();
+    });
+
+console.log('Initial data created');

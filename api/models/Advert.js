@@ -29,10 +29,6 @@ const advertSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
-    status: {
-        type: String,
-        default: ''
-    },
     price: {
         type: Number,
         require: true,
@@ -52,7 +48,6 @@ const advertSchema = mongoose.Schema({
         default: ''
     },
     active: {
-        // 0 sold or found
         type: Boolean,
         default: true,
     },
