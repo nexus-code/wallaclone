@@ -50,5 +50,17 @@
     "Confirm to remove advert": "Confirm to remove advert",
     "This action is permanent! The advert will be removed": "This action is permanent! The advert will be removed",
 
+    "Reserved": "Reserved",
+    "Sold": "Sold",
+    "Search": "Search",
+    "Search adverts": "Search adverts",
+    "Sell & buy": "Sell & buy",
+    "Product name": "Product name",
+    "All tags": "All tags",
+    "From price": "From price",
+    "To price": "To price",
+    
+
+
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

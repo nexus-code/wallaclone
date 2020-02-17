@@ -49,5 +49,16 @@
     "Confirm to remove advert": "Confirmación borrado de anuncio",
     "This action is permanent! The advert will be removed": "Esta acción es permanente: El anuncio será completamente eliminado",
 
+    "Reserved": "Reservado",
+    "Sold": "Vendido",
+    "Search adverts": "Buscar anuncios",
+    "Sell & buy": "Compra y benta",
+    "All tags": "Etiquetas",
+    "From price": "Precio desde",
+    "To price": "Precio hasta",
+    
+
+
+
     "DO NOT TOUCH": "AVOID ERRORS IN JSON EDITING WITH LAST comma"
 }

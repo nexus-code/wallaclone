@@ -1,9 +1,13 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import Collapse from 'react-bootstrap/Collapse'
 import './SearchPanel.css';
 
 export default function SearchPanel({ query, tags, advertQuerySet, advertQueryReset }) {
 
+
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
   const types = ['sell', 'buy'];
 
   const handleChange = (event) => {
@@ -20,40 +24,46 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
 
   const handleReset = (event) => advertQueryReset();    
 
-   const handleSubmit = ev => {
+  const handleSubmit = ev => {
 
     ev.preventDefault();
     advertQuerySet(query);
   };
 
   return <>
-      <form className="SearchPanel" onSubmit={handleSubmit}>
-      <div className="SearchPanel__Filters">
-          <input name="name" placeholder="Product name" onChange={handleChange} value={query.name}></input>
+    <button className="searchButton" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open}>{t('Search')}</button>
+    <Collapse className="searchCollapse" in={open}>
+      <form className="searchPanel" onSubmit={handleSubmit}>
+      <div className="searchPanelFilters">
+          <h2>{t('Search adverts')}</h2>
+          <input name="name" placeholder={t('Product name')} onChange={handleChange} value={query.name}></input>
+
           <select name="type" onChange={handleChange} defaultValue={query.type} >
-              <option value="">Search & buy</option>
+            <option value="">{t('Sell & buy')}</option>
             {types &&
               types.map(type =>
-                <option value={type}>{type}</option>
+                <option value={type}>{t(type)}</option>
               )}
           </select>
           <select name="tag" onChange={handleChange} defaultValue={query.tag} >
-            <option value="">All tags</option>
+            <option value="">{t('All tags')}</option>
             {tags &&
               tags.map(tag => 
-                <option value={tag}>{tag}</option>
+                <option value={tag}>{t(tag)}</option>
               )}
           </select>
-          
-        <input name="priceFrom" placeholder="From price" onChange={handleChange} value={query.priceFrom}></input>
-        <input name="priceTo" placeholder="To price" onChange={handleChange} value={query.priceTo}></input>
-        </div>
+
+          <input name="priceFrom" placeholder={t('From price')} onChange={handleChange} value={query.priceFrom}></input>
+        <input name="priceTo" placeholder={t('To price')} onChange={handleChange} value={query.priceTo}></input>
+      </div>
 
 
-        <div className="SearchPanel__Footer">
+        <div className="searchPanelFooter">
           <button type="reset" className="btn btn-outline-secondary" onClick={handleReset}>Reset</button>
-          <button type="submit" className="btn btn-outline-primary">Search</button>
+          <button type="submit" className="btn btn-outline-primary">{t('Search')}</button>
         </div>
       </form>
+    </Collapse>
+
   </>
 }

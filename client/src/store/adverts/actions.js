@@ -202,12 +202,15 @@ const mountAdvertsQuery = query => {
         queryString += (name !== '' && name !== undefined) ? `&name=${name}` : '';
         queryString += (type !== '' && type !== undefined && type !== 'all') ? `&type=${type}` : '';
 
-    let priceString = '&price=';
-        priceString += (priceFrom !== '0' && priceFrom !== undefined) ? `${priceFrom}` : '0';
-        priceString += (priceTo !== '0' && priceTo !== undefined) ? `-${priceTo}` : '';
+    // let priceString = '&price=';
+    //     priceString += (priceFrom !== '0' && priceFrom !== undefined) ? `${priceFrom}` : '0';
+    //     priceString += (priceTo !== '0' && priceTo !== undefined) ? `-${priceTo}` : '';
         
-    queryString += priceString !== '&price=0-0' ? priceString : '';
+    let priceString = '&price=';
+    priceString += (priceFrom !== '0' && priceFrom !== '' && priceFrom !== undefined ) ? `${priceFrom}` : '0';
+    priceString += (priceTo !== '0' && priceTo !== '' && priceTo !== undefined) ? `-${priceTo}` : '';
 
+    queryString += (priceString !== '&price=0-0' && priceString !== '&price=0' )? priceString : '';
 
     return queryString;
 }
