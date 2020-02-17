@@ -198,7 +198,8 @@ advertSchema.statics.select = async function (req) {
 
     if (name) {
         // 3. name   -> Starts with value
-        filter.name = new RegExp('^' + name, "i");
+        // filter.name = new RegExp('/' + name, "i");
+        filter.name = new RegExp(`${name}*`, 'gi');
     }
 
     if (type) {
@@ -256,6 +257,7 @@ advertSchema.statics.select = async function (req) {
         }
     }
 
+    console.log('FILTER: ', filter);
     const adverts = await list({filter, skip, limit, fields, sort});
 
     return adverts;          
