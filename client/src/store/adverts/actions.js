@@ -198,7 +198,7 @@ const mountAdvertsQuery = query => {
     const { tag, name, type, priceFrom, priceTo, sort } = query;
 
     let queryString = '?sort=created'
-        queryString += (tag !== '' || tag !== 'undefined' || tag !== undefined || tag !== 'all') ? `&tags=${tag}` : '';
+        queryString += (tag !== '' && tag !== 'undefined' && tag !== undefined && tag !== 'all') ? `&tags=${tag}` : '';
         queryString += (name !== '' && name !== undefined) ? `&name=${name}` : '';
         queryString += (type !== '' && type !== undefined && type !== 'all') ? `&type=${type}` : '';
 
