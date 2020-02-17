@@ -7,13 +7,13 @@ const advertsLS =  getAdvertsLS();
 // Improve: get tags!
 const initialState = {
     adverts: [] && advertsLS,
-    tags: ['work', 'mobile', 'lifestyle', 'motor', 'EMPTY'],
+    tags: ['work', 'mobile', 'lifestyle', 'motor'],
     query: {
         type: 'all',
         tag: 'all',
         name: '',
-        priceFrom: 0,
-        priceTo: 0,
+        priceFrom: '',
+        priceTo: '',
         str: '',
         sort: {created:1}
     },

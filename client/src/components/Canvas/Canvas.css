@@ -34,16 +34,16 @@
   text-align: center;
 }
 
-form {
+.formContainer form {
   max-width: 500px;
   margin: 0 auto;
 }
 
-form p {
+.formContainer form p {
   color: #bf1650;
 }
 
-form p::before {
+.formContainer form p::before {
   display: inline;
   content: "⚠ ";
 }
