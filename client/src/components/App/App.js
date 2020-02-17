@@ -15,15 +15,27 @@ import RecoverPasswd from '../RecoverPasswd';
 import NotFoundPage from '../404/NotFoundPage';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import Loader from 'react-loader-spinner'
 
+import 'react-toastify/dist/ReactToastify.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 function App({ user, adverts, props }) {
   
   toast.configure(config.toastConfigure);
 
   return <div>
-      <Suspense fallback={(<div>Loading</div>)}>
+    <Suspense fallback={(
+      <div className="text-center">
+        <Loader
+          type="Triangle"
+          color="#1a83a2"
+          height={100}
+          width={100}
+          timeout={3000}
+        />
+      </div>
+    )}>
         <ConfirmProvider>
           <ToastContainer />
           <ErrorBoundary>

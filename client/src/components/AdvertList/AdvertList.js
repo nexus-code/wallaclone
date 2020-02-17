@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Advert from '../Advert/Advert';
-import { useTranslation } from 'react-i18next';
+import Loader from 'react-loader-spinner'
 
 import './advertlist.css';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 // thanks to: https://upmostly.com/tutorials/build-an-infinite-scroll-component-in-react-using-react-hooks
 
 /**
  * 
- * List advert with infinite scroll
+ * List adverts with infinite scroll
  * 
  */
 
 export default function AdvertList({ adverts, loadMoreAdverts }) {
-
-    const { t } = useTranslation();
 
     const [isFetching, setIsFetching] = useState(false);
 
@@ -56,9 +55,17 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
                     &&
                     adverts.map(advert => <Advert advert={advert} key={advert.id} />)
                 }
-
-                {isFetching && 'Fetching more list items...'}
-
+                {
+                    isFetching 
+                    &&
+                    <Loader
+                        type="Triangle"
+                        color="#1a83a2"
+                        height={100}
+                        width={100}
+                        timeout={3000} //3 secs
+                    />
+                }
                 {
                     !adverts
                     &&
