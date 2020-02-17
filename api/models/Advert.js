@@ -72,6 +72,7 @@ advertSchema.pre("find", function () {
  */
 const cote = require('cote');
 
+
 const requesterImageService = (advert) => {
 
     const requester = new cote.Requester({ name: 'wallc.img.requester' });
@@ -267,13 +268,9 @@ advertSchema.statics.select = async function (req) {
 // advertSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list ({filter, skip, limit, fields, sort}) {
     
-    //v1
+
     const query = Advert.find(filter); 
 
-    //v3
-    // const query = Advert.find(filter).populate('owner');
-
-   
     // console.log('       - Query: ', query);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);

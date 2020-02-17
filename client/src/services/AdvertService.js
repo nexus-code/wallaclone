@@ -36,8 +36,6 @@ const searchAdverts = (query) => {
     
     const url = query === 'undefined' || query === undefined || query === '' ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
     
-    console.log('url', url);
-
     return getFetch(`${url}`)
         .then(res => res.result.map(ad => new AdvertModel(ad)))
         .catch(error => console.error('Error:', error));

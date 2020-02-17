@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from "react";
-import { useHistory } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import './social.css';
@@ -8,11 +7,7 @@ import './social.css';
 
 export default function Social() {
     
-    const history = useHistory();
-
-    console.log('history', history);
-    return (
-        <div className="social-container">
+    return <div className="social-container">
             <a className="facebook social" href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`} title="Compartir en Facebook" target="_blank">
                 <FontAwesomeIcon icon={faFacebook} size="2x" />
             </a>
@@ -20,5 +15,4 @@ export default function Social() {
                 <FontAwesomeIcon icon={faTwitter} size="2x" />
             </a>
         </div>
-    );
 } 
