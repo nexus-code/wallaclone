@@ -61,7 +61,7 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
                     adverts.map(advert => <Advert advert={advert} key={advert.id} />)
                 }
 
-                {isFetching && 'Fetching more list items...'}
+                {isFetching && <p className="fetchingOnScroll">Fetching more list items...</p>}
 
                 {
                     !adverts
