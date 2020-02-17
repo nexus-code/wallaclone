@@ -3,17 +3,13 @@ import Canvas from '../Canvas/Canvas';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { getAdvert } from '../../store/adverts/selectors';
-import Social from '../Social/Social'
-
 import { useTranslation } from 'react-i18next';
-import { Button } from 'react-bootstrap';
 // import Button from '@material-ui/core/Button';
+
+import { Button } from 'react-bootstrap';
 import { useConfirm } from 'material-ui-confirm';
-
+import Social from '../Social/Social'
 import { Helmet } from 'react-helmet';
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 
 import './advertdetail.css';
@@ -93,7 +89,6 @@ export default function AdvertDetail({
 
         <div className="container">
             <div className="advert-detail">
-                <FontAwesomeIcon icon={faFacebook} size="2x" />
                 <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} </div>
                 <h1>{advert.name} <span className='badge badge-primary f-right'>{advert.price}€</span></h1>                
                 <img src={advert.image} alt={advert.name} />
@@ -101,12 +96,12 @@ export default function AdvertDetail({
                     <div className="advert-owner">
                         By: {advert.owner.username} { ownerActions }                    
                     </div>
+                    <Social />
                     <div className="advert-info">
                         <p>{advert.description}</p>
                         <p>
                             {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
                         </p>
-                        <Social url={history.location.path} />
                     </div>
 
                     
