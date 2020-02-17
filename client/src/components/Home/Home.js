@@ -8,6 +8,10 @@ function handleSearch() {
     console.log('handleSearch');
 }
 
+/**
+ * Loads intial list of adverts
+ * If refactor to function component use useEffect to avoid infinite fetchs
+ */
 
 export default class Home extends React.Component {
 
@@ -19,22 +23,13 @@ export default class Home extends React.Component {
 
     render() {
 
-        // const { adverts } = this.props; 
-
         return (
             <Canvas>
                 <div className='container mt-5 mb-5'>
                     <SearchPanel handleSearch={handleSearch} />
                 </div>
-                {/* {
-                    adverts
-                    &&
-                    adverts.length
-                    &&
-                    <AdvertList adverts={adverts} />
-                } */}
-                <AdvertList  />
 
+                <AdvertList  />
             </Canvas>
         );
     }

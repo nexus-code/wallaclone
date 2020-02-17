@@ -34,20 +34,16 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
         setIsFetching(true);
     }
 
-    function fetchMoreListItems() {
+    const fetchMoreListItems = async () => {
         
         setIsFetching(true);
 
         setTimeout(() => {            
-            getMoreAdverts();
+            loadMoreAdverts();
             setIsFetching(false);
         }, 1000);
     }
 
-    const getMoreAdverts = async () => {
-
-        loadMoreAdverts();
-    };
 
     return <>
 
