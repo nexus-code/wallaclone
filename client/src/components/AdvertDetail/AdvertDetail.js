@@ -12,6 +12,10 @@ import { useConfirm } from 'material-ui-confirm';
 
 import { Helmet } from 'react-helmet';
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+
+
 import './advertdetail.css';
 
 /**
@@ -19,8 +23,9 @@ import './advertdetail.css';
  * Show selected advert details.
  * loadAdvert fn, find advert on Store or fetch from API
  * Only owner can edit or remove her adverts
- * 
+ *  SEO: Helmet
  */
+
 
 export default function AdvertDetail({ 
         user, 
@@ -41,10 +46,6 @@ export default function AdvertDetail({
     
     const advert = getAdvert(adverts, id);
     const history = useHistory();
-
-    /**
-     * SEO: Helmet
-     */
 
 
     /**
@@ -92,7 +93,7 @@ export default function AdvertDetail({
 
         <div className="container">
             <div className="advert-detail">
-                
+                <FontAwesomeIcon icon={faFacebook} size="2x" />
                 <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} </div>
                 <h1>{advert.name} <span className='badge badge-primary f-right'>{advert.price}€</span></h1>                
                 <img src={advert.image} alt={advert.name} />

@@ -175,7 +175,7 @@ a {
   text-decoration: none!important;
 }
 
-svg {
+#wHeader {
   position: absolute;
   bottom: 0;
   width: 100%;

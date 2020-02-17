@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import i18n from '../../i18n';
@@ -28,9 +29,9 @@ function AppNavbar({ user, logout }) {
     return <>
         <div className="header">
             <a href="/" className="home"><h1>Wallaclone</h1></a>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                <polygon className="svg--sm" fill="white" points="0,0 30,100 65,21 90,100 100,75 100,100 0,100" />
-                <polygon className="svg--lg" fill="white" points="0,0 15,100 33,21 45,100 50,75 55,100 72,20 85,100 95,50 100,80 100,100 0,100" />
+            <svg id="wHeader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <polygon className="svg-header svg--sm" fill="white" points="0,0 30,100 65,21 90,100 100,75 100,100 0,100" />
+                <polygon className="svg-header svg--lg" fill="white" points="0,0 15,100 33,21 45,100 50,75 55,100 72,20 85,100 95,50 100,80 100,100 0,100" />
             </svg>            
             <nav className={`menu-opener ${ menuState }`} onClick={handleMenuClick}>
                 <div className={`menu-opener-inner ${ menuState }`}></div>
