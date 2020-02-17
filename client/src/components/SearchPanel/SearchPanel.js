@@ -11,8 +11,6 @@ import Chip from '@material-ui/core/Chip';
 
 import './SearchPanel.css';
 
-// https://medium.com/@ger86/react-hooks-y-redux-funcionando-juntos-869d2900f0cb
-//  
 
 export default function SearchPanel({ query, tags, advertQuerySet, advertQueryReset }) {
 
@@ -51,11 +49,11 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
     return <>
       <form className="SearchPanel" onSubmit={handleSubmit}>
         <div className="InputSearch">
-          {/* <SearchIcon
+           {/* <SearchIcon
             className={`InputSearch__Icon InputSearch__Icon--start ${
               query.focus ? 'InputSearch__Icon--focus' : ''
             }`}
-          /> */}
+          />  */}
           <input
             id="filter_name"
             name="name"

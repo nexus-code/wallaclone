@@ -103,8 +103,6 @@ export default function AdvertDetail({
                             {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
                         </p>
                     </div>
-
-                    
                 </div>
                 <br />
                 <br />

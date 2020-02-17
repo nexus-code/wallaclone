@@ -12,12 +12,14 @@ const notifyError = () => toast.error('Error on save advert!');
 // const notifyWarning = (warning) => toast.warning(warning);
 
 
+/**
+ * Fetch adverts from API with query stored on state
+ */
 export const fetchAdverts = () => {
 
     async function __fetchAdverts(dispatch, getState, extraArgument) {
 
         const { query } = getState();
-        console.log('---- mac query:', query.str)
 
         dispatch(fetchAdvertsRequest());
         try {
@@ -31,6 +33,11 @@ export const fetchAdverts = () => {
     return __fetchAdverts;
 };
 
+
+/**
+ * Fetch adverts from API with query stored on state
+ * Skip adverts on state jet
+ */
 export const fetchMoreAdverts = () => {
 
     async function __fetchAdverts(dispatch, getState, extraArgument) {
@@ -56,7 +63,7 @@ export const fetchMoreAdverts = () => {
 
 /**
  * 
- * @param {*} id search ad by id in store and API
+ * @param {*} id search an advert by id in store and API
  */
 export const fetchAdvert = id => async (dispatch, getState) => {
 

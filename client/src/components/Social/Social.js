@@ -1,9 +1,8 @@
 /* eslint-disable react/jsx-no-target-blank */
 import React from "react";
 import { useHistory } from 'react-router';
-import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
+import { faFacebook, faTwitter } from "@fortawesome/free-brands-svg-icons";
 import './social.css';
 
 
