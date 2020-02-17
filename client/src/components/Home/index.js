@@ -5,21 +5,15 @@ import { fetchAdverts } from '../../store/adverts/actions';
 
 import Home from './Home';
 
-
-// function mapStateToProps(state) {
-//     return state;
-// }
-
-
 const mapStateToProps = (store, ownProps) => ({
 
     user: getUser(store),
     adverts: getAdverts(store),
 });
 
-const mapDispatchToProps = {
-    loadAdverts: fetchAdverts,
-};
+const mapDispatchToProps = dispatch => ({
+    loadAdverts: () => dispatch(fetchAdverts()),
+});
 
 export default connect(
     mapStateToProps,

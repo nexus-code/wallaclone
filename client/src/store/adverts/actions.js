@@ -116,6 +116,12 @@ export const savedAdvertSuccess = advert => ({
     advert,
 });
 
+/**
+ * 
+ * @param {*} advert 
+ * @param {*} method POST / PUT
+ */
+
 export const saveAdvert = (advert, method) => async (dispatch, getState, { history }) => {
 
     dispatch(savedAdvertRequest(advert));
