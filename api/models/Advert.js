@@ -71,20 +71,22 @@ advertSchema.pre("find", function () {
  * advert image microservice
  */
 const cote = require('cote');
+const requester = new cote.Requester({ name: 'wallc.img.requester' });
 
 
 const requesterImageService = (advert) => {
 
-    const requester = new cote.Requester({ name: 'wallc.img.requester' });
 
-    console.log('wallc.img.requester launched! ', advert.image);
+    console.log('wallc.img.requester called! ', advert.image);
 
-    requester.send({
-        type: 'wallc.image.service',
-        file: advert.image,
-    }, response => {
-            // console.log(`image.service: move & resized ${advert.image} for: ${advert.name} `);
-            console.log('wallc.img.requester response', response);
+    const request = {
+        type: 'wallcImages',
+        image: advert.image,
+    }
+
+    requester.send(request, (error, response) => {
+        console.log('wallc.img.requester response -> ', response);
+        console.log('wallc.img.requester error -> ', error);
     });
 }
 
@@ -97,17 +99,19 @@ const requesterImageService = (advert) => {
 advertSchema.statics.insert = async function (req, next) {
     try {
 
+        const hasFile = req.file !== undefined;
         const data  = req.body;
+        data.image = hasFile ? req.file.filename : '';
 
-        // if(data.imageFile != {}){
-
-        // }
 
         const advert    = new Advert(data);
         const newAdvert = await advert.save();
 
-
         await requesterImageService(newAdvert);
+
+        if (hasFile) {
+            requesterImageService(newAdvert);
+        }
 
         return newAdvert
 
@@ -125,7 +129,7 @@ advertSchema.statics.update = async function (req, next) {
         //  console.log('hasFile: ', req.file, req.file !== undefined);
 
         const data = req.body;
-         data.image = hasFile ? req.file.filename : data.image;
+        data.image = hasFile ? req.file.filename : data.image;
         data.updated = moment();
 
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});

@@ -8,7 +8,7 @@ require('dotenv').config();
  */
 
 const cote = require('cote');
-const responder = new cote.Responder({ name: 'wallc.image.responder' });
+const wallcImageService = new cote.Responder({ name: 'wallc.image.responder' });
 
 const path = require('path');
 const jimp = require('jimp');
@@ -16,26 +16,26 @@ const moveFile = require('move-file');
 
 const imgFolder = path.join(__dirname, process.env.IMG_FOLDER);
 
-responder.on('wallc.image.service', (req, done) => {
-  console.log('wallc.image.service: ', req.file);
+wallcImageService.on('wallcImages', (req, done) => {
+  console.log('wallcImages: ', req.image);
 
-  const from = path.join(__dirname, 'uploads', req.file);
-  const to = path.join(imgFolder, req.file);
-  const toThumb = path.join(imgFolder, 'xs-' + req.file);
-  const toMedium = path.join(imgFolder, 'md-' + req.file);
-
+  const from = path.join(__dirname, 'uploads', req.image);
+  const to = path.join(imgFolder, req.image);
+  const toThumb = path.join(imgFolder, 'xs-' + req.image);
+  const toMedium = path.join(imgFolder, 'md-' + req.image);
   const widths = req.widths.split(',');
 
+  let _return = {status: 'OK'}; 
 
   (async () => {
-    await moveFile(from, to);
-    console.log(`The image ${req.file} has been moved`);
-
 
     try {
+      await moveFile(from, to);
+
+      let _errs = '';
 
       // NOTE.- Refactor to a single function:
-      // create thumbnail image
+      // create xs image
       jimp.read(to)
         .then(img => {
           return img
@@ -43,10 +43,10 @@ responder.on('wallc.image.service', (req, done) => {
             .writeAsync(toThumb);
         })
         .catch(err => {
-          console.error(err);
+          _errs = `Error XS resize: ${err}`
         });
 
-      // create medium image (to front) 
+      // create md image 
       jimp.read(to)
         .then(img => {
           return img
@@ -55,17 +55,17 @@ responder.on('wallc.image.service', (req, done) => {
         })
         .catch(err => {
           console.error(err);
+          _errs = `${_errs}. Error MD resize: ${err}`
+
         });
 
-      console.log(`The image ${req.file} has been resized`, Date.now().toString());
-
+      _return = {status: 'ok'};
 
     } catch (error) {
 
-      console.log('Error on resize', error);
+      _return = { status: 'error', msg:`${_errs}. Error MD resize: ${err}` };
     }
   })();
 
-  done();
-
+  done(_return);
 });
