@@ -3,15 +3,29 @@ import Canvas from '../Canvas/Canvas';
 import AdvertList from '../AdvertList';
 import SearchPanel from '../SearchPanel';
 
-export default function Home({ loadAdverts }) {
+/**
+ * Loads intial list of adverts
+ * Note: If refactor to function component use useEffect to avoid infinite fetchs
+ */
 
-    loadAdverts();
+export default class Home extends React.Component {
 
-    return <Canvas>
-            <div className='container mt-5 mb-5'>
-                <SearchPanel />
-            </div>
+    componentDidMount() {
+        this.loadAdverts();
+    }
 
-            <AdvertList  />
-        </Canvas>
+    loadAdverts = this.props.loadAdverts;
+
+    render() {
+
+        return (
+            <Canvas>
+                <div className='container mt-5 mb-5'>
+                    <SearchPanel />
+                </div>
+
+                <AdvertList  />
+            </Canvas>
+        );
+    }
 }

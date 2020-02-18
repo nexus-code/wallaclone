@@ -91,6 +91,7 @@ const requesterImageService = (advert) => {
 }
 
 
+
 /** 
  * Adverts CRUD Methods
  */
@@ -98,17 +99,19 @@ const requesterImageService = (advert) => {
 advertSchema.statics.insert = async function (req, next) {
     try {
 
+        const hasFile = req.file !== undefined;
         const data  = req.body;
+        data.image = hasFile ? req.file.filename : '';
 
-        // if(data.imageFile != {}){
-
-        // }
 
         const advert    = new Advert(data);
         const newAdvert = await advert.save();
 
-
         await requesterImageService(newAdvert);
+
+        if (hasFile) {
+            requesterImageService(newAdvert);
+        }
 
         return newAdvert
 
@@ -126,7 +129,7 @@ advertSchema.statics.update = async function (req, next) {
         //  console.log('hasFile: ', req.file, req.file !== undefined);
 
         const data = req.body;
-         data.image = hasFile ? req.file.filename : data.image;
+        data.image = hasFile ? req.file.filename : data.image;
         data.updated = moment();
 
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});
@@ -200,7 +203,8 @@ advertSchema.statics.select = async function (req) {
 
     if (name) {
         // 3. name   -> Starts with value
-        filter.name = new RegExp('^' + name, "i");
+        // filter.name = new RegExp('/' + name, "i");
+        filter.name = new RegExp(`${name}*`, 'gi');
     }
 
     if (type) {
@@ -268,13 +272,9 @@ advertSchema.statics.select = async function (req) {
 // advertSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list ({filter, skip, limit, fields, sort}) {
     
-    //v1
+
     const query = Advert.find(filter); 
 
-    //v3
-    // const query = Advert.find(filter).populate('owner');
-
-   
     // console.log('       - Query: ', query);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);

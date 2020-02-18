@@ -29,7 +29,6 @@ export default function AdvertEdit({
     const [imageFile, setImageFile] = useState();
 
     const advert = getAdvert(adverts, id);
-    console.log('advert', advert);
 
     const onEdit = path !== '/advert/create';
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
@@ -65,13 +64,13 @@ export default function AdvertEdit({
         setImageFile(e.target.files[0]); // you get all the files object here
     }
 
-    if (onEdit && advert.owner._id !== user.id) {
-        return <Canvas>
-            <div>
-                <h3><br />404. Elemento no encontrado</h3>
-            </div>
-        </Canvas>
-    }
+    // if (onEdit && advert.owner._id !== user.id) {
+    //     return <Canvas>
+    //         <div>
+    //             <h3><br />404. Elemento no encontrado</h3>
+    //         </div>
+    //     </Canvas>
+    // }
 
     return (
         <Canvas>
@@ -131,7 +130,7 @@ export default function AdvertEdit({
                     {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
                     {/* {!onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />} */}
                     <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
-                    <input type="hidden" name="image" defaultValue={advert.image} ref={register()} />
+                    {/* <input type="hidden" name="image" defaultValue={advert.image} ref={register()} /> */}
 
                     <input type="submit" value={t('Submit')} />
 

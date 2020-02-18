@@ -36,8 +36,6 @@ const searchAdverts = (query) => {
     
     const url = query === 'undefined' || query === undefined || query === '' ? `${API_URL}adverts` : `${API_URL}adverts/?${query}`;
     
-    console.log('url', url);
-
     return getFetch(`${url}`)
         .then(res => res.result.map(ad => new AdvertModel(ad)))
         .catch(error => console.error('Error:', error));
@@ -70,7 +68,6 @@ const searchAdvert = (id) => {
 const savedAdvert = (advert, method, token) => {
 
     const url = `${API_URL}adverts`;
-    console.log('savedAdvert result mac PRE');
 
     // wraps advert data in FormData format
     // must include imageFile to upload it

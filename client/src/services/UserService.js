@@ -80,9 +80,7 @@ const doResetPasswd = (password, recoverKey) => {
 const doUnsuscribe = (user) => {
 
     const url = `${API_URL}unsubscribe`;
-    const data = { id: user.id, token: user.token }
-
-    // console.log('doUnsuscribe', data);
+    // const data = { id: user.id, token: user.token }
 
     return Axios({
         method: 'post',

@@ -25,7 +25,7 @@ wallcImageService.on('wallcImages', (req, done) => {
   const toMedium = path.join(imgFolder, 'md-' + req.image);
   const widths = req.widths.split(',');
 
-  let _return = { status: 'OK' };
+  let _return = {status: 'OK'}; 
 
   (async () => {
 
@@ -59,11 +59,11 @@ wallcImageService.on('wallcImages', (req, done) => {
 
         });
 
-      _return = { status: 'ok' };
+      _return = {status: 'ok'};
 
     } catch (error) {
 
-      _return = { status: 'error', msg: `${_errs}. Error MD resize: ${err}` };
+      _return = { status: 'error', msg:`${_errs}. Error MD resize: ${err}` };
     }
   })();
 
