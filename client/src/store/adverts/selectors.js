@@ -1,4 +1,3 @@
-
 // Mount the query string to send to the API
 export const mountAdvertsQuery = query => {
 
@@ -18,9 +17,10 @@ export const mountAdvertsQuery = query => {
     return queryString;
 }
 
+// adverts from state
 export const getAdverts = state => state.adverts;
 
-
+// advert from state
 export const getAdvert = (adverts, id) => {
 
     try{
@@ -33,12 +33,8 @@ export const getAdvert = (adverts, id) => {
     }
 };
 
-export function getQuery(state) {
-    
-    return state.query;
-}
+// query from state
+export const getQuery = state => state.query;
 
-export function getTags(state) {
-    return state.tags;
-}
-
+// tags fromstate
+export const getTags = state => state.tags;
