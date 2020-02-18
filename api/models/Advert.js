@@ -71,22 +71,24 @@ advertSchema.pre("find", function () {
  * advert image microservice
  */
 const cote = require('cote');
+const requester = new cote.Requester({ name: 'wallc.img.requester' });
+
 
 const requesterImageService = (advert) => {
 
-    const requester = new cote.Requester({ name: 'wallc.img.requester' });
 
-    console.log('wallc.img.requester launched! ', advert.image);
+    console.log('wallc.img.requester called! ', advert.image);
 
-    requester.send({
-        type: 'wallc.image.service',
-        file: advert.image,
-    }, response => {
-            // console.log(`image.service: move & resized ${advert.image} for: ${advert.name} `);
-            console.log('wallc.img.requester response', response);
+    const request = {
+        type: 'wallcImages',
+        image: advert.image,
+    }
+
+    requester.send(request, (error, response) => {
+        console.log('wallc.img.requester response -> ', response);
+        console.log('wallc.img.requester error -> ', error);
     });
 }
-
 
 
 /** 
