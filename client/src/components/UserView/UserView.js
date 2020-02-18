@@ -33,7 +33,7 @@ export default function UserView({
             sort: { created: 1 }
         };
             
-    // On load component
+    // componenDidMount. Only query for username
     useEffect(() => {
 
         const query = {
@@ -44,16 +44,14 @@ export default function UserView({
         advertQuerySet(query);
     }, []);
 
-    const _componentWillUnmount = () => {
-        console.log('Bieee!!!!')
-    }
-
+    // componentWillUnmount. v1: Restore query by default
     useEffect(() => {
-        window.addEventListener('unhandledRejection', _componentWillUnmount());
         return () => {
-            window.removeEventListener('unhandledRejection', _componentWillUnmount());
+
+            // Improve to query reset!
+            advertQuerySet(queryDefault);
         }
-    }, [])
+    }, []);
 
     return <Canvas>
 
