@@ -68,7 +68,6 @@ const searchAdvert = (id) => {
 const savedAdvert = (advert, method, token) => {
 
     const url = `${API_URL}adverts`;
-    console.log('savedAdvert result mac PRE');
 
     // wraps advert data in FormData format
     // must include imageFile to upload it

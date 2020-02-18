@@ -29,7 +29,6 @@ export default function AdvertEdit({
     const [imageFile, setImageFile] = useState();
 
     const advert = getAdvert(adverts, id);
-    console.log('advert', advert);
 
     const onEdit = path !== '/advert/create';
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
