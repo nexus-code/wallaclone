@@ -7,6 +7,7 @@ import Login from '../Login';
 import Search from '../Search';
 import AdEdit from '../AdvertEdit';
 import Register from '../Register';
+import UserView from '../UserView';
 import AdDetail from '../AdvertDetail';
 import ResetPasswd from '../ResetPasswd';
 import * as config from '../../constants';
@@ -50,6 +51,7 @@ function App({ user, adverts, props }) {
                   <Route path='/advert/:param-:id' exact component={ AdDetail } />
                   <Route path='/advert/' exact component={ Search } />
                   <Route path='/home' exact component={ Home } />
+                  <Route path='/:username' exact component={UserView} />
                   <Route path='/' exact component={ Home } />
                   <Route path='*' component={ NotFoundPage } />
                 </Switch>

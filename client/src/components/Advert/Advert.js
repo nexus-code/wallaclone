@@ -27,7 +27,7 @@ export default function Advert(props) {
                 <div className='advert-body'>
                     <Link to={`/advert/${advertSlug}`}><h3>{ advert.name }</h3> </Link>
                     <h2 className='right'><span className='badge badge-primary'>{ advert.price } €</span></h2>                
-                    <p>By: {advert.owner.username}</p>
+                <p>By: <Link to={`${advert.owner.username}`}>{advert.owner.username}</Link></p>
                     <p><Moment durationFromNow date={advert.created} /></p>
                     <p>
                         {

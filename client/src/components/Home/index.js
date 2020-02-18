@@ -5,12 +5,6 @@ import { fetchAdverts } from '../../store/adverts/actions';
 
 import Home from './Home';
 
-
-// function mapStateToProps(state) {
-//     return state;
-// }
-
-
 const mapStateToProps = (store, ownProps) => ({
 
     user: getUser(store),

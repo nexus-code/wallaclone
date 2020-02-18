@@ -21,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
     },
     advertQueryReset: () => {
         dispatch(advertQueryReset());
-        dispatch(fetchAdverts())
+        dispatch(fetchAdverts());
     }
 });
 

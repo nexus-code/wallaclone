@@ -21,11 +21,13 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (!isFetching) return;
         fetchMoreListItems();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isFetching]);
 
     function handleScroll() {

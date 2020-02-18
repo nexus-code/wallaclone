@@ -1,13 +1,13 @@
 // Mount the query string to send to the API
 export const mountAdvertsQuery = query => {
 
-    const { tag, name, type, priceFrom, priceTo, owner, sort } = query;
+    const { tag, name, type, priceFrom, priceTo, username, sort } = query;
 
     let queryString = '?sort=created'
     queryString += (tag !== '' && tag !== 'undefined' && tag !== undefined && tag !== 'all') ? `&tags=${tag}` : '';
     queryString += (name !== '' && name !== undefined) ? `&name=${name}` : '';
     queryString += (type !== '' && type !== undefined && type !== 'all') ? `&type=${type}` : '';
-    queryString += (owner !== '' && owner !== undefined ) ? `&owner=${owner}` : '';
+    queryString += (username !== '' && username !== undefined ) ? `&username=${username}` : '';
 
     let priceString = '&price=';
     priceString += (priceFrom !== '0' && priceFrom !== '' && priceFrom !== undefined) ? `${priceFrom}` : '0';
@@ -36,6 +36,7 @@ export const getAdvert = (adverts, id) => {
 
 // query from state
 export const getQuery = state => state.query;
+
 
 // tags fromstate
 export const getTags = state => state.tags;

@@ -14,7 +14,7 @@ const initialState = {
         name: '',
         priceFrom: '',
         priceTo: '',
-        owner: '',
+        username: '',
         str: '',
         sort: {created:1}
     },
