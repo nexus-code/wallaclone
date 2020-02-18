@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 import Moment from 'react-moment';
 import 'moment-timezone';
 
+import './advert.css';
+
 export default function Advert(props) {
     
     const { t } = useTranslation();
