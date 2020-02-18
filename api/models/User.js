@@ -127,19 +127,37 @@ userSchema.statics.sendEmail = async function (from, to, subject, body) {
  */
 
 
-userSchema.statics.get = async function (id, next) {
+// userSchema.statics.get = async function (id, next) {
+//     try {
+
+
+//         const user = await User.findById(id);
+
+//         return user;
+
+//     } catch (err) {
+
+//         next(err);
+//     }
+// }
+
+/**
+ * @obj must be a { key: value}
+ * Refactored! 20200218
+ */
+userSchema.statics.get = async function (obj) {
     try {
 
-
-        const user = await User.findById(id);
+        // const user = await User.findById(id);
+        const user = await User.findOne(obj);
 
         return user;
 
     } catch (err) {
-
-        next(err);
+        console.log('userSchema.statics.get', err);
     }
 }
+
 
 userSchema.statics.insert = async function (req, next) {
     try {

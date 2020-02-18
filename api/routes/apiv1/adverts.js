@@ -11,6 +11,7 @@ const express = require('express');
 const router  = express.Router();
 const jwtAuth = require('../../lib/jwtAuth');
 const Advert = require('../../models/Advert');
+const User = require('../../models/User');
 
 /**
  * advert Routes
@@ -20,7 +21,7 @@ const Advert = require('../../models/Advert');
 router.get('/', async (req, res, next) => {
     try {
 
-        const adverts = await Advert.select(req);
+        const adverts = await Advert.select(req, next);
 
         res.json({
             status: 200,

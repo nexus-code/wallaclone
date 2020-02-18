@@ -11,6 +11,8 @@
 
 const mongoose = require('mongoose');
 const moment = require('moment');
+const UserModel = require('./User');
+
 
 const advertSchema = mongoose.Schema({
     name: {
@@ -64,7 +66,9 @@ advertSchema.index({ name: 1, type: 1, price: -1, active: 1, created: 1});
 
 advertSchema.pre("find", function () {
 
-    this.populate('owner', { username: 1, language: 1 });
+    // this.populate('owner', { username: 1, language: 1 });
+    this.populate('owner', 'username');
+
 });
 
 /**
@@ -75,7 +79,6 @@ const requester = new cote.Requester({ name: 'wallc.img.requester' });
 
 
 const requesterImageService = (advert) => {
-
 
     console.log('wallc.img.requester called! ', advert.image);
 
@@ -89,8 +92,6 @@ const requesterImageService = (advert) => {
         console.log('wallc.img.requester error -> ', error);
     });
 }
-
-
 
 /** 
  * Adverts CRUD Methods
@@ -174,9 +175,6 @@ advertSchema.statics.tagsList = function () {
 // return query adverts via quey
 advertSchema.statics.select = async function (req) {
 
-    /** 
-     * I move the search filtering to the model to gather all the logic of the class and avoid duplicate code.
-     */   
 
     // params in querystring. Must be objects for mongo. Schema filter 'typeof them'
     const id = req.query.id;
@@ -186,6 +184,8 @@ advertSchema.statics.select = async function (req) {
     const text = req.query.text;
     const tags = req.query.tags;
     const price = req.query.price;
+    const owner = req.query.owner;
+    const username = req.query.username;
     const created = req.query.created;
 
     const skip = parseInt(req.query.skip);
@@ -202,9 +202,16 @@ advertSchema.statics.select = async function (req) {
     }
 
     if (name) {
-        // 3. name   -> Starts with value
-        // filter.name = new RegExp('/' + name, "i");
         filter.name = new RegExp(`${name}*`, 'gi');
+    }
+
+    if (owner) {
+        filter.owner = owner;
+    }
+
+    if (username) {
+        const _owner = await UserModel.get({'username': username});
+        if (_owner) filter.owner = _owner._id;
     }
 
     if (type) {
@@ -269,19 +276,13 @@ advertSchema.statics.select = async function (req) {
 
     
 // return query predefinition
-// advertSchema.statics.list = function ({filter, skip, limit, fields, sort}) {
 function list ({filter, skip, limit, fields, sort}) {
     
-
-    const query = Advert.find(filter); 
-
-    // console.log('       - Query: ', query);
+    const query = Advert.find(filter);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);
     return query.exec();
 };
-
-
 
 const Advert = mongoose.model('Advert', advertSchema);
 

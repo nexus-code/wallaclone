@@ -24,7 +24,7 @@ export default function AdvertEdit({
 
     useEffect(() => {
         loadAdvert(id);
-    }, [loadAdvert]);
+    }, [loadAdvert, id]);
 
     const [imageFile, setImageFile] = useState();
 
@@ -57,20 +57,19 @@ export default function AdvertEdit({
         }
     });
 
-    // const [imageFile, setImageFile] = useState();
 
     const handleChange = (e) => {
         e.persist();
-        setImageFile(e.target.files[0]); // you get all the files object here
+        setImageFile(e.target.files[0]); // gets files object
     }
 
-    // if (onEdit && advert.owner._id !== user.id) {
-    //     return <Canvas>
-    //         <div>
-    //             <h3><br />404. Elemento no encontrado</h3>
-    //         </div>
-    //     </Canvas>
-    // }
+    if (onEdit && advert.owner._id !== user.id) {
+        return <Canvas>
+            <div>
+                <h3><br />404. Elemento no encontrado</h3>
+            </div>
+        </Canvas>
+    }
 
     return (
         <Canvas>
