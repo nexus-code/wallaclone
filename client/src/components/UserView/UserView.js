@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
 import Canvas from '../Canvas/Canvas';
 import AdvertList from '../AdvertList';
 import { useTranslation } from 'react-i18next';
-
 import './userView.css';
 
 /**
@@ -72,13 +72,13 @@ export default function UserView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
-
     return <Canvas>
         <ScrollToTopController />
-        <div className='container mt-5 mb-5 '>
+        <div className='container text-center'>
             <div className='userPanel'>
                 <h2>{t('Adverts by')}: <b>{username}</b></h2>
+                [<Link to="/">Close</Link>]
+                
             </div>
         </div>
 

@@ -1,8 +1,6 @@
 .userPanel {
-    margin: 1rem;    
+    margin: 2rem 0.5rem 1rem 0.5rem;    
     padding: 1rem;    
-    border: 1px solid rgba(0, 0, 0, .3);
-    width: 100%!important;
 }
 
 .userPanel h2 {
@@ -11,4 +9,15 @@
     font-size: 1.25rem;
     font-weight: 400;
     color: var(--primary-color);
+}
+
+.userPanel a{
+    display: inline;
+    padding: 0 2px 0 2px;
+    color: #212529;;
+}
+
+.userPanel a:hover{
+    color: var(--primary-color);
+    text-decoration: none;
 }

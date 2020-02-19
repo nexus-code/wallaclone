@@ -10,8 +10,6 @@
 
 a {
   display: block;
-  /* width: 100%;
-  height: 100%; */
 }
 
 .menu-opener, .menu-opener:hover, .menu-opener.active, .menu-opener-inner, .menu-opener-inner::before, .menu-opener-inner::after, .menu, .menu.active {
