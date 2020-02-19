@@ -42,11 +42,13 @@
   height: 30px;
 }
 .advert-header-sell {
-    color: var(--sell-color)
+    color: var(--sell-color);
+    text-align: left;
 }
 
 .advert-header-buy {
-    color: var(--buy-color)
+    color: var(--buy-color);
+    text-align: left;
 }
 
 .advert-header-sold {
@@ -65,7 +67,6 @@
     font-weight: 800;
     color: #ff9d2f;
     float: right;
-    padding: 4px 20px;
 }
 
 .advert:hover {
