@@ -28,7 +28,7 @@ export default function AdvertEdit({
 
     useEffect(() => {
         loadAdvert(id);
-    }, [loadAdvert, id]);
+    }, [loadAdvert]);
 
     const [imageFile, setImageFile] = useState();
 
@@ -52,19 +52,29 @@ export default function AdvertEdit({
         return saveAdvert(data, method);
     }
 
-    const validator = (field, minLength, maxLength) => ({
-        required: t(field) + ` ${t('is required')}`,
-        minLength: {
-            value: minLength,
-            message: `Min length is ${minLength}`
-        },
-        maxLength: {
-            value: maxLength,
-            message: `Max length is ${maxLength}`
+            
+    const validator = (field, minLength, maxLength) => {
+        
+        const validatorObj = {
+            required: t(field) + ` ${t('is required')}`,
+            // required: true,
+            minLength: {
+                value: minLength,
+                message: `Min length is ${minLength}`
+            },
+            maxLength: {
+                value: maxLength,
+                message: `Max length is ${maxLength}`
+            }
         }
-    });
 
+        if (field === 'price')
+            validatorObj.pattern = '([0-9]{1,3}).([0-9]{1,3})';
 
+        return validatorObj;
+    };
+    
+    
     const handleChange = (e) => {
         e.persist();
         setImageFile(e.target.files[0]); // gets files object
@@ -89,11 +99,10 @@ export default function AdvertEdit({
                     <label>{t('Name')}</label>
                     <input
                         name="name"
-                        placeholder={t('Product name')}
+                        placeholder={t('Product name ')}
                         ref={register(validator('name', 3, 50))}
                     />
                     {errors.name && <p>{errors.name.message}</p>}
-
                     <label>{t('Price')}</label>
                     <input
                         name="price"
@@ -135,9 +144,9 @@ export default function AdvertEdit({
                     {errors.description && <p>{errors.description.message}</p>}
 
                     {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
-                    {/* {!onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />} */}
+                    {!onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />}
                     <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
-                    {/* <input type="hidden" name="image" defaultValue={advert.image} ref={register()} /> */}
+                    <input type="hidden" name="image" defaultValue={advert.image} ref={register()} />
 
                     <input type="submit" value={t('Submit')} />
 

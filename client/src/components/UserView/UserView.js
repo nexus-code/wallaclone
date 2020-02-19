@@ -10,6 +10,24 @@ import './userView.css';
  * 
  */
 
+export const ScrollToTopController = () => {
+    // Scrollo to top whem select an user on home infinite scroll
+    // https://medium.com/@romanonthego/scroll-to-top-with-react-router-and-react-hooks-87ae21785d2f
+    useEffect(() => {
+        try {
+            window.scroll({
+                top: 0,
+                left: 0,
+                behavior: 'smooth',
+            });
+        } catch (error) {
+            window.scrollTo(0, 0);
+        }
+    }, []);
+
+    return null;
+};
+
 export default function UserView({ 
     advertQuerySet,
     props,
@@ -42,6 +60,7 @@ export default function UserView({
         }
 
         advertQuerySet(query);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // componentWillUnmount. v1: Restore query by default
@@ -51,10 +70,11 @@ export default function UserView({
             // Improve to query reset!
             advertQuerySet(queryDefault);
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return <Canvas>
-
+        <ScrollToTopController />
         <div className='container mt-5 mb-5 '>
             <div className='userPanel'>
                 <h2>{t('Adverts by')}: <b>{username}</b></h2>

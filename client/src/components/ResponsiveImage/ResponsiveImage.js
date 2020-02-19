@@ -15,7 +15,7 @@ const imgFormats = [
 export default function ResponsiveImage({src, alt, className}){
 
     return <picture>
-        { imgFormats.map(item => <source media={`(max-width: ${item.width}px)`} srcset={`${path}${item.name}${src}`} />) }
+        {imgFormats.map(item => <source media={`(max-width: ${item.width}px)`} srcSet={`${path}${item.name}${src}`} key={item.width} />) }
         <img src={`${path}${src}`} alt={alt} className={ className } />
     </picture>  
 
