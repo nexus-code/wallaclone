@@ -283,8 +283,6 @@ advertSchema.statics.select = async function (req) {
 // return query predefinition
 function list ({filter, skip, limit, fields, sort}) {
     
-    console.log('filter', filter);
-
     const query = Advert.find(filter);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);
