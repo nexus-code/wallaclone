@@ -85,9 +85,9 @@ const requesterImageService = (advert) => {
     requester.send({
         type: 'image.service',
         file: advert.image,
-        widths: '350,600',//process.env.IMG_AD_SIZES
+        widths: process.env.IMG_ADVERT_SIZES,
     }, response => {
-        console.log(`image.service: move & resized ${advert.image} for: ${advert.name} `);
+            console.log(`image.service for: ${advert.name} : ${response}`);
     });
 }
 

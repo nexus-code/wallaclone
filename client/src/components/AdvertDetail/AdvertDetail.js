@@ -2,13 +2,15 @@ import React, { useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
-import { getAdvert } from '../../store/adverts/selectors';
 import { useTranslation } from 'react-i18next';
+import { getAdvert } from '../../store/adverts/selectors';
+import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareLeft, faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { useConfirm } from 'material-ui-confirm';
 import Social from '../Social/Social'
 import { Helmet } from 'react-helmet';
+
 
 import './advertdetail.css';
 
@@ -90,7 +92,7 @@ export default function AdvertDetail({
             <div className="advert-detail">
                 <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} { goBack('goBackLink right') }</div>
                 <h1>{advert.name} <span className='badge badge-primary f-right'>{advert.price}€</span></h1>                
-                <img src={advert.image} alt={advert.name} />
+                <ResponsiveImage src={advert.image} alt={advert.name}  />
                 <div className={`${advert.type}`}>
                     <div className="advert-owner">
                         By: {advert.owner.username} { ownerActions }                    

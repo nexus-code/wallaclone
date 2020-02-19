@@ -22,7 +22,7 @@ export default function Advert(props) {
         <div key={ advert.id } className={`advert ${advert.type}`}>
             <div className={`advert-header advert-header-${advert.type}`}>{t(advert.type)} {status[advert.status]} </div>
                 <div className='advert-img'>
-                <Link to={advertURI(advert)}><img src={advert.image} alt={advert.name} /></Link>
+                <Link to={advertURI(advert)}><img src={`${process.env.REACT_APP_API_IMAGES}xs-${advert.image}`} alt={advert.name} /></Link>
                 </div>
                 <div className='advert-body'>
                 <Link to={advertURI(advert)}><h3>{ advert.name }</h3> </Link>
