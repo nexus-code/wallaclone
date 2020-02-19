@@ -211,7 +211,12 @@ advertSchema.statics.select = async function (req) {
 
     if (username) {
         const _owner = await UserModel.get({'username': username});
-        if (_owner) filter.owner = _owner._id;
+        
+        if (!_owner) {
+            return []
+        }
+        
+        filter.owner = _owner._id;
     }
 
     if (type) {
@@ -278,6 +283,8 @@ advertSchema.statics.select = async function (req) {
 // return query predefinition
 function list ({filter, skip, limit, fields, sort}) {
     
+    console.log('filter', filter);
+
     const query = Advert.find(filter);
 
     query.skip(skip).limit(limit).select(fields).sort(sort);
