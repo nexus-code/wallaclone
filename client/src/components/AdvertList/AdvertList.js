@@ -48,7 +48,7 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
 
     return <>
 
-        <div className='container'>
+        <div className='container text-center'>
             <div className='advert-grid'>
                 {
                     adverts

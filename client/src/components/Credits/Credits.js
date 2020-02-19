@@ -9,7 +9,7 @@ export default function Credits() {
     
     
     return <Canvas>
-        <div className="container mt-5 mb-5">            
+        <div className="container credits mt-5 mb-5">            
             <h1><span>by</span>Miguel Ángel Cárdenas</h1>
             <a className="social" href="mailto:ma.cardenas@nexuscode.com" title="Contacto">ma.cardenas@nexuscode.com</a>
             <a className="social" href='https://www.linkedin.com/in/miguel-angel-cardenas/' title="Mi perfil" target="_blank">
