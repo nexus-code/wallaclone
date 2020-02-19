@@ -37,7 +37,6 @@ export default function UserView({
     }) {
 
     const { t } = useTranslation();
-
        
     // Improve: Reset state.query
     const queryDefault = {
@@ -72,6 +71,8 @@ export default function UserView({
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+
 
     return <Canvas>
         <ScrollToTopController />

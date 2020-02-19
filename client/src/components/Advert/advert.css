@@ -1,10 +1,10 @@
 
 .badge-primary {
-  color: var(--primary);
+  color: var(--primary-color);
   border-radius: 0px;
   border: none;
   background-color: #fff!important;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid var(--primary-color);
 }
 
 .advert a {

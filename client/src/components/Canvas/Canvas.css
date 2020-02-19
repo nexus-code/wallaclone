@@ -1,8 +1,7 @@
 .main-section {
-  /* margin-top: 260px; */
-  flex: 1;
+  flex: 1 0 auto;
+  min-height: 70vh;
 }
-
 
 .f-right {
   float: right;
@@ -29,7 +28,7 @@
 .register {
 
   padding: 16px;
-  background-color: #ffc800;
+  background-color: var(--logo-color);
   color: #fff;
   text-align: center;
 }
@@ -88,7 +87,7 @@ input[type="submit"] {
 
 input[type="button"]:hover,
 input[type="submit"]:hover {
-  background: #ffc800;
+  background: var(--logo-color);
 }
 
 input[type="button"]:active,
