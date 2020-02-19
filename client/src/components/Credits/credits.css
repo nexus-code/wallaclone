@@ -7,3 +7,8 @@
     margin-bottom: 40px;
 }
 
+.container h1 span{
+    display: block;
+    font-size: 2vh;
+}
+
