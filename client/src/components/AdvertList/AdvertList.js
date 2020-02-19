@@ -60,14 +60,14 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
                 {
                     isFetching 
                     &&
-                    <Loader
-                        type="Triangle"
-                        color="#1a83a2"
-                        height={100}
-                        width={100}
-                        timeout={3000} //3 secs
+                    <Loader                        
+                    type="Triangle"
+                    color="#1a83a2"
+                    height={100}
+                    width={100}
+                    timeout={3000}
                     />
-                }
+                    }
                 {
                     !adverts
                     &&
