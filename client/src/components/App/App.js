@@ -49,8 +49,6 @@ function App({ user, adverts, props }) {
                   <Route path='/recoverpasswd' exact component={ RecoverPasswd } />
                   <Route path='/resetpasswd/:key' exact component={ ResetPasswd } />
                   <Route path='/advert/:param-:id' exact component={ AdDetail } />
-                  <Route path='/advert/' exact component={ Search } />
-                  <Route path='/home' exact component={ Home } />
                   <Route path='/:username' exact component={UserView} />
                   <Route path='/' exact component={ Home } />
                   <Route path='*' component={ NotFoundPage } />
