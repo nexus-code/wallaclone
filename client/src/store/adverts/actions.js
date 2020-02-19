@@ -2,7 +2,7 @@
 import * as TYPES from './types';
 
 import { searchAdvert, searchAdverts, savedAdvert, doRemoveAdvert } from '../../services/AdvertService';
-import { getAdvert, mountAdvertsQuery } from './selectors';
+import { getAdvert, mountAdvertsQuery, advertURI } from './selectors';
 
 import { toast } from 'react-toastify';
 
@@ -127,7 +127,9 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
         const result = await savedAdvert(advert, method, token);
         
         dispatch(savedAdvertSuccess(result));
-        history.push(`/advert/${result.id}`);
+        
+        // history.push(`/advert/${result.name}-${result.id}`);
+        history.push(advertURI(result));
 
         notifySaved();
         return result;

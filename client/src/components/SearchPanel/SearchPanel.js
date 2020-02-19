@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Collapse from 'react-bootstrap/Collapse'
+
 import './SearchPanel.css';
 
 export default function SearchPanel({ query, tags, advertQuerySet, advertQueryReset }) {

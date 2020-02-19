@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import Moment from 'react-moment';
 import 'moment-timezone';
+import { advertURI } from '../../store/adverts/selectors';
 
 import './advert.css';
 
@@ -16,20 +17,17 @@ export default function Advert(props) {
         'reserved': <span className='advert-header-reserved'>{t(advert.status)}</span>,
         '':''
     }
-    const slugify = require('slugify');
-    const advertSlug = `${slugify(advert.name, { replacement: '_', lower: true, remove: /[*+~()_&%{}'"!:@]/g })}-${props.advert.id}`;
-
      
     return <>
         <div key={ advert.id } className={`advert ${advert.type}`}>
             <div className={`advert-header advert-header-${advert.type}`}>{t(advert.type)} {status[advert.status]} </div>
                 <div className='advert-img'>
-                    <Link to={`/advert/${advertSlug}`}><img src={advert.image} alt={advert.name} /></Link>
+                <Link to={advertURI(advert)}><img src={advert.image} alt={advert.name} /></Link>
                 </div>
                 <div className='advert-body'>
-                    <Link to={`/advert/${advertSlug}`}><h3>{ advert.name }</h3> </Link>
+                <Link to={advertURI(advert)}><h3>{ advert.name }</h3> </Link>
                     <h2 className='right'><span className='badge badge-primary'>{ advert.price } €</span></h2>                
-                <p>By: <Link to={`${advert.owner.username}`}>{advert.owner.username}</Link></p>
+                    <p><Link to={`${advert.owner.username}`}>By: {advert.owner.username}</Link></p>
                     <p><Moment durationFromNow date={advert.created} /></p>
                     <p>
                         {

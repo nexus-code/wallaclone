@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
-import { useHistory } from 'react-router';
-
-import { getAdvert } from '../../store/adverts/selectors';
-
+import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
+import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
+import { getAdvert } from '../../store/adverts/selectors';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretSquareLeft } from "@fortawesome/free-regular-svg-icons";
+
+import { advertURI } from '../../store/adverts/selectors';
+
 
 // import TagSelect from '../TagsSelect/TagSelect'
 
@@ -36,6 +40,9 @@ export default function AdvertEdit({
     const history = useHistory();
 
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
+
+    const goBack = (style) => <Link to={advertURI(advert)} className={style} >
+        <FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
 
     const onSubmit = data => {
 
@@ -76,6 +83,7 @@ export default function AdvertEdit({
 
             <div className="formContainer">
                 <h2>{t(pageTitle)}</h2>
+                {onEdit && goBack('goBackLink right')}
 
                 <form onSubmit={handleSubmit(onSubmit)} >
                     <label>{t('Name')}</label>
@@ -136,7 +144,7 @@ export default function AdvertEdit({
                     {onEdit && <input type="button" value={t('Reset')} onClick={() => { reset(advert); }} />}
                 </form>
 
-                {onEdit && <button variant="secondary" className="float-right" onClick={() => history.push(`../${id}`)}>View advert</button>}
+                {onEdit && goBack('goBackLink')}
 
 
                 <br />

@@ -4,13 +4,11 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { getAdvert } from '../../store/adverts/selectors';
 import { useTranslation } from 'react-i18next';
-// import Button from '@material-ui/core/Button';
-
-import { Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretSquareLeft, faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
 import { useConfirm } from 'material-ui-confirm';
 import Social from '../Social/Social'
 import { Helmet } from 'react-helmet';
-
 
 import './advertdetail.css';
 
@@ -19,7 +17,7 @@ import './advertdetail.css';
  * Show selected advert details.
  * loadAdvert fn, find advert on Store or fetch from API
  * Only owner can edit or remove her adverts
- *  SEO: Helmet
+ * SEO: Helmet
  */
 
 
@@ -56,7 +54,8 @@ export default function AdvertDetail({
     };
     ///
 
-    const goBack = <Link to={''} className="icon" onClick={() => history.goBack()}>Go back</Link>
+    const goBack = (style) => <Link to='#' className={style} onClick={() => history.goBack()}>
+        <FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
     
     if (!advert){
         return <Canvas>
@@ -72,8 +71,8 @@ export default function AdvertDetail({
                    
     const  ownerActions  = (user && advert.owner._id === user.id) 
             ?  <><div className="owner-actions">
-                    <Link to={`/advert/edit/${id}`}>{t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <Link to={''} onClick={handleRemove} className="remove">{t('Remove')}</Link>
+            <Link to={`/advert/edit/${id}`}><FontAwesomeIcon icon={faEdit} /> {t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
+                    <Link to={''} onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link>
                 </div>
                 </> : '';
                 
@@ -89,7 +88,7 @@ export default function AdvertDetail({
 
         <div className="container">
             <div className="advert-detail">
-                <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} </div>
+                <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} { goBack('goBackLink right') }</div>
                 <h1>{advert.name} <span className='badge badge-primary f-right'>{advert.price}€</span></h1>                
                 <img src={advert.image} alt={advert.name} />
                 <div className={`${advert.type}`}>
@@ -107,7 +106,7 @@ export default function AdvertDetail({
                 <br />
                 <br />
                 <hr />
-                <Button className='btn btn-dark' onClick={() => history.goBack()}>Go back</Button>
+                {goBack('goBackLink')}
                 <br />
 
                 <br />

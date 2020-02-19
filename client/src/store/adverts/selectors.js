@@ -1,7 +1,7 @@
 // Mount the query string to send to the API
 export const mountAdvertsQuery = query => {
 
-    const { tag, name, type, priceFrom, priceTo, username, sort } = query;
+    const { tag, name, type, priceFrom, priceTo, username } = query;
 
     let queryString = '?sort=created'
     queryString += (tag !== '' && tag !== 'undefined' && tag !== undefined && tag !== 'all') ? `&tags=${tag}` : '';
@@ -40,3 +40,12 @@ export const getQuery = state => state.query;
 
 // tags fromstate
 export const getTags = state => state.tags;
+
+// mount advert URI
+const slugify = require('slugify');
+export const advertURI = (advert) => {
+
+    const slug = `${slugify(advert.name, { replacement: '_', lower: true, remove: /[*+~()_&%{}'"!:@]/g })}-${advert.id}`;
+
+    return `/advert/${slug}`;
+}
