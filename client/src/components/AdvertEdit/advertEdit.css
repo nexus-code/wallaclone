@@ -1,0 +1,62 @@
+/* 
+.container {
+  margin: auto;
+  border: #fff solid 5px;
+  background: #fff;
+} */
+
+.edit-advert h2 {
+  margin: 4vh;
+  text-align: center;
+}
+
+.edit-advert .info{
+  padding-bottom: 32px;
+}
+
+.edit-advert .remove {
+    color: #bf1650;
+    text-align: right;
+    font-size: 2vh;
+    display: block;
+    margin-bottom: 16px;
+}
+
+.edit-advert img {
+  height: 250px;
+  padding: 6px;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  padding: 12px;
+  margin-bottom: 24px;
+  cursor: default;
+  opacity: 100;
+}
+
+.edit-advert .formContainer {
+  margin: 0;
+  right: 0;
+  max-width: 540px;
+}
+
+.edit-advert .formContainer button { margin: 40px 0 20px 10px; width: 45%; border-radius: 0; float: right;}
+
+/* CSS Grid*/
+.edit-advert-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin-bottom: 40px;;
+}
+
+@media only screen and (max-width: 750px) {
+  .edit-advert-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* 
+@media only screen and (min-width: 970px) {
+  .edit-advert-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} */

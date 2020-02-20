@@ -1,0 +1,12 @@
+.advertItem {
+    margin-bottom: 24px;
+    padding-left: 6px;
+}
+
+.advertItem .sell {
+    border-left: 2px solid var(--sell-color)!important;
+}
+
+.advertItem .buy {
+    border-left: 2px solid var(--buy-color);
+}
