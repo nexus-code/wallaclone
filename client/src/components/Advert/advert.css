@@ -8,6 +8,13 @@
   text-shadow: 2px 2px 3px rgba(26,131,162,0.22);
 }
 
+.advert {
+    position: relative;
+    margin: 8px;
+    padding: 8px;
+    border: 1px solid rgba(50, 50, 50, 0.2);
+}
+
 .advert a {
   color: var(--link-color);
   text-decoration: none;
@@ -15,13 +22,6 @@
 
 .advert a:hover  {
   color: #9db0ac;
-}
-
-.advert {
-    position: relative;
-    margin: 8px;
-    padding: 8px;
-    border: 1px solid rgba(50, 50, 50, 0.2);
 }
 
 .advert h3 {
@@ -78,7 +78,13 @@
 }
 
 .advert-img {
-  height: 250px;  
+  height: 250px;
+  padding: 6px;
+  border: 1px solid rgba(50, 50, 50, 0.2);
+  padding: 12px;
+  margin-bottom: 24px;
+  cursor: default;
+  opacity: 100;
 }
 
 .advert .price {

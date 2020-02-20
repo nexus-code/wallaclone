@@ -13,7 +13,7 @@
     "Invalid email address": "Formato de email no válido",
     "English": "Inglés",
     "Spanish": "Español",
-    "Adverts handler": "Gestor de anuncios",
+    "My adverts": "Mis anuncios",
     "Credits": "Créditos",
     "Search": "Buscar",
     "Enter password ONLY to change it": "Introduza contraseña SÓLO para cambiarla",
@@ -28,12 +28,17 @@
 
     "Edit advert": "Editar anuncio",
     "Create advert": "Añadir anuncio",
+    "name": "Nombre",
     "Product name": "Nombre del producto",
     "Price": "Precio",
     "Image": "Foto",
     "Type": "Tipo",
     "sell": "En venta",
     "buy": "Se compra",
+    "reserved": "Reservado",
+    "sold": "Vendido",
+    "advert-edit-instructions": "Instrucciones de utilización: Para crear un anuncio, complete los campos del formulario y pulse ``Enviar´´. Para editar o eliminar un anuncio, selecciónelo del listado. La visualización de las imágenes puede demorarse unos segundos, en función de la red y de la carga del servidor.",
+    
 
     "Insert your": "Indique su",
     "new password": "nueva constraseña",

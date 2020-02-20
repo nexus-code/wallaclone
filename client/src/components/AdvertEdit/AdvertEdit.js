@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import { getAdvert } from '../../store/adverts/selectors';
+import { useConfirm } from 'material-ui-confirm';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretSquareLeft } from "@fortawesome/free-regular-svg-icons";
-
+import { faTrashAlt, faCommentAlt } from "@fortawesome/free-regular-svg-icons";
+import './advertEdit.css';
 
 import AdvertListUser from '../AdvertListUser';
 
@@ -16,9 +17,15 @@ import AdvertListUser from '../AdvertListUser';
  * 
  */
 
- // import TagSelect from '../TagsSelect/TagSelect'
+// import TagSelect from '../TagsSelect/TagSelect'
 
- // Initialize
+
+const loadImage = image => <div>
+    { image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' /> }
+    { !image && 'Without image!' }
+</div>
+
+// Initialize
 // Improve: Reset state.query
 const queryDefault = {
     type: 'all',
@@ -37,13 +44,15 @@ export default function AdvertEdit({
     advertQuerySet,
     saveAdvert,
     adverts,
+    removeAdvert,
     match: {
         params: { id },
         path
     },
-    }) {
-
+}) {
     const { t } = useTranslation();
+
+    const createAdvertLink = (style) => <Link to='/' className={style} > {t('Create advert')}</Link>
 
     // componenDidMount. loads the adverts of the current user
     useEffect(() => {
@@ -71,7 +80,6 @@ export default function AdvertEdit({
         adverts.length
         &&
         setAdvert(getAdvert(adverts, id));
-        
     }, [adverts, id]);
     
           
@@ -79,15 +87,35 @@ export default function AdvertEdit({
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
     const method = onEdit ? 'PUT' : 'POST';
     
-    const [imageFile, setImageFile] = useState();
+    const [imageFile, setImageFile] = useState();   //form field to upload image
+    const [advertImage, setAdvertImage] = useState();   //image name stored in advert
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
-    // loads advert on form with reset function (provided from form)
+    // loads advert on form with reset function (provided from react-hook-form)
     useEffect(() => {        
-        advert && reset(advert)
+        if(advert) {
+            reset(advert);
+            setAdvertImage(advert.image);
+            console.log('image', advert.image)
+        }
     }, [advert, reset]);
 
-    const goBack = (style) => <Link to='/' className={style} ><FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
+
+
+    /**
+     * Remove advert method
+     */
+    const confirm = useConfirm();
+    const title = t('Confirm to remove advert');
+    const msg = t('This action is permanent! The advert will be removed');
+    const handleRemove = () => {
+        confirm({ title, description: msg })
+            .then(() => { removeAdvert(id) });
+    };
+
+    /**
+     * Save advert methods
+     */
 
     const onSubmit = data => {
 
@@ -127,79 +155,80 @@ export default function AdvertEdit({
     return (
         <Canvas>
 
-            <div className="container">
+            <div className="container edit-advert">
                 <h2>{t(pageTitle)}</h2>
-                {onEdit && goBack('goBackLink right')}
-                
-                <div>
-                    <AdvertListUser />
+                { onEdit && createAdvertLink }
+                <div className="edit-advert info">
+                    {t('advert-edit-instructions')} <FontAwesomeIcon icon={faCommentAlt} />
                 </div>
-                <div className="formContainer">
-                <form onSubmit={handleSubmit(onSubmit)} >
-                    <label>{t('Name')}</label>
-                    <input
-                        name="name"
-                        placeholder={t('Product name ')}
-                        ref={register(validator('name', 3, 50))}
-                    />
-                    {errors.name && <p>{errors.name.message}</p>}
-                    <label>{t('Price')}</label>
-                    <input
-                        name="price"
-                        placeholder={t('Product price')}
-                        ref={register(validator('price', 3, 25))}
-                    />
-                    {errors.price && <p>{errors.price.message}</p>}
 
-                    <label>{t('Image')}</label>
-                    <input
-                        type="file"
-                        name="imageFile"
-                        placeholder={t('Product image')}
-                        onChange={handleChange}
-                    />
-                    {errors.imageFile && <p>{errors.imageFile.message}</p>}
+                <div className='edit-advert-grid'>
+                    <div>
+                        <AdvertListUser />
+                    </div>
+                    <div className="edit-advert formContainer">
+                        { onEdit && <div className="remove"><Link to='#' onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link></div> }
+                        { onEdit && loadImage(advertImage) }
+                        <form onSubmit={handleSubmit(onSubmit)} >
+                            <label>{t('Name')}</label>
+                            <input
+                                name="name"
+                                placeholder={t('Product name ')}
+                                ref={register(validator('name', 3, 50))}
+                            />
+                            {errors.name && <p>{errors.name.message}</p>}
+                            <label>{t('Price')}</label>
+                            <input
+                                name="price"
+                                placeholder={t('Price')}
+                                ref={register(validator('price', 3, 25))}
+                            />
+                            {errors.price && <p>{errors.price.message}</p>}
 
-                    <label>{t('Type')}</label>
-                    <select ref={register} name="type">
-                        <option value="sell">{t('Sell')}</option>
-                        <option value="buy">{t('Buy')}</option>
-                    </select>
+                            <label>{t('Image')}</label>
+                            <input
+                                type="file"
+                                name="imageFile"
+                                placeholder={t('Product image')}
+                                onChange={handleChange}
+                            />
+                            {errors.imageFile && <p>{errors.imageFile.message}</p>}
 
-                    <label>{t('Status')}</label>
-                    <select ref={register} name="status">
-                        <option value="">{t('select')}</option>
-                        <option value="reserved">{t('Reserved')}</option>
-                        <option value="sold">{t('Sold')}</option>
-                    </select>
+                            <label>{t('Type')}</label>
+                            <select ref={register} name="type">
+                                <option value="sell">{t('Sell')}</option>
+                                <option value="buy">{t('Buy')}</option>
+                            </select>
 
-                    {/* <label>{t('Tags')}</label> */}
+                            <label>{t('Status')}</label>
+                            <select ref={register} name="status">
+                                <option value="">{t('select')}</option>
+                                <option value="reserved">{t('Reserved')}</option>
+                                <option value="sold">{t('Sold')}</option>
+                            </select>
 
-                    <label>{t('Description')}</label>
-                    <textarea
-                        name="description"
-                        placeholder={t('Product description')}
-                        ref={register(validator('description', 3, 250))}
-                    />
-                    {errors.description && <p>{errors.description.message}</p>}
+                            {/* <label>{t('Tags')}</label> */}
 
-                    {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
-                    {!onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />}
-                    <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
-                    {/* <input type="hidden" name="image" defaultValue={advert.image} ref={register()} /> */}
+                            <label>{t('Description')}</label>
+                            <textarea
+                                name="description"
+                                placeholder={t('Product description')}
+                                ref={register(validator('description', 3, 250))}
+                            />
+                            {errors.description && <p>{errors.description.message}</p>}
 
-                    <input type="submit" value={t('Submit')} />
-
-                    {onEdit && <input type="button" value={t('Reset')} onClick={() => { reset(advert); }} />}
-                </form>
-
-                {onEdit && goBack('goBackLink')}
+                            { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
+                            { !onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} /> }
+                            <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
+                            { onEdit && <input type="hidden" name="image" defaultValue={advertImage} ref={register()} /> }
 
 
-                <br />
-                <hr />
-                <br />
+                            <button type="submit" className="btn btn-outline-primary">{t('Submit')}</button>
+                            <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); }}>{t('Reset')}</button>
 
+                        </form>
+
+                    </div>
                 </div>
             </div>
         </Canvas>

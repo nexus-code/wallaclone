@@ -13,7 +13,7 @@
     "Invalid email address": "Invalid email address",
     "English": "English",
     "Spanish": "Spanish",
-    "Adverts handler": "Adverts handler",
+    "My adverts": "My adverts",
     "Credits": "Credits",
     "Search": "Search",
     "Enter password ONLY to change it": "Enter password ONLY to change it",
@@ -28,6 +28,7 @@
 
     "Edit advert": "Edit advert",
     "Create advert": "Create advert",
+    "name": "name",
     "Product name": "Product name",
     "Price": "Price",
     "Image": "Image",
@@ -35,6 +36,9 @@
     
     "sell": "sell",
     "buy": "buy",
+    "reserved": "Reserved",
+    "sold": "Sold",
+    "advert-edit-instructions": "Instructions for use: To create an advertisement, fill in the fields of the form and press ``Send´´ . To edit or delete an advertisement, select it from the list. The visualization of the images can take a few seconds, depending on the network and the server load.",
 
     "Insert your": "Insert your",
     "new password": "new password",

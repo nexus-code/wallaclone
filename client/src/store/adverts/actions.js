@@ -127,9 +127,6 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
         
         dispatch(savedAdvertSuccess(result));
         
-        // history.push(`/advert/${result.name}-${result.id}`);
-        history.push(advertURI(result));
-
         notifySaved();
         return result;
 

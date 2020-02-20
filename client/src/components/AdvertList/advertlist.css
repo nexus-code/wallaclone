@@ -1,17 +1,15 @@
 
 .container {
   margin: auto;
-  border: #fff solid 5px;
   background: #fff;
 }
 
 
-/* mak images fill their container*/
 img {
   max-width: 100%;
 }
 img:hover {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: pointer;
 }
 
@@ -19,7 +17,7 @@ img:hover {
 .advert-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  grid-gap: 5px;
+  gap: 5px;
 }
 
 @media only screen and (min-width: 750px) {

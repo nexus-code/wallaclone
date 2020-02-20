@@ -46,7 +46,7 @@ function AppNavbar({ user, logout }) {
                                 <li>{t('My profile')}</li>
                             </Link>
                             <Link to="/advert/edit" className="menu-link">
-                                <li>{t('Adverts handler')}</li>
+                                <li>{t('My adverts')}</li>
                             </Link>
                             <Link to="#" onClick={handleLogout} className="menu-link">
                                 <li>{t('Logout')}</li>

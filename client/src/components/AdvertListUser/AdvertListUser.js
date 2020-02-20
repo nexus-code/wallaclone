@@ -1,25 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-regular-svg-icons";
+import { useTranslation } from 'react-i18next';
 
+import './advertListUser.css';
 /**
  * 
  * List adverts to edit
+ * Used on AdvertEdit
  * 
  */
 const AdvertItem = props => {
+    const { t } = useTranslation();
 
     const { advert } = props;
+    const params = useParams()
 
-    return <div key={advert.id}>
-        <Link to={advert.id}>{advert.name} </Link>
-         {advert.type}  | {advert.status}<br/>
+
+    const baseUrl = params.id === undefined ? 'edit/' : '../edit/';
+
+    return <div className={`advertItem ${advert.type}`} key={advert.id}>
+        <Link to={`${baseUrl}${advert.id}`}><FontAwesomeIcon icon={faEdit} /> {advert.name} </Link>
+        {t(advert.status)}  
+        <br/>
     </div>
 }
 
-
 export default function AdvertListUser({ adverts }) {
-
 
     return <>
         {
