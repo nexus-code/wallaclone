@@ -1,5 +1,4 @@
 .social-container {
-  padding-left: 50px;
   display: inline-block !important;
 }
 a.social {
@@ -11,7 +10,7 @@ a.social {
 }
 
 a.social {
-  color: #212529;
+  color: var(--link-color);
 }
 
 a.social:hover {

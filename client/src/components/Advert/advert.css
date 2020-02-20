@@ -9,7 +9,7 @@
 }
 
 .advert a {
-  color: #3F4444;
+  color: var(--link-color);
   text-decoration: none;
 }
 

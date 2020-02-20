@@ -10,7 +10,8 @@ import { faCaretSquareLeft, faEdit, faTrashAlt } from "@fortawesome/free-regular
 import { useConfirm } from 'material-ui-confirm';
 import Social from '../Social/Social'
 import { Helmet } from 'react-helmet';
-
+import Moment from 'react-moment';
+import 'moment-timezone';
 
 import './advertdetail.css';
 
@@ -72,11 +73,11 @@ export default function AdvertDetail({
 
                    
     const  ownerActions  = (user && advert.owner._id === user.id) 
-            ?  <><div className="owner-actions">
-            <Link to={`/advert/edit/${id}`}><FontAwesomeIcon icon={faEdit} /> {t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
+            ?  <div className="owner-actions">
+                    <Link to={`/advert/edit/${id}`}><FontAwesomeIcon icon={faEdit} /> {t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
                     <Link to={''} onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link>
-                </div>
-                </> : '';
+                </div> 
+            : '';
                 
     const status = advert.status === '' ? '' : <span className='advert-status'>  {t(advert.status)}  </span>;
 
@@ -94,11 +95,13 @@ export default function AdvertDetail({
                 <h1>{advert.name} <span className='badge badge-primary f-right'>{advert.price}€</span></h1>                
                 <ResponsiveImage src={advert.image} alt={advert.name}  />
                 <div className={`${advert.type}`}>
-                    <div className="advert-owner">
-                        By: {advert.owner.username} { ownerActions }                    
-                    </div>
-                    <Social />
                     <div className="advert-info">
+                        <Social />
+                        <p className="advert-owner">
+                            <Link to={`../${advert.owner.username}`}>By: {advert.owner.username}</Link>
+                        </p>
+                        { ownerActions }   
+                        <p><Moment durationFromNow date={advert.created} /></p>
                         <p>{advert.description}</p>
                         <p>
                             {advert.tags && advert.tags.map(tag => <span className='badge badge-secondary p-2 mr-2' key={tag}> {tag} </span>)}
