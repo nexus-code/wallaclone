@@ -15,7 +15,7 @@ const mapStateToProps = (store, ownProps) => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    advertQuerySet: (query) => { 
+    advertQuerySet: query => { 
         dispatch(advertQuerySet(query)); 
         dispatch(fetchAdverts())
     },

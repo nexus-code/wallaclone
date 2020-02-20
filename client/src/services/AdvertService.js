@@ -121,15 +121,6 @@ const doRemoveAdvert = (id, token) => {
     const url = `${API_URL}removeadvert/`;
     const data = { data: id, token }
 
-    console.log('doRemoveAdvert', data)
-
-    // const config = {
-    //     headers: {
-    //         'Authorization': `Bearer  ${token}`,
-    //         'Access-Control-Allow-Origin': '*',
-    //     }
-    // };
-
     return Axios({
         method: 'post',
         url,

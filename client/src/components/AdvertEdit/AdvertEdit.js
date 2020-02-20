@@ -7,9 +7,9 @@ import { getAdvert } from '../../store/adverts/selectors';
 import { useConfirm } from 'material-ui-confirm';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCommentAlt } from "@fortawesome/free-regular-svg-icons";
-import './advertEdit.css';
-
 import AdvertListUser from '../AdvertListUser';
+
+import './advertEdit.css';
 
 /**
  * 
@@ -17,34 +17,13 @@ import AdvertListUser from '../AdvertListUser';
  * 
  */
 
-// import TagSelect from '../TagsSelect/TagSelect'
-
-
-const loadImage = image => <div>
-    { image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' /> }
-    { !image && 'Without image!' }
-</div>
-
-// Initialize
-// Improve: Reset state.query
-const queryDefault = {
-    type: 'all',
-    tag: 'all',
-    name: '',
-    priceFrom: '',
-    priceTo: '',
-    username: '',
-    str: '',
-    sort: { created: 1 }
-};
-
-
 export default function AdvertEdit({
     user,
     advertQuerySet,
     saveAdvert,
     adverts,
     removeAdvert,
+    loadAdverts,
     match: {
         params: { id },
         path
@@ -52,7 +31,25 @@ export default function AdvertEdit({
 }) {
     const { t } = useTranslation();
 
-    const createAdvertLink = (style) => <Link to='/' className={style} > {t('Create advert')}</Link>
+    // Initialize
+    // Improve: Reset state.query
+    const queryDefault = {
+        type: 'all',
+        tag: 'all',
+        name: '',
+        priceFrom: '',
+        priceTo: '',
+        username: user.username,
+        str: '',
+        sort: { created: 1 }
+    };
+
+    const createAdvertLink = style => <Link to='/' className={style} > {t('Create advert')}</Link>
+
+    const loadImage = image => <div>
+        {image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' />}
+        {/* { !image && 'Without image!' } */}
+    </div>
 
     // componenDidMount. loads the adverts of the current user
     useEffect(() => {
@@ -68,7 +65,7 @@ export default function AdvertEdit({
     
     // componentWillUnmount. v1: Restore query by default. Improve to query reset!
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect( () => { return async () => { await advertQuerySet(queryDefault); }}, []);
+    useEffect( () => { return async () => { advertQuerySet(queryDefault); }}, []);
     
     
     const [advert, setAdvert] = useState({});
@@ -96,11 +93,17 @@ export default function AdvertEdit({
         if(advert) {
             reset(advert);
             setAdvertImage(advert.image);
-            console.log('image', advert.image)
         }
     }, [advert, reset]);
 
 
+    const reLoadAdverts = async () => {
+
+        setTimeout(() => {
+            reset({});
+            loadAdverts();
+        }, 1000);
+    }
 
     /**
      * Remove advert method
@@ -110,7 +113,10 @@ export default function AdvertEdit({
     const msg = t('This action is permanent! The advert will be removed');
     const handleRemove = () => {
         confirm({ title, description: msg })
-            .then(() => { removeAdvert(id) });
+            .then(() => { 
+                removeAdvert(id);
+                reLoadAdverts();
+            });
     };
 
     /**
@@ -121,7 +127,11 @@ export default function AdvertEdit({
 
         // must include imageFile to upload it
         data.imageFile = imageFile;
-        return saveAdvert(data, method);
+
+        // return saveAdvert(data, method);
+        const newAdvert = saveAdvert(data, method);
+        reLoadAdverts();
+        return newAdvert;
     }
 
             
@@ -154,7 +164,6 @@ export default function AdvertEdit({
 
     return (
         <Canvas>
-
             <div className="container edit-advert">
                 <h2>{t(pageTitle)}</h2>
                 { onEdit && createAdvertLink }
@@ -217,9 +226,9 @@ export default function AdvertEdit({
                             />
                             {errors.description && <p>{errors.description.message}</p>}
 
-                            { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
-                            { !onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} /> }
                             <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
+                            {/* { !onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} /> } */}
+                            { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
                             { onEdit && <input type="hidden" name="image" defaultValue={advertImage} ref={register()} /> }
 
 

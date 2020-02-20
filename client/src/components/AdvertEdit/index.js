@@ -13,12 +13,13 @@ const mapStateToProps = (store, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
     
-    advertQuerySet: async (query) => {
+    advertQuerySet: query => {
         dispatch(advertQuerySet(query));
         dispatch(fetchAdverts());
     },
     saveAdvert: (advert, method) => dispatch(saveAdvert(advert, method)),
-    removeAdvert: (id) => dispatch(removeAdvert(id)),
+    loadAdverts: () => dispatch(fetchAdverts()),
+    removeAdvert: id => dispatch(removeAdvert(id)),
 });
 
 export default connect(
