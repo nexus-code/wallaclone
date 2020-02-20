@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-
 import { getUser } from '../../store/user/selectors';
 import { getAdverts } from '../../store/adverts/selectors';
-import { fetchAdvert, saveAdvert } from '../../store/adverts/actions';
+import { fetchAdverts, advertQuerySet, saveAdvert } from '../../store/adverts/actions';
 
 import AdvertEdit from './AdvertEdit';
 
@@ -14,7 +13,10 @@ const mapStateToProps = (store, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
     
-    loadAdvert: (id) => dispatch(fetchAdvert(id)),
+    advertQuerySet: async (query) => {
+        dispatch(advertQuerySet(query));
+        dispatch(fetchAdverts());
+    },
     saveAdvert: (advert, method) => dispatch(saveAdvert(advert, method)),
 });
 

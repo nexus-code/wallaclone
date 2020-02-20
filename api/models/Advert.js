@@ -32,8 +32,8 @@ const advertSchema = mongoose.Schema({
         ref: "User"
     },
     price: {
-        type: Number,
         require: true,
+        type: Number,
         min: 0,
     },
     image: {

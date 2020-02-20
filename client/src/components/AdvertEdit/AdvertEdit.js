@@ -2,22 +2,41 @@ import React, { useState, useEffect } from "react";
 import Canvas from '../Canvas/Canvas';
 import { Link } from 'react-router-dom';
 import { useForm } from "react-hook-form";
-import { useHistory } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { getAdvert } from '../../store/adverts/selectors';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretSquareLeft } from "@fortawesome/free-regular-svg-icons";
 
-import { advertURI } from '../../store/adverts/selectors';
 
+import AdvertListUser from '../AdvertListUser';
 
-// import TagSelect from '../TagsSelect/TagSelect'
+/**
+ * 
+ * Current user adverts handler
+ * 
+ */
+
+ // import TagSelect from '../TagsSelect/TagSelect'
+
+ // Initialize
+// Improve: Reset state.query
+const queryDefault = {
+    type: 'all',
+    tag: 'all',
+    name: '',
+    priceFrom: '',
+    priceTo: '',
+    username: '',
+    str: '',
+    sort: { created: 1 }
+};
+
 
 export default function AdvertEdit({
     user,
-    adverts,
-    loadAdvert,
+    advertQuerySet,
     saveAdvert,
+    adverts,
     match: {
         params: { id },
         path
@@ -26,22 +45,46 @@ export default function AdvertEdit({
 
     const { t } = useTranslation();
 
+    // componenDidMount. loads the adverts of the current user
     useEffect(() => {
-        loadAdvert(id);
-    }, [loadAdvert]);
 
-    const [imageFile, setImageFile] = useState();
+        const query = {
+            ...queryDefault,
+            username: user.username,
+        }
 
-    const advert = getAdvert(adverts, id);
-
+        advertQuerySet(query);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+    
+    // componentWillUnmount. v1: Restore query by default. Improve to query reset!
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect( () => { return async () => { await advertQuerySet(queryDefault); }}, []);
+    
+    
+    const [advert, setAdvert] = useState();
+    
+    useEffect(() => {
+        
+        adverts
+        &&
+        adverts.length
+        &&
+        setAdvert(getAdvert(adverts, id));
+        
+    }, [id]);
+    
+    console.log('advert', advert);
+    // console.log('advert', advert.id);
+    
     const onEdit = path !== '/advert/create';
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
     const method = onEdit ? 'PUT' : 'POST';
-    const history = useHistory();
-
+    
+    const [imageFile, setImageFile] = useState();
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
-    const goBack = (style) => <Link to={advertURI(advert)} className={style} >
+    const goBack = (style) => <Link to='/' className={style} >
         <FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
 
     const onSubmit = data => {
@@ -80,21 +123,27 @@ export default function AdvertEdit({
         setImageFile(e.target.files[0]); // gets files object
     }
 
-    if (onEdit && advert.owner._id !== user.id) {
-        return <Canvas>
-            <div>
-                <h3><br />404. Elemento no encontrado</h3>
-            </div>
-        </Canvas>
-    }
+    // if (onEdit && advert.owner._id !== user.id) {
+    //     return <Canvas>
+    //         <div>
+    //             <h3><br />404. Elemento no encontrado</h3>
+    //         </div>
+    //     </Canvas>
+    // }
 
     return (
         <Canvas>
 
-            <div className="formContainer">
+            <div className="container">
                 <h2>{t(pageTitle)}</h2>
                 {onEdit && goBack('goBackLink right')}
+                
+                <div>
+                    {/* <ListUserAdverts /> */}
+                    <AdvertListUser />
 
+                </div>
+                <div className="formContainer">
                 <form onSubmit={handleSubmit(onSubmit)} >
                     <label>{t('Name')}</label>
                     <input
@@ -146,7 +195,7 @@ export default function AdvertEdit({
                     {onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} />}
                     {!onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />}
                     <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
-                    <input type="hidden" name="image" defaultValue={advert.image} ref={register()} />
+                    {/* <input type="hidden" name="image" defaultValue={advert.image} ref={register()} /> */}
 
                     <input type="submit" value={t('Submit')} />
 
@@ -160,6 +209,7 @@ export default function AdvertEdit({
                 <hr />
                 <br />
 
+                </div>
             </div>
         </Canvas>
     );

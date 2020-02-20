@@ -14,7 +14,7 @@ const mapStateToProps = (store, ownProps) => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    loadAdverts: () => dispatch(fetchAdverts()),
+    // loadAdverts: () => dispatch(fetchAdverts()),
     loadMoreAdverts: () => dispatch(fetchMoreAdverts()),
 });
 

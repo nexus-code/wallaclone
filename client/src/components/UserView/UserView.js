@@ -14,7 +14,6 @@ import './userView.css';
 
 export default function UserView({ 
     advertQuerySet,
-    props,
     match: {
         params: { username },
         },
@@ -46,11 +45,9 @@ export default function UserView({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // componentWillUnmount. v1: Restore query by default
+    // componentWillUnmount. v1: Restore query by default. Improve to query reset!
     useEffect(() => {
         return () => {
-
-            // Improve to query reset!
             advertQuerySet(queryDefault);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

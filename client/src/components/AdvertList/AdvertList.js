@@ -72,7 +72,7 @@ export default function AdvertList({ adverts, loadMoreAdverts }) {
                     !adverts
                     &&
                     <div className='text-center mt-5'>
-                        <h2>No advertisements found</h2>
+                        <h2>404: No advertisements found</h2>
                     </div>
                 }
             </div>

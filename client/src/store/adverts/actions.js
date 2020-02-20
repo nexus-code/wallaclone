@@ -71,16 +71,8 @@ export const fetchAdvert = id => async (dispatch, getState) => {
 
     if (advert) {
 
-        console.log(' advert on store', state)
-        console.log(' advert on store', state)
-        console.log(' advert on store', state)
         return advert;
     }
-
-    console.log(' NO  advert on store', state)
-    console.log(' NO  advert on store', state)
-    console.log(' NO  advert on store', state)
-
 
     dispatch(fetchAdvertsRequest());
     try {

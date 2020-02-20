@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-
 import { fetchAdverts, advertQuerySet } from '../../store/adverts/actions';
 
 import UserView from './UserView';
