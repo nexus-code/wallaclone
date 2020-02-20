@@ -96,25 +96,49 @@ const savedAdvert = (advert, method, token) => {
  * @param {*} token
  * 
  */
+// const doRemoveAdvert = (id, token) => {
+
+//     const url = `${API_URL}removeadvert/`;
+//     const data = { data: id, token }
+
+//     console.log('doRemoveAdvert',data)
+
+//     const config = {
+//         headers: {
+//             'Authorization': `Bearer  ${token}`,
+//             'Access-Control-Allow-Origin': '*',
+//         }
+//     };
+
+//     return Axios.post(url, data, config).then(
+//         res => res.data.success,
+//     );
+
+// }
+
 const doRemoveAdvert = (id, token) => {
 
     const url = `${API_URL}removeadvert/`;
     const data = { data: id, token }
 
-    console.log('doRemoveAdvert',data)
+    console.log('doRemoveAdvert', data)
 
-    const config = {
-        headers: {
-            'Authorization': `Bearer  ${token}`,
-            'Access-Control-Allow-Origin': '*',
-        }
-    };
+    // const config = {
+    //     headers: {
+    //         'Authorization': `Bearer  ${token}`,
+    //         'Access-Control-Allow-Origin': '*',
+    //     }
+    // };
 
-    return Axios.post(url, data, config).then(
+    return Axios({
+        method: 'post',
+        url,
+        data,
+    }).then(
         res => res.data.success,
     );
-
 }
+
 
 export {
     getTagsList,

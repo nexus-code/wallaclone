@@ -171,7 +171,6 @@ export const removeAdvert = (advert) => async (dispatch, getState, { history }) 
         dispatch(removeAdvertSuccess());
 
         notifyRemoved();
-        history.push("/");
 
     } catch (error) {
 

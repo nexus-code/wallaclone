@@ -6,20 +6,19 @@ import { useTranslation } from 'react-i18next';
 import { getAdvert } from '../../store/adverts/selectors';
 import ResponsiveImage from '../ResponsiveImage/ResponsiveImage';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretSquareLeft, faEdit, faTrashAlt } from "@fortawesome/free-regular-svg-icons";
-import { useConfirm } from 'material-ui-confirm';
+import { faCaretSquareLeft } from "@fortawesome/free-regular-svg-icons";
 import Social from '../Social/Social'
 import { Helmet } from 'react-helmet';
 import Moment from 'react-moment';
 import 'moment-timezone';
 import ScrollToTopController from "../ScrollToTopController/ScrollToTopController";
+
 import './advertdetail.css';
 
 /**
  * 
  * Show selected advert details.
  * loadAdvert fn, find advert on Store or fetch from API
- * Only owner can edit or remove her adverts
  * SEO: Helmet
  */
 
@@ -43,41 +42,17 @@ export default function AdvertDetail({
     const advert = getAdvert(adverts, id);
     const history = useHistory();
 
-
-    /**
-     * Unsuscribe
-     */
-    const confirm = useConfirm();
-    const title = t('Confirm to remove advert');
-    const msg = t('This action is permanent! The advert will be removed');
-    const handleRemove = () => {
-        confirm({ title, description: msg })
-            .then(() => { removeAdvert(id) });
-    };
-    ///
-
     const goBack = (style) => <Link to='#' className={style} onClick={() => history.goBack()}>
         <FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
     
     if (!advert){
         return <Canvas>
                 <div>
-                    <h3>
-                        <br />404. Elemento no encontrado
-                        
-                    </h3>
+                    <h3><br />404. Elemento no encontrado</h3>
                 </div>
             </Canvas>
     }
 
-                   
-    const  ownerActions  = (user && advert.owner._id === user.id) 
-            ?  <div className="owner-actions">
-                    <Link to={`/advert/edit/${id}`}><FontAwesomeIcon icon={faEdit} /> {t('Edit')}</Link>&nbsp;&nbsp;|&nbsp;&nbsp;
-                    <Link to={''} onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link>
-                </div> 
-            : '';
-                
     const status = advert.status === '' ? '' : <span className='advert-status'>  {t(advert.status)}  </span>;
 
     return <Canvas>
@@ -101,7 +76,6 @@ export default function AdvertDetail({
                         <p className="advert-owner">
                             <Link to={`../${advert.owner.username}`}>By: {advert.owner.username}</Link>
                         </p>
-                        { ownerActions }   
                         <p><Moment durationFromNow date={advert.created} /></p>
                         <p>{advert.description}</p>
                         <p>
