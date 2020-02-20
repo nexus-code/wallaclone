@@ -40,21 +40,21 @@ function App({ user, adverts, props }) {
         <ConfirmProvider>
           <ToastContainer />
           <ErrorBoundary>
-                <Switch>
-                  <Route path='/register' exact component={ Register } />
-                  <Route path="/login" exact component={ Login } />
-                  <Route path='/credits' exact component={ Credits } />
-                  <PrivateRoute path="/profile" exact component={ Register } />
-                  <PrivateRoute path='/advert/create' exact component={ AdEdit } />
-                  <PrivateRoute path='/advert/edit/:id' exact component={ AdEdit } />
-                  <Route path='/recoverpasswd' exact component={ RecoverPasswd } />
-                  <Route path='/resetpasswd/:key' exact component={ ResetPasswd } />
-                  <Route path='/advert/:param-:id' exact component={ AdDetail } />
-                  <Route path='/advert' exact component={ Home } />
-                  <Route path='/:username' exact component={UserView} />
-                  <Route path='/' exact component={ Home } />
-                  <Route path='*' component={ NotFoundPage } />
-                </Switch>
+              <Switch>
+                <Route path='/register' exact component={ Register } />
+                <Route path="/login" exact component={ Login } />
+                <Route path='/credits' exact component={ Credits } />
+                <PrivateRoute path="/profile" exact component={ Register } />
+                <PrivateRoute path='/advert/edit/:id' exact component={ AdEdit } />
+                <PrivateRoute path='/advert/edit/' exact component={ AdEdit } />
+                <Route path='/recoverpasswd' exact component={ RecoverPasswd } />
+                <Route path='/resetpasswd/:key' exact component={ ResetPasswd } />
+                <Route path='/advert/:param-:id' exact component={ AdDetail } />
+                <Route path='/advert' exact component={ Home } />
+                <Route path='/:username' exact component={UserView} />
+                <Route path='/' exact component={ Home } />
+                <Route path='*' component={ NotFoundPage } />
+              </Switch>
           </ErrorBoundary>
         </ConfirmProvider>
       </Suspense>

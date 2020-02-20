@@ -1,6 +1,6 @@
 {
     "Register user" : "Register user",
-    "Edit profile": "Edit profile",
+    "My profile": "My profile",
     "Username": "Username",
     "Password": "Password",
     "Email": "Email",
@@ -13,7 +13,8 @@
     "Invalid email address": "Invalid email address",
     "English": "English",
     "Spanish": "Spanish",
-    "New advert": "New advert",
+    "Adverts handler": "Adverts handler",
+    "Credits": "Credits",
     "Search": "Search",
     "Enter password ONLY to change it": "Enter password ONLY to change it",
     "New password": "New password",

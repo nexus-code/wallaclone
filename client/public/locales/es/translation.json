@@ -1,6 +1,6 @@
 {
     "Register user": "Registro de usuario",
-    "Edit profile": "Editar perfil",
+    "My profile": "Mi perfil",
     "Username": "Nombre de usuario",
     "Password": "Contraseña",
     "Email": "Email",
@@ -13,7 +13,8 @@
     "Invalid email address": "Formato de email no válido",
     "English": "Inglés",
     "Spanish": "Español",
-    "New advert": "Añadir anuncio",
+    "Adverts handler": "Gestor de anuncios",
+    "Credits": "Créditos",
     "Search": "Buscar",
     "Enter password ONLY to change it": "Introduza contraseña SÓLO para cambiarla",
     "New password": "Nueva contraseña",

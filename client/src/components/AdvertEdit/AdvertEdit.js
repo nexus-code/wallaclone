@@ -74,22 +74,20 @@ export default function AdvertEdit({
         
     }, [adverts, id]);
     
-    console.log('advert', advert);
-   
-    
-    const onEdit = path !== '/advert/create';
+          
+    const onEdit = id !== undefined;  // Edit when have an advert to did
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
     const method = onEdit ? 'PUT' : 'POST';
     
     const [imageFile, setImageFile] = useState();
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
-    useEffect(() => {
+    // loads advert on form with reset function (provided from form)
+    useEffect(() => {        
         advert && reset(advert)
     }, [advert, reset]);
 
-    const goBack = (style) => <Link to='/' className={style} >
-        <FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
+    const goBack = (style) => <Link to='/' className={style} ><FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
 
     const onSubmit = data => {
 
@@ -116,7 +114,7 @@ export default function AdvertEdit({
         }
 
         if (field === 'price')
-            validatorObj.pattern = '([0-9]{1,3}).([0-9]{1,3})';
+            validatorObj.pattern = '/^\d*\.?\d*$/';
 
         return validatorObj;
     };
@@ -127,14 +125,6 @@ export default function AdvertEdit({
         setImageFile(e.target.files[0]); // gets files object
     }
 
-    // if (onEdit && advert.owner._id !== user.id) {
-    //     return <Canvas>
-    //         <div>
-    //             <h3><br />404. Elemento no encontrado</h3>
-    //         </div>
-    //     </Canvas>
-    // }
-
     return (
         <Canvas>
 
@@ -143,9 +133,7 @@ export default function AdvertEdit({
                 {onEdit && goBack('goBackLink right')}
                 
                 <div>
-                    {/* <ListUserAdverts /> */}
                     <AdvertListUser />
-
                 </div>
                 <div className="formContainer">
                 <form onSubmit={handleSubmit(onSubmit)} >

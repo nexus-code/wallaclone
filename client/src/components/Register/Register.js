@@ -20,7 +20,7 @@ export default function Register({ user, setUser, logout, unsubscribe }) {
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: user });
 
     const onEdit = typeof (user) === 'undefined' ? false : true;
-    const pageTitle = onEdit ? 'Edit profile' : 'Register user';
+    const pageTitle = onEdit ? 'My profile' : 'Register user';
     const method = onEdit ? 'PUT' : 'POST';
         
     
