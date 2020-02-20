@@ -93,7 +93,6 @@ export default function AdvertEdit({
 
         // must include imageFile to upload it
         data.imageFile = imageFile;
-
         return saveAdvert(data, method);
     }
 
