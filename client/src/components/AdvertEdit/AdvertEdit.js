@@ -62,7 +62,7 @@ export default function AdvertEdit({
     useEffect( () => { return async () => { await advertQuerySet(queryDefault); }}, []);
     
     
-    const [advert, setAdvert] = useState();
+    const [advert, setAdvert] = useState({});
     
     useEffect(() => {
         
@@ -72,10 +72,10 @@ export default function AdvertEdit({
         &&
         setAdvert(getAdvert(adverts, id));
         
-    }, [id]);
+    }, [adverts, id]);
     
     console.log('advert', advert);
-    // console.log('advert', advert.id);
+   
     
     const onEdit = path !== '/advert/create';
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
@@ -83,6 +83,10 @@ export default function AdvertEdit({
     
     const [imageFile, setImageFile] = useState();
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
+
+    useEffect(() => {
+        advert && reset(advert)
+    }, [advert, reset]);
 
     const goBack = (style) => <Link to='/' className={style} >
         <FontAwesomeIcon icon={faCaretSquareLeft} /> {t('Go back')}</Link>
