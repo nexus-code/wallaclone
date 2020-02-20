@@ -43,14 +43,14 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
             <option value="">{t('Sell & buy')}</option>
             {types &&
               types.map(type =>
-                <option value={type}>{t(type)}</option>
+                <option value={type} key={type}>{t(type)}</option>
               )}
           </select>
           <select name="tag" onChange={handleChange} defaultValue={query.tag} >
             <option value="">{t('All tags')}</option>
             {tags &&
               tags.map(tag => 
-                <option value={tag}>{t(tag)}</option>
+                <option value={tag} key={tag}>{t(tag)}</option>
               )}
           </select>
 

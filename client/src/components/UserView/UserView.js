@@ -3,30 +3,14 @@ import { Link } from 'react-router-dom';
 import Canvas from '../Canvas/Canvas';
 import AdvertList from '../AdvertList';
 import { useTranslation } from 'react-i18next';
+import ScrollToTopController from "../ScrollToTopController/ScrollToTopController";
+
 import './userView.css';
 
 /**
  * Loads @username adverts
  * 
  */
-
-export const ScrollToTopController = () => {
-    // Scrollo to top whem select an user on home infinite scroll
-    // https://medium.com/@romanonthego/scroll-to-top-with-react-router-and-react-hooks-87ae21785d2f
-    useEffect(() => {
-        try {
-            window.scroll({
-                top: 0,
-                left: 0,
-                behavior: 'smooth',
-            });
-        } catch (error) {
-            window.scrollTo(0, 0);
-        }
-    }, []);
-
-    return null;
-};
 
 export default function UserView({ 
     advertQuerySet,

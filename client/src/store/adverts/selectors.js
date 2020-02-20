@@ -18,10 +18,10 @@ export const mountAdvertsQuery = query => {
     return queryString;
 }
 
-// adverts from state
+// return advers from state
 export const getAdverts = state => state.adverts;
 
-// advert from state
+// return advert from state
 export const getAdvert = (adverts, id) => {
 
     try{
@@ -29,8 +29,8 @@ export const getAdvert = (adverts, id) => {
         return adverts.filter(advert => advert.id === id)[0];
     }
     catch(err){
-        
-        return;// 'error? state.adverts.adverts';
+
+        return;
     }
 };
 

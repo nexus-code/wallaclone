@@ -12,7 +12,7 @@ import Social from '../Social/Social'
 import { Helmet } from 'react-helmet';
 import Moment from 'react-moment';
 import 'moment-timezone';
-
+import ScrollToTopController from "../ScrollToTopController/ScrollToTopController";
 import './advertdetail.css';
 
 /**
@@ -22,7 +22,6 @@ import './advertdetail.css';
  * Only owner can edit or remove her adverts
  * SEO: Helmet
  */
-
 
 export default function AdvertDetail({ 
         user, 
@@ -89,6 +88,8 @@ export default function AdvertDetail({
             <meta name="keywords" content={advert.tags && advert.tags.map(tag => `${tag},`)} />
         </Helmet>
 
+        <ScrollToTopController />
+        
         <div className="container">
             <div className="advert-detail">
                 <div className={`advert-header advert-header-${advert.type}`}>{status} {t(advert.type)} { goBack('goBackLink right') }</div>

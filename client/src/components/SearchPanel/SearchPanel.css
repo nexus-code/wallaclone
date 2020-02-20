@@ -40,7 +40,7 @@
 }
 
 .searchPanelFooter button:first-child { margin-right: .5rem; }
-.searchPanelFooter button { width: 50% }
+.searchPanelFooter button { width: 50%; border-radius: 0; }
 
 @media only screen and (min-device-width : 640px) {
     .searchPanelFilters { grid-template-columns: 1fr 1fr; }
@@ -57,4 +57,5 @@
     border-bottom: 1px solid rgba(0, 0, 0, .3);
     color: black;
     outline: none;
+    background-color: #fff;
 }
