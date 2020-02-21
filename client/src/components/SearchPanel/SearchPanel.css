@@ -1,16 +1,19 @@
+.searchButtonContainer {
+    display: grid;
+    justify-content: center;
+}
 
-.searchButton {
+.searchButtonContainer button {
     background-color: #fff;
     border: 1px solid  rgba(0, 0, 0, .3);
     color: var(--primary-color);
-    float: right;
     padding: 4px 12px;
-    margin-right: 0.6rem;
+    width: 300px;
 }
 
 .searchPanel {
     padding: 2rem;    
-    margin: 2rem 1rem 1rem 0.5rem;  
+    margin: 0 1rem 1rem 0.5rem;  
     border: 1px solid rgba(0, 0, 0, .3);
     max-width: 1140px;
 }

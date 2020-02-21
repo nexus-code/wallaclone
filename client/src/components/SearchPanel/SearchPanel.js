@@ -54,7 +54,9 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
   }
 
   return <>
-    <button className="searchButton" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open}>{t('Search')}</button>
+    <div className="searchButtonContainer">
+      <button onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open}>{t('Search')}</button>
+    </div>
     <Collapse className="searchCollapse" in={open}>
       <form className="searchPanel" onSubmit={handleSubmit}>
       <div className="searchPanelFilters">
