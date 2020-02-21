@@ -55,7 +55,8 @@ const advertSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        minlength: 0,
+        require: true,
+        minlength: 15,
         maxlength: 500,
     },
     created: { type: Date, default: Date.now },

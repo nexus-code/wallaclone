@@ -14,13 +14,16 @@ const Advert = require('../../models/Advert');
 const User = require('../../models/User');
 const { query, param, body } = require('express-validator');
 
+const { check, validationResult } = require('express-validator/check');
+
+const blacklistHard = '/$€.+¡!*(),\\[\\]\'";/¿?:@=&<>#%{}|^~'; //characters excludes in params
+const blacklistSoft = '/$*()\\[\\]\'"/@=&<>#{}|^~'; //characters excludes in params
 /**
  * advert Routes
  */
 
 // GET /adverts -> List adverts
 router.get('/', 
-
     [
         query('name').optional().isLength({ min: 20, max: 30 }).withMessage('debe estar entre 1 y 30 carácteres'),
         query('skip').optional().isInt({ gt: 0 }).withMessage('debe ser un numero entero mayor que 0'),
@@ -36,7 +39,6 @@ router.get('/',
             return result;
         }).withMessage('debe ser numérico'),
     ]
-
     , async (req, res, next) => {
     try {
 
@@ -53,34 +55,58 @@ router.get('/',
 });
 
 // POST /adverts -> Insert an advert
-router.post('/', jwtAuth(), [
-    body('name').isLength({ min: 1, max: 30 }).withMessage('debe estar entre 1 y 30 carácteres'),
-    body('description').optional().isLength({ min: 0, max: 100 }).withMessage('debe estar entre 0 y 100 carácteres'),
-    body('price').isNumeric().withMessage('debe ser numérico'),
-    body('photo').exists().withMessage('es obligatorio indicar una foto'),
-    ],
-    async (req, res, next) => {
-    try {
+// router.post('/', jwtAuth(), [
+//     body('owner').isMongoId().withMessage('Mandatory. ID format'),
+//     body('name').isLength({ min: 1, max: 30 }).withMessage('Mandatory. String. Between 1 & 30 characters'),
+//     body('type').isLength({ min: 1, max: 30 }).withMessage('Mandatory. String. Between 1 & 30 characters'),
+//     body('description').exists().isLength({ min: 0, max: 100 }).withMessage('Mandatory. String. Between 1 & 500 characters'),
+//     body('price').isNumeric().withMessage('Mandatory. Integer.'),
+//     body('imageFile').exists().isMimeType().withMessage('Mandatory. Valid formats: image/png,image/jpg,image/jpeg'),
+//     ],
 
-        // req.body.image = typeof req.file === 'undefined' ? '' : req.file.filename;
+router.post('/', jwtAuth(), 
+    check('name').isLength({ min: 5, max: 30 }).withMessage('Mandatory. String. Between 5 and 30 no special characters'),
+    check('price').isInt({ gt: 0, lt: 10000000 }).withMessage('Mandatory. Int Between 1 and 10000000'),
+    // check('type').matches('sell', 'buy').withMessage('Type must be sell or buy'),
+    check('description').isLength({ min: 5, max: 250 }).withMessage('Mandatory. String. Between 5 and 250 characters'),
+
+    [
+        body('name').trim().blacklist(blacklistHard),
+        body('owner').isMongoId().withMessage('Mandatory. ID format'),
+        body('description').trim().blacklist(blacklistSoft),
+        body('imageFile').exists().isMimeType().withMessage('Mandatory. Valid formats: image/png,image/jpg,image/jpeg'),
         
-        const savedAdvert = await Advert.insert(req, next);
+    ]
+    ,async (req, res, next) => {
 
-        res.json({
-            status: 200,
-            result: savedAdvert
-        }); // API output
-
-    } catch (err) {
-        next(err);
-    }
+        var err = validationResult(req);
+        if (!err.isEmpty()) {
+            res.json({
+                status: 400,
+                error: err
+            });
+            
+        } else {
+            // validation & sanitation passed
+            try {
+        
+                const savedAdvert = await Advert.insert(req, next);
+        
+                res.json({
+                    status: 200,
+                    result: savedAdvert
+                }); // API output
+        
+            } catch (err) {
+                next(err);
+            }
+        }
 });
 
 
 // PUT /adverts Update advert by req.body.id
 router.put('/', jwtAuth(), async (req, res, next) => {
     try {
-
 
         const savedAdvert = await Advert.update(req, next);
 
