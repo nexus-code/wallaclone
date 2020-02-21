@@ -7,6 +7,9 @@ import { getAdvert } from '../../store/adverts/selectors';
 import { useConfirm } from 'material-ui-confirm';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCommentAlt } from "@fortawesome/free-regular-svg-icons";
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
+
 import AdvertListUser from '../AdvertListUser';
 
 import './advertEdit.css';
@@ -23,6 +26,7 @@ export default function AdvertEdit({
     advertQuerySet,
     saveAdvert,
     adverts,
+    tags,
     removeAdvert,
     loadAdverts,
     match: {
@@ -87,6 +91,8 @@ export default function AdvertEdit({
     
     const [imageFile, setImageFile] = useState();   //form field to upload image
     const [advertImage, setAdvertImage] = useState();   //image name stored in advert
+    const [advertTags, setAdvertTags] = useState();   //tags stored in advert
+        
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
     // loads advert on form with reset function (provided from react-hook-form)
@@ -94,6 +100,11 @@ export default function AdvertEdit({
         if(advert) {
             reset(advert);
             setAdvertImage(advert.image);
+            
+            const auxTags = [{ label: 'motor', value: 'motor' }];//advert.tags && advert.tags.map(tag => ({ label: tag, value: tag }))
+            
+            console.log('advertTags', auxTags);
+            setAdvertTags(auxTags);
         }
     }, [advert, reset]);
 
@@ -129,6 +140,10 @@ export default function AdvertEdit({
         // must include imageFile to upload it
         data.imageFile = imageFile;
 
+        console.log('onSubmit', data);
+        return;
+
+
         // return saveAdvert(data, method);
         const newAdvert = saveAdvert(data, method);
         reLoadAdverts();
@@ -158,10 +173,19 @@ export default function AdvertEdit({
     };
     
     
-    const handleChange = (e) => {
+    const handleImageChange = (e) => {
         e.persist();
         setImageFile(e.target.files[0]); // gets files object
     }
+
+
+    const handleSelectChange = (e) => {
+
+        const t = e.map(opt => opt.value)
+        setAdvertTags(t);
+    }
+
+    const animatedComponents = makeAnimated(); //for Select tags
 
     return (
         <Canvas>
@@ -200,7 +224,7 @@ export default function AdvertEdit({
                                 type="file"
                                 name="imageFile"
                                 placeholder={t('Product image')}
-                                onChange={handleChange}
+                                onChange={handleImageChange}
                             />
                             {errors.imageFile && <p>{errors.imageFile.message}</p>}
 
@@ -217,7 +241,18 @@ export default function AdvertEdit({
                                 <option value="sold">{t('Sold')}</option>
                             </select>
 
-                            {/* <label>{t('Tags')}</label> */}
+                            <label>{t('Tags')}</label>
+                            <Select
+                                isMulti
+                                closeMenuOnSelect={false}
+                                components={animatedComponents}
+                                onChange={handleSelectChange}
+                                options={tags.map(tag => ({ label: tag, value: tag }))}
+                                // // defaultValue={[{ label: 'motor', value: 'motor' }, { label: 'mobile', value: 'mobile' }]}
+                                // defaultValue={advertTags && advertTags.map(tag => ({ label: tag, value: tag }))}
+                                defaultValue={ advertTags }
+                            />
+
 
                             <label>{t('Description')}</label>
                             <textarea

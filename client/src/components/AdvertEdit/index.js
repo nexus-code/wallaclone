@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { getUser } from '../../store/user/selectors';
-import { getAdverts } from '../../store/adverts/selectors';
+import { getAdverts, getTags } from '../../store/adverts/selectors';
 import { fetchAdverts, advertQuerySet, saveAdvert, removeAdvert } from '../../store/adverts/actions';
 
 import AdvertEdit from './AdvertEdit';
@@ -9,6 +9,7 @@ const mapStateToProps = store => ({
 
     user: getUser(store),
     adverts: getAdverts(store),
+    tags: getTags(store),
 })
 
 const mapDispatchToProps = dispatch => ({
