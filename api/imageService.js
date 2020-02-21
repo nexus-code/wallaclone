@@ -36,7 +36,7 @@ responder.on('image.service', (req, done) => {
       console.log(`The image ${req.file} has been moved`);
 
       imgFormats.forEach( item => {
-
+        
         const { name, width } = item;
 
         jimp.read(destiny)

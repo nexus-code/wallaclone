@@ -80,8 +80,6 @@ const requesterImageService = (advert) => {
 
     const requester = new cote.Requester({ name: 'image.requester' });
 
-    console.log('requesterImageService');
-
     requester.send({
         type: 'image.service',
         file: advert.image,

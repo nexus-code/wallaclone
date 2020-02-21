@@ -1,17 +1,12 @@
-var createError  = require('http-errors');
-var express      = require('express');
-var path         = require('path');
-var logger       = require('morgan');
-var cookieParser = require('cookie-parser');
+const createError  = require('http-errors');
+const express      = require('express');
+const path         = require('path');
+const logger       = require('morgan');
+const cookieParser = require('cookie-parser');
 const helmet     = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss        = require('xss-clean');
-var bodyParser   = require('body-parser');
-/**
- * upload ad images with multer
- * https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
- */
-
+const bodyParser   = require('body-parser');
 const slugify = require('slugify');
 const multer = require('multer');
 
@@ -68,9 +63,9 @@ app.use(mongoSanitize());
 app.use(xss());
 ///
 
-// view engine setup 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// view engine setup CLOSE
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 ///
 
 app.use(logger('dev'));
@@ -83,7 +78,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-
 /**
  * Setup i18n READY
  */
@@ -92,16 +86,11 @@ app.use(i18n.init);
 
 
 /**
- * Var list to render
+ * Var list to render 
  */
-app.locals.title = 'Wallaclone';
-app.locals.app_root = `${process.env.APP_ROOT}:${process.env.PORT}/`;
+// app.locals.title = 'Wallaclone';
+// app.locals.app_root = `${process.env.APP_ROOT}:${process.env.PORT}/`;
 
-/**
- * DB connection
- */
-
-require('./lib/connectMongoose');
 
 /**
  * Routes
@@ -116,6 +105,18 @@ app.use((req, res, next) => {
   next();
 });
 
+
+/**
+ * DB connection
+ */
+
+require('./lib/connectMongoose');
+
+/**
+ * Validation
+ */
+
+
 // API authenticate with JWT
 const jwtAuth = require('./lib/jwtAuth');
 
@@ -124,14 +125,24 @@ const recoverPasswdController = require('./routes/recoverPasswdController');
 const unsubscribeController = require('./routes/unsubscribeController');
 const removeAdvertController = require('./routes/removeAdvertController');
 
+//const userController = require('./routes/userController');
+const { check, oneOf, validationResult } = require('express-validator');
 
 app.use('/apiv1/users', require('./routes/apiv1/users'));
 
-app.use('/apiv1/login', loginController.login);
+app.use('/apiv1/login', [
+  check('username').exists(),
+  check('password').exists()
+], loginController.login);
+
+
 app.use('/apiv1/recoverpasswd', recoverPasswdController.recover);
 app.use('/apiv1/resetpasswd', recoverPasswdController.reset);
 app.use('/apiv1/unsubscribe', jwtAuth(), unsubscribeController.do);
-// app.use('/apiv1/unsubscribe', unsubscribeController.do);
+
+
+
+
 
 app.use('/apiv1/adverts', upload.single('imageFile'), require('./routes/apiv1/adverts'));
 // app.use('/apiv1/removeadvert', jwtAuth(), removeAdvertController.do);
@@ -170,10 +181,10 @@ app.use(function (err, req, res, next) {
 
   if (isAPI(req)) {
     
-    console.log('\r\n\r\nAPI ERRs file\r\n', req.file);
-    console.log('\r\n\r\nAPI ERRs body\r\n', req.body);
-    console.log('\r\n\r\nAPI ERRs status\r\n', err.status);
-    console.log('\r\n\r\nAPI ERRs message\r\n', err.message);
+    console.log('\r\n\r\nAPI ERRs file:\r\n', req.file);
+    console.log('\r\n\r\nAPI ERRs body:\r\n', req.body);
+    console.log('\r\n\r\nAPI ERRs status:\r\n', err.status);
+    console.log('\r\n\r\nAPI ERRs message:\r\n', err.message);
     
     res.json({
       status: err.status || 500,
@@ -192,6 +203,6 @@ app.use(function (err, req, res, next) {
 });
 
 
-const isAPI = req => req.originalUrl.indexOf('/api') === 0;
+const isAPI = req => req.originalUrl.indexOf('/apiv1') === 0;
 
 module.exports = app;
