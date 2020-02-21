@@ -10,7 +10,8 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 
 /**
  * 
- * List adverts with infinite scroll
+ * List adverts. 
+ * Load more adverts with infinite scroll.
  * 
  */
 

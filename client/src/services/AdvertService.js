@@ -72,12 +72,13 @@ const savedAdvert = (advert, method, token) => {
     // wraps advert data in FormData format
     // must include imageFile to upload it
     // font:  https://github.com/axios/axios/issues/2002#issuecomment-562841806 
-    // body-parser on server needed 
+    // body-parser required in API 
+    
     const data = new FormData();
     Object.keys(advert).forEach(key => { data.append(key, advert[key]) });
 
     return Axios({
-    // const result = Axios({
+    
         method, 
         url, 
         data, 

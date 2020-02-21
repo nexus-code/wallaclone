@@ -5,7 +5,7 @@ import { fetchAdverts, advertQuerySet, saveAdvert, removeAdvert } from '../../st
 
 import AdvertEdit from './AdvertEdit';
 
-const mapStateToProps = (store, ownProps) => ({
+const mapStateToProps = store => ({
 
     user: getUser(store),
     adverts: getAdverts(store),

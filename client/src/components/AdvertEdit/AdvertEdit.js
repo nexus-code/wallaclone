@@ -13,7 +13,8 @@ import './advertEdit.css';
 
 /**
  * 
- * Current user adverts handler
+ * Current user adverts handler: Allows CRUD methods
+ * List all his adverts quering by username
  * 
  */
 
@@ -44,11 +45,11 @@ export default function AdvertEdit({
         sort: { created: 1 }
     };
 
-    const createAdvertLink = style => <Link to='/' className={style} > {t('Create advert')}</Link>
+    const createAdvertLink = () => <Link to='../edit' className='createLink' >{t('Create advert')}</Link>;
 
     const loadImage = image => <div>
         {image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' />}
-        {/* { !image && 'Without image!' } */}
+        { !image && 'Without image!' }
     </div>
 
     // componenDidMount. loads the adverts of the current user
@@ -63,7 +64,7 @@ export default function AdvertEdit({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
-    // componentWillUnmount. v1: Restore query by default. Improve to query reset!
+    // componentWillUnmount. v1: Restore query by default
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect( () => { return async () => { advertQuerySet(queryDefault); }}, []);
     
@@ -97,7 +98,7 @@ export default function AdvertEdit({
     }, [advert, reset]);
 
 
-    const reLoadAdverts = async () => {
+    const reLoadAdverts = () => {
 
         setTimeout(() => {
             reset({});
@@ -166,7 +167,7 @@ export default function AdvertEdit({
         <Canvas>
             <div className="container edit-advert">
                 <h2>{t(pageTitle)}</h2>
-                { onEdit && createAdvertLink }
+                { onEdit && createAdvertLink() }
                 <div className="edit-advert info">
                     {t('advert-edit-instructions')} <FontAwesomeIcon icon={faCommentAlt} />
                 </div>

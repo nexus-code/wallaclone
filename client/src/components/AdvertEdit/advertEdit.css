@@ -1,17 +1,14 @@
-/* 
-.container {
-  margin: auto;
-  border: #fff solid 5px;
-  background: #fff;
-} */
+.createLink{
+  text-align: center;
+}
 
 .edit-advert h2 {
-  margin: 4vh;
+  margin: 4vh 0 1vh 0;
   text-align: center;
 }
 
 .edit-advert .info{
-  padding-bottom: 32px;
+  padding: 2vh 0 4vh 0;
 }
 
 .edit-advert .remove {
