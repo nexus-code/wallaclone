@@ -64,9 +64,9 @@ export default function AdvertEdit({
     const createAdvertLink = () => <Link to='../edit' className='createLink' >{t('Create advert')}</Link>;
 
     const loadImage = image => <div>
-        {image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' />}
-        { !image && 'Without image!' }
-    </div>
+            {image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' />}
+            { !image && 'Without image!' }
+        </div>
 
     // componenDidMount. loads the adverts of the current user
     useEffect(() => {
@@ -105,13 +105,7 @@ export default function AdvertEdit({
     const [advertImage, setAdvertImage] = useState();   //image name stored in advert
     const [advertTags, setAdvertTags] = useState();   //tags stored in advert
         
-    const tagsMandatory = advertTags => {
-        if (advertTags === ''){
-            return <p>Tags are mandatory!</p>
-        }
-    }
-
-    const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
+     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
     // loads advert on form with reset function (provided from react-hook-form)
     useEffect(() => {        
@@ -125,7 +119,7 @@ export default function AdvertEdit({
     const reLoadAdverts = () => {
 
         setTimeout(() => {
-            reset({});
+            reset({}); //form
             loadAdverts();
         }, 1000);
     }
@@ -147,16 +141,13 @@ export default function AdvertEdit({
     /**
      * Save advert methods
      */
-
     const onSubmit = data => {
+
+        if (!advertTags || !advertImage)
+            return
 
         // must include imageFile to upload it
         data.imageFile = imageFile;
-
-
-        console.log('onSubmit', data);
-        return;
-
 
         // return saveAdvert(data, method);
         const newAdvert = saveAdvert(data, method);
@@ -180,9 +171,6 @@ export default function AdvertEdit({
             }
         }
 
-        if (field === 'price')
-            validatorObj.pattern = '/^\d*\.?\d*$/';
-
         return validatorObj;
     };
     
@@ -190,6 +178,7 @@ export default function AdvertEdit({
     const handleImageChange = (e) => {
         e.persist();
         setImageFile(e.target.files[0]); // gets files object
+        setAdvertImage(e.target.files[0]); // gets files object
     }
 
 
@@ -216,6 +205,7 @@ export default function AdvertEdit({
                     <div className="edit-advert formContainer">
                         { onEdit && <div className="remove"><Link to='#' onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link></div> }
                         { onEdit && loadImage(advertImage) }
+ 
                         <form onSubmit={handleSubmit(onSubmit)} >
                             <label>{t('Name')}</label>
                             <input
@@ -224,6 +214,7 @@ export default function AdvertEdit({
                                 ref={register(validator('name', 3, 50))}
                             />
                             {errors.name && <p>{errors.name.message}</p>}
+
                             <label>{t('Price')}</label>
                             <input
                                 name="price"
@@ -241,7 +232,8 @@ export default function AdvertEdit({
                                 placeholder={t('Product image')}
                                 onChange={handleImageChange}
                             />
-                            {errors.imageFile && <p>{errors.imageFile.message}</p>}
+                            {!advertImage && <p>mandatory</p>}
+
 
                             <label>{t('Type')}</label>
                             <select ref={register} name="type">
