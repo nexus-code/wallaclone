@@ -20,6 +20,18 @@ import './advertEdit.css';
  * List all his adverts quering by username
  * 
  */
+const reactSelectStyles = {
+    control: styles => ({
+        ...styles,
+        paddingTop: '10px',
+        backgroundColor: '#fff',
+        borderColor: '#fff',
+        borderBottom: '1px solid rgba(0, 0, 0, .3)',
+        outline: 'none',
+        borderRadius: 0,
+        color: 'black',
+    }),
+}
 
 export default function AdvertEdit({
     user,
@@ -179,9 +191,9 @@ export default function AdvertEdit({
     }
 
 
-    const handleSelectChange = (e) => {
+    const handleSelectChange = options => {
 
-        const t = e.map(opt => opt.value)
+        const t = options.map(opt => opt.value)
         setAdvertTags(t);
     }
 
@@ -244,9 +256,10 @@ export default function AdvertEdit({
                             <label>{t('Tags')}</label>
                             <Select
                                 isMulti
-                                closeMenuOnSelect={false}
+                                closeMenuOnSelect={true}
                                 components={animatedComponents}
                                 onChange={handleSelectChange}
+                                styles={reactSelectStyles}
                                 options={tags.map(tag => ({ label: tag, value: tag }))}
                                 // // defaultValue={[{ label: 'motor', value: 'motor' }, { label: 'mobile', value: 'mobile' }]}
                                 // defaultValue={advertTags && advertTags.map(tag => ({ label: tag, value: tag }))}

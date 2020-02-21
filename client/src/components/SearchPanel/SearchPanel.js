@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Collapse from 'react-bootstrap/Collapse'
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 import './SearchPanel.css';
 
@@ -31,6 +33,26 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
     advertQuerySet(query);
   };
 
+  // do search by tag
+  const handleSelectChange = options => {
+
+    const _tags = options.map(opt => opt.value);
+    handleChange({target:{ name: 'tag', value: _tags}});
+  }
+
+  const animatedComponents = makeAnimated(); //for Select tags
+  const reactSelectStyles = {
+      control: styles => ({...styles,
+        paddingTop: '10px', 
+        backgroundColor: '#fff',
+        borderColor: '#fff',
+        borderBottom: '1px solid rgba(0, 0, 0, .3)',
+        outline: 'none',
+        borderRadius: 0,
+        color: 'black',
+      }),
+  }
+
   return <>
     <button className="searchButton" onClick={() => setOpen(!open)} aria-controls="example-collapse-text" aria-expanded={open}>{t('Search')}</button>
     <Collapse className="searchCollapse" in={open}>
@@ -46,13 +68,15 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
                 <option value={type} key={type}>{t(type)}</option>
               )}
           </select>
-          <select name="tag" onChange={handleChange} defaultValue={query.tag} >
-            <option value="">{t('All tags')}</option>
-            {tags &&
-              tags.map(tag => 
-                <option value={tag} key={tag}>{t(tag)}</option>
-              )}
-          </select>
+          <Select
+            isMulti
+            closeMenuOnSelect={true}
+            styles={reactSelectStyles}
+            components={animatedComponents}
+            onChange={handleSelectChange}
+            placeholder={t('All tags')}
+            options={tags.map(tag => ({ label: tag, value: tag }))}
+          />
 
           <input name="priceFrom" placeholder={t('From price')} onChange={handleChange} value={query.priceFrom}></input>
         <input name="priceTo" placeholder={t('To price')} onChange={handleChange} value={query.priceTo}></input>
