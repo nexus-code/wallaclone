@@ -11,6 +11,7 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
 
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [select, setSelect] = useState();
   const types = ['sell', 'buy'];
 
   const handleChange = (event) => {
@@ -25,7 +26,11 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
     advertQuerySet(query);
   };
 
-  const handleReset = (event) => advertQueryReset();    
+  const handleReset = event => {
+
+    setSelect('');  // NOTE!!! component not work properly after reset form
+    advertQueryReset();    
+  }
 
   const handleSubmit = ev => {
 
@@ -75,6 +80,7 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
             closeMenuOnSelect={true}
             styles={reactSelectStyles}
             components={animatedComponents}
+            value={select}
             onChange={handleSelectChange}
             placeholder={t('All tags')}
             options={tags.map(tag => ({ label: tag, value: tag }))}

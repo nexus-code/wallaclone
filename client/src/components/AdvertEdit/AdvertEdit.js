@@ -105,6 +105,12 @@ export default function AdvertEdit({
     const [advertImage, setAdvertImage] = useState();   //image name stored in advert
     const [advertTags, setAdvertTags] = useState();   //tags stored in advert
         
+    const tagsMandatory = advertTags => {
+        if (advertTags === ''){
+            return <p>Tags are mandatory!</p>
+        }
+    }
+
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
 
     // loads advert on form with reset function (provided from react-hook-form)
@@ -112,11 +118,6 @@ export default function AdvertEdit({
         if(advert) {
             reset(advert);
             setAdvertImage(advert.image);
-            
-            const auxTags = [{ label: 'motor', value: 'motor' }];//advert.tags && advert.tags.map(tag => ({ label: tag, value: tag }))
-            
-            console.log('advertTags', auxTags);
-            setAdvertTags(auxTags);
         }
     }, [advert, reset]);
 
@@ -151,6 +152,7 @@ export default function AdvertEdit({
 
         // must include imageFile to upload it
         data.imageFile = imageFile;
+
 
         console.log('onSubmit', data);
         return;
@@ -193,12 +195,11 @@ export default function AdvertEdit({
 
     const handleSelectChange = options => {
 
-        const t = options.map(opt => opt.value)
+        const t = options && options.map(opt => opt.value)
         setAdvertTags(t);
     }
 
     const animatedComponents = makeAnimated(); //for Select tags
-
     return (
         <Canvas>
             <div className="container edit-advert">
@@ -226,12 +227,14 @@ export default function AdvertEdit({
                             <label>{t('Price')}</label>
                             <input
                                 name="price"
+                                type="number"
                                 placeholder={t('Price')}
-                                ref={register(validator('price', 3, 25))}
+                                ref={register(validator('price', 1, 7))}
                             />
                             {errors.price && <p>{errors.price.message}</p>}
 
                             <label>{t('Image')}</label>
+                            {onEdit && <p>{t('image-instructions')}</p>}
                             <input
                                 type="file"
                                 name="imageFile"
@@ -261,10 +264,9 @@ export default function AdvertEdit({
                                 onChange={handleSelectChange}
                                 styles={reactSelectStyles}
                                 options={tags.map(tag => ({ label: tag, value: tag }))}
-                                // // defaultValue={[{ label: 'motor', value: 'motor' }, { label: 'mobile', value: 'mobile' }]}
-                                // defaultValue={advertTags && advertTags.map(tag => ({ label: tag, value: tag }))}
                                 defaultValue={ advertTags }
                             />
+                            {!advertTags && <p>mandatory</p>}
 
 
                             <label>{t('Description')}</label>
@@ -276,7 +278,6 @@ export default function AdvertEdit({
                             {errors.description && <p>{errors.description.message}</p>}
 
                             <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
-                            {/* { !onEdit && <input type="hidden" name="owner" defaultValue={user.id} ref={register()} /> } */}
                             { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
                             { onEdit && <input type="hidden" name="image" defaultValue={advertImage} ref={register()} /> }
 
