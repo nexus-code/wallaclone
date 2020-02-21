@@ -18,6 +18,10 @@ const { check, validationResult } = require('express-validator/check');
 
 const blacklistHard = '/$€.+¡!*(),\\[\\]\'";/¿?:@=&<>#%{}|^~'; //characters excludes in params
 const blacklistSoft = '/$*()\\[\\]\'"/@=&<>#{}|^~'; //characters excludes in params
+const typesArray = ['sell', 'buy'];
+const statusArray = ['sold', 'reserved', ''];
+const tagsArray = ['motor', 'mobile', 'lifestyle', 'work'];
+
 /**
  * advert Routes
  */
@@ -54,20 +58,28 @@ router.get('/',
     }
 });
 
-// POST /adverts -> Insert an advert
-// router.post('/', jwtAuth(), [
-//     body('owner').isMongoId().withMessage('Mandatory. ID format'),
-//     body('name').isLength({ min: 1, max: 30 }).withMessage('Mandatory. String. Between 1 & 30 characters'),
-//     body('type').isLength({ min: 1, max: 30 }).withMessage('Mandatory. String. Between 1 & 30 characters'),
-//     body('description').exists().isLength({ min: 0, max: 100 }).withMessage('Mandatory. String. Between 1 & 500 characters'),
-//     body('price').isNumeric().withMessage('Mandatory. Integer.'),
-//     body('imageFile').exists().isMimeType().withMessage('Mandatory. Valid formats: image/png,image/jpg,image/jpeg'),
-//     ],
-
+// POST /adverts -> Insert an validated and sanitized advert
 router.post('/', jwtAuth(), 
     check('name').isLength({ min: 5, max: 30 }).withMessage('Mandatory. String. Between 5 and 30 no special characters'),
     check('price').isInt({ gt: 0, lt: 10000000 }).withMessage('Mandatory. Int Between 1 and 10000000'),
-    // check('type').matches('sell', 'buy').withMessage('Type must be sell or buy'),
+    check('type').custom(value => {
+        if (!typesArray.includes(value)) {
+            throw new Error('Invalid type. Must be buy or sell');
+        }
+        return true;
+    }),
+    check('status').custom(value => {
+        if (!statusArray.includes(value)) {
+            throw new Error('Invalid status. Must be buy or sell');
+        }
+        return true;
+    }),
+    check('tag').custom(value => {
+        if (!tagsArray.includes(value)) {
+            throw new Error('Invalid tag. Must be: motor, mobile, lifestyle and/or  work ');
+        }
+        return true;
+    }),
     check('description').isLength({ min: 5, max: 250 }).withMessage('Mandatory. String. Between 5 and 250 characters'),
 
     [
@@ -75,7 +87,6 @@ router.post('/', jwtAuth(),
         body('owner').isMongoId().withMessage('Mandatory. ID format'),
         body('description').trim().blacklist(blacklistSoft),
         body('imageFile').exists().isMimeType().withMessage('Mandatory. Valid formats: image/png,image/jpg,image/jpeg'),
-        
     ]
     ,async (req, res, next) => {
 
