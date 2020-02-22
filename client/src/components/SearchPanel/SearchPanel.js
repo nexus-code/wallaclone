@@ -10,8 +10,11 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
 
 
   const { t } = useTranslation();
+
+  const tagsOptions = tags.map(tag => ({ label: tag, value: tag }));
   const [open, setOpen] = useState(false);
-  const [select, setSelect] = useState();
+  const [selectTagsValue, setSelectTagsValuet] = useState();
+  const [selectTagsOptions, setSelectTagsOptions] = useState(tagsOptions);
   const types = ['sell', 'buy'];
 
   const handleChange = (event) => {
@@ -28,7 +31,8 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
 
   const handleReset = event => {
 
-    setSelect('');  // NOTE!!! component not work properly after reset form
+    setSelectTagsValuet(null);  // NOTE!!! component not work properly after reset form
+    setSelectTagsOptions(tagsOptions);  
     advertQueryReset();    
   }
 
@@ -40,6 +44,9 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
 
   // do search by tag
   const handleSelectChange = options => {
+
+    if (!options)
+      return
 
     const _tags = options.map(opt => opt.value);
     handleChange({target:{ name: 'tag', value: _tags}});
@@ -80,10 +87,10 @@ export default function SearchPanel({ query, tags, advertQuerySet, advertQueryRe
             closeMenuOnSelect={true}
             styles={reactSelectStyles}
             components={animatedComponents}
-            value={select}
+            value={selectTagsValue}
             onChange={handleSelectChange}
             placeholder={t('All tags')}
-            options={tags.map(tag => ({ label: tag, value: tag }))}
+            options={selectTagsOptions}
           />
 
           <input name="priceFrom" placeholder={t('From price')} onChange={handleChange} value={query.priceFrom}></input>
