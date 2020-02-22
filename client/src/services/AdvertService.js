@@ -77,6 +77,10 @@ const savedAdvert = (advert, method, token) => {
     const data = new FormData();
     Object.keys(advert).forEach(key => { data.append(key, advert[key]) });
 
+    console.log('saveAdvert service: ', advert);
+
+return;
+
     return Axios({
     
         method, 

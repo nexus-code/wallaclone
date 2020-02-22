@@ -132,6 +132,7 @@ export const saveAdvert = (advert, method) => async (dispatch, getState, { histo
 
     } catch (error) {
 
+        console.log('saveAdvert error: ', error);
         dispatch(savedAdvertFailure());
         notifyError();
         return false;
