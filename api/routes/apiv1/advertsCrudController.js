@@ -14,18 +14,15 @@ const createController = async (req, res, next) => {
 
     try {
 
-
-        console.log('   req   createController: ', req);
-
         const savedAdvert = await Advert.insert(req, next);
-
+        
         res.json({
             status: 200,
             result: savedAdvert
         });
-
+        
     } catch (err) {
-
+        
         next(err);
     }
 };
