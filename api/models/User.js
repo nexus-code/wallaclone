@@ -184,11 +184,11 @@ userSchema.statics.insert = async function (req, next) {
 
 userSchema.statics.update = async function (data, next) {
     try {
-
         
         data.updated = moment();
-        
-        console.log('userSchema.statics.update', data)
+       
+        // Ignore password if is empty. User update other data, 
+        // but keeps his password. Encript otherwise
 
         if (data.password === ''){
 

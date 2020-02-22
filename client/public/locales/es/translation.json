@@ -1,7 +1,7 @@
 {
     "username is required": "Nombre de usuario obligatorio",
     "password is required": "Se requiere una contraseña",
-    "Min length is":"Longitud mínima"
+    "Min length is":"Longitud mínima",
     "email required": "Email obligatiorio",
     "Register user": "Registro de usuario",
     "My profile": "Mi perfil",

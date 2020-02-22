@@ -74,8 +74,6 @@ const updateController = async (req, res, next) => {
 
     } catch (err) {
 
-        console.log('updateController', err);
-
         next(err);
     }
 };
