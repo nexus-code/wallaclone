@@ -20,6 +20,9 @@ import './advertEdit.css';
  * List all his adverts quering by username
  * 
  */
+
+ const tmpMaxAdverts = 50; //Dev: max adverts number to show
+
 const reactSelectStyles = {
     control: styles => ({
         ...styles,
@@ -68,11 +71,12 @@ export default function AdvertEdit({
             { !image && 'Without image!' }
         </div>
 
-    // componenDidMount. loads the adverts of the current user
+    // componenDidMount. loads all adverts of the current user
     useEffect(() => {
 
         const query = {
             ...queryDefault,
+            limit: tmpMaxAdverts,
             username: user.username,
         }
 

@@ -106,10 +106,8 @@ advertSchema.statics.insert = async function (req, next) {
         const advert    = new Advert(data);
         const newAdvert = await advert.save();
 
-        await requesterImageService(newAdvert);
-
         if (hasFile) {
-            requesterImageService(newAdvert);
+            await requesterImageService(newAdvert);
         }
 
         return newAdvert
@@ -119,13 +117,17 @@ advertSchema.statics.insert = async function (req, next) {
     }
 }
 
+/**
+ * Update advert.
+ * Handles image (overwrite) if uploaded
+ * 
+ */
+
 advertSchema.statics.update = async function (req, next) {
-     try {
+    
+    try {
 
-        //  console.log('uploaded FILE: ', req.file);
-         const hasFile = req.file !== undefined;
-
-        //  console.log('hasFile: ', req.file, req.file !== undefined);
+        const hasFile = req.file !== undefined;
 
         const data = req.body;
         data.image = hasFile ? req.file.filename : data.image;
@@ -133,23 +135,21 @@ advertSchema.statics.update = async function (req, next) {
 
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});
 
-         if (hasFile){
-             requesterImageService(updatedAdvert);
-         }
+        if (hasFile && updatedAdvert){
+            requesterImageService(updatedAdvert);
+        }
 
          return updatedAdvert;
 
-     } catch (err) {
+    } catch (err) {
 
-         console.log('update ERROR: ', err);
-
+         console.log('advertSchema.statics.update ERROR: ', err);
          next(err);
-     }
+    }
  }
  
 advertSchema.statics.delete = async function (_id, next) {
     try {
-
 
         await Advert.deleteOne({_id}).exec;
 

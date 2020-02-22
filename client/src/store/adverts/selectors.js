@@ -1,9 +1,11 @@
 // Mount the query string to send to the API
 export const mountAdvertsQuery = query => {
 
-    const { tag, name, type, priceFrom, priceTo, username } = query;
+    const { tag, name, type, priceFrom, priceTo, username, limit } = query;
 
     let queryString = '?sort=created'
+
+    queryString += (limit !== '' && limit !== undefined) ? `&limit=${limit}` : '';
     queryString += (tag !== '' && tag !== 'undefined' && tag !== undefined && tag !== 'all') ? `&tags=${tag}` : '';
     queryString += (name !== '' && name !== undefined) ? `&name=${name}` : '';
     queryString += (type !== '' && type !== undefined && type !== 'all') ? `&type=${type}` : '';

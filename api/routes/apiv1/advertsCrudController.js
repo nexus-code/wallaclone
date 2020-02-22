@@ -49,6 +49,7 @@ const updateController = async (req, res, next) => {
     try {
 
         const savedAdvert = await Advert.update(req, next);
+        console.log('updateController: ', savedAdvert);
 
         res.json({
             status: 200,

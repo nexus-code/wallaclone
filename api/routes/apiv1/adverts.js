@@ -189,7 +189,7 @@ router.put('/', jwtAuth(),
     }),
     check('description').isLength({ min: 5, max: 240 }).withMessage('Mandatory. String. Between 5 and 240 characters'),
     [
-        body('_id').isMongoId().withMessage('Mandatory. ID format'),
+        body('id').isMongoId().withMessage('Mandatory. ID format'),
         body('name').trim().blacklist(process.env.BLACKLIST_HARD),
         body('owner').isMongoId().withMessage('Mandatory. ID format'),
     ]
