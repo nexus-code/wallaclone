@@ -31,6 +31,7 @@ const tagsArray = ['motor', 'mobile', 'lifestyle', 'work'];
 // GET /adverts -> List adverts
 router.get('/', 
     [
+        query('id').optional().isMongoId().withMessage('Mandatory. ID format'),
         query('name').optional().isLength({ min: 5, max: 30 }).blacklist(blacklistHard).withMessage('String. Between 5 and 30 no special characters'),
         query('username').optional().isLength({ min: 5, max: 30 }).blacklist(blacklistHard).withMessage('String. Between 5 and 30 no special characters'),
         query('tags').optional().blacklist(blacklistHard),
@@ -63,6 +64,27 @@ router.get('/',
         }
 
 });
+
+// adverts by id
+router.get('/:id',
+    [
+        param('id').optional().isMongoId().withMessage('Mandatory. ID format'),
+    ]
+    , (req, res, next) => {
+
+        var err = validationResult(req);
+        if (!err.isEmpty()) {
+            res.json({
+                status: 400,
+                error: err
+            });
+
+        } else {
+
+            readController(req, res, next);
+        }
+
+    });
 
 // POST /adverts -> Insert an validated and sanitized advert
 
