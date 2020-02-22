@@ -11,7 +11,13 @@ module.exports = function() {
   return function(req, res, next) {
     // read get Token
 
-    const token = req.body.token || req.query.token || req.get('Authorization').split(' ')[1];
+    // const token = req.body.token || req.query.token || req.get('Authorization').split(' ')[1];
+    let token = req.body.token || req.query.token;
+
+    if ( !token && req.get('Authorization') ) 
+      token = req.get('Authorization').split(' ')[1]
+
+
 
     // exit without token
     if (!token) {

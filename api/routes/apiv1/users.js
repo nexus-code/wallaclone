@@ -8,29 +8,34 @@
 const express = require('express');
 const router  = express.Router();
 const jwtAuth = require('../../lib/jwtAuth');
-const UserModel = require('../../models/User');
 
+const { createController, readController, updateController } = require('./usersCrudController');
+const { query, param, body, check, validationResult } = require('express-validator');
 /**
  * User Routes
  */
 
 // Get user info. 
 // Access restricted
-router.get('/:id', jwtAuth(), async (req, res, next) => {
-    try {
+router.get('/:id', 
+    jwtAuth(),
+    [
+        param('id').optional().isMongoId().withMessage('Mandatory. ID format'),
+    ],
+    (req, res, next) => {
 
-        const id = req.params.id;
-        const user = await UserModel.get(id, next);
-        const packData = user.packData();
+        var err = validationResult(req);
+        if (!err.isEmpty()) {
 
-        res.json({
-            status: 200,
-            result: packData
-        });
+            res.json({
+                status: 400,
+                error: err
+            });
 
-    } catch (err) {
-        next(err);
-    }
+        } else {
+
+            readController(req, res, next);
+        }
 });
 
 // POST /Users -> Insert an User. 

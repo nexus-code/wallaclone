@@ -145,7 +145,7 @@ userSchema.statics.sendEmail = async function (from, to, subject, body) {
  * @obj must be a { key: value}
  * Refactored! 20200218
  */
-userSchema.statics.get = async function (obj) {
+userSchema.statics.get = async function (obj, next) {
     try {
 
         // const user = await User.findById(id);
@@ -155,6 +155,7 @@ userSchema.statics.get = async function (obj) {
 
     } catch (err) {
         console.log('userSchema.statics.get', err);
+        next(err);
     }
 }
 

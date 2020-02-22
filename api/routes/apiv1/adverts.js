@@ -11,15 +11,10 @@ const express = require('express');
 const router  = express.Router();
 const jwtAuth = require('../../lib/jwtAuth');
 const Advert = require('../../models/Advert');
+
 const { createController, readController, updateController } = require('./advertsCrudController');
+const { query, param, body, check, validationResult } = require('express-validator');
 
-
-const { query, param, body } = require('express-validator');
-
-const { check, validationResult } = require('express-validator/check');
-
-const blacklistHard = '/$€.+¡!*(),\\[\\]\'";/¿?:@=&<>#%{}|^~'; //characters excludes in params
-const blacklistSoft = '/$*()\\[\\]\'"/@=&<>#{}|^~'; //characters excludes in params
 const typesArray = ['sell', 'buy'];
 const statusArray = ['sold', 'reserved', ''];
 const tagsArray = ['motor', 'mobile', 'lifestyle', 'work'];
@@ -32,9 +27,9 @@ const tagsArray = ['motor', 'mobile', 'lifestyle', 'work'];
 router.get('/', 
     [
         query('id').optional().isMongoId().withMessage('Mandatory. ID format'),
-        query('name').optional().isLength({ min: 5, max: 30 }).blacklist(blacklistHard).withMessage('String. Between 5 and 30 no special characters'),
-        query('username').optional().isLength({ min: 5, max: 30 }).blacklist(blacklistHard).withMessage('String. Between 5 and 30 no special characters'),
-        query('tags').optional().blacklist(blacklistHard),
+        query('name').optional().isLength({ min: 5, max: 40 }).blacklist(process.env.BLACKLIST_HARD).withMessage('String. Between 5 and 30 no special characters'),
+        query('username').optional().isLength({ min: 5, max: 30 }).blacklist(process.env.BLACKLIST_HARD).withMessage('String. Between 5 and 30 no special characters'),
+        query('tags').optional().blacklist(process.env.BLACKLIST_HARD),
         query('skip').optional().isInt({ gt: 1 }).withMessage('Int > 1'),
         query('limit').optional().isInt({ gt: 1 }).withMessage('Int > 1'),
         query('price').optional().custom(value => {
@@ -52,11 +47,12 @@ router.get('/',
 
         var err = validationResult(req);
         if (!err.isEmpty()) {
+
             res.json({
                 status: 400,
                 error: err
             });
-
+        
         } else {
 
             // validation & sanitation passed
@@ -74,6 +70,7 @@ router.get('/:id',
 
         var err = validationResult(req);
         if (!err.isEmpty()) {
+
             res.json({
                 status: 400,
                 error: err
@@ -91,7 +88,7 @@ router.get('/:id',
 let postType = ''; //Status only applicable to sell type
 
 router.post('/', jwtAuth(), 
-    check('name').isLength({ min: 5, max: 30 }).withMessage('Mandatory. String. Between 5 and 30 no special characters'),
+    check('name').isLength({ min: 5, max: 40 }).withMessage('Mandatory. String. Between 5 and 40 no special characters'),
     check('price').isInt({ gt: 0, lt: 10000000 }).withMessage('Mandatory. Int Between 1 and 10000000'),
     check('type').custom(value => {
         if (!typesArray.includes(value)) {
@@ -130,14 +127,14 @@ router.post('/', jwtAuth(),
     }),
     check('description').isLength({ min: 5, max: 250 }).withMessage('Mandatory. String. Between 5 and 250 characters'),
     [
-        body('name').trim().blacklist(blacklistHard),
+        body('name').trim().blacklist(process.env.BLACKLIST_HARD),
         body('owner').isMongoId().withMessage('Mandatory. ID format'),
-        body('description').trim().blacklist(blacklistSoft),
     ]
     , (req, res, next) => {
 
         var err = validationResult(req);
         if (!err.isEmpty()) {
+            
             res.json({
                 status: 400,
                 error: err
@@ -153,7 +150,7 @@ router.post('/', jwtAuth(),
 
 // PUT /adverts Update advert by req.body.id
 router.put('/', jwtAuth(),
-    check('name').isLength({ min: 5, max: 30 }).withMessage('Mandatory. String. Between 5 and 30 no special characters'),
+    check('name').isLength({ min: 5, max: 40 }).withMessage('Mandatory. String. Between 5 and 40 no special characters'),
     check('price').isInt({ gt: 0, lt: 10000000 }).withMessage('Mandatory. Int Between 1 and 10000000'),
     check('type').custom(value => {
         if (!typesArray.includes(value)) {
@@ -190,17 +187,17 @@ router.put('/', jwtAuth(),
 
         }
     }),
-    check('description').isLength({ min: 5, max: 250 }).withMessage('Mandatory. String. Between 5 and 250 characters'),
+    check('description').isLength({ min: 5, max: 240 }).withMessage('Mandatory. String. Between 5 and 240 characters'),
     [
         body('_id').isMongoId().withMessage('Mandatory. ID format'),
-        body('name').trim().blacklist(blacklistHard),
+        body('name').trim().blacklist(process.env.BLACKLIST_HARD),
         body('owner').isMongoId().withMessage('Mandatory. ID format'),
-        body('description').trim().blacklist(blacklistSoft),
     ]
     , async (req, res, next) => {
 
         var err = validationResult(req);
         if (!err.isEmpty()) {
+            
             res.json({
                 status: 400,
                 error: err

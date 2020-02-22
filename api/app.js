@@ -128,7 +128,7 @@ const removeAdvertController = require('./routes/removeAdvertController');
 //const userController = require('./routes/userController');
 const { check, oneOf, validationResult } = require('express-validator');
 
-app.use('/apiv1/users', require('./routes/apiv1/users'));
+app.use('/apiv1/users', jwtAuth(), require('./routes/apiv1/users'));
 
 app.use('/apiv1/login', [
   check('username').exists(),

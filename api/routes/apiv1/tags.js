@@ -9,6 +9,7 @@ const router = express.Router();
 
 const Advert = require('../../models/Advert');
 
+//List all tags. No query 
 router.get('/', async (req, res, next) => {
     try {
         
