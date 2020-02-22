@@ -125,7 +125,7 @@ const recoverPasswdController = require('./routes/recoverPasswdController');
 const unsubscribeController = require('./routes/unsubscribeController');
 const removeAdvertController = require('./routes/removeAdvertController');
 
-const { check } = require('express-validator');
+const { body } = require('express-validator');
 
 /**
  * Users routes
@@ -134,8 +134,8 @@ const { check } = require('express-validator');
 app.use('/apiv1/users', require('./routes/apiv1/users'));
 
 app.use('/apiv1/login', [
-  check('username').exists(),
-  check('password').exists()
+  body('username').trim().isLength({ min: 5, max: 25 }).blacklist(process.env.BLACKLIST_HARD),
+  body('password').trim().isLength({ min: 7, max: 25 }),
 ], loginController.login);
 
 

@@ -181,12 +181,18 @@ userSchema.statics.insert = async function (req, next) {
 userSchema.statics.update = async function (data, next) {
     try {
 
+        
+        
+        
         data.updated = moment();
+        console.log('userSchema.statics.update LLEGA: ', data);
         const updatedUser = await User.findOneAndUpdate({ _id: data.id }, data, { new: true });
+        console.log('userSchema.statics.update RETORNO: ', updatedUser);
 
         return updatedUser;
 
     } catch (err) {
+        console.log('userSchema.statics.update error: ', err);
 
         next(err);
     }

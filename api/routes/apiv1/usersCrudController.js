@@ -15,7 +15,7 @@ const createController = async (req, res, next) => {
     try {
 
 
-        
+
         const savedUser = await UserModel.insert(req, next);
         const packData = savedUser.packData();
 
@@ -54,7 +54,6 @@ const updateController = async (req, res, next) => {
     try {
 
         const data = req.body;
-
         const savedUser = await UserModel.update(data, next);
         const packData = savedUser.packData();
 
@@ -64,6 +63,9 @@ const updateController = async (req, res, next) => {
         });
 
     } catch (err) {
+
+        console.log('updateController', err);
+
         next(err);
     }
 };
