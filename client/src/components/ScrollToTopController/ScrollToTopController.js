@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 // Scrollo to top whem select an user on home infinite scroll
 // Thanks to: https://medium.com/@romanonthego/scroll-to-top-with-react-router-and-react-hooks-87ae21785d2f

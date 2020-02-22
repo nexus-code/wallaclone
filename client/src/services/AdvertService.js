@@ -79,8 +79,6 @@ const savedAdvert = (advert, method, token) => {
 
     console.log('saveAdvert service: ', advert);
 
-return;
-
     return Axios({
     
         method, 

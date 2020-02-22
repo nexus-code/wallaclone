@@ -2,7 +2,7 @@
 import * as TYPES from './types';
 
 import { searchAdvert, searchAdverts, savedAdvert, doRemoveAdvert } from '../../services/AdvertService';
-import { getAdvert, mountAdvertsQuery, advertURI } from './selectors';
+import { getAdvert, mountAdvertsQuery } from './selectors';
 
 import { toast } from 'react-toastify';
 
