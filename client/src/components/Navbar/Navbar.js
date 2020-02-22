@@ -58,7 +58,10 @@ function AppNavbar({ user, logout }) {
                         &&
                         <>
                             <Link to="/login" className="menu-link">
-                                <li>{t('Login')}/{t('Register')}</li>
+                                <li>{t('Login')}</li>
+                            </Link>
+                            <Link to="/register" className="menu-link">
+                                <li>{t('Register')}</li>
                             </Link>
                             <Link to="#" onClick={() => changeLanguage('en')} className="menu-link">
                                 <li>English</li>

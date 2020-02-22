@@ -14,15 +14,25 @@ const createController = async (req, res, next) => {
 
     try {
 
+        console.log('createController', req.body);
 
+        const savedUser = await UserModel.insert(req.body, next);
 
-        const savedUser = await UserModel.insert(req, next);
-        const packData = savedUser.packData();
+        if (savedUser) {
 
-        res.json({
-            status: 200,
-            result: packData
-        });
+            const packData = savedUser.packData();
+
+            res.json({
+                status: 200,
+                result: packData
+            });
+        } else {
+
+            res.json({
+                status: 400,
+                error: 'User not created'
+            });
+        }
 
     } catch (err) {
 

@@ -161,8 +161,11 @@ userSchema.statics.get = async function (obj, next) {
 
 userSchema.statics.insert = async function (req, next) {
     try {
+
+        console.log('userSchema.statics.insert', req);
+
         
-        const user = new User(req.body);
+        const user = new User(req);
         const newUser = await user.save();
 
         //Improve and format message
@@ -174,6 +177,7 @@ userSchema.statics.insert = async function (req, next) {
         return newUser
 
     } catch (err) {
+        console.log('userSchema.statics.update insert: ', err);
         next(err);
     }
 }
@@ -182,22 +186,26 @@ userSchema.statics.update = async function (data, next) {
     try {
 
         
-        
-        
         data.updated = moment();
-        console.log('userSchema.statics.update LLEGA: ', data);
+        
+        console.log('userSchema.statics.update', data)
+
+        if (data.password === ''){
+
+            delete data.password
+        } else {
+            data.password = bcrypt.hashSync(data.password, 10);
+        }
+
         const updatedUser = await User.findOneAndUpdate({ _id: data.id }, data, { new: true });
-        console.log('userSchema.statics.update RETORNO: ', updatedUser);
 
         return updatedUser;
 
     } catch (err) {
         console.log('userSchema.statics.update error: ', err);
-
         next(err);
     }
 }
-
 
 userSchema.statics.updateUserPasswd = async function (data, next) {
     try {

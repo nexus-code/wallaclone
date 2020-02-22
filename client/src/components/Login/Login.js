@@ -38,17 +38,17 @@ export default function Login({ login }) {
                     <input 
                         name="username" 
                         placeholder={t('Insert your') + ' ' + t('username')  }
-                        ref={register(validator('username', 3, 25))}  
+                        ref={register(validator('username', 7, 25))}  
                     />
-                    {errors.username && <p>{errors.username.message}</p>}
+                    {errors.username && <p>{ t(errors.username.message)}</p>}
                     <label>{t('Password') }</label>
                     <input
                         type="password"
                         name="password"
                         placeholder={t('Insert password')}
-                        ref={register(validator('password', 3, 25))}
+                        ref={register(validator('password', 7, 25))}
                     />
-                    {errors.password && <p>{errors.password.message}</p>}
+                    {errors.password && <p>{t(errors.password.message)}</p>}
 
                     <input type="submit" value={t('Submit')} />
                     <br />

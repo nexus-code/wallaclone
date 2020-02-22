@@ -1,7 +1,11 @@
 {
+    "username is required": "Nombre de usuario obligatorio",
+    "password is required": "Se requiere una contraseña",
+    "Min length is":"Longitud mínima"
+    "email required": "Email obligatiorio",
     "Register user": "Registro de usuario",
     "My profile": "Mi perfil",
-    "Username": "Nombre de usuario",
+    "username": "Nombre de usuario",
     "Password": "Contraseña",
     "Email": "Email",
     "Language": "Idioma",
@@ -18,7 +22,7 @@
     "Search": "Buscar",
     "Enter password ONLY to change it": "Introduza contraseña SÓLO para cambiarla",
     "New password": "Nueva contraseña",
-    "Insert password": "Indique su contraseña",
+    "Insert your password": "Indique su contraseña",
     "Invalid credentials": "Datos de acceso incorrectos",
     "Login": "Acceso",
     "Register": "Registro",

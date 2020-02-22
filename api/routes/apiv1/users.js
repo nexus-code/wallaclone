@@ -41,28 +41,31 @@ router.get('/:id',
 // POST /Users -> Insert an User. 
 // Open for new registers
 router.post('/',
-    check('id').isMongoId().isLength({ min: 24, max: 25 }).withMessage('Mandatory. ID format'),
     check('username').optional().isLength({ min: 5, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
     check('password').optional().isLength({ min: 7, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
     check('language').optional().isLength({ min: 2, max: 6 }).withMessage('String. Between 2 and 6 no special characters'),
     check('email').optional().isEmail(),
     [
-        body('id').isMongoId().withMessage('Mandatory. ID format'),
         body('username').trim().blacklist(process.env.BLACKLIST_HARD),
         body('password').trim(),
         body('email').normalizeEmail().trim(),
         body('language').trim().blacklist(process.env.BLACKLIST_HARD),
     ]
-    ,(req, res, next) => {
-
-        var err = validationResult(req);
+    ,
+    (req, res, next) => {
+        
+        
+        console.log('post create user', req.body);
+        
+        
+        var err = validationResult(req.body);
         if (!err.isEmpty()) {
-
+            
             res.json({
                 status: 400,
                 error: err
             });
-
+            
         } else {
             // validation & sanitation passed
             createController(req, res, next);
@@ -74,11 +77,13 @@ router.post('/',
 // Access restricted in app.js
 router.put('/', 
     jwtAuth(),
+    check('id').isMongoId().isLength({ min: 24, max: 25 }).withMessage('Mandatory. ID format'),
     check('username').optional().isLength({ min: 5, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
     check('password').optional().isLength({ min: 7, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
     check('language').optional().isLength({ min: 2, max: 6 }).withMessage('String. Between 2 and 6 no special characters'),
     check('email').optional().isEmail(),
     [
+        body('id').isMongoId().withMessage('Mandatory. ID format'),
         body('username').trim().blacklist(process.env.BLACKLIST_HARD),
         body('password').trim(),
         body('email').normalizeEmail().trim(),

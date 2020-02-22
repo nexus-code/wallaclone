@@ -43,8 +43,8 @@ export default function Register({ user, setUser, logout, unsubscribe }) {
         logout();
     }
     
-    const passwordTitle = onEdit ? 'Enter password ONLY to change it' : 'Password';
-    const passwordPlaceholder = onEdit ? 'New password' : 'Insert your password';
+    const passwordTitle = onEdit ? t('Enter password ONLY to change it') : t('Password');
+    const passwordPlaceholder = onEdit ? t('New password') : t('Insert your password');
     
     const validator = (field, minLength, maxLength) => ({
             required: t(field) + ` ${t('is required')}`,
@@ -111,6 +111,7 @@ export default function Register({ user, setUser, logout, unsubscribe }) {
                     <input
                         type="text"
                         name="email"
+                        placeholder={t('Email')}
                         ref={register({
                             required: t("Email required"),
                             pattern: {
