@@ -189,6 +189,21 @@ export default function AdvertEdit({
     }
 
     const animatedComponents = makeAnimated(); //for Select tags
+
+
+    // componentWillUnmount. v1: Restore query by default with empty username
+    useEffect(() => {
+        return () => {
+            const _query = {
+                ...queryDefault,
+                username: '',
+            }
+            advertQuerySet(_query);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+
     return (
         <Canvas>
             <div className="container edit-advert">
