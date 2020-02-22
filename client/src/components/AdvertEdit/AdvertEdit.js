@@ -152,6 +152,15 @@ export default function AdvertEdit({
 
         // must include imageFile to upload it
         data.imageFile = imageFile;
+        data.tags = advertTags;
+        data.owner = user.id;
+
+        if( onEdit ){
+            data.id = id;
+            data.image = advertImage;
+        }
+
+
 
         // return saveAdvert(data, method);
         const newAdvert = saveAdvert(data, method);
@@ -287,11 +296,6 @@ export default function AdvertEdit({
                                 ref={register(validator('description', 3, 250))}
                             />
                             {errors.description && <p>{errors.description.message}</p>}
-
-                            <input type="hidden" name="owner" defaultValue={user.id} ref={register()} />
-                            { onEdit && <input type="hidden" name="id" defaultValue={id} ref={register()} /> }
-                            { onEdit && <input type="hidden" name="image" defaultValue={advertImage} ref={register()} /> }
-
 
                             <button type="submit" className="btn btn-outline-primary">{t('Submit')}</button>
                             <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); }}>{t('Reset')}</button>
