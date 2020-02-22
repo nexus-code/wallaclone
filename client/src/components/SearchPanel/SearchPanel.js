@@ -6,8 +6,14 @@ import makeAnimated from 'react-select/animated';
 
 import './SearchPanel.css';
 
-export default function SearchPanel({ query, tags, advertQuerySet, advertQueryReset }) {
+/**
+ * 
+ * Generic advert search engine.
+ * Set query on state. AdvertList component read it to load advert and load more adverts
+ * 
+ */
 
+export default function SearchPanel({ query, tags, advertQuerySet, advertQueryReset }) {
 
   const { t } = useTranslation();
 
