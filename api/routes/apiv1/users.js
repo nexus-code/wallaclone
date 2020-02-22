@@ -20,7 +20,7 @@ const { query, param, body, check, validationResult } = require('express-validat
 router.get('/:id', 
     jwtAuth(),
     [
-        param('id').optional().isMongoId().withMessage('Mandatory. ID format'),
+        param('id').isMongoId().withMessage('Mandatory. ID format'),
     ],
     (req, res, next) => {
 
@@ -39,41 +39,67 @@ router.get('/:id',
 });
 
 // POST /Users -> Insert an User. 
-// Open for registers
-router.post('/', async (req, res, next) => {
-    try {
+// Open for new registers
+router.post('/',
+    check('username').optional().isLength({ min: 5, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
+    check('password').optional().isLength({ min: 7, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
+    check('language').optional().isLength({ min: 2, max: 6 }).withMessage('String. Between 2 and 6 no special characters'),
+    check('email').optional().isEmail(),
+    [
+        body('username').trim().blacklist(process.env.BLACKLIST_HARD),
+        body('password').trim(),
+        body('email').normalizeEmail().trim(),
+        body('language').trim().blacklist(process.env.BLACKLIST_HARD),
+    ]
+    ,(req, res, next) => {
 
-        const savedUser = await UserModel.insert(req, next);
-        const packData = savedUser.packData();
+        var err = validationResult(req);
+        if (!err.isEmpty()) {
 
-        res.json({
-            status: 200,
-            result: packData
-        });
+            res.json({
+                status: 400,
+                error: err
+            });
 
-    } catch (err) {
-        next(err);
+        } else {
+            console.log('POST Validado y saneado');
+            // validation & sanitation passed
+            createController(req, res, next);
+        }
     }
-});
+);
 
 // Update user. Must contain id
-// Access restricted
-router.put('/', jwtAuth(), async (req, res, next) => {
-    try {
+// Access restricted in app.js
+router.put('/', 
+    jwtAuth(),
+    check('username').optional().isLength({ min: 5, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
+    check('password').optional().isLength({ min: 7, max: 25 }).withMessage('String. Between 5 and 25 no special characters'),
+    check('language').optional().isLength({ min: 2, max: 6 }).withMessage('String. Between 2 and 6 no special characters'),
+    check('email').optional().isEmail(),
+    [
+        body('username').trim().blacklist(process.env.BLACKLIST_HARD),
+        body('password').trim(),
+        body('email').normalizeEmail().trim(),
+        body('language').trim().blacklist(process.env.BLACKLIST_HARD),
+    ]
+    ,(req, res, next) => {
 
-        const data = req.body;
+        console.log('   req.body   put: ', req.body);
 
-        const savedUser = await UserModel.update(data, next);
-        const packData = savedUser.packData();
+            var err = validationResult(req);
+            if (!err.isEmpty()) {
 
-        res.json({
-            status: 200,
-            result: packData
-        });
+                res.json({
+                    status: 400,
+                    error: err
+                });
 
-    } catch (err) {
-        next(err);
-    }
+            } else {
+console.log('pasaba por aquí');
+                // validation & sanitation passed
+                updateController(req, res, next);
+            }
 });
 
 

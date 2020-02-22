@@ -125,10 +125,13 @@ const recoverPasswdController = require('./routes/recoverPasswdController');
 const unsubscribeController = require('./routes/unsubscribeController');
 const removeAdvertController = require('./routes/removeAdvertController');
 
-//const userController = require('./routes/userController');
-const { check, oneOf, validationResult } = require('express-validator');
+const { check } = require('express-validator');
 
-app.use('/apiv1/users', jwtAuth(), require('./routes/apiv1/users'));
+/**
+ * Users routes
+ */
+
+app.use('/apiv1/users', require('./routes/apiv1/users'));
 
 app.use('/apiv1/login', [
   check('username').exists(),
@@ -140,15 +143,13 @@ app.use('/apiv1/recoverpasswd', recoverPasswdController.recover);
 app.use('/apiv1/resetpasswd', recoverPasswdController.reset);
 app.use('/apiv1/unsubscribe', jwtAuth(), unsubscribeController.do);
 
-
-
-
-
+/**
+ * Adverts routers
+ */
 app.use('/apiv1/adverts', upload.single('imageFile'), require('./routes/apiv1/adverts'));
 // app.use('/apiv1/removeadvert', jwtAuth(), removeAdvertController.do);
 app.use('/apiv1/removeadvert', removeAdvertController.do);
-
-app.use('/apiv1/tags', require('./routes/apiv1/tags'));
+app.use('/apiv1/tags', jwtAuth(), require('./routes/apiv1/tags'));
 
 
 // public app

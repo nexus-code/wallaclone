@@ -193,7 +193,7 @@ router.put('/', jwtAuth(),
         body('name').trim().blacklist(process.env.BLACKLIST_HARD),
         body('owner').isMongoId().withMessage('Mandatory. ID format'),
     ]
-    , async (req, res, next) => {
+    , (req, res, next) => {
 
         var err = validationResult(req);
         if (!err.isEmpty()) {

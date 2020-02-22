@@ -23,7 +23,7 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true,
         trim: true,
-        minlength: [3, 'Username is too short (min 3 characters)!'],
+        minlength: [5, 'Username is too short (min 5 characters)!'],
         maxlength: [25, 'Username is too long (max 25 characters)!']
     },
     email: {
@@ -158,7 +158,6 @@ userSchema.statics.get = async function (obj, next) {
         next(err);
     }
 }
-
 
 userSchema.statics.insert = async function (req, next) {
     try {

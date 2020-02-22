@@ -14,6 +14,9 @@ const createController = async (req, res, next) => {
 
     try {
 
+
+        console.log('   req   createController: ', req);
+
         const savedAdvert = await Advert.insert(req, next);
 
         res.json({
