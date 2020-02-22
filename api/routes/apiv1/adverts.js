@@ -11,7 +11,7 @@ const express = require('express');
 const router  = express.Router();
 const jwtAuth = require('../../lib/jwtAuth');
 const Advert = require('../../models/Advert');
-const { createController, updateController } = require('./advertsCrudController');
+const { createController, readController, updateController } = require('./advertsCrudController');
 
 
 const { query, param, body } = require('express-validator');
@@ -29,38 +29,38 @@ const tagsArray = ['motor', 'mobile', 'lifestyle', 'work'];
  */
 
 // GET /adverts -> List adverts
-router.get('/'
-    // , 
-    // [
-    //     query('name').optional().isLength({ min: 20, max: 30 }).withMessage('debe estar entre 1 y 30 carácteres'),
-    //     query('skip').optional().isInt({ gt: 0 }).withMessage('debe ser un numero entero mayor que 0'),
-    //     query('limit').optional().isInt({ gt: 0 }).withMessage('debe ser un numero entero mayor que 0'),
-    //     query('price').optional().custom(value => {
-    //         let aux = value.split('-');
-    //         let result = true;
-    //         for (let i = 0; i < aux.length; i++) {
-    //             if (aux[i] && isNaN(+aux[i])) {
-    //                 result = false;
-    //             }
-    //         }
-    //         return result;
-    //     }).withMessage('debe ser numérico'),
-    // ]
-    , async (req, res, next) => {
-    try {
+router.get('/', 
+    [
+        query('name').optional().isLength({ min: 5, max: 30 }).blacklist(blacklistHard).withMessage('String. Between 5 and 30 no special characters'),
+        query('username').optional().isLength({ min: 5, max: 30 }).blacklist(blacklistHard).withMessage('String. Between 5 and 30 no special characters'),
+        query('tags').optional().blacklist(blacklistHard),
+        query('skip').optional().isInt({ gt: 1 }).withMessage('Int > 1'),
+        query('limit').optional().isInt({ gt: 1 }).withMessage('Int > 1'),
+        query('price').optional().custom(value => {
+            let aux = value.split('-');
+            let result = true;
+            for (let i = 0; i < aux.length; i++) {
+                if (aux[i] && isNaN(+aux[i])) {
+                    result = false;
+                }
+            }
+            return result;
+        }).withMessage('debe ser numérico'),
+    ]
+    , (req, res, next) => {
 
-        const adverts = await Advert.select(req, next);
+        var err = validationResult(req);
+        if (!err.isEmpty()) {
+            res.json({
+                status: 400,
+                error: err
+            });
 
-        res.json({
-            status: 200,
-            result: adverts
-        }); // API output
+        } else {
 
-    } catch (err) {
-        next(err);
-    }
-
-    // createController(req, next);
+            // validation & sanitation passed
+            readController(req, res, next);
+        }
 
 });
 

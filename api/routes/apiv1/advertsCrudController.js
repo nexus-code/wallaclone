@@ -19,16 +19,29 @@ const createController = async (req, res, next) => {
         res.json({
             status: 200,
             result: savedAdvert
-        }); // API output
+        });
 
     } catch (err) {
+
         next(err);
     }
 };
 
 const readController = async (req, res, next) => {
 
+    try {
 
+        const adverts = await Advert.select(req, next);
+
+        res.json({
+            status: 200,
+            result: adverts
+        });
+
+    } catch (err) {
+
+        next(err);
+    }
 };
 
 const updateController = async (req, res, next) => {
@@ -44,7 +57,6 @@ const updateController = async (req, res, next) => {
 
     } catch (err) {
 
-        console.log('savedAdvert err', err)
         next(err);
     }
 };
