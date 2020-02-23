@@ -15,8 +15,6 @@ const parseImageName = imageName => slugify(imageName.trim(), { replacement: '-'
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
 
-console.log('*************', req.body );
-
     cb(null, 'uploads')
   },
   filename: function (req, file, cb) {
@@ -185,10 +183,10 @@ app.use(function (err, req, res, next) {
 
   if (isAPI(req)) {
     
-    console.log('\r\n\r\nAPI ERRs file:\r\n', req.file);
-    console.log('\r\n\r\nAPI ERRs body:\r\n', req.body);
-    console.log('\r\n\r\nAPI ERRs status:\r\n', err.status);
-    console.log('\r\n\r\nAPI ERRs message:\r\n', err.message);
+    // console.log('\r\n\r\nAPI ERRs file:\r\n', req.file);
+    // console.log('\r\n\r\nAPI ERRs body:\r\n', req.body);
+    // console.log('\r\n\r\nAPI ERRs status:\r\n', err.status);
+    // console.log('\r\n\r\nAPI ERRs message:\r\n', err.message);
     
     res.json({
       status: err.status || 500,

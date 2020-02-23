@@ -10,7 +10,7 @@ const router  = express.Router();
 const jwtAuth = require('../../lib/jwtAuth');
 
 const { createController, readController, updateController } = require('./usersCrudController');
-const { query, param, body, check, validationResult } = require('express-validator');
+const { param, body, check, validationResult } = require('express-validator');
 /**
  * User Routes
  */
@@ -90,8 +90,6 @@ router.put('/',
         body('language').trim().blacklist(process.env.BLACKLIST_HARD),
     ],
     (req, res, next) => {
-
-        console.log('   req.body   put: ', req.body);
 
             var err = validationResult(req);
             if (!err.isEmpty()) {
