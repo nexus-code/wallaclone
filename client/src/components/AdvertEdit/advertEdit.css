@@ -21,6 +21,7 @@
     font-size: 2vh;
     display: block;
     margin-bottom: 16px;
+    border-bottom: #212529;
 }
 
 .edit-advert img {
@@ -54,10 +55,3 @@
     grid-template-columns: repeat(1, 1fr);
   }
 }
-
-/* 
-@media only screen and (min-width: 970px) {
-  .edit-advert-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-} */

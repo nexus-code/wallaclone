@@ -137,8 +137,8 @@ export default function AdvertEdit({
         if (advert) {
             reset(advert);
             setAdvertImage(advert.image);
-            console.log('advert.tags', advert.tags);
-            setAdvertTags(advert.tags);//*********************************************************************
+            setAdvertTags(advert.tags);
+            setAdvertType(advert.type);
         }
     }, [advert, reset]);
 
@@ -157,12 +157,14 @@ export default function AdvertEdit({
     const [imageFile, setImageFile] = useState();   //form field to upload image
     const [advertImage, setAdvertImage] = useState();   //image name stored in advert
     const [advertTags, setAdvertTags] = useState();   //tags stored in advert
+    const [advertType, setAdvertType] = useState('sell');   //tags stored in advert
 
 
     const reLoadAdverts = () => {
 
         setTimeout(() => {
             reset({}); //form
+            setAdvertType('sell');
             loadAdverts();
         }, 1000);
     }
@@ -192,6 +194,7 @@ export default function AdvertEdit({
         // must include imageFile to upload it
         data.imageFile = imageFile;
         data.tags = advertTags;
+        data.status = advertType === 'buy' ? '' : data.status;
         data.owner = user.id;
 
         if (onEdit) {
@@ -199,9 +202,8 @@ export default function AdvertEdit({
             data.image = advertImage;
         }
         
-         console.log('data', data) 
+        //  console.log('data', data) 
 
-        // return saveAdvert(data, method);
         const newAdvert = saveAdvert(data, method);
         reLoadAdverts();
         return newAdvert;
@@ -226,20 +228,15 @@ export default function AdvertEdit({
         return validatorObj;
     };
 
-
-    const handleImageChange = (e) => {
-        e.persist();
-        setImageFile(e.target.files[0]); // gets files object
-        setAdvertImage(e.target.files[0]); // gets files object
+    const handleImageChange = event => {
+        event.persist();
+        setImageFile(event.target.files[0]); // gets files object
+        setAdvertImage(event.target.files[0]); // gets files object
     }
 
-
-    const handleSelectTagsChange = options => {
-
-        const t = options && options.map(opt => opt.value)
-        setAdvertTags(t);
+    const handleTypeChange = event => {
+        setAdvertType(event.target.value);
     }
-
 
     const handleChangeMultiple = ({ target: { value } }) => setAdvertTags(value)
 
@@ -256,20 +253,7 @@ export default function AdvertEdit({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    /**
-     * ***********************************************************************************************
-     */
-    const [personName, setPersonName] = React.useState([]);
-    const handleChange = event => {
-        setPersonName(event.target.value);
-    };
-
-    /**
-     * ***********************************************************************************************
-     */
-
-
-
+ 
     return (
         <Canvas>
             <div className="container edit-advert">
@@ -283,11 +267,31 @@ export default function AdvertEdit({
                     <div>
                         <AdvertListUser />
                     </div>
-                    <div className="edit-advert formContainer">
-                        {onEdit && <div className="remove"><Link to='#' onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link></div>}
+                    <div className={`edit-advert formContainer ${advertType}`}>
+                        {onEdit && <Link to='#' onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link>}
                         {onEdit && loadImage(advertImage)}
 
                         <form onSubmit={handleSubmit(onSubmit)} >
+
+                            <label>{t('Type')}</label>
+                            <select ref={register} name="type" onChange={handleTypeChange}>
+                                <option value="sell">{t('Sell')}</option>
+                                <option value="buy">{t('Buy')}</option>
+                            </select>
+
+                            {
+                                advertType === 'sell' 
+                                &&
+                                <>
+                                    <label>{t('Status')}</label>
+                                    <select ref={register} name="status">
+                                        <option value="">{t('Waiting')}</option>
+                                        <option value="reserved">{t('Reserved')}</option>
+                                        <option value="sold">{t('Sold')}</option>
+                                    </select>
+                                </>
+                            }
+
                             <label>{t('Name')}</label>
                             <input
                                 name="name"
@@ -313,21 +317,7 @@ export default function AdvertEdit({
                                 placeholder={t('Product image')}
                                 onChange={handleImageChange}
                             />
-                            {!advertImage && <p>mandatory</p>}
-
-
-                            <label>{t('Type')}</label>
-                            <select ref={register} name="type">
-                                <option value="sell">{t('Sell')}</option>
-                                <option value="buy">{t('Buy')}</option>
-                            </select>
-
-                            <label>{t('Status')}</label>
-                            <select ref={register} name="status">
-                                <option value="">{t('select')}</option>
-                                <option value="reserved">{t('Reserved')}</option>
-                                <option value="sold">{t('Sold')}</option>
-                            </select>
+                            {!advertImage && <p>mandatory</p>}                    
 
                             <label>{t('Tags')}</label>
                             {/* <Select
@@ -349,11 +339,9 @@ export default function AdvertEdit({
                                 renderValue={() => (
                                     <div>
                                         {advertTags && advertTags.map(value => (
-                                            <Chip
+                                            value && <Chip
                                                 key={value}
-                                                size="small"
                                                 label={value}
-                                                className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
                                             />
                                         ))}
                                     </div>
@@ -365,9 +353,7 @@ export default function AdvertEdit({
                                             <MenuItem key={key} value={value}>
                                                 <Chip
                                                     key={key}
-                                                    size="small"
                                                     label={value}
-                                                    className={`Ad__Tag Ad__Tag--small Ad__Tag--${value}`}
                                                 />
                                             </MenuItem>
                                         );

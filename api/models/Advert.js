@@ -100,6 +100,7 @@ advertSchema.statics.insert = async function (req, next) {
 
         const hasFile = req.file !== undefined;
         const data  = req.body;
+        data.tags = data.tags.split(',');
         data.image = hasFile ? req.file.filename : '';
 
 

@@ -42,6 +42,7 @@
     "buy": "buy",
     "reserved": "Reserved",
     "sold": "Sold",
+    "Waiting": "Waiting",
     "advert-edit-instructions": "Instructions for use: To create an advertisement, fill in the fields of the form and press ``Send´´ . To edit or delete an advertisement, select it from the list. The visualization of the images can take a few seconds, depending on the network and the server load.",
     "mandatory":"Mandatory field",
 

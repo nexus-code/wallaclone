@@ -107,24 +107,6 @@ router.post('/', jwtAuth(),
         }
         return true;
     }),
-    // check('tags').custom(value => {
-
-    //     try {
-
-    //         value.split(',').forEach(element => {
-                
-    //             if (!tagsArray.includes(element.trim())) {
-    //                 throw new Error('Invalid tags. Must be: motor, mobile, lifestyle and/or work');
-    //             }
-    //         });
-            
-    //         return true;
-
-    //     } catch (error) {
-    //         throw new Error(`Invalid tags format (). Error: ${error}`);
-
-    //     }
-    // }),
     check('description').isLength({ min: 5, max: 250 }).withMessage('Mandatory. String. Between 5 and 250 characters'),
     [
         body('name').trim().blacklist(process.env.BLACKLIST_HARD),
@@ -169,24 +151,6 @@ router.put('/', jwtAuth(),
         }
         return true;
     }),
-    // check('tags').custom(value => {
-
-    //     try {
-
-    //         value.split(',').forEach(element => {
-
-    //             if (!tagsArray.includes(element.trim())) {
-    //                 throw new Error('Invalid tags. Must be: motor, mobile, lifestyle and/or work');
-    //             }
-    //         });
-
-    //         return true;
-
-    //     } catch (error) {
-    //         throw new Error(`Invalid tags format (). Error: ${error}`);
-
-    //     }
-    // }),
     check('description').isLength({ min: 5, max: 240 }).withMessage('Mandatory. String. Between 5 and 240 characters'),
     [
         body('id').isMongoId().withMessage('Mandatory. ID format'),
