@@ -15,7 +15,9 @@ const getFetch = (url) => {
         { Accept: "application/json, text/plain, */*" },
         { mode: "cors" }
     )
-    .then(res => res.json());
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error));
+    
 }
 
 /**

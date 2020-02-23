@@ -132,7 +132,7 @@ advertSchema.statics.update = async function (req, next) {
 
         const data = req.body;
         data.image = hasFile ? req.file.filename : data.image;
-        data.tags = data.tags.split(',');
+        data.tags = String(data.tags).indexOf > 0 ?  data.tags.split(',') : data.tags;
         data.updated = moment();
 
         const updatedAdvert = await Advert.findOneAndUpdate({ _id: data.id }, data, {new: true});

@@ -14,7 +14,8 @@ const getFetch = (url) => {
         { Accept: "application/json, text/plain, */*" },
         { mode: "cors" }
     )
-    .then(res => res.json());
+    .then(res => res.json())
+    .catch(error => console.error('Error:', error));
 }
 
 /**
@@ -78,6 +79,9 @@ const savedAdvert = (advert, method, token) => {
     Object.keys(advert).forEach(key => { data.append(key, advert[key]) });
 
     console.log('saveAdvert service: ', advert);
+    console.log('saveAdvert service: ', data);
+
+    return;
 
     return Axios({
     
@@ -89,8 +93,8 @@ const savedAdvert = (advert, method, token) => {
             'Authorization': `Bearer ${token}`,
         }
     }).then(
-        res => new AdvertModel(res.data.result),
-    );
+        res => new AdvertModel(res.data.result)
+    ).catch(error => console.error('Error:', error));
 }
 
 
@@ -99,25 +103,6 @@ const savedAdvert = (advert, method, token) => {
  * @param {*} token
  * 
  */
-// const doRemoveAdvert = (id, token) => {
-
-//     const url = `${API_URL}removeadvert/`;
-//     const data = { data: id, token }
-
-//     console.log('doRemoveAdvert',data)
-
-//     const config = {
-//         headers: {
-//             'Authorization': `Bearer  ${token}`,
-//             'Access-Control-Allow-Origin': '*',
-//         }
-//     };
-
-//     return Axios.post(url, data, config).then(
-//         res => res.data.success,
-//     );
-
-// }
 
 const doRemoveAdvert = (id, token) => {
 
@@ -130,7 +115,7 @@ const doRemoveAdvert = (id, token) => {
         data,
     }).then(
         res => res.data.success,
-    );
+    ).catch(error => console.error('Error:', error));
 }
 
 

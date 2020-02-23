@@ -5,9 +5,7 @@ import { useForm } from "react-hook-form";
 import { useTranslation } from 'react-i18next';
 import { getAdvert } from '../../store/adverts/selectors';
 import Select from '@material-ui/core/Select';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Chip from '@material-ui/core/Chip';
-import Input from '@material-ui/core/Input';
 import MenuItem from '@material-ui/core/MenuItem';
 import { useConfirm } from 'material-ui-confirm';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -152,6 +150,8 @@ export default function AdvertEdit({
         }
         
         const method = onEdit ? 'PUT' : 'POST';
+
+        
         const newAdvert = saveAdvert(data, method);
         reLoadAdverts();
         return newAdvert;
