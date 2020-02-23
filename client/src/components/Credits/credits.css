@@ -11,11 +11,19 @@
 .credits p {
     display: block;
     line-height: 200%;
-    margin-top: 40px;
+    margin: 60px 0;
     font-size: 16px;
 }
 
 .credits p a {
     display: inline;
 
+}
+
+
+.credits .info{
+    display: block;
+    line-height: 200%;
+    margin: 120px 0;
+    font-size: 12px;
 }

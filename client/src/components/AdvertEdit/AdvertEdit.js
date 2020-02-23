@@ -93,6 +93,11 @@ export default function AdvertEdit({
             setAdvertImage(advert.image);
             setAdvertTags(advert.tags);
             setAdvertType(advert.type);
+        } else {
+            reset({});
+            setAdvertImage('');
+            setAdvertTags([]);
+            setAdvertType('sell');
         }
     }, [advert, reset]);
 
@@ -115,7 +120,6 @@ export default function AdvertEdit({
      */
 
     const createAdvertLink = () => <Link to='../edit' className='createLink' >{t('Create advert')}</Link>;
-    {/* <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); setAdvertTags([])}}>{t('Reset')}</button> */ }
 
 
 
@@ -282,16 +286,6 @@ export default function AdvertEdit({
                             {!advertImage && <p>mandatory</p>}                    
 
                             <label>{t('Tags')}</label>
-                            {/* <Select
-                                isMulti
-                                closeMenuOnSelect={true}
-                                components={animatedComponents}
-                                onChange={handleSelectTagsChange}
-                                styles={reactSelectStyles}
-                                options={tags.map(tag => ({ label: tag, value: tag }))}
-                                defaultValue={advertTags && advertTags.map(tag => ({ label: tag, value: tag })) }
-                            />                            
-                            */}
 
                             <Select
                                 multiple

@@ -24,6 +24,7 @@ export default function Credits() {
                 <FontAwesomeIcon icon={faGithub} size="2x" />
             </a>
             <a className="social" href="http://www.nexuscode.com" title="Más información en nexuscode.com" rel="noopener noreferrer" target="_blank">www.nexuscode.com</a>
+            <p className="info">Wallaclone es un ejercicio práctico con fines didácticos. Imágenes tomadas de <a href="https://pixabay.com/es/" rel="noopener noreferrer" target="_blank">Pixabay</a></p>
 
         </div>
     </Canvas>
