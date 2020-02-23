@@ -103,7 +103,7 @@ export default function AdvertEdit({
 
     const [imageFile, setImageFile] = useState();   //form field to upload image
     const [advertImage, setAdvertImage] = useState();   //image name stored in advert
-    const [advertTags, setAdvertTags] = useState();   //tags stored in advert
+    const [advertTags, setAdvertTags] = useState([]);   //tags stored in advert
     const [advertType, setAdvertType] = useState('sell');   //tags stored in advert
 
     const loadImage = image => <div>
@@ -111,16 +111,12 @@ export default function AdvertEdit({
         {!image && 'Without image!'}
     </div>
 
-    const onEdit = id !== undefined;  // Edit when have an advert to did
-    const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
-
-
     /**
-     * New advert / clear form
+     * New advert / clear form, toggled by param id
      */
-
+    const onEdit = id !== undefined;  // Edit when have an advert to did
     const createAdvertLink = () => <Link to='../edit' className='createLink' >{t('Create advert')}</Link>;
-
+    const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
 
 
     /**
@@ -138,11 +134,11 @@ export default function AdvertEdit({
     };
 
     /**
-     * Save advert methods
+     * Load & save advert methods
      */
     const onSubmit = data => {
 
-        if (!advertTags || !advertImage)
+        if (advertTags.length === 0 || !advertImage)
             return
 
         data.imageFile = imageFile; // must include imageFile to upload it
@@ -161,7 +157,6 @@ export default function AdvertEdit({
         return newAdvert;
     }
 
-
     const reLoadAdverts = () => {
 
         setTimeout(() => {
@@ -173,7 +168,7 @@ export default function AdvertEdit({
 
 
     /**
-     * form
+     * form methods
      */
 
     const validator = (field, minLength, maxLength) => {
@@ -200,9 +195,7 @@ export default function AdvertEdit({
         setAdvertImage(event.target.files[0]); // gets files object
     }
 
-    const handleTypeChange = event => {
-        setAdvertType(event.target.value);
-    }
+    const handleTypeChange = event => setAdvertType(event.target.value);
 
     const handleChangeMultiple = ({ target: { value } }) => setAdvertTags(value)
 
@@ -315,7 +308,7 @@ export default function AdvertEdit({
                                         );
                                     })}
                             </Select>
-                            {!advertTags && <p>mandatory</p>}
+                            {(advertTags && advertTags.length === 0) && <p>mandatory</p>}
 
 
                             <label>{t('Description')}</label>
