@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-regular-svg-icons";
 import { useTranslation } from 'react-i18next';
 
-import './advertListUser.css';
+import './AdvertEditList.css';
 /**
  * 
  * List adverts to edit

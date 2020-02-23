@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { getUser } from '../../store/user/selectors';
 import { getAdverts } from '../../store/adverts/selectors';
 
-import AdvertListUser from './AdvertListUser';
+import AdvertListUser from './AdvertEditList';
 
 const mapStateToProps = store => ({
 

@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCommentAlt } from "@fortawesome/free-regular-svg-icons";
 
 
-import AdvertListUser from '../AdvertListUser';
+import AdvertEditList from '../AdvertEditList';
 
 import './advertEdit.css';
 
@@ -224,7 +224,7 @@ export default function AdvertEdit({
 
                 <div className='edit-advert-grid'>
                     <div>
-                        <AdvertListUser />
+                        <AdvertEditList />
                     </div>
                     <div className={`edit-advert formContainer ${advertType}`}>
                         {onEdit && <Link to='#' onClick={handleRemove} className="remove"><FontAwesomeIcon icon={faTrashAlt} /> {t('Remove')}</Link>}
