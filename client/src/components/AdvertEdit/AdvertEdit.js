@@ -38,8 +38,8 @@ export default function AdvertEdit({
     match: { params: { id } },
 }) {
 
-    /*****************************************************
-     * initialization elements
+    /*
+     * Initialization
      */
 
     const { t } = useTranslation();
@@ -55,52 +55,6 @@ export default function AdvertEdit({
         str: '',
         sort: { created: 1 }
     };
-
-
-    const useStyles = makeStyles(theme => ({
-        formControl: {
-            margin: theme.spacing(1),
-            minWidth: 120,
-            maxWidth: 300,
-        },
-        chips: {
-            display: 'flex',
-            flexWrap: 'wrap',
-        },
-        chip: {
-            margin: 2,
-        },
-        noLabel: {
-            marginTop: theme.spacing(3),
-        },
-    }));
-
-    const ITEM_HEIGHT = 48;
-    const ITEM_PADDING_TOP = 8;
-    const MenuProps = {
-        PaperProps: {
-            style: {
-                maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-                width: 250,
-            },
-        },
-    };
-
-    const names = [
-        'work',
-        'lifestyle',
-        'mobile',
-        'motor',
-    ];
-
-    function getStyles(name, personName, theme) {
-        return {
-            fontWeight: 400
-            // personName.indexOf(name) === -1
-            // ? theme.typography.fontWeightRegular
-            // : theme.typography.fontWeightMedium,
-        };
-    }
 
     // componenDidMount. loads all the current user adverts
     useEffect(() => {
@@ -119,9 +73,9 @@ export default function AdvertEdit({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { return async () => { advertQuerySet(queryDefault); } }, []);
 
-    /*****************************************************
-     * Select advert methods
-     */
+    /**
+     * Loaded advert methods
+     */    
 
     const [advert, setAdvert] = useState({});
     const { register, handleSubmit, reset, errors } = useForm({ defaultValues: advert });
@@ -142,8 +96,10 @@ export default function AdvertEdit({
         }
     }, [advert, reset]);
 
-
-    const createAdvertLink = () => <Link to='../edit' className='createLink' >{t('Create advert')}</Link>;
+    const [imageFile, setImageFile] = useState();   //form field to upload image
+    const [advertImage, setAdvertImage] = useState();   //image name stored in advert
+    const [advertTags, setAdvertTags] = useState();   //tags stored in advert
+    const [advertType, setAdvertType] = useState('sell');   //tags stored in advert
 
     const loadImage = image => <div>
         {image && <img src={`${process.env.REACT_APP_API_IMAGES}xs-${image}`} alt='' />}
@@ -152,22 +108,16 @@ export default function AdvertEdit({
 
     const onEdit = id !== undefined;  // Edit when have an advert to did
     const pageTitle = onEdit ? 'Edit advert' : 'Create advert';
-    const method = onEdit ? 'PUT' : 'POST';
-
-    const [imageFile, setImageFile] = useState();   //form field to upload image
-    const [advertImage, setAdvertImage] = useState();   //image name stored in advert
-    const [advertTags, setAdvertTags] = useState();   //tags stored in advert
-    const [advertType, setAdvertType] = useState('sell');   //tags stored in advert
 
 
-    const reLoadAdverts = () => {
+    /**
+     * New advert / clear form
+     */
 
-        setTimeout(() => {
-            reset({}); //form
-            setAdvertType('sell');
-            loadAdverts();
-        }, 1000);
-    }
+    const createAdvertLink = () => <Link to='../edit' className='createLink' >{t('Create advert')}</Link>;
+    {/* <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); setAdvertTags([])}}>{t('Reset')}</button> */ }
+
+
 
     /**
      * Remove advert method
@@ -191,8 +141,7 @@ export default function AdvertEdit({
         if (!advertTags || !advertImage)
             return
 
-        // must include imageFile to upload it
-        data.imageFile = imageFile;
+        data.imageFile = imageFile; // must include imageFile to upload it
         data.tags = advertTags;
         data.status = advertType === 'buy' ? '' : data.status;
         data.owner = user.id;
@@ -202,13 +151,26 @@ export default function AdvertEdit({
             data.image = advertImage;
         }
         
-        //  console.log('data', data) 
-
+        const method = onEdit ? 'PUT' : 'POST';
         const newAdvert = saveAdvert(data, method);
         reLoadAdverts();
         return newAdvert;
     }
 
+
+    const reLoadAdverts = () => {
+
+        setTimeout(() => {
+            reset({}); //form
+            setAdvertType('sell');
+            loadAdverts();
+        }, 1000);
+    }
+
+
+    /**
+     * form
+     */
 
     const validator = (field, minLength, maxLength) => {
 
@@ -371,8 +333,6 @@ export default function AdvertEdit({
                             {errors.description && <p>{errors.description.message}</p>}
 
                             <button type="submit" className="btn btn-outline-primary">{t('Submit')}</button>
-                            <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); setAdvertTags([])}}>{t('Reset')}</button>
-
                         </form>
 
                     </div>
