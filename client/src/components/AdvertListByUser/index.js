@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchAdverts, advertQuerySet } from '../../store/adverts/actions';
 
-import UserView from './UserView';
+import AdvertListByUser from './AdvertListByUser';
 
 const mapDispatchToProps = dispatch => ({
     advertQuerySet: (query) => {
@@ -13,4 +13,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
     null,
     mapDispatchToProps,
-)(UserView);
+)(AdvertListByUser);

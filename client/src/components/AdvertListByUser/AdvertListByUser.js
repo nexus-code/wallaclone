@@ -5,14 +5,14 @@ import AdvertList from '../AdvertList';
 import { useTranslation } from 'react-i18next';
 import ScrollToTopController from "../ScrollToTopController/ScrollToTopController";
 
-import './userView.css';
+import './advertListByUser.css';
 
 /**
- * Loads @username adverts
+ * Loads adverts by @username
  * 
  */
 
-export default function UserView({ 
+export default function AdvertListByUser({ 
     advertQuerySet,
     match: {
         params: { username },

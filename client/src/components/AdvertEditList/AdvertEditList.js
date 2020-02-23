@@ -28,7 +28,7 @@ const AdvertItem = props => {
     </div>
 }
 
-export default function AdvertListUser({ adverts }) {
+export default function AdvertEditList({ adverts }) {
 
     return <>
         {
@@ -48,6 +48,6 @@ export default function AdvertListUser({ adverts }) {
     </>
 }
 
-AdvertListUser.propTypes = {
+AdvertEditList.propTypes = {
     adverts: PropTypes.array.isRequired
 }

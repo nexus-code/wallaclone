@@ -6,7 +6,6 @@ import Home from '../Home';
 import Login from '../Login';
 import AdEdit from '../AdvertEdit';
 import Register from '../Register';
-import UserView from '../UserView';
 import AdDetail from '../AdvertDetail';
 import Credits from '../Credits/Credits';
 import ResetPasswd from '../ResetPasswd';
@@ -14,6 +13,7 @@ import * as config from '../../constants';
 import PrivateRoute from '../PrivateRoute';
 import RecoverPasswd from '../RecoverPasswd';
 import NotFoundPage from '../404/NotFoundPage';
+import AdvertListByUser from '../AdvertListByUser';
 import { ConfirmProvider } from 'material-ui-confirm';
 import { ToastContainer, toast } from "react-toastify";
 import Loader from 'react-loader-spinner'
@@ -51,7 +51,7 @@ function App({ user, adverts, props }) {
                 <Route path='/resetpasswd/:key' exact component={ ResetPasswd } />
                 <Route path='/advert/:param-:id' exact component={ AdDetail } />
                 <Route path='/advert' exact component={ Home } />
-                <Route path='/:username' exact component={UserView} />
+                <Route path='/:username' exact component={AdvertListByUser} />
                 <Route path='/' exact component={ Home } />
                 <Route path='*' component={ NotFoundPage } />
               </Switch>
