@@ -255,7 +255,7 @@ export default function AdvertEdit({
                             <input
                                 name="name"
                                 placeholder={t('Product name ')}
-                                ref={register(validator('name', 3, 50))}
+                                ref={register(validator('name', 5, 50))}
                             />
                             {errors.name && <p>{errors.name.message}</p>}
 
@@ -315,7 +315,7 @@ export default function AdvertEdit({
                             <textarea
                                 name="description"
                                 placeholder={t('Product description')}
-                                ref={register(validator('description', 3, 250))}
+                                ref={register(validator('description', 5, 400))}
                             />
                             {errors.description && <p>{errors.description.message}</p>}
 

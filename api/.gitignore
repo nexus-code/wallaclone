@@ -6,6 +6,7 @@
 
 *.pem
 
+/uploads/*.jpg
 # testing
 /coverage
 

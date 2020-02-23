@@ -85,29 +85,18 @@ router.get('/:id',
 
 // POST /adverts -> Insert an validated and sanitized advert
 
-let postType = ''; //Status only applicable to sell type
 
 router.post('/', jwtAuth(), 
-    check('name').isLength({ min: 5, max: 40 }).withMessage('Mandatory. String. Between 5 and 40 no special characters'),
+    check('name').isLength({ min: 5, max: 50 }).withMessage('Mandatory. String. Between 5 and 50 no special characters'),
     check('price').isInt({ gt: 0, lt: 10000000 }).withMessage('Mandatory. Int Between 1 and 10000000'),
     check('type').custom(value => {
-        if (!typesArray.includes(value)) {
+        if (value !== 'sell' && value !== 'buy') {
             throw new Error('Invalid type. Must be buy or sell');
         }
-        postType = value;
-        return true;
-    }),
-    check('status').custom(value => {
 
-        if (postType !== 'sell') {
-            throw new Error('Status only applicable to sell type');
-        }
-        if (!statusArray.includes(value)) {
-            throw new Error('Invalid status. Must be empty, sold or reserved');
-        }
         return true;
     }),
-    check('description').isLength({ min: 5, max: 250 }).withMessage('Mandatory. String. Between 5 and 250 characters'),
+    check('description').isLength({ min: 5, max: 400 }).withMessage('Mandatory. String. Between 5 and 400 characters'),
     [
         body('name').trim().blacklist(process.env.BLACKLIST_HARD),
         body('owner').isMongoId().withMessage('Mandatory. ID format'),
@@ -132,26 +121,16 @@ router.post('/', jwtAuth(),
 
 // PUT /adverts Update advert by req.body.id
 router.put('/', jwtAuth(),
-    check('name').isLength({ min: 5, max: 40 }).withMessage('Mandatory. String. Between 5 and 40 no special characters'),
+    check('name').isLength({ min: 5, max: 50 }).withMessage('Mandatory. String. Between 5 and 50 no special characters'),
     check('price').isInt({ gt: 0, lt: 10000000 }).withMessage('Mandatory. Int Between 1 and 10000000'),
     check('type').custom(value => {
-        if (!typesArray.includes(value)) {
+        if (value !== 'sell' && value !== 'buy') {
             throw new Error('Invalid type. Must be buy or sell');
         }
-        postType = value;
-        return true;
-    }),
-    check('status').custom(value => {
 
-        if (postType !== 'sell') {
-            throw new Error('Status only applicable to sell type');
-        }
-        if (!statusArray.includes(value)) {
-            throw new Error('Invalid status. Must be empty, sold or reserved');
-        }
         return true;
     }),
-    check('description').isLength({ min: 5, max: 240 }).withMessage('Mandatory. String. Between 5 and 240 characters'),
+    check('description').isLength({ min: 5, max: 400 }).withMessage('Mandatory. String. Between 5 and 400 characters'),
     [
         body('id').isMongoId().withMessage('Mandatory. ID format'),
         body('name').trim().blacklist(process.env.BLACKLIST_HARD),
