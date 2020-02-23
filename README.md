@@ -1,6 +1,6 @@
-# WALLACLONE: <br>Final practice for VII Full Stack Web KeepCoding Course:
+# WALLACLONE: <br>Final boss for VII Full Stack Web KeepCoding Course:
 
-Specifications in 
+Presentación: https://nexuscode.es/wallaclone/
 
 
 ### Presentación
