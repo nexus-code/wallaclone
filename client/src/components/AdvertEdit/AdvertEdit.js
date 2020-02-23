@@ -198,6 +198,8 @@ export default function AdvertEdit({
             data.id = id;
             data.image = advertImage;
         }
+        
+         console.log('data', data) 
 
         // return saveAdvert(data, method);
         const newAdvert = saveAdvert(data, method);
@@ -338,8 +340,7 @@ export default function AdvertEdit({
                                 defaultValue={advertTags && advertTags.map(tag => ({ label: tag, value: tag })) }
                             />                            
                             */}
-                            {console.log('advert.tags', advert.tags)}
-                            {console.log('advertTags', advertTags)}
+
                             <Select
                                 multiple
                                 name="tags"
@@ -384,7 +385,7 @@ export default function AdvertEdit({
                             {errors.description && <p>{errors.description.message}</p>}
 
                             <button type="submit" className="btn btn-outline-primary">{t('Submit')}</button>
-                            <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); }}>{t('Reset')}</button>
+                            <button type="reset" className="btn btn-outline-secondary" onClick={() => { reset(advert); setAdvertTags([])}}>{t('Reset')}</button>
 
                         </form>
 

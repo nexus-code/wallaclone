@@ -169,24 +169,24 @@ router.put('/', jwtAuth(),
         }
         return true;
     }),
-    check('tags').custom(value => {
+    // check('tags').custom(value => {
 
-        try {
+    //     try {
 
-            value.split(',').forEach(element => {
+    //         value.split(',').forEach(element => {
 
-                if (!tagsArray.includes(element.trim())) {
-                    throw new Error('Invalid tags. Must be: motor, mobile, lifestyle and/or work');
-                }
-            });
+    //             if (!tagsArray.includes(element.trim())) {
+    //                 throw new Error('Invalid tags. Must be: motor, mobile, lifestyle and/or work');
+    //             }
+    //         });
 
-            return true;
+    //         return true;
 
-        } catch (error) {
-            throw new Error(`Invalid tags format (). Error: ${error}`);
+    //     } catch (error) {
+    //         throw new Error(`Invalid tags format (). Error: ${error}`);
 
-        }
-    }),
+    //     }
+    // }),
     check('description').isLength({ min: 5, max: 240 }).withMessage('Mandatory. String. Between 5 and 240 characters'),
     [
         body('id').isMongoId().withMessage('Mandatory. ID format'),
